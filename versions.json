@@ -2,5 +2,9 @@
     "1":{
         "name":"PyEdition Alpha rc-050320260",
         "url":"https://github.com/reiner2009/Minecraft-Py-Edition/raw/refs/heads/main/main2.zip"
+    },
+    "2":{
+        "name":"PyEdition Alpha rc-110320260",
+        "url":"https://github.com/reiner2009/Minecraft-Py-Edition/raw/refs/heads/main/main1.zip"
     }
 }
