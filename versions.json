@@ -14,5 +14,9 @@
     "4":{
         "name":"PyEdition Alpha rc-160320261",
         "url":"https://github.com/reiner2009/Minecraft-Py-Edition/raw/refs/heads/main/main4.zip"
+    },
+    "5":{
+        "name":"PyEdition Alpha rc-270320261",
+        "url":"https://github.com/reiner2009/Minecraft-Py-Edition/raw/refs/heads/main/main5.zip"
     }
 }
