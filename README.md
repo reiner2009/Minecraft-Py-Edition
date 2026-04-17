@@ -32,7 +32,7 @@ The main goal of this project is to learn:
 
 ## Installing and Running
 
-Please note that you have Python 3.12 or newer installed
+Please note that you have Python 3.10 or newer installed
 
 ```bash id="install1"
 git clone https://github.com/reiner2009/Minecraft-Py-Edition.git
