@@ -30,33 +30,11 @@ The main goal of this project is to learn:
 
 ---
 
-## Requirements
-
-The following Python packages are required:
-PyOpenGL
-pygame
-numpy
-screeninfo
-jproperties
-colorama
-
-
-Install them using:
+## Installing and Running
 
 ```bash id="install1"
-pip install -r requirements.txt
-
-Installation
-
-Clone the repository:
-
 git clone https://github.com/reiner2009/Minecraft-Py-Edition.git
-cd your-repo
-
-Install dependencies:
-
+cd Minecraft-Py-Edition
 pip install -r requirements.txt
-
-Running the Game:
-```bash id="running1"
-cd Minecraft-Py-Edition/src
+cd src
+python -m net.minecraft.client.Main
