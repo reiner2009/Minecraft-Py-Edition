@@ -1,0 +1,6 @@
+PyOpenGL
+screeninfo
+pygame
+jproperties
+colorama
+numpy
