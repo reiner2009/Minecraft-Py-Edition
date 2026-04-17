@@ -30,5 +30,6 @@
   "gold_block": "Block of Gold",
   "diamond_block": "Block of Diamond",
   "lapis_block": "Block of Lapis",
-  "iron_block": "Block of Iron"
+  "iron_block": "Block of Iron",
+  "bricks": "Bricks"
 }

@@ -72,6 +72,7 @@ add_item("gold_block", "gold_block", 25)
 add_item("diamond_block", "diamond_block", 24),
 add_item("lapis_block", "lapis_block", 23),
 add_item("iron_block", "iron_block", 22),
+add_item("bricks", "bricks", 21)
 
 
 ITEM_TEXTUE_MAP={
@@ -106,7 +107,8 @@ ITEM_TEXTUE_MAP={
 	"smooth_stone":"smooth_stone",
 	"diamond_block":"diamond_block",
 	"lapis_block":"lapis_block",
-	"iron_block":"iron_block"
+	"iron_block":"iron_block",
+	"bricks":"bricks"
 }
 
 def render_items_for_hotbar():

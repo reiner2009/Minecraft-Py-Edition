@@ -34,6 +34,11 @@ creative_music_tracks=[
 	creative_music_tracks_path+"creative17.ogg",
 	creative_music_tracks_path+"creative18.ogg",
 	creative_music_tracks_path+"creative19.ogg",
+	creative_music_tracks_path+"creative20.ogg",
+	creative_music_tracks_path+"creative21.ogg",
+	creative_music_tracks_path+"creative22.ogg",
+	creative_music_tracks_path+"creative23.ogg",
+	creative_music_tracks_path+"creative24.ogg"
 ]
 
 menu_music_tracks=[
@@ -52,6 +57,11 @@ menu_music_tracks=[
 	menu_music_tracks_path+"menu13.ogg",
 	menu_music_tracks_path+"menu14.ogg",
 	menu_music_tracks_path+"menu15.ogg",
+	menu_music_tracks_path+"menu16.ogg",
+	menu_music_tracks_path+"menu17.ogg",
+	menu_music_tracks_path+"menu18.ogg",
+	menu_music_tracks_path+"menu19.ogg",
+	menu_music_tracks_path+"menu20.ogg"
 ]
 
 dig_stone_music_tracks=[

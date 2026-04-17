@@ -130,6 +130,15 @@ def place_block_by_player():
 		play_dig_sound(sound_categorys_dig[item.selected_item[hotbar_slot_selected - 1]], block_sound_volume)
 		rebuild_chunks()
 
+def get_block_by_player():
+	*_,X,Y,Z=Raycast.get_pos(player)
+	try:
+		if get_block(X, Y, Z) != "air":
+			item.add_item(item.ITEM_TEXTUE_MAP[get_block(X, Y, Z)],get_block(X, Y, Z) , hotbar_slot_selected-1)
+	except Exception as e:
+		logger.warning("get_block_by_player failed: " + str(e))
+
+
 def break_block_by_player():
 	global block_sound_volume
 	*_,X,Y,Z= Raycast.get_pos(player)
@@ -382,6 +391,9 @@ def running_world(events):
 		if event.type==MOUSEBUTTONDOWN and event.button==3:
 			if pause_menu==False and chat==False and container==False:
 				place_block_by_player()
+		if event.type==MOUSEBUTTONDOWN and event.button==2:
+			if pause_menu==False and chat==False and container==False:
+				get_block_by_player()
 		if event.type==MOUSEBUTTONDOWN and event.button==1:
 			if pause_menu==False and chat==False and container==False:
 				break_block_by_player()

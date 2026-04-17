@@ -35,7 +35,8 @@ sound_categorys_dig={
     "smooth_stone":sounds.dig_stone_music_tracks,
     "diamond_block":sounds.dig_stone_music_tracks,
     "lapis_block":sounds.dig_stone_music_tracks,
-    "iron_block":sounds.dig_stone_music_tracks
+    "iron_block":sounds.dig_stone_music_tracks,
+    "bricks":sounds.dig_stone_music_tracks
 }
 
 blocks=models.model_names
@@ -75,6 +76,7 @@ gold_block_texture=load_texture("assets/minecraft/textures/block/gold_block.png"
 diamond_block_texture=load_texture("assets/minecraft/textures/block/diamond_block.png")
 lapis_block_texture=load_texture("assets/minecraft/textures/block/lapis_block.png")
 iron_block_texture=load_texture("assets/minecraft/textures/block/iron_block.png")
+bricks_texture=load_texture("assets/minecraft/textures/block/bricks.png")
 error_texture=load_texture("assets/minecraft/textures/error.png")
 
 TEXTURE_MAP = {
@@ -113,7 +115,8 @@ TEXTURE_MAP = {
     "smooth_stone":smooth_stone_texture,
     "diamond_block":diamond_block_texture,
     "lapis_block":lapis_block_texture,
-    "iron_block":iron_block_texture
+    "iron_block":iron_block_texture,
+    "bricks":bricks_texture
 }
 
 translucent_blocks=[
