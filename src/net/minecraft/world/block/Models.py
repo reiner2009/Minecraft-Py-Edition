@@ -2,7 +2,7 @@ import json
 import net.minecraft.util.logger.Logger as logger
 
 models=[]
-model_names=["bedrock", "cobblestone", "deepslate", "dirt", "grass_block", "oak_log", "oak_planks", "stone", "stone_bricks", "white_wool", "light_blue_wool", "green_wool","black_wool","blue_wool","brown_wool","cyan_wool", "gray_wool","light_gray_wool","lime_wool","magenta_wool","orange_wool","pink_wool","purple_wool","red_wool","yellow_wool","oak_leaves","glass_block", "smooth_stone", "gold_block", "diamond_block", "lapis_block", "iron_block", "bricks"]
+model_names=["bedrock", "cobblestone", "deepslate", "dirt", "grass_block", "oak_log", "oak_planks", "stone", "stone_bricks", "white_wool", "light_blue_wool", "green_wool","black_wool","blue_wool","brown_wool","cyan_wool", "gray_wool","light_gray_wool","lime_wool","magenta_wool","orange_wool","pink_wool","purple_wool","red_wool","yellow_wool","oak_leaves","glass_block", "smooth_stone", "gold_block", "diamond_block", "lapis_block", "iron_block", "bricks","deepslate_bricks"]
 
 def load_model(name):
 	try:
@@ -50,7 +50,8 @@ model_map={
 	"diamond_block":models[29],
 	"lapis_block":models[30],
 	"iron_block":models[31],
-	"bricks":models[32]
+	"bricks":models[32],
+	"deepslate_bricks":models[33]
 }
 
 def get_model(name):
