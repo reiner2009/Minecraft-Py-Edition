@@ -2,23 +2,25 @@ import net.minecraft.util.logger.Logger as logger
 logger.set_programname("Minecraft")
 logger.set_environment("Client")
 logger.info("Starting")
-from net.minecraft.util.gui.Widgets import*
-from net.minecraft.sounds.Sounds import*
-import time
+import os
+import net.minecraft.player.Playername as playername
 import net.minecraft.world.item.Item as item
-from net.minecraft.player.PlayerEntity import PlayerEntity
 import net.minecraft.util.math.Raycast as Raycast
-from net.minecraft.chat.Commands import*
-import sys
-import math
 import net.minecraft.resources.Config as config
 import net.minecraft.resources.DataLocation as DataLocation
-import random
-import traceback
 import net.minecraft.world.Environment as environment
 import net.minecraft.text.Text as text
 import net.minecraft.util.gui.Hud as hud
 from net.minecraft.world.chunk.Chunk import *
+from net.minecraft.chat.Commands import*
+from net.minecraft.player.PlayerEntity import PlayerEntity
+from net.minecraft.util.gui.Widgets import*
+from net.minecraft.sounds.Sounds import*
+import sys
+import math
+import random
+import traceback
+import time
 
 tips=[
 	"Press 'e' to get more blocks",
@@ -100,7 +102,7 @@ def load_level():
             data=pickle.load(f)
         player.spawn(*data)
     except Exception as e:
-        logger.error("Falied to load level: " + str(e))
+        logger.warning("Falied to load level: " + str(e))
 
 def take_screenshot():
     z = time.localtime()
@@ -555,3 +557,5 @@ except Exception:
 	crash=traceback.format_exc()
 	logger.set_environment("Main")
 	logger.error(crash)
+	save_level()
+	save_world()

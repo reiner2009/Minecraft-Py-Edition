@@ -22,9 +22,12 @@ def set_vars(event_, hotbar_slot_selected_):
 
 def add_item(texture, item, slot):
 	global container_items
-	container_items[slot]=(texture, item, slot)
-	if slot <=8:
-		selected_item[slot]=item
+	if item != "air":
+		container_items[slot]=(texture, item, slot)
+		if slot <=8:
+			selected_item[slot]=item
+	else:
+		pass
 
 
 slot_coords=[]
@@ -74,6 +77,7 @@ add_item("lapis_block", "lapis_block", 23),
 add_item("iron_block", "iron_block", 22),
 add_item("bricks", "bricks", 21)
 add_item("deepslate_bricks", "deepslate_bricks", 20),
+add_item("polished_deepslate", "polished_deepslate", 19),
 
 
 ITEM_TEXTUE_MAP={
@@ -110,7 +114,8 @@ ITEM_TEXTUE_MAP={
 	"lapis_block":"lapis_block",
 	"iron_block":"iron_block",
 	"bricks":"bricks",
-	"deepslate_bricks":"deepslate_bricks"
+	"deepslate_bricks":"deepslate_bricks",
+	"polished_deepslate":"polished_deepslate"
 }
 
 def render_items_for_hotbar():
@@ -208,9 +213,11 @@ def render_items_for_container():
 	my=height-my
 	for x, y, slot_, name_ in slot_coords:
 		if mx >= x and mx <= x + quad_w and my >= y and my <= y + quad_h:
-			text.render_item_name(lang.get_lang_key(name_), mx, my)
+			if name_!="air":
+				text.render_item_name(lang.get_lang_key(name_), mx, my)
 	for event in events:
 		if event.type == pygame.MOUSEBUTTONDOWN and event.button == 1:
 			for x, y , slot_, name_ in slot_coords:
 				if mx >= x and mx <= x + quad_w and my >= y and my <= y + quad_h:
-					add_item(ITEM_TEXTUE_MAP[name_],name_ , hotbar_slot_selected-1)
+					if name_!="air":
+						add_item(ITEM_TEXTUE_MAP[name_],name_ , hotbar_slot_selected-1)
