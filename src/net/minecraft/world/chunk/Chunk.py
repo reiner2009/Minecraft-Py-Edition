@@ -40,17 +40,21 @@ def render_chunk():
 		logger.set_environment("Main")
 		logger.info("No existing world data, creating new world")
 		logger.set_environment("Client")
-		pygame.mouse.set_cursor(SYSTEM_CURSOR_WAIT)
-		setup_ortho()
-		hud.render_wallpaper(dirt_wallpaper_texture)
-		text.render_text("Loading terrian.,,", width / 2 - 67, height - height / 1152 * 200, 15, 15, [255, 255, 255, 255])
-		pygame.display.flip()
-		clock.tick(60)
-		logger.info("Loading terrian")
-		chunk.clear()
-		chunk_= default_map.map
-		for (x,y,z), block_name in chunk_.items():
-			set_block(x,y,z,block_name)
+		create_new_world()
+
+def create_new_world():
+	global chunk
+	pygame.mouse.set_cursor(SYSTEM_CURSOR_WAIT)
+	setup_ortho()
+	hud.render_wallpaper(dirt_wallpaper_texture)
+	text.render_text("Loading terrian.,,", width / 2 - 67, height - height / 1152 * 200, 15, 15, [255, 255, 255, 255])
+	pygame.display.flip()
+	clock.tick(60)
+	logger.info("Loading terrian")
+	chunk.clear()
+	chunk_ = default_map.map
+	for (x, y, z), block_name in chunk_.items():
+		set_block(x, y, z, block_name)
 
 def set_block(x,y,z,name):
 	global blocks

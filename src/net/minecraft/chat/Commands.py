@@ -4,6 +4,8 @@ import net.minecraft.util.gui.Hud as hud
 import net.minecraft.text.Text as text
 from net.minecraft.world.chunk.Chunk import *
 import net.minecraft.util.logger.Logger as logger
+import net.minecraft.world.chunk.Chunk as chunk
+from tkinter import*
 
 temporary_texts=[]
 texts=[]
@@ -185,6 +187,12 @@ def assume_command(string, entity, chunklist, global_light=1):
 			logger.set_environment("Main")
 			logger.info(f"[COMMAND] Teleported {playername.playername} to {string_to_position(string, entity)}")
 			logger.set_environment("Client")
+		elif string.split()[0]=="/reset_world":
+			chunk.create_new_world()
+			rebuild_chunks(chunklist)
+			show_text("Reset world successfully", [255, 255, 255, 255])
+			logger.set_environment("Main")
+			logger.info("[COMMAND] Reset world successfully")
 		else:
 			show_text("Unknown or incomplete command: "+string, [255,85,85,255])
 			logger.set_environment("Main")
