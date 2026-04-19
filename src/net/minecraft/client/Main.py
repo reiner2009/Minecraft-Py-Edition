@@ -195,10 +195,14 @@ def render_hud():
 		item.render_items_for_container()
 
 def draw_scene():
+	if pause_menu==False:
+		environment.tick()
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT)
 	setup_perspective()
 	apply_camera()
-	environment.render(*player.get_entity_position())
+	environment.render(*player.get_entity_position(),environment.get_tick())
+	glTexEnvf(GL_TEXTURE_ENV, GL_TEXTURE_ENV_MODE, GL_MODULATE)
+	glColor3f(environment.get_tick(), environment.get_tick(), environment.get_tick())
 	glCallList(chunklist)
 	x,y,z,x1,y1,z1= Raycast.get_pos(player)
 	if block_preview==True:

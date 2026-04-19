@@ -73,17 +73,17 @@ def build_chunk(color):
 	glDisable(GL_BLEND)
 	for (x, y, z), block_name in chunk.items():
 		if block_name not in translucent_blocks and block_name not in cutout_blocks:
-			place_block(block_name, x, y, z, color)
+			place_block(block_name, x, y, z)
 	glEnable(GL_ALPHA_TEST)
 	glAlphaFunc(GL_GREATER, 0.5)
 	for (x, y, z), block_name in chunk.items():
 		if block_name in cutout_blocks:
-			place_block(block_name, x, y, z, color)
+			place_block(block_name, x, y, z)
 	glEnable(GL_BLEND)
 	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA)
 	for (x, y, z), block_name in chunk.items():
 		if block_name in translucent_blocks:
-			place_block(block_name, x, y, z, color)
+			place_block(block_name, x, y, z)
 	glDisable(GL_ALPHA_TEST)
 	glDepthMask(GL_TRUE)
 

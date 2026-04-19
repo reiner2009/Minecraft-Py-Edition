@@ -1,3 +1,4 @@
+from OpenGL.raw.GL.VERSION.GL_1_0 import glColor4f
 from net.minecraft.textures.Textures import *
 import net.minecraft.world.block.Models as models
 import net.minecraft.sounds.Sounds as sounds
@@ -133,11 +134,6 @@ cutout_blocks=[
     "oak_leaves"
 ]
 
-green_textures=[
-    TEXTURE_MAP["grass_block_top"],
-    TEXTURE_MAP["oak_leaves"]
-]
-
 def cube_vertices(x, y, z):
     return [
         (-1+x,-1+y,-1+z), (1+x,-1+y,-1+z), (1+x,-1+y,1+z), (-1+x,-1+y,1+z),
@@ -146,21 +142,15 @@ def cube_vertices(x, y, z):
 
 chunk = {}
 
-def draw_block(vertices, surfaces, tex_coords, textures, x, y, z, color=[1,1,1,1]):
+def draw_block(vertices, surfaces, tex_coords, textures, x, y, z):
     neighbors = [(0,-1,0), (0,1,0), (0,0,-1), (1,0,0), (0,0,1), (-1,0,0)]
     glEnable(GL_TEXTURE_2D)
-    glColor4f(*color)
     for i in range(6):
         dx, dy, dz = neighbors[i]
         neighbor=get_block(x+dx,y+dy,z+dz)
         texture = textures[i] if i < len(textures) else textures[0]
         if (neighbor=="air" or (neighbor in translucent_blocks and get_block(x,y,z)!=neighbor) or neighbor in cutout_blocks):
             glBindTexture(GL_TEXTURE_2D, texture)
-            if texture in green_textures:
-                glColor4f(
-                    (158 / 255.0) * color[0],(219 / 255.0) * color[1],(75 / 255.0) * color[2],color[3])
-            else:
-                glColor4f(*color)
             glBegin(GL_QUADS)
             for j in range(4):
                 tx, ty = tex_coords[j]
@@ -169,7 +159,7 @@ def draw_block(vertices, surfaces, tex_coords, textures, x, y, z, color=[1,1,1,1
                 glVertex3f(vx, vy, vz)
             glEnd()
 
-def place_block(name, x, y, z, color=[1,1,1,1]):
+def place_block(name, x, y, z):
     global chunk
     data=models.get_model(name)
     texture_names = data["textures"]
@@ -202,8 +192,7 @@ def place_block(name, x, y, z, color=[1,1,1,1]):
         surfaces,
         [(0,0),(1,0),(1,1),(0,1)],
         textures,
-        x, y, z,
-        color
+        x, y, z
     )
 
 def get_block(x,y,z):

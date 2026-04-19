@@ -122,16 +122,13 @@ def render_items_for_hotbar():
 	global selected_item
 	for i in range(9):
 		tex_name, name, slot=container_items[i]
-		if block.TEXTURE_MAP[tex_name] in block.green_textures:
-			glColor4f(158 / 255, 219 / 255, 75 / 255, 255)
-		else:
-			glColor4f(1,1,1,1)
 		scale = 0.6
 		glMatrixMode(GL_MODELVIEW)
 		glLoadIdentity()
 		glDisable(GL_DEPTH_TEST)
 		glEnable(GL_TEXTURE_2D)
 		glBindTexture(GL_TEXTURE_2D, block.TEXTURE_MAP[tex_name])
+		glColor3f(1,1,1)
 		uv=[(0,1),(1,1),(1,0),(0,0)]
 		glBegin(GL_QUADS)
 		orig_w = 62
@@ -168,10 +165,6 @@ def render_items_for_container():
 			glLoadIdentity()
 			glDisable(GL_DEPTH_TEST)
 			glEnable(GL_TEXTURE_2D)
-			if block.TEXTURE_MAP[texture] in block.green_textures:
-				glColor4f(158 / 255, 219 / 255, 75 / 255, 255)
-			else:
-				glColor4f(1, 1, 1, 1)
 			glBindTexture(GL_TEXTURE_2D, block.TEXTURE_MAP[str(texture)])
 			uv = [(0, 1), (1, 1), (1, 0), (0, 0)]
 			orig_w = 62
