@@ -76,7 +76,11 @@ def render(x, y, z, light=1):
             glVertex3f(vx, vy, vz)
         glEnd()
     glDepthMask(GL_TRUE)
+    glEnable(GL_BLEND)
+    glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA)
+    glEnable(GL_ALPHA_TEST)
     glBindTexture(GL_TEXTURE_2D, clouds)
+    glColor4f(light, light, light,0.8)
     glBegin(GL_QUADS)
     for i in range(4):
         tx, ty = tex_coords[i]
@@ -96,3 +100,5 @@ def render(x, y, z, light=1):
         glVertex3f(*cloud_vertices(0, clouds_z)[i])
     glEnd()
     glEnable(GL_CULL_FACE)
+    glDisable(GL_BLEND)
+    glDisable(GL_ALPHA_TEST)
