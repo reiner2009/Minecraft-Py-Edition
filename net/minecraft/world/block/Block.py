@@ -1,4 +1,3 @@
-from OpenGL.raw.GL.VERSION.GL_1_0 import glColor4f
 from net.minecraft.textures.Textures import *
 import net.minecraft.world.block.Models as models
 import net.minecraft.sounds.Sounds as sounds

@@ -2,16 +2,10 @@ import net.minecraft.util.logger.Logger as logger
 logger.set_programname("Minecraft")
 logger.set_environment("Client")
 logger.info("Starting")
-import os
-import net.minecraft.player.Playername as playername
 import net.minecraft.world.item.Item as item
 import net.minecraft.util.math.Raycast as Raycast
 import net.minecraft.resources.Config as config
-import net.minecraft.resources.DataLocation as DataLocation
 import net.minecraft.world.Environment as environment
-import net.minecraft.text.Text as text
-import net.minecraft.util.gui.Hud as hud
-from net.minecraft.world.chunk.Chunk import *
 from net.minecraft.chat.Commands import*
 from net.minecraft.player.PlayerEntity import PlayerEntity
 from net.minecraft.util.gui.Widgets import*
@@ -331,8 +325,7 @@ def render_menu(events):
 			if event.type==MOUSEBUTTONDOWN and event.button==1:
 				stop_music()
 				button_click_sound.play()
-				stop_music()
-				button_click_sound.play()
+				environment.set_tick_0()
 				game_state=state_game
 				mouse_grab=True
 	elif x>=x1 and x<=x2 and y>=y3 and y<=y4:

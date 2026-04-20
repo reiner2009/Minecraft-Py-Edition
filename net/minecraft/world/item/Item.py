@@ -1,4 +1,3 @@
-from net.minecraft.client.Client import*
 from net.minecraft.world.block.Block import*
 import net.minecraft.text.Text as text
 import net.minecraft.util.translation.Lang as lang

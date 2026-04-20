@@ -1,5 +1,4 @@
 from net.minecraft.textures.Textures import *
-from net.minecraft.chat.Commands import show_text
 
 px = load_texture("assets/minecraft/textures/environment/px.png")
 nx = load_texture("assets/minecraft/textures/environment/nx.png")
@@ -13,6 +12,12 @@ clouds_z=0
 t = 1
 dnt=0
 direction = -1
+
+def set_tick_0():
+    global t, dnt, direction
+    dnt=0
+    t=1
+    direction = -1
 
 def tick():
     global t, direction, dnt
