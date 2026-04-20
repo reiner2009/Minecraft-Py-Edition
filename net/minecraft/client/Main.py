@@ -1,7 +1,4 @@
-import net.minecraft.util.logger.Logger as logger
-logger.set_programname("Minecraft")
-logger.set_environment("Client")
-logger.info("Starting")
+print("Starting net.minecraft.client.Main")
 import net.minecraft.world.item.Item as item
 import net.minecraft.util.math.Raycast as Raycast
 import net.minecraft.resources.Config as config
@@ -15,6 +12,10 @@ import math
 import random
 import traceback
 import time
+
+logger.set_programname("Minecraft")
+logger.set_environment("Client")
+logger.info("Starting")
 
 tips=[
 	"Press 'e' to get more blocks",
@@ -113,10 +114,10 @@ def take_screenshot():
     if game_state == state_game:
         show_text("Screenshot saved as " + filename, [255, 255, 255, 255])
 
-def rebuild_chunks(light=1):
+def rebuild_chunks():
 	global chunklist
 	glDeleteLists(chunklist, 1)
-	chunklist=build_chunk_display_list(light)
+	chunklist=build_chunk_display_list()
 
 def place_block_by_player():
 	global block_sound_volume

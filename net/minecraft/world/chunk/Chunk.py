@@ -7,13 +7,10 @@ import net.minecraft.world.DefaultMap as default_map
 
 dirt_wallpaper_texture=load_texture("assets/minecraft/textures/gui/title/background/dirt_wallpaper.webp")
 
-def get_block_in_chunk(x,y,z):
-	return x % 8, y % 8, z % 8
-
-def build_chunk_display_list(light=1):
+def build_chunk_display_list():
 	dl = glGenLists(1)
 	glNewList(dl, GL_COMPILE)
-	build_chunk([light,light,light,1])
+	build_chunk()
 	pygame.mouse.set_cursor(SYSTEM_CURSOR_ARROW)
 	glEndList()
 	return dl
@@ -66,7 +63,7 @@ def set_block(x,y,z,name):
 	else:
 		chunk.pop((x,y,z), None)
 
-def build_chunk(color):
+def build_chunk():
 	global chunk
 	glEnable(GL_CULL_FACE)
 	glDepthMask(GL_TRUE)
