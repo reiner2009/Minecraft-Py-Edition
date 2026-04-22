@@ -1,6 +1,7 @@
 print("Starting net.minecraft.client.Main")
 import net.minecraft.world.item.Item as item
 import net.minecraft.util.math.Raycast as Raycast
+import net.minecraft.util.math.ThirtPersonPerspective as ThirtPersonPerspective
 import net.minecraft.resources.Config as config
 import net.minecraft.world.Environment as environment
 from net.minecraft.chat.Commands import*
@@ -68,8 +69,13 @@ chat=False
 running_app=True
 container=False
 chunklist=None
-player=PlayerEntity()
+player=PlayerEntity(playername.playername, False)
+debug_player=PlayerEntity("Steve")
+debug_player.thirt_person_perspective=1
+debug_player.spawn(-8, 2, -2)
+players=[player, debug_player]
 chat_text=""
+camera_x, camera_y, camera_z=0,0,0
 
 menu_background_texture=load_texture("assets/minecraft/textures/gui/title/background/menu.png")
 
@@ -161,7 +167,8 @@ def render_hud():
 	global pause_menu, message, hotbar_slot_selected, debug_charts,container
 	glColor4f(1,1,1,1)
 	if hud_==True:
-		hud.render_crosshair()
+		if not player.thirt_person_perspective:
+			hud.render_crosshair()
 		hud.render_hotbar()
 		hud.render_hotbar_selection(hotbar_slot_selected)
 		if chat==False:
@@ -195,10 +202,12 @@ def draw_scene():
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT)
 	setup_perspective()
 	apply_camera()
-	environment.render(*player.get_entity_position(),environment.get_tick())
+	environment.render(camera_x/2, camera_y/2, camera_z/2,environment.get_tick())
 	glTexEnvf(GL_TEXTURE_ENV, GL_TEXTURE_ENV_MODE, GL_MODULATE)
 	glColor3f(environment.get_tick(), environment.get_tick(), environment.get_tick())
 	glCallList(chunklist)
+	for p in players:
+		p.tick()
 	x,y,z,x1,y1,z1= Raycast.get_pos(player)
 	if block_preview==True:
 		if get_block(x1, y1, z1)!="air":
@@ -209,13 +218,22 @@ def draw_scene():
 	render_hud()
     
 def apply_camera():
-	camera_x, camera_y, camera_z=player.get_entity_position()
+	global camera_x, camera_y, camera_z
+	yaw, pitch = player.get_entity_facing()
+	if player.thirt_person_perspective==1:
+		camera_x, camera_y, camera_z = ThirtPersonPerspective.get_look_direction_behind(5, player)
+	elif player.thirt_person_perspective==2:
+		pitch=pitch-180
+		camera_x, camera_y, camera_z = ThirtPersonPerspective.get_look_direction_front(5, player)
+	elif player.thirt_person_perspective==0:
+		camera_x, camera_y, camera_z=player.get_entity_position()
 	camera_x=camera_x*2
 	camera_y=camera_y*2
 	camera_z=camera_z*2
-	yaw, pitch = player.get_entity_facing()
 	glMatrixMode(GL_MODELVIEW)
 	glLoadIdentity()
+	if player.thirt_person_perspective==2:
+		glRotatef(-180, 0, 0, 1)
 	glRotatef(pitch, 1, 0, 0)
 	glRotatef(yaw, 0, 1, 0)
 	glTranslatef(-camera_x, -camera_y, -camera_z)
@@ -499,6 +517,8 @@ def running_world(events):
 				hotbar_slot_selected-=1
 				if hotbar_slot_selected<1:
 					hotbar_slot_selected=9
+		if event.type==KEYDOWN and event.key==K_F5:
+			player.set_thirt_person_perspective()
 	if chat==True:
 		events=pygame.event.get()
 		render_texts()

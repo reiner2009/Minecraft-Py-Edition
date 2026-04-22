@@ -38,5 +38,4 @@ Please note that you have Python 3.10 or newer installed
 git clone https://github.com/reiner2009/Minecraft-Py-Edition.git
 cd Minecraft-Py-Edition
 pip install -r requirements.txt
-cd src
 python -m net.minecraft.client.Main

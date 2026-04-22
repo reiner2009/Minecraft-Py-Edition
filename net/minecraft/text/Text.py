@@ -95,3 +95,37 @@ def render_text(text,x,y,width,height, color=[255,255,255,255], blink_cursor=Fal
 		glTexCoord2fv(uv[3])
 		glVertex2f(x+width*i, y+height)
 		glEnd()
+
+def render_text_billboard(text, x, y, z, width, height, color=[255,255,255,255]):
+    glPushMatrix()
+    glTranslatef(x, y, z)
+    m = glGetFloatv(GL_MODELVIEW_MATRIX)
+    for i in range(3):
+        for j in range(3):
+            m[i][j] = 1.0 if i == j else 0.0
+    glLoadMatrixf(m)
+    glDisable(GL_DEPTH_TEST)
+    glEnable(GL_TEXTURE_2D)
+    glEnable(GL_BLEND)
+    glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA)
+    r,g,b,a = [c/255 for c in color]
+    glColor4f(r,g,b,a)
+    glBindTexture(GL_TEXTURE_2D, ascii_texture)
+    offset = 0
+    for i, ch in enumerate(text):
+        uv = get_letter(ch)
+        for c, n in font_width:
+            if c == ch:
+                char_width = (n / 8) * width
+                break
+        else:
+            char_width = width
+        glBegin(GL_QUADS)
+        glTexCoord2fv(uv[0]); glVertex3f(offset, 0, 0)
+        glTexCoord2fv(uv[1]); glVertex3f(offset + char_width, 0, 0)
+        glTexCoord2fv(uv[2]); glVertex3f(offset + char_width, height, 0)
+        glTexCoord2fv(uv[3]); glVertex3f(offset, height, 0)
+        glEnd()
+        offset += char_width
+    glEnable(GL_DEPTH_TEST)
+    glPopMatrix()
