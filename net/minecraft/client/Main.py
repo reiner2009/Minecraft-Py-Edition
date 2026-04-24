@@ -4,10 +4,13 @@ import net.minecraft.util.math.Raycast as Raycast
 import net.minecraft.util.math.ThirtPersonPerspective as ThirtPersonPerspective
 import net.minecraft.resources.Config as config
 import net.minecraft.world.Environment as environment
+import net.minecraft.entity.player.Playername as Playername
+import net.minecraft.world.EntityList as EntityList
 from net.minecraft.chat.Commands import*
-from net.minecraft.player.PlayerEntity import PlayerEntity
+from net.minecraft.entity.player.PlayerEntity import PlayerEntity
 from net.minecraft.util.gui.Widgets import*
 from net.minecraft.sounds.Sounds import*
+from net.minecraft.world.level.Level import setEnv
 import sys
 import math
 import random
@@ -69,13 +72,14 @@ chat=False
 running_app=True
 container=False
 chunklist=None
-player=PlayerEntity(playername.playername, False)
-debug_player=PlayerEntity("Steve")
-debug_player.thirt_person_perspective=1
-debug_player.spawn(-8, 2, -2)
-players=[player, debug_player]
+player=PlayerEntity(False)
+player.spawn(0,0,0)
+player.setName(Playername.playername)
+EntityList.entities.append(player)
 chat_text=""
 camera_x, camera_y, camera_z=0,0,0
+
+setEnv("client")
 
 menu_background_texture=load_texture("assets/minecraft/textures/gui/title/background/menu.png")
 
@@ -130,6 +134,7 @@ def place_block_by_player():
 	X,Y,Z,*_= Raycast.get_pos(player)
 	try:
 		if Raycast.get_neighbour_block(X, Y, Z):
+			player.swing("right")
 			set_block(X, Y, Z, item.selected_item[hotbar_slot_selected - 1])
 			play_dig_sound(sound_categorys_dig[item.selected_item[hotbar_slot_selected - 1]], block_sound_volume)
 			rebuild_chunks()
@@ -206,7 +211,7 @@ def draw_scene():
 	glTexEnvf(GL_TEXTURE_ENV, GL_TEXTURE_ENV_MODE, GL_MODULATE)
 	glColor3f(environment.get_tick(), environment.get_tick(), environment.get_tick())
 	glCallList(chunklist)
-	for p in players:
+	for p in EntityList.entities:
 		p.tick()
 	x,y,z,x1,y1,z1= Raycast.get_pos(player)
 	if block_preview==True:
@@ -216,6 +221,7 @@ def draw_scene():
 			draw_block_preview(x, y, z)
 	setup_ortho()
 	render_hud()
+	player.setMainhandItem(item.selected_item[hotbar_slot_selected - 1])
     
 def apply_camera():
 	global camera_x, camera_y, camera_z
@@ -382,10 +388,10 @@ def running_world(events):
 		render_chunk()
 		load_level()
 		chunklist = build_chunk_display_list()
-		show_text(playername.playername + " joined the game", [84, 251, 84, 255])
+		show_text(Playername.playername + " joined the game", [84, 251, 84, 255])
 		show_text("[TIP] "+random.choice(tips), [84,84,251,255])
 		logger.set_environment("Main")
-		logger.info(playername.playername + " joined the game")
+		logger.info(Playername.playername + " joined the game")
 	play_music_mode(music_creative)
 	if pause_menu==True:
 		pause_music()
@@ -421,6 +427,7 @@ def running_world(events):
 				get_block_by_player()
 		if event.type==MOUSEBUTTONDOWN and event.button==1:
 			if pause_menu==False and chat==False and container==False:
+				player.swing("right")
 				break_block_by_player()
 	if mouse_grab==True:
 		pygame.mouse.set_visible(False)
@@ -480,7 +487,7 @@ def running_world(events):
 					pygame.time.delay(150)
 					stop_music()
 					logger.set_environment("Main")
-					logger.info(playername.playername + " left the game")
+					logger.info(Playername.playername + " left the game")
 					game_state=state_menu
 					pygame.mouse.set_visible(True)
 					pygame.event.set_grab(False)
@@ -533,9 +540,9 @@ def running_world(events):
 						if chat_text.startswith("/"):
 							assume_command(chat_text, player, chunklist)
 						else:
-							show_text("<" + str(playername.playername) + "> " + chat_text, [255, 255, 255, 255])
+							show_text("<" + str(Playername.playername) + "> " + chat_text, [255, 255, 255, 255])
 							logger.set_environment("Main")
-							logger.info("[CHAT] <" + str(playername.playername) + "> " + chat_text)
+							logger.info("[CHAT] <" + str(Playername.playername) + "> " + chat_text)
 					chat_text=""
 					chat=False
 				elif event.key==K_ESCAPE:
