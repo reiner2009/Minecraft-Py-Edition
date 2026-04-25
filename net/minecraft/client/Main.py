@@ -4,8 +4,6 @@ import net.minecraft.util.math.Raycast as Raycast
 import net.minecraft.util.math.ThirtPersonPerspective as ThirtPersonPerspective
 import net.minecraft.resources.Config as config
 import net.minecraft.world.Environment as environment
-import net.minecraft.entity.player.Playername as Playername
-import net.minecraft.world.EntityList as EntityList
 from net.minecraft.chat.Commands import*
 from net.minecraft.entity.player.PlayerEntity import PlayerEntity
 from net.minecraft.util.gui.Widgets import*
@@ -16,6 +14,16 @@ import math
 import random
 import traceback
 import time
+import argparse
+
+parser = argparse.ArgumentParser(description="Minecraft Launcher Script")
+parser.add_argument("--username", type=str, help="username")
+parser.add_argument("--skin", type=str, help="skin texture")
+args = parser.parse_args()
+username = args.username
+if username:
+	Playername.set(username)
+skin = args.skin
 
 logger.set_programname("Minecraft")
 logger.set_environment("Client")
@@ -75,6 +83,8 @@ chunklist=None
 player=PlayerEntity(False)
 player.spawn(0,0,0)
 player.setName(Playername.playername)
+if skin:
+	player.setSkin(skin)
 EntityList.entities.append(player)
 chat_text=""
 camera_x, camera_y, camera_z=0,0,0

@@ -1,13 +1,5 @@
-import os
-import net.minecraft.resources.DataLocation as DataLocation
+playername="StevePy"
 
-
-base_path = os.path.join(os.environ[DataLocation.get_save_system()], ".minecraft-py")
-cache_path = os.path.join(base_path, ".cache")
-full_path = os.path.join(cache_path, "client.txt")
-try:
-    with open(full_path, "r") as file:
-        for line in file:
-            playername = line.strip()
-except FileNotFoundError:
-        playername = "StevePy"
+def set(name):
+    global playername
+    playername=name
