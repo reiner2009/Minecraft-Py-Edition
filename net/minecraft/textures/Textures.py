@@ -1,7 +1,7 @@
 from net.minecraft.client.Client import*
 import net.minecraft.util.logger.Logger as logger
 
-def load_texture(path):
+def load_texture(path, isSkin=False):
     logger.set_environment("Client")
     try:
         surface = pygame.image.load(path).convert_alpha()
@@ -24,7 +24,10 @@ def load_texture(path):
             data
         )
         logger.info("Loaded texture " + path)
-        return tex_id
+        if isSkin:
+            return tex_id, width, height
+        else:
+            return tex_id
     except:
         logger.error("Falied to load texture " + path)
         surface = pygame.image.load("assets/minecraft/textures/error.png").convert_alpha()

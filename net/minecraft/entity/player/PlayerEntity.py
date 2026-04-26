@@ -23,7 +23,7 @@ class PlayerEntity:
         self.right_arm_pitch_direction=0
         self.left_arm_pitch_direction=0
         self.mainhand_item=None
-        self.skin = load_texture("assets/minecraft/textures/entity/player/steve.png")
+        self.skin, self.w, self.h = load_texture("assets/minecraft/textures/entity/player/steve.png", True)
     def spawn(self, x, y, z, yaw=90, pitch=0):
         self.x = x
         self.y = y
@@ -43,7 +43,7 @@ class PlayerEntity:
     def setName(self, name):
         self.name = name
     def setSkin(self, path):
-        self.skin = load_texture(path)
+        self.skin, self.w, self.h = load_texture(path,True)
     def move(self, x,y,z):
         self.x += x
         self.y += y
@@ -78,9 +78,9 @@ class PlayerEntity:
             self.walk_pitch_0 = -180
             self.walk_pitch_1 = -180
         if self.thirt_person_perspective and Level.isClient:
-            render_body_layer(self.x, self.y, self.z, self.yaw,self.pitch,self.left_arm_pitch,self.right_arm_pitch,self.walk_pitch_0, self.walk_pitch_1, self.name_tag_is_visible, self.name, self.mainhand_item, self.skin)
+            render_body_layer(self.x, self.y, self.z, self.yaw,self.pitch,self.left_arm_pitch,self.right_arm_pitch,self.walk_pitch_0, self.walk_pitch_1, self.name_tag_is_visible, self.name, self.mainhand_item, self.skin, self.w, self.h)
         if self.thirt_person_perspective==0 and Level.isClient:
-            render_arms(self.x+cos(self.yaw+90)*0.4, self.y-0.5, self.z+sin(self.yaw+90)*0.4, self.yaw, self.left_arm_pitch-40, self.right_arm_pitch-40, self.mainhand_item, self.skin)
+            render_arms(self.x+cos(self.yaw+90)*0.4, self.y-0.5, self.z+sin(self.yaw+90)*0.4, self.yaw, self.left_arm_pitch-40, self.right_arm_pitch-40, self.mainhand_item, self.skin, self.w, self.h)
         if self.walk_pitch_0>30-180:
             self.walk_pitch_direction=1
         if self.walk_pitch_0<-30-180:

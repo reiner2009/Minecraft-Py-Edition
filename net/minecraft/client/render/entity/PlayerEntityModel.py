@@ -132,7 +132,7 @@ tex_coords = [
     [(16, 52), (12, 52), (12, 64), (16, 64)],
 ]
 
-def render_arms(x,y,z, yaw,left_arm_pitch,right_arm_pitch, block_name, skin_texture):
+def render_arms(x,y,z, yaw,left_arm_pitch,right_arm_pitch, block_name, skin_texture, w=64, h=64):
     glEnable(GL_ALPHA_TEST)
     glDisable(GL_CULL_FACE)
     glEnable(GL_TEXTURE_2D)
@@ -244,7 +244,7 @@ def render_arms(x,y,z, yaw,left_arm_pitch,right_arm_pitch, block_name, skin_text
         glPopMatrix()
 
 
-def render_body_layer(x,y,z, yaw, pitch,left_arm_pitch,right_arm_pitch, walk_pitch_0, walk_pitch_1,name_tag_is_visible, name, block_name, skin_texture):
+def render_body_layer(x,y,z, yaw, pitch,left_arm_pitch,right_arm_pitch, walk_pitch_0, walk_pitch_1,name_tag_is_visible, name, block_name, skin_texture, w=64, h=64):
     glDisable(GL_CULL_FACE)
     glEnable(GL_ALPHA_TEST)
     glEnable(GL_TEXTURE_2D)
@@ -260,7 +260,7 @@ def render_body_layer(x,y,z, yaw, pitch,left_arm_pitch,right_arm_pitch, walk_pit
         for j in range(4):
             tx, ty = tex_coords[i][j]
             vx, vy, vz = cube_vertices_head()[surfaces[i][j]]
-            glTexCoord2f(tx/64, ty/64)
+            glTexCoord2f(tx/w, ty/h)
             glVertex3f(vx, vy, vz)
         glEnd()
     glPopMatrix()
@@ -292,7 +292,7 @@ def render_body_layer(x,y,z, yaw, pitch,left_arm_pitch,right_arm_pitch, walk_pit
         for j in range(4):
             tx,ty=tex_coords[i+6][j]
             vx, vy, vz = cube_vertices_body()[surfaces[i][j]]
-            glTexCoord2f(tx/64, ty/64)
+            glTexCoord2f(tx/w, ty/h)
             glVertex3f(vx, vy, vz)
         glEnd()
     glPopMatrix()
@@ -312,7 +312,7 @@ def render_body_layer(x,y,z, yaw, pitch,left_arm_pitch,right_arm_pitch, walk_pit
             glVertex3f(vx, vy, vz)
         glEnd()
     glPopMatrix()
-    render_arms(x,y,z,yaw, left_arm_pitch,right_arm_pitch, block_name, skin_texture)
+    render_arms(x,y,z,yaw, left_arm_pitch,right_arm_pitch, block_name, skin_texture, w, h)
     glPushMatrix()
     glBindTexture(GL_TEXTURE_2D, skin_texture)
     glTranslatef(x * 2 - cos(yaw) * 0.25, y * 2 - 1.52, z * 2 - sin(yaw) * 0.25)
@@ -325,7 +325,7 @@ def render_body_layer(x,y,z, yaw, pitch,left_arm_pitch,right_arm_pitch, walk_pit
         for j in range(4):
             tx,ty=tex_coords[i+24][j]
             vx, vy, vz = cube_vertices_arm_and_leg()[surfaces[i][j]]
-            glTexCoord2f(tx/64, ty/64)
+            glTexCoord2f(tx/w, ty/h)
             glVertex3f(vx, vy, vz)
         glEnd()
     glPopMatrix()
@@ -340,7 +340,7 @@ def render_body_layer(x,y,z, yaw, pitch,left_arm_pitch,right_arm_pitch, walk_pit
         for j in range(4):
             tx,ty=tex_coords[i+30][j]
             vx, vy, vz = cube_vertices_arm_and_leg()[surfaces[i][j]]
-            glTexCoord2f(tx/64, ty/64)
+            glTexCoord2f(tx/w, ty/h)
             glVertex3f(vx, vy, vz)
         glEnd()
     glPopMatrix()
