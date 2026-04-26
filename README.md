@@ -39,3 +39,6 @@ git clone https://github.com/reiner2009/Minecraft-Py-Edition.git
 cd Minecraft-Py-Edition
 pip install -r requirements.txt
 python -m net.minecraft.client.Main
+```
+
+The program arguments —skin and —username are not required, but with them you can set your own player name and skin, with the skin you specify the path, if you only specify the file name, the image file must be in the root of the repository. It is important that the skin has an aspect ratio of 1:1, otherwise it is bugged.
