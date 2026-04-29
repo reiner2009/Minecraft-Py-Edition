@@ -6,34 +6,55 @@ py = load_texture("assets/minecraft/textures/environment/py.png")
 ny = load_texture("assets/minecraft/textures/environment/ny.png")
 pz = load_texture("assets/minecraft/textures/environment/pz.png")
 nz = load_texture("assets/minecraft/textures/environment/nz.png")
+pxs = load_texture("assets/minecraft/textures/environment/pxs.png")
+nxs = load_texture("assets/minecraft/textures/environment/nxs.png")
+pys = load_texture("assets/minecraft/textures/environment/pys.png")
+nys = load_texture("assets/minecraft/textures/environment/nys.png")
+pzs = load_texture("assets/minecraft/textures/environment/pzs.png")
+nzs = load_texture("assets/minecraft/textures/environment/nzs.png")
 clouds=load_texture("assets/minecraft/textures/environment/clouds.png")
+sun=load_texture("assets/minecraft/textures/environment/sun.png")
 clouds_z=0
 
-t = 1
-dnt=0
-direction = -1
+t = 45
+light=1
+sunriseblend=0
+sunsetblend=0
 
-def set_tick_0():
-    global t, dnt, direction
-    dnt=0
-    t=1
-    direction = -1
+def set_tick(t_, s1, s2, l):
+    global t, light, sunriseblend, sunsetblend
+    t=t_
+    light=l
+    sunriseblend=s1
+    sunsetblend=s2
 
-def tick():
-    global t, direction, dnt
-    dnt += 1
-    if dnt >= 60*60*5:
-        t += 0.0001 * direction
-    if t >= 1 and dnt >= 60*60*5:
-        direction = -1
-        dnt=0
-    if t <= 0.1 and dnt >= 60*60*5:
-        direction = 1
-        dnt=0
 
-def get_tick():
-    global t
-    return t
+
+def tick(speed=0.001):
+    global t, light, sunriseblend, sunsetblend
+    t += speed
+    if t >= 360:
+        t = 0
+    if (t > 350 or t < 30) and light < 1:
+        light += speed / 25
+    if 170 < t < 210 and light > 0.1:
+        light -= speed / 25
+    if 170 <= t < 190 and sunsetblend < 1:
+        sunsetblend += speed
+    elif 190 <= t < 210 and sunsetblend > 0:
+        sunsetblend -= speed
+    if t >= 350 or t < 10 and sunriseblend < 1:
+        sunriseblend += speed
+    elif 10 <= t < 30 and sunriseblend > 0:
+        sunriseblend -= speed
+    light = max(0.1, min(1, light))
+    sunsetblend = max(0, min(1, sunsetblend))
+    sunriseblend = max(0, min(1, sunriseblend))
+
+
+def get_light():
+    global light
+    return light
 
 def cube_vertices(x, y, z):
     return [
@@ -41,8 +62,17 @@ def cube_vertices(x, y, z):
         (-1+x,1+y,-1+z),  (1+x,1+y,-1+z),  (1+x,1+y,1+z),  (-1+x,1+y,1+z)
     ]
 
+def scube_vertices(x, y, z):
+    return [
+        (-0.9+x,-0.9+y,-0.9+z), (0.9+x,-0.9+y,-0.9+z), (0.9+x,-0.9+y,0.9+z), (-0.9+x,-0.9+y,0.9+z),
+        (-0.9+x,0.9+y,-0.9+z),  (0.9+x,0.9+y,-0.9+z),  (0.9+x,0.9+y,0.9+z),  (-0.9+x,0.9+y,0.9+z)
+    ]
+
 def cloud_vertices(x, z):
     return [(-2048+x, 300, -2048+z),(2048+x, 300, -2048+z),(2048+x,300,2048+z),(-2048+x, 300, 2048+z)]
+
+def sun_vertices():
+    return [(-0.03, 0.4, -0.03),(0.03, 0.4, -0.03),(0.03,0.4,0.03),(-0.03, 0.4, 0.03)]
 
 def render(x, y, z, light=1):
     global clouds_z
@@ -61,10 +91,14 @@ def render(x, y, z, light=1):
         (6, 7, 3, 2),
         (7, 4, 0, 3)
     ]
-    textures=[ny, py, nz, pz, nx, px]
+    textures = [ny, py, nx, pz, px, nz]
+    sunsettextures=[nys, pys, nxs, pzs, pxs, nzs]
+    sunrisetextures=[nys, pys, pxs, nzs, nxs, pzs]
     glEnable(GL_TEXTURE_2D)
     tex_coords=[(0,0),(1,0),(1,1),(0,1)]
-    glColor3f(light, light, light)
+    glEnable(GL_BLEND)
+    glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA)
+    glColor4f(light, light, light, 0.999)
     for i in range(6):
         texture = textures[i] if i < len(textures) else textures[0]
         glBindTexture(GL_TEXTURE_2D, texture)
@@ -75,9 +109,44 @@ def render(x, y, z, light=1):
             glTexCoord2f(tx, ty)
             glVertex3f(vx, vy, vz)
         glEnd()
+    vertices=scube_vertices(x, y, z)
+    glColor4f(light, light, light, sunriseblend)
+    for i in range(6):
+        texture = sunrisetextures[i] if i < len(textures) else textures[0]
+        glBindTexture(GL_TEXTURE_2D, texture)
+        glBegin(GL_QUADS)
+        for j in range(4):
+            tx, ty = tex_coords[j]
+            vx, vy, vz = vertices[surfaces[i][j]]
+            glTexCoord2f(tx, ty)
+            glVertex3f(vx, vy, vz)
+        glEnd()
+    glColor4f(light, light, light, sunsetblend)
+    for i in range(6):
+        texture = sunsettextures[i] if i < len(textures) else textures[0]
+        glBindTexture(GL_TEXTURE_2D, texture)
+        glBegin(GL_QUADS)
+        for j in range(4):
+            tx, ty = tex_coords[j]
+            vx, vy, vz = vertices[surfaces[i][j]]
+            glTexCoord2f(tx, ty)
+            glVertex3f(vx, vy, vz)
+        glEnd()
+    glPushMatrix()
+    glColor3f(1, 1, 1)
+    glBindTexture(GL_TEXTURE_2D, sun)
+    glTranslatef(x, y, z)
+    glRotatef(t-90, 0, 0, 1)
+    glTranslatef(0, 0.4, 0)
+    vertices = sun_vertices()
+    glBegin(GL_QUADS)
+    for i in range(4):
+        tx, ty = tex_coords[i]
+        glTexCoord2f(tx, ty)
+        glVertex3f(*vertices[i])
+    glEnd()
+    glPopMatrix()
     glDepthMask(GL_TRUE)
-    glEnable(GL_BLEND)
-    glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA)
     glEnable(GL_ALPHA_TEST)
     glBindTexture(GL_TEXTURE_2D, clouds)
     glColor4f(light, light, light,0.8)

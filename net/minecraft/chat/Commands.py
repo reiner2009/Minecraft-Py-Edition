@@ -1,6 +1,3 @@
-from xml.dom.minidom import Entity
-
-from net.minecraft.entity.player.PlayerEntity import PlayerEntity
 from net.minecraft.world.chunk.Chunk import *
 import net.minecraft.util.logger.Logger as logger
 import net.minecraft.world.chunk.Chunk as chunk
@@ -127,6 +124,7 @@ def split_text(text, max_len=53):
     return parts
 
 def show_text(msg, color, lifetime=10000):
+	msg=str(msg)
 	msgs=split_text(msg)
 	for i in msgs:
 		temporary_texts.insert(0,{
@@ -209,6 +207,9 @@ def assume_command(string, entity, chunklist):
 				entity.setSkin("assets/minecraft/textures/entity/player/steve.png")
 			entity.set_thirt_person_perspective()
 			EntityList.entities.append(entity)
+		elif string.split()[0]=="/time":
+			t=int(string.split()[1])
+			set_tick(t)
 		else:
 			show_text("Unknown or incomplete command: "+string, [255,85,85,255])
 			logger.set_environment("Main")

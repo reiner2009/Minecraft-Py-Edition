@@ -45,14 +45,6 @@ def render_title_font():
     glTexCoord2fv(uv[3])
     glVertex2f(width/800*127, height/480*460)
     glEnd()
-    glDisable(GL_TEXTURE_2D)
-    glBegin(GL_QUADS)
-    glColor4f(0.3, 0.3, 0.3, 0.3)
-    glVertex2f(width/800*170, height/480*360)
-    glVertex2f(width/800*570, height/480*360)
-    glVertex2f(width/800*570, height/480*380)
-    glVertex2f(width/800*170, height/480*380)
-    glEnd()
     render_text("PyEdition Alpha rc-170320260", width/800*180, height/480*360, width/800*20, height/480*20, [255,255,255,255])
 
 def render_crosshair():
@@ -60,9 +52,6 @@ def render_crosshair():
     glLoadIdentity()
     glDisable(GL_DEPTH_TEST)
     glEnable(GL_TEXTURE_2D)
-    glEnable(GL_BLEND)
-    glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA)
-    glColor4f(1,1,1,1)
     glBindTexture(GL_TEXTURE_2D, crosshair_texture)
     uv=[(0,0),(1,0),(1,1),(0,1)]
     glBegin(GL_QUADS)

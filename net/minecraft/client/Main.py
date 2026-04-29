@@ -15,16 +15,23 @@ import random
 import traceback
 import time
 import argparse
+import requests
 
 parser = argparse.ArgumentParser(description="Minecraft Launcher Script")
 parser.add_argument("--username", type=str, help="username")
 parser.add_argument("--skin", type=str, help="skin texture")
+parser.add_argument("--online-skin", type=str, help="skin texture from the internet")
 args = parser.parse_args()
 username = args.username
+online_skin = args.online_skin
 if username:
 	Playername.set(username)
 skin = args.skin
-
+if online_skin:
+	response=skin=requests.get("https://minecraft.tools/download-skin/"+online_skin)
+with open("skin.png", "wb") as f:
+    f.write(response.content)
+skin="skin.png"
 logger.set_programname("Minecraft")
 logger.set_environment("Client")
 logger.info("Starting")
@@ -96,7 +103,7 @@ menu_background_texture=load_texture("assets/minecraft/textures/gui/title/backgr
 def save_level():
 	world_x, world_y, world_z=player.get_entity_position()
 	yaw, pitch = player.get_entity_facing()
-	data=[world_x, world_y, world_z, yaw, pitch]
+	data=[world_x, world_y, world_z, yaw, pitch, environment.t, environment.sunriseblend, environment.sunsetblend, environment.light]
 	base_path = os.path.join(os.environ[DataLocation.get_save_system()], ".minecraft-py")
 	world = os.path.join(base_path, "world")
 	full_path = os.path.join(world, "level.dat")
@@ -109,15 +116,16 @@ def save_level():
 			pickle.dump(data, f)
 
 def load_level():
-    base_path = os.path.join(os.environ[DataLocation.get_save_system()], ".minecraft-py")
-    world = os.path.join(base_path, "world")
-    full_path = os.path.join(world, "level.dat")
-    try:
-        with open(full_path, "rb") as f:
-            data=pickle.load(f)
-        player.spawn(*data)
-    except Exception as e:
-        logger.warning("Falied to load level: " + str(e))
+	base_path = os.path.join(os.environ[DataLocation.get_save_system()], ".minecraft-py")
+	world = os.path.join(base_path, "world")
+	full_path = os.path.join(world, "level.dat")
+	try:
+		with open(full_path, "rb") as f:
+			d=pickle.load(f)
+		player.spawn(d[0], d[1], d[2], d[3], d[4])
+		environment.set_tick(d[5], d[6], d[7], d[8])
+	except Exception as e:
+		logger.warning("Falied to load level: " + str(e))
 
 def take_screenshot():
     z = time.localtime()
@@ -194,15 +202,6 @@ def render_hud():
 		yaw, pitch = player.get_entity_facing()
 		glMatrixMode(GL_MODELVIEW)
 		glLoadIdentity()
-		glDisable(GL_DEPTH_TEST)
-		glDisable(GL_TEXTURE_2D)
-		glBegin(GL_QUADS)
-		glColor4f(0.3, 0.3, 0.3, 0.3)
-		glVertex2f(0, height-70)
-		glVertex2f(230, height-70)
-		glVertex2f(230, height+70)
-		glVertex2f(0, height+70)
-		glEnd()
 		hud.display_fps()
 		hud.display_position(round(world_x), round(world_y), round(world_z))
 		hud.display_rotate(round(yaw),round(pitch))
@@ -217,9 +216,9 @@ def draw_scene():
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT)
 	setup_perspective()
 	apply_camera()
-	environment.render(camera_x/2, camera_y/2, camera_z/2,environment.get_tick())
+	environment.render(camera_x/2, camera_y/2, camera_z/2,environment.get_light())
 	glTexEnvf(GL_TEXTURE_ENV, GL_TEXTURE_ENV_MODE, GL_MODULATE)
-	glColor3f(environment.get_tick(), environment.get_tick(), environment.get_tick())
+	glColor3f(environment.get_light(), environment.get_light(), environment.get_light())
 	glCallList(chunklist)
 	for p in EntityList.entities:
 		p.tick()
@@ -360,7 +359,6 @@ def render_menu(events):
 			if event.type==MOUSEBUTTONDOWN and event.button==1:
 				stop_music()
 				button_click_sound.play()
-				environment.set_tick_0()
 				game_state=state_game
 				mouse_grab=True
 	elif x>=x1 and x<=x2 and y>=y3 and y<=y4:
