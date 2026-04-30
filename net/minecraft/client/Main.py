@@ -27,14 +27,14 @@ online_skin = args.online_skin
 if username:
 	Playername.set(username)
 skin = args.skin
-if online_skin:
-	response=skin=requests.get("https://minecraft.tools/download-skin/"+online_skin)
-with open("skin.png", "wb") as f:
-    f.write(response.content)
-skin="skin.png"
-logger.set_programname("Minecraft")
-logger.set_environment("Client")
-logger.info("Starting")
+try:
+	if online_skin:
+		response=requests.get("https://minecraft.tools/download-skin/"+online_skin)
+		with open("skin.png", "wb") as f:
+			f.write(response.content)
+		skin="skin.png"
+except:
+	pass
 
 tips=[
 	"Press 'e' to get more blocks",
@@ -124,8 +124,8 @@ def load_level():
 			d=pickle.load(f)
 		player.spawn(d[0], d[1], d[2], d[3], d[4])
 		environment.set_tick(d[5], d[6], d[7], d[8])
-	except Exception as e:
-		logger.warning("Falied to load level: " + str(e))
+	except Exception:
+		pass
 
 def take_screenshot():
     z = time.localtime()
@@ -258,7 +258,7 @@ def render_settings(events):
 	setup_ortho()
 	pygame.mixer.music.set_volume((1/489)*music_volume)
 	button_click_sound.set_volume((1/489)*ui_volume)
-	hud.render_wallpaper(dirt_wallpaper_texture)
+	hud.render_wallpaper(dark_menu_texture)
 	x,y=pygame.mouse.get_pos()
 	y=height-y
 	if round((100/489)*music_volume)>0:

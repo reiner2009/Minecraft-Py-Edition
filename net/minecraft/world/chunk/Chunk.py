@@ -1,42 +1,32 @@
+from net.minecraft.entity.player.PlayerEntity import PlayerEntity
+from net.minecraft.world.EntityList import entities
 from net.minecraft.world.block.Block import*
 import net.minecraft.util.gui.Hud as hud
 import net.minecraft.text.Text as text
 import pickle
 import net.minecraft.resources.DataLocation as DataLocation
-from noise import pnoise2, pnoise3
+from noise import pnoise2
 import random
-import traceback
 
 c={}
-dirt_wallpaper_texture=load_texture("assets/minecraft/textures/gui/title/background/dirt_wallpaper.webp")
+dark_menu_texture=load_texture("assets/minecraft/textures/gui/title/background/dark_menu.png")
 
-def create_random_chunk():
-	seed=random.randint(0,100)
-	for x in range(50):
-		for z in range(50):
-			c[(x, -6, z)] = "bedrock"
-	for x in range(50):
-		for z in range(50):
-			value=pnoise2(x * 0.1, z * 0.1, base=seed)*6+15
-			for y_ in range(round(value)):
-				y=y_-5
-				if y < 0 and y >= -5:
-					c[(x, y, z)] = "deepslate"
-				if y < 5 and y >= 0:
-					c[(x, y, z)] = "stone"
-				if y >= 5:
-					c[(x, y, z)] = "dirt"
-				if y==round(value)-6:
-					c[(x, y, z)] = "grass_block"
-	for x in range(50):
-		for y in range(10):
-			for z in range(50):
-				cave = pnoise3(x * 0.08, y * 0.35, z * 0.08, base=seed) +0.5 * pnoise3(x * 0.16, y * 0.4, z * 0.16, base=seed)
-				if cave>0.3:
-					c.pop((x,y-4,z), None)
-	for (x,y,z),block in c.items():
-		if block == "grass_block" and (x,y+1,z) in c.items():
-			c[(x, y, z)] = "dirt"
+def create_random_chunk(_x_=0, _z_=0, seed=0):
+	c.clear()
+	for x_ in range(50):
+		for z_ in range(50):
+			x=x_+_x_*16
+			z=z_+_z_*16
+			value=pnoise2(x * 0.1, z * 0.1, base=seed)*6+5
+			ay=round(value)
+			for y in range(ay):
+				if (x,y,z) not in c:
+					c[(x,y,z)]="dirt"
+			for y in range(ay):
+				if y==ay-1:
+					c[(x,y,z)]="grass_block"
+	for player in entities:
+		player.spawn(25,round(pnoise2(25 * 0.1, 25 * 0.1, base=seed)*6+5)+1, 25)
 	return c
 
 def build_chunk_display_list():
@@ -58,7 +48,7 @@ def render_chunk():
 			_chunk=pickle.load(f)
 		pygame.mouse.set_cursor(SYSTEM_CURSOR_WAIT)
 		setup_ortho()
-		hud.render_wallpaper(dirt_wallpaper_texture)
+		hud.render_wallpaper(dark_menu_texture)
 		text.render_text("Loading terrian.,,", width / 2 - 67, height - height / 1152 * 200, 15, 15, [255, 255, 255, 255])
 		pygame.display.flip()
 		clock.tick(60)
@@ -71,17 +61,18 @@ def render_chunk():
 		logger.set_environment("Client")
 		create_new_world()
 
+
 def create_new_world():
 	global chunk
 	pygame.mouse.set_cursor(SYSTEM_CURSOR_WAIT)
 	setup_ortho()
-	hud.render_wallpaper(dirt_wallpaper_texture)
+	hud.render_wallpaper(dark_menu_texture)
 	text.render_text("Loading terrian.,,", width / 2 - 67, height - height / 1152 * 200, 15, 15, [255, 255, 255, 255])
 	pygame.display.flip()
 	clock.tick(60)
 	logger.info("Loading terrian")
 	chunk.clear()
-	chunk_ = create_random_chunk()
+	chunk_ = create_random_chunk(seed=random.randint(0,100))
 	for (x, y, z), block_name in chunk_.items():
 		set_block(x, y, z, block_name)
 
@@ -96,7 +87,6 @@ def set_block(x,y,z,name):
 		chunk.pop((x,y,z), None)
 
 def build_chunk():
-	global chunk
 	glEnable(GL_CULL_FACE)
 	glDepthMask(GL_TRUE)
 	glDisable(GL_BLEND)
