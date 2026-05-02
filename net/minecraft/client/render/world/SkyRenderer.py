@@ -16,46 +16,6 @@ clouds=load_texture("assets/minecraft/textures/environment/clouds.png")
 sun=load_texture("assets/minecraft/textures/environment/sun.png")
 clouds_z=0
 
-t = 45
-light=1
-sunriseblend=0
-sunsetblend=0
-
-def set_tick(t_, s1, s2, l):
-    global t, light, sunriseblend, sunsetblend
-    t=t_
-    light=l
-    sunriseblend=s1
-    sunsetblend=s2
-
-
-
-def tick(speed=0.001):
-    global t, light, sunriseblend, sunsetblend
-    t += speed
-    if t >= 360:
-        t = 0
-    if (t > 350 or t < 30) and light < 1:
-        light += speed / 25
-    if 170 < t < 210 and light > 0.1:
-        light -= speed / 25
-    if 170 <= t < 190 and sunsetblend < 1:
-        sunsetblend += speed
-    elif 190 <= t < 210 and sunsetblend > 0:
-        sunsetblend -= speed
-    if t >= 350 or t < 10 and sunriseblend < 1:
-        sunriseblend += speed
-    elif 10 <= t < 30 and sunriseblend > 0:
-        sunriseblend -= speed
-    light = max(0.1, min(1, light))
-    sunsetblend = max(0, min(1, sunsetblend))
-    sunriseblend = max(0, min(1, sunriseblend))
-
-
-def get_light():
-    global light
-    return light
-
 def cube_vertices(x, y, z):
     return [
         (-1+x,-1+y,-1+z), (1+x,-1+y,-1+z), (1+x,-1+y,1+z), (-1+x,-1+y,1+z),
@@ -74,7 +34,7 @@ def cloud_vertices(x, z):
 def sun_vertices():
     return [(-0.03, 0.4, -0.03),(0.03, 0.4, -0.03),(0.03,0.4,0.03),(-0.03, 0.4, 0.03)]
 
-def render(x, y, z, light=1):
+def render(x, y, z, light, sunriseblend, sunsetblend, t):
     global clouds_z
     clouds_z+=0.004
     x=x*2

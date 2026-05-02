@@ -3,7 +3,8 @@ import net.minecraft.world.item.Item as item
 import net.minecraft.util.math.Raycast as Raycast
 import net.minecraft.util.math.ThirtPersonPerspective as ThirtPersonPerspective
 import net.minecraft.resources.Config as config
-import net.minecraft.world.Environment as environment
+import net.minecraft.world.Time as worldTime
+import net.minecraft.client.render.world.SkyRenderer as sky
 from net.minecraft.chat.Commands import*
 from net.minecraft.entity.player.PlayerEntity import PlayerEntity
 from net.minecraft.util.gui.Widgets import*
@@ -103,7 +104,7 @@ menu_background_texture=load_texture("assets/minecraft/textures/gui/title/backgr
 def save_level():
 	world_x, world_y, world_z=player.get_entity_position()
 	yaw, pitch = player.get_entity_facing()
-	data=[world_x, world_y, world_z, yaw, pitch, environment.t, environment.sunriseblend, environment.sunsetblend, environment.light]
+	data=[world_x, world_y, world_z, yaw, pitch, worldTime.t, worldTime.sunriseblend, worldTime.sunsetblend, worldTime.light]
 	base_path = os.path.join(os.environ[DataLocation.get_save_system()], ".minecraft-py")
 	world = os.path.join(base_path, "world")
 	full_path = os.path.join(world, "level.dat")
@@ -123,7 +124,7 @@ def load_level():
 		with open(full_path, "rb") as f:
 			d=pickle.load(f)
 		player.spawn(d[0], d[1], d[2], d[3], d[4])
-		environment.set_tick(d[5], d[6], d[7], d[8])
+		worldTime.set_tick(d[5], d[6], d[7], d[8])
 	except Exception:
 		pass
 
@@ -212,13 +213,13 @@ def render_hud():
 
 def draw_scene():
 	if pause_menu==False:
-		environment.tick()
+		worldTime.tick()
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT)
 	setup_perspective()
 	apply_camera()
-	environment.render(camera_x/2, camera_y/2, camera_z/2,environment.get_light())
+	sky.render(camera_x/2, camera_y/2, camera_z/2,worldTime.get_light(), worldTime.sunriseblend, worldTime.sunsetblend, worldTime.t)
 	glTexEnvf(GL_TEXTURE_ENV, GL_TEXTURE_ENV_MODE, GL_MODULATE)
-	glColor3f(environment.get_light(), environment.get_light(), environment.get_light())
+	glColor3f(worldTime.get_light(), worldTime.get_light(), worldTime.get_light())
 	glCallList(chunklist)
 	for p in EntityList.entities:
 		p.tick()

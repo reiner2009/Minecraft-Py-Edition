@@ -1,5 +1,5 @@
 import net.minecraft.text.Text as text
-from net.minecraft.world.block.Block import *
+from net.minecraft.client.render.world.block.BlockRenderer import *
 import math
 
 
@@ -210,30 +210,32 @@ def render_arms(x,y,z, yaw,left_arm_pitch,right_arm_pitch, block_name, skin_text
         glRotatef(-yaw - 90, 0.0, 1.0, 0.0)
         glTranslatef(0, -0.5, 0)
         glRotatef(right_arm_pitch, 0.0, 0.0, 1.0)
-        data = models.get_model(block_name)
+        data = Models.get_model(block_name)
         texture_names = data["textures"]
-        textures = []
+        UVs = []
         if isinstance(texture_names, dict):
-            key_map = ["down","up","north","east","south","west"]
+            key_map = ["down", "up", "north", "east", "south", "west"]
             for key in key_map:
                 tex_name = texture_names.get(key)
-                if tex_name in TEXTURE_MAP:
-                    textures.append(TEXTURE_MAP[tex_name])
+                if tex_name in UV_MAP:
+                    UVs.append(UV_MAP[tex_name])
                 else:
-                    textures.append(TEXTURE_MAP[list(texture_names.values())[0]])
+                    UVs.append(UV_MAP[list(texture_names.values())[0]])
         elif isinstance(texture_names, list):
             for tex_name in texture_names:
-                textures.append(TEXTURE_MAP[tex_name])
-            while len(textures) < 6:
-                textures.append(textures[0])
+                UVs.append(UV_MAP[tex_name])
+            while len(UVs) < 6:
+                UVs.append(UVs[0])
         else:
-            textures = [TEXTURE_MAP[texture_names]]*6
+            UVs = [UV_MAP[texture_names]] * 6
+        glBindTexture(GL_TEXTURE_2D, block_atlas)
         for i in range(6):
-            texture = textures[i] if i < len(textures) else textures[0]
-            glBindTexture(GL_TEXTURE_2D, texture)
+            uv = UVs[i] if i < len(UVs) else UVs[0]
             glBegin(GL_QUADS)
+            uv_map = [((uv[0]) / 6, (uv[1]) / 7), ((uv[0] + 1) / 6, (uv[1]) / 7),
+                      ((uv[0] + 1) / 6, (uv[1] + 1) / 7), ((uv[0]) / 6, (uv[1] + 1) / 7)]
             for j in range(4):
-                tx, ty = block_tex_coords[j]
+                tx, ty = uv_map[j]
                 vx, vy, vz = item_vertices()[surfaces[i][j]]
                 glTexCoord2f(tx, ty)
                 glVertex3f(vx, vy, vz)

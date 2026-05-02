@@ -1,7 +1,7 @@
-from net.minecraft.world.block.Block import*
 import net.minecraft.text.Text as text
 import net.minecraft.util.translation.Lang as lang
-import net.minecraft.world.block.Block as block
+from net.minecraft.client.Client import *
+from net.minecraft.textures.Textures import load_texture
 
 container_items=[]
 for i in range(54):
@@ -78,6 +78,46 @@ add_item("bricks", "bricks", 21)
 add_item("deepslate_bricks", "deepslate_bricks", 20),
 add_item("polished_deepslate", "polished_deepslate", 19),
 
+TEXTURE_MAP = {
+    "stone_bricks": load_texture("assets/minecraft/textures/block/stone_bricks.png"),
+    "dirt": load_texture("assets/minecraft/textures/block/dirt.png"),
+    "grass_block_side": load_texture("assets/minecraft/textures/block/grass_block_side.png"),
+    "grass_block_top": load_texture("assets/minecraft/textures/block/grass_block_top.png"),
+    "stone": load_texture("assets/minecraft/textures/block/stone.png"),
+    "bedrock": load_texture("assets/minecraft/textures/block/bedrock.png"),
+    "deepslate": load_texture("assets/minecraft/textures/block/deepslate.png"),
+    "deepslate_top": load_texture("assets/minecraft/textures/block/deepslate_top.png"),
+    "cobblestone":load_texture("assets/minecraft/textures/block/cobblestone.png"),
+    "oak_planks":load_texture("assets/minecraft/textures/block/oak_planks.png"),
+    "oak_log":load_texture("assets/minecraft/textures/block/oak_log.png"),
+    "oak_log_top":load_texture("assets/minecraft/textures/block/oak_log_top.png"),
+    "white_wool":load_texture("assets/minecraft/textures/block/white_wool.png"),
+    "light_blue_wool":load_texture("assets/minecraft/textures/block/light_blue_wool.png"),
+    "green_wool":load_texture("assets/minecraft/textures/block/green_wool.png"),
+    "black_wool":load_texture("assets/minecraft/textures/block/black_wool.png"),
+    "blue_wool":load_texture("assets/minecraft/textures/block/blue_wool.png"),
+    "brown_wool":load_texture("assets/minecraft/textures/block/brown_wool.png"),
+    "cyan_wool":load_texture("assets/minecraft/textures/block/cyan_wool.png"),
+    "gray_wool":load_texture("assets/minecraft/textures/block/gray_wool.png"),
+    "light_gray_wool":load_texture("assets/minecraft/textures/block/light_gray_wool.png"),
+    "lime_wool":load_texture("assets/minecraft/textures/block/lime_wool.png"),
+    "magenta_wool":load_texture("assets/minecraft/textures/block/magenta_wool.png"),
+    "orange_wool":load_texture("assets/minecraft/textures/block/orange_wool.png"),
+    "pink_wool":load_texture("assets/minecraft/textures/block/pink_wool.png"),
+    "purple_wool":load_texture("assets/minecraft/textures/block/purple_wool.png"),
+    "red_wool":load_texture("assets/minecraft/textures/block/red_wool.png"),
+    "yellow_wool":load_texture("assets/minecraft/textures/block/yellow_wool.png"),
+    "oak_leaves":load_texture("assets/minecraft/textures/block/oak_leaves.png"),
+    "glass_block":load_texture("assets/minecraft/textures/block/glass.png"),
+    "smooth_stone":load_texture("assets/minecraft/textures/block/smooth_stone.png"),
+    "gold_block":load_texture("assets/minecraft/textures/block/gold_block.png"),
+    "diamond_block":load_texture("assets/minecraft/textures/block/diamond_block.png"),
+    "lapis_block":load_texture("assets/minecraft/textures/block/lapis_block.png"),
+    "iron_block":load_texture("assets/minecraft/textures/block/iron_block.png"),
+    "bricks":load_texture("assets/minecraft/textures/block/bricks.png"),
+    "deepslate_bricks":load_texture("assets/minecraft/textures/block/deepslate_bricks.png"),
+    "polished_deepslate":load_texture("assets/minecraft/textures/block/polished_deepslate.png")
+}
 
 ITEM_TEXTUE_MAP={
 	"bedrock":"bedrock",
@@ -126,7 +166,7 @@ def render_items_for_hotbar():
 		glLoadIdentity()
 		glDisable(GL_DEPTH_TEST)
 		glEnable(GL_TEXTURE_2D)
-		glBindTexture(GL_TEXTURE_2D, block.TEXTURE_MAP[tex_name])
+		glBindTexture(GL_TEXTURE_2D, TEXTURE_MAP[tex_name])
 		glColor3f(1,1,1)
 		uv=[(0,1),(1,1),(1,0),(0,0)]
 		glBegin(GL_QUADS)
@@ -164,7 +204,7 @@ def render_items_for_container():
 			glLoadIdentity()
 			glDisable(GL_DEPTH_TEST)
 			glEnable(GL_TEXTURE_2D)
-			glBindTexture(GL_TEXTURE_2D, block.TEXTURE_MAP[str(texture)])
+			glBindTexture(GL_TEXTURE_2D, TEXTURE_MAP[str(texture)])
 			uv = [(0, 1), (1, 1), (1, 0), (0, 0)]
 			orig_w = 62
 			orig_h = 58
