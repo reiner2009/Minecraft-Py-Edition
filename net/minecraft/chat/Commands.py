@@ -29,25 +29,25 @@ def string_to_position(string, entity):
 	world_x, world_y, world_z=entity.get_entity_position()
 	if string.split()[1].startswith("~"):
 		try:
-			x=round(world_x+int(string.split()[1][1:]))
+			x=round(world_x+float(string.split()[1][1:]))
 		except:
 			x=round(world_x)
 	else:
-		x=int(string.split()[1])
+		x=float(string.split()[1])
 	if string.split()[2].startswith("~"):
 		try:
-			y=round(world_y+int(string.split()[2][1:]))
+			y=round(world_y+float(string.split()[2][1:]))
 		except:
 			y=round(world_y)
 	else:
-		y=int(string.split()[2])
+		y=float(string.split()[2])
 	if string.split()[3].startswith("~"):
 		try:
-			z=round(world_z+int(string.split()[3][1:]))
+			z=round(world_z+float(string.split()[3][1:]))
 		except:
 			z=round(world_z)
 	else:
-		z=int(string.split()[3])
+		z=float(string.split()[3])
 	return x,y,z
 	
 def string_to_position_for_fill(string, entity):
@@ -55,46 +55,46 @@ def string_to_position_for_fill(string, entity):
 	world_x, world_y, world_z=entity.get_entity_position()
 	if string.split()[1].startswith("~"):
 		try:
-			x=round(world_x+int(string.split()[1][1:]))
+			x=round(world_x+float(string.split()[1][1:]))
 		except:
 			x=round(world_x)
 	else:
-		x=int(string.split()[1])
+		x=float(string.split()[1])
 	if string.split()[2].startswith("~"):
 		try:
-			y=round(world_y+int(string.split()[2][1:]))
+			y=round(world_y+float(string.split()[2][1:]))
 		except:
 			y=round(world_y)
 	else:
-		y=int(string.split()[2])
+		y=float(string.split()[2])
 	if string.split()[3].startswith("~"):
 		try:
-			z=round(world_z+int(string.split()[3][1:]))
+			z=round(world_z+float(string.split()[3][1:]))
 		except:
 			z=round(world_z)
 	else:
-		z=int(string.split()[3])
+		z=float(string.split()[3])
 	if string.split()[4].startswith("~"):
 		try:
-			x1=round(world_x+int(string.split()[4][1:]))
+			x1=round(world_x+float(string.split()[4][1:]))
 		except:
 			x1=round(world_x)
 	else:
-			x1=int(string.split()[4])
+			x1=float(string.split()[4])
 	if string.split()[5].startswith("~"):
 		try:
-			y1=round(world_y+int(string.split()[5][1:]))
+			y1=round(world_y+float(string.split()[5][1:]))
 		except:
 			y1=round(world_y)
 	else:
-		y1=int(string.split()[5])
+		y1=float(string.split()[5])
 	if string.split()[6].startswith("~"):
 		try:
-			z1=round(world_z+int(string.split()[6][1:]))
+			z1=round(world_z+float(string.split()[6][1:]))
 		except:
 			z1=round(world_z)
 	else:
-		z1=int(string.split()[6])
+		z1=float(string.split()[6])
 	return x,y,z,x1,y1,z1
 
 def teleport(x,y,z, entity):
@@ -189,9 +189,9 @@ def assume_command(string, entity, chunklist):
 		elif string.split()[0]=="/reset_world":
 			chunk.create_new_world()
 			rebuild_chunks(chunklist)
-			show_text("Reset world successfully", [255, 255, 255, 255])
+			show_text("World successfully reset ", [255, 255, 255, 255])
 			logger.set_environment("Main")
-			logger.info("[COMMAND] Reset world successfully")
+			logger.info("[COMMAND] World successfully reset")
 		elif string.split()[0]=="/summon":
 			x,y,z=string_to_position(string, entity)
 			entityName=string.split()[4]
@@ -207,8 +207,10 @@ def assume_command(string, entity, chunklist):
 				entity.setSkin("assets/minecraft/textures/entity/player/steve.png")
 			entity.set_thirt_person_perspective()
 			EntityList.entities.append(entity)
+			logger.info(f"[COMMAND] Added {entityName} successfully at {string_to_position(string, entity)}")
+			show_text(f"Added {entityName} successfully at {string_to_position(string, entity)}", [255, 255, 255, 255])
 		elif string.split()[0]=="/time":
-			t=int(string.split()[1])
+			t=float(string.split()[1])
 			set_tick(t)
 		else:
 			show_text("Unknown or incomplete command: "+string, [255,85,85,255])

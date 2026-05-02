@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ChangeListManager">
+    <list default="true" id="84e547ab-f90c-4988-ba87-3386de936751" name="Changes" comment="Minecraft-Py-Edition">
+      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/net/minecraft/chat/Commands.py" beforeDir="false" afterPath="$PROJECT_DIR$/net/minecraft/chat/Commands.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/net/minecraft/client/Main.py" beforeDir="false" afterPath="$PROJECT_DIR$/net/minecraft/client/Main.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/net/minecraft/client/render/world/block/BlockRenderer.py" beforeDir="false" afterPath="$PROJECT_DIR$/net/minecraft/client/render/world/block/BlockRenderer.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/net/minecraft/world/block/__init__.py" beforeDir="false" afterPath="$PROJECT_DIR$/net/minecraft/client/render/world/item/__init__.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/net/minecraft/world/chunk/Chunk.py" beforeDir="false" afterPath="$PROJECT_DIR$/net/minecraft/world/chunk/Chunk.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/net/minecraft/world/item/Item.py" beforeDir="false" afterPath="$PROJECT_DIR$/net/minecraft/client/render/world/item/Item.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/net/minecraft/world/item/__init__.py" beforeDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="GitHubPullRequestSearchHistory">{
+  &quot;lastFilter&quot;: {
+    &quot;state&quot;: &quot;OPEN&quot;,
+    &quot;assignee&quot;: &quot;reiner2009&quot;
+  }
+}</component>
+  <component name="GithubPullRequestsUISettings">{
+  &quot;selectedUrlAndAccountId&quot;: {
+    &quot;url&quot;: &quot;https://github.com/reiner2009/Minecraft-Py-Edition.git&quot;,
+    &quot;accountId&quot;: &quot;b0401b13-d7e1-4d7d-964b-eb581c537a0e&quot;
+  }
+}</component>
+  <component name="ProjectColorInfo">{
+  &quot;customColor&quot;: &quot;&quot;,
+  &quot;associatedIndex&quot;: 2
+}</component>
+  <component name="ProjectId" id="3DASyIoYOTFeKMvQtPveatGMn4q" />
+  <component name="ProjectViewState">
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;ModuleVcsDetector.initialDetectionPerformed&quot;: &quot;true&quot;,
+    &quot;Python.Minecraft Client.executor&quot;: &quot;Run&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.git.unshallow&quot;: &quot;true&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;main&quot;
+  }
+}</component>
+  <component name="RecentsManager">
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/net/minecraft/client/render/world" />
+    </key>
+  </component>
+  <component name="RunManager">
+    <configuration name="Minecraft Client" type="PythonConfigurationType" factoryName="Python">
+      <module name="Minecraft" />
+      <option name="ENV_FILES" value="" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="SDK_NAME" value="Python 3.12" />
+      <option name="WORKING_DIRECTORY" value="" />
+      <option name="IS_MODULE_SDK" value="false" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <option name="RUN_TOOL" value="" />
+      <option name="SCRIPT_NAME" value="net.minecraft.client.Main" />
+      <option name="PARAMETERS" value="--username reiner2009 --online-skin Trump" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="true" />
+      <option name="REDIRECT_INPUT" value="false" />
+      <option name="INPUT_FILE" value="" />
+      <method v="2" />
+    </configuration>
+  </component>
+  <component name="SharedIndexes">
+    <attachedChunks>
+      <set>
+        <option value="bundled-python-sdk-2653e85de345-6d6dccd035ac-com.jetbrains.pycharm.pro.sharedIndexes.bundled-PY-253.31033.139" />
+      </set>
+    </attachedChunks>
+  </component>
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="84e547ab-f90c-4988-ba87-3386de936751" name="Changes" comment="" />
+      <created>1777723634824</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1777723634824</updated>
+    </task>
+    <task id="LOCAL-00001" summary="Minecraft-Py-Edition">
+      <option name="closed" value="true" />
+      <created>1777723712322</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1777723712322</updated>
+    </task>
+    <option name="localTasksCounter" value="2" />
+    <servers />
+  </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="Minecraft-Py-Edition" />
+    <option name="LAST_COMMIT_MESSAGE" value="Minecraft-Py-Edition" />
+  </component>
+</project>

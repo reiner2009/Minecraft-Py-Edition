@@ -38,12 +38,13 @@ def create_random_chunk(_x_=0, _z_=0, seed=0):
 		for pos, block in tree.items():
 			c[(round(pos[0]+i[0]),round(pos[1]+i[1]),round(pos[2]+i[2]))]=block
 	for player in entities:
-		player.spawn(25,pnoise2(25 * 0.05, 25 * 0.05, base=seed)*10+7, 25)
+		player.spawn(25,round(pnoise2(25 * 0.05, 25 * 0.05, base=seed)*10+7), 25)
 	return c
 
 def build_chunk_display_list():
 	dl = glGenLists(1)
 	glNewList(dl, GL_COMPILE)
+	glBindTexture(GL_TEXTURE_2D, block_atlas)
 	build_chunk()
 	pygame.mouse.set_cursor(SYSTEM_CURSOR_ARROW)
 	glEndList()

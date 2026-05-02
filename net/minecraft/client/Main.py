@@ -1,5 +1,4 @@
 print("Starting net.minecraft.client.Main")
-import net.minecraft.world.item.Item as item
 import net.minecraft.util.math.Raycast as Raycast
 import net.minecraft.util.math.ThirtPersonPerspective as ThirtPersonPerspective
 import net.minecraft.resources.Config as config
@@ -10,6 +9,8 @@ from net.minecraft.entity.player.PlayerEntity import PlayerEntity
 from net.minecraft.util.gui.Widgets import*
 from net.minecraft.sounds.Sounds import*
 from net.minecraft.world.level.Level import setEnv
+import net.minecraft.client.render.world.item.Item as Item
+import net.minecraft.world.chunk.Chunk as Chunk
 import sys
 import math
 import random
@@ -154,8 +155,8 @@ def place_block_by_player():
 	try:
 		if Raycast.get_neighbour_block(X, Y, Z):
 			player.swing("right")
-			set_block(X, Y, Z, item.selected_item[hotbar_slot_selected - 1])
-			play_dig_sound(sound_categorys_dig[item.selected_item[hotbar_slot_selected - 1]], block_sound_volume)
+			set_block(X, Y, Z, Item.selected_item[hotbar_slot_selected - 1])
+			play_dig_sound(sound_categorys_dig[Item.selected_item[hotbar_slot_selected - 1]], block_sound_volume)
 			rebuild_chunks()
 	except Exception as e:
 		logger.warning("place_block_by_player failed: " + str(e))
@@ -163,14 +164,18 @@ def place_block_by_player():
 def get_block_by_player():
 	global hotbar_slot_selected
 	*_,X,Y,Z=Raycast.get_pos(player)
-	try:
-		if get_block(X, Y, Z) != "air":
-			if get_block(X,Y,Z) in item.selected_item:
-				hotbar_slot_selected=item.selected_item.index(get_block(X,Y,Z))+1
-			else:
-				item.add_item(item.ITEM_TEXTUE_MAP[get_block(X, Y, Z)],get_block(X, Y, Z) , hotbar_slot_selected-1)
-	except Exception as e:
-		logger.warning("get_block_by_player failed: " + str(e))
+	if get_block(X, Y, Z) != "air":
+		if get_block(X,Y,Z) in Item.selected_item:
+			hotbar_slot_selected= Item.selected_item.index(get_block(X, Y, Z)) + 1
+		else:
+			try:
+				Item.add_item(get_block(X, Y, Z), get_block(X, Y, Z), hotbar_slot_selected - 1)
+			except:
+				try:
+					Item.add_item(Item.texture_map[get_block(X, Y, Z)], get_block(X, Y, Z), hotbar_slot_selected - 1)
+				except Exception as e:
+					logger.error("get_block_by_player failed: " + str(e))
+
 
 
 def break_block_by_player():
@@ -197,7 +202,7 @@ def render_hud():
 		hud.render_hotbar_selection(hotbar_slot_selected)
 		if chat==False:
 			render_temporary_texts()
-		item.render_items_for_hotbar()
+		Item.render_items_for_hotbar()
 	if debug_charts and hud_==True:
 		world_x, world_y, world_z=player.get_entity_position()
 		yaw, pitch = player.get_entity_facing()
@@ -209,7 +214,7 @@ def render_hud():
 	if container==True:
 		pygame.mouse.set_cursor(SYSTEM_CURSOR_ARROW)
 		hud.render_tab_items()
-		item.render_items_for_container()
+		Item.render_items_for_container()
 
 def draw_scene():
 	if pause_menu==False:
@@ -231,7 +236,7 @@ def draw_scene():
 			draw_block_preview(x, y, z)
 	setup_ortho()
 	render_hud()
-	player.setMainhandItem(item.selected_item[hotbar_slot_selected - 1])
+	player.setMainhandItem(Item.selected_item[hotbar_slot_selected - 1])
     
 def apply_camera():
 	global camera_x, camera_y, camera_z
@@ -578,7 +583,7 @@ try:
 				take_screenshot()
 		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT)
 		pygame.display.set_caption("Minecraft")
-		item.set_vars(events, hotbar_slot_selected)
+		Item.set_vars(events, hotbar_slot_selected)
 		if game_state==state_menu:
 			render_menu(events)
 		elif game_state==state_settings:
@@ -592,4 +597,5 @@ except Exception:
 	logger.set_environment("Main")
 	logger.error(crash)
 	save_level()
-	save_world()
+	if Chunk.chunk!={}:
+		save_world()

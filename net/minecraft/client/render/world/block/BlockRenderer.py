@@ -106,7 +106,6 @@ chunk = {}
 def draw_block(vertices, surfaces, UVs, x, y, z):
     neighbors = [(0,-1,0), (0,1,0), (0,0,-1), (1,0,0), (0,0,1), (-1,0,0)]
     glEnable(GL_TEXTURE_2D)
-    glBindTexture(GL_TEXTURE_2D, block_atlas)
     for i in range(6):
         dx, dy, dz = neighbors[i]
         neighbor=get_block(x+dx,y+dy,z+dz)
