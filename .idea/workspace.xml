@@ -2,14 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="84e547ab-f90c-4988-ba87-3386de936751" name="Changes" comment="Minecraft-Py-Edition">
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/net/minecraft/chat/Commands.py" beforeDir="false" afterPath="$PROJECT_DIR$/net/minecraft/chat/Commands.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/net/minecraft/client/Main.py" beforeDir="false" afterPath="$PROJECT_DIR$/net/minecraft/client/Main.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/net/minecraft/client/render/world/block/BlockRenderer.py" beforeDir="false" afterPath="$PROJECT_DIR$/net/minecraft/client/render/world/block/BlockRenderer.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/net/minecraft/world/block/__init__.py" beforeDir="false" afterPath="$PROJECT_DIR$/net/minecraft/client/render/world/item/__init__.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/net/minecraft/world/chunk/Chunk.py" beforeDir="false" afterPath="$PROJECT_DIR$/net/minecraft/world/chunk/Chunk.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/net/minecraft/world/item/Item.py" beforeDir="false" afterPath="$PROJECT_DIR$/net/minecraft/client/render/world/item/Item.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/net/minecraft/world/item/__init__.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -102,7 +95,15 @@
       <option name="project" value="LOCAL" />
       <updated>1777723712322</updated>
     </task>
-    <option name="localTasksCounter" value="2" />
+    <task id="LOCAL-00002" summary="Minecraft-Py-Edition">
+      <option name="closed" value="true" />
+      <created>1777729826777</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1777729826777</updated>
+    </task>
+    <option name="localTasksCounter" value="3" />
     <servers />
   </component>
   <component name="VcsManagerConfiguration">
