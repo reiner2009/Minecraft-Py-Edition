@@ -12,7 +12,7 @@ def set_tick(t_, s1, s2, l):
 
 
 
-def tick(speed=0.001):
+def tick(speed=0.1):
     global t, light, sunriseblend, sunsetblend
     t += speed
     if t >= 360:

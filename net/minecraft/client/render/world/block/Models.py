@@ -9,7 +9,6 @@ def load_model(name):
 	try:
 		with open(f"assets/minecraft/models/block/{name}.json", "r") as f:
 			models.append(json.load(f))
-		logger.info(f"Loaded model assets/minecraft/models/block/{name}.json")
 	except:
 		logger.error(f"Failed to load model assets/minecraft/models/block/{name}.json")
 		models.append({"textures":["error","error","error","error","error","error"]})

@@ -23,7 +23,6 @@ def load_texture(path, isSkin=False):
             GL_UNSIGNED_BYTE,
             data
         )
-        logger.info("Loaded texture " + path)
         if isSkin:
             return tex_id, width, height
         else:
