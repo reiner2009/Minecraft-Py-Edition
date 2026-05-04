@@ -105,8 +105,11 @@ setEnv("client")
 
 menu_background_texture=load_texture("assets/minecraft/textures/gui/title/background/menu.png")
 
-client=socket.socket(socket.AF_INET,socket.SOCK_STREAM)
-client.connect(('localhost',5555))
+try:
+	client=socket.socket(socket.AF_INET,socket.SOCK_STREAM)
+	client.connect(('192.168.178.67',5555))
+except Exception as e:
+	logger.error("Could not connect to Minecraft server: "+str(e))
 
 def receive():
 	while True:
@@ -571,7 +574,10 @@ def running_world(events):
 						else:
 							logger.set_environment("Main")
 							logger.info("[CHAT] <" + str(Playername.playername) + "> " + chat_text)
-							client.send(("<" + str(Playername.playername) + "> " + chat_text).encode())
+							try:
+								client.send(("<" + str(Playername.playername) + "> " + chat_text).encode())
+							except:
+								show_text("<" + str(Playername.playername) + "> " + chat_text, [255,255,255,255])
 					chat_text=""
 					chat=False
 				elif event.key==K_ESCAPE:

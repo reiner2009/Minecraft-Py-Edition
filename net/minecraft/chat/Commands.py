@@ -5,8 +5,11 @@ import net.minecraft.entity.player.Playername as Playername
 import net.minecraft.entity.Entities as Entities
 import net.minecraft.world.EntityList as EntityList
 from net.minecraft.chat.Chat import *
+import traceback
 
 def irange(o,t):
+	t=int(t)
+	o=int(o)
 	t=t-1
 	if t < o:
 		for i in range(o, t, -1):
@@ -161,7 +164,7 @@ def assume_command(string, entity, chunklist):
 	except Exception as e:
 		show_text("Unknown or incomplete command: "+string, [255,85,85,255])
 		logger.set_environment("Main")
-		logger.info("[COMMAND] Unknown or incomplete command: "+string+" | Error: "+str(e))
+		logger.info("[COMMAND] Unknown or incomplete command: "+string+" | Error: "+str(traceback.format_exc()))
 		logger.set_environment("Client")
 
 def rebuild_chunks(chunklist):

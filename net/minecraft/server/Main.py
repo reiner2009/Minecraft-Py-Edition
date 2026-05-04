@@ -1,9 +1,8 @@
 import socket
-import sys
 import threading
 
 server=socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-server.bind(('localhost', 5555))
+server.bind(('0.0.0.0', 5555))
 server.listen()
 
 clients=[]
@@ -12,7 +11,8 @@ def handle_client(conn):
     while True:
         try:
             msg = conn.recv(1024).decode()
-            print("Message received:",msg)
+            if msg:
+                print("Message received:",msg)
             for c in clients:
                 c.send(msg.encode())
         except:
