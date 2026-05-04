@@ -1,5 +1,8 @@
 import socket
 import threading
+import net.minecraft.world.level.Level as Level
+
+Level.setEnv("server")
 
 server=socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 server.bind(('0.0.0.0', 5555))
