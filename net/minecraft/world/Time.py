@@ -10,9 +10,18 @@ def set_tick(t_, s1, s2, l):
     sunriseblend=s1
     sunsetblend=s2
 
+def get_sun__blend():
+    global sunriseblend, sunsetblend
+    if t>=150 and t<=170:
+        sunsetblend=(t-150)/20
+    elif t>=190 and t<=210:
+        sunsetblend=1-((t-190)/20)
+    elif t>=330 and t<=350:
+        sunriseblend=(t-330)/20
+    elif t>=10 and t<=30:
+        sunriseblend=1-((t-10)/20)
 
-
-def tick(speed=0.1):
+def tick(speed=0.01):
     global t, light, sunriseblend, sunsetblend
     t += speed
     if t >= 360:
@@ -21,17 +30,8 @@ def tick(speed=0.1):
         light += speed / 25
     if 170 < t < 210 and light > 0.1:
         light -= speed / 25
-    if 170 <= t < 190 and sunsetblend < 1:
-        sunsetblend += speed
-    elif 190 <= t < 210 and sunsetblend > 0:
-        sunsetblend -= speed
-    if t >= 350 or t < 10 and sunriseblend < 1:
-        sunriseblend += speed
-    elif 10 <= t < 30 and sunriseblend > 0:
-        sunriseblend -= speed
     light = max(0.1, min(1, light))
-    sunsetblend = max(0, min(1, sunsetblend))
-    sunriseblend = max(0, min(1, sunriseblend))
+    get_sun__blend()
 
 
 def get_light():

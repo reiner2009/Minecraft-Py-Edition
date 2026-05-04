@@ -2,8 +2,8 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="84e547ab-f90c-4988-ba87-3386de936751" name="Changes" comment="Minecraft-Py-Edition">
-      <change beforePath="$PROJECT_DIR$/net/minecraft/client/render/world/block/Models.py" beforeDir="false" afterPath="$PROJECT_DIR$/net/minecraft/client/render/world/block/Models.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/net/minecraft/textures/Textures.py" beforeDir="false" afterPath="$PROJECT_DIR$/net/minecraft/textures/Textures.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/net/minecraft/client/render/world/SkyRenderer.py" beforeDir="false" afterPath="$PROJECT_DIR$/net/minecraft/client/render/world/SkyRenderer.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/net/minecraft/world/Time.py" beforeDir="false" afterPath="$PROJECT_DIR$/net/minecraft/world/Time.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -65,7 +65,7 @@
       <option name="ADD_SOURCE_ROOTS" value="true" />
       <option name="RUN_TOOL" value="" />
       <option name="SCRIPT_NAME" value="net.minecraft.client.Main" />
-      <option name="PARAMETERS" value="--username reiner2009 --online-skin Trump" />
+      <option name="PARAMETERS" value="" />
       <option name="SHOW_COMMAND_LINE" value="false" />
       <option name="EMULATE_TERMINAL" value="false" />
       <option name="MODULE_MODE" value="true" />
@@ -113,7 +113,15 @@
       <option name="project" value="LOCAL" />
       <updated>1777747128105</updated>
     </task>
-    <option name="localTasksCounter" value="4" />
+    <task id="LOCAL-00004" summary="Minecraft-Py-Edition">
+      <option name="closed" value="true" />
+      <created>1777789481468</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1777789481468</updated>
+    </task>
+    <option name="localTasksCounter" value="5" />
     <servers />
   </component>
   <component name="VcsManagerConfiguration">

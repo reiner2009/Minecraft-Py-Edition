@@ -58,7 +58,7 @@ def render(x, y, z, light, sunriseblend, sunsetblend, t):
     tex_coords=[(0,0),(1,0),(1,1),(0,1)]
     glEnable(GL_BLEND)
     glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA)
-    glColor4f(light, light, light, 0.999)
+    glColor4f(light, light, light, 1)
     for i in range(6):
         texture = textures[i] if i < len(textures) else textures[0]
         glBindTexture(GL_TEXTURE_2D, texture)
