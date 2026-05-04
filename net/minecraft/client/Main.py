@@ -9,6 +9,7 @@ from net.minecraft.entity.player.PlayerEntity import PlayerEntity
 from net.minecraft.util.gui.Widgets import*
 from net.minecraft.sounds.Sounds import*
 from net.minecraft.world.level.Level import setEnv
+from net.minecraft.chat.Chat import show_text
 import net.minecraft.client.render.world.item.Item as Item
 import net.minecraft.world.chunk.Chunk as Chunk
 import sys
@@ -18,6 +19,8 @@ import traceback
 import time
 import argparse
 import requests
+import threading
+import socket
 
 parser = argparse.ArgumentParser(description="Minecraft Launcher Script")
 parser.add_argument("--username", type=str, help="username")
@@ -101,6 +104,18 @@ camera_x, camera_y, camera_z=0,0,0
 setEnv("client")
 
 menu_background_texture=load_texture("assets/minecraft/textures/gui/title/background/menu.png")
+
+client=socket.socket(socket.AF_INET,socket.SOCK_STREAM)
+client.connect(('localhost',5555))
+
+def receive():
+	while True:
+		if game_state==state_game:
+			try:
+				msg=client.recv(1024).decode()
+				show_text(msg, [255,255,255,255])
+			except:
+				break
 
 def save_level():
 	world_x, world_y, world_z=player.get_entity_position()
@@ -554,9 +569,9 @@ def running_world(events):
 						if chat_text.startswith("/"):
 							assume_command(chat_text, player, chunklist)
 						else:
-							show_text("<" + str(Playername.playername) + "> " + chat_text, [255, 255, 255, 255])
 							logger.set_environment("Main")
 							logger.info("[CHAT] <" + str(Playername.playername) + "> " + chat_text)
+							client.send(("<" + str(Playername.playername) + "> " + chat_text).encode())
 					chat_text=""
 					chat=False
 				elif event.key==K_ESCAPE:
@@ -571,6 +586,7 @@ def running_world(events):
 					chat_text=chat_text+event.unicode
 
 try:
+	thread = threading.Thread(target=receive, daemon=True).start()
 	while running_app:
 		if chat==False:
 			events=pygame.event.get()
