@@ -4,12 +4,13 @@ import net.minecraft.util.gui.Hud as hud
 import net.minecraft.text.Text as text
 import pickle
 import net.minecraft.resources.DataLocation as DataLocation
-from noise import pnoise2
+from opensimplex import OpenSimplex
 import random
 
 dark_menu_texture=load_texture("assets/minecraft/textures/gui/title/background/dark_menu.png")
 
 def create_random_chunk(_x_=0, _z_=0, seed=0):
+	noise=OpenSimplex(seed=seed)
 	c={}
 	tree_map = []
 	for x in range(50):
@@ -19,7 +20,7 @@ def create_random_chunk(_x_=0, _z_=0, seed=0):
 		for z_ in range(50):
 			x=x_+_x_*16
 			z=z_+_z_*16
-			value=pnoise2(x * 0.05, z * 0.05, base=seed)*10+6
+			value=noise.noise2(x * 0.05, z * 0.05)*10+6
 			ay=round(value)
 			for y in range(ay):
 				if (x,y,z) not in c:
@@ -31,14 +32,14 @@ def create_random_chunk(_x_=0, _z_=0, seed=0):
 		for z in range(50):
 			tree_wight=random.randint(0,100)
 			if tree_wight<1:
-				tree_map.append((x,pnoise2(x * 0.05, z * 0.05, base=seed)*10+6, z))
+				tree_map.append((x,noise.noise2(x * 0.05, z * 0.05)*10+6, z))
 	with open("data/minecraft/worldgen/feature/tree.dat", "rb") as f:
 		tree=pickle.load(f)
 	for i in tree_map:
 		for pos, block in tree.items():
 			c[(round(pos[0]+i[0]),round(pos[1]+i[1]),round(pos[2]+i[2]))]=block
 	for player in entities:
-		player.spawn(25,round(pnoise2(25 * 0.05, 25 * 0.05, base=seed)*10+7), 25)
+		player.spawn(25,round(noise.noise2(25 * 0.05, 25 * 0.05)*10+7), 25)
 	return c
 
 def build_chunk_display_list():

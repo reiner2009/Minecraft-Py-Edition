@@ -4,5 +4,5 @@ pygame
 jproperties
 colorama
 numpy
-noise
+opensimplex
 requests
