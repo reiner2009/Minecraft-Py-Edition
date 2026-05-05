@@ -77,7 +77,7 @@ def slider(x1, y1, x2, y2, highlighted, handle_x, button_text):
 	button_y=(button_height-text_height)/2+y1
 	Text.render_text(button_text, button_x + 5, button_y, text_height, text_height, [255, 255, 255, 255])
 
-def text_field(x1, y1, x2, y2, button_text):
+def text_field(x1, y1, x2, y2, button_text, highlighted):
 	glMatrixMode(GL_MODELVIEW)
 	glLoadIdentity()
 	glDisable(GL_DEPTH_TEST)
@@ -95,10 +95,9 @@ def text_field(x1, y1, x2, y2, button_text):
 	glTexCoord2fv(uv[3])
 	glVertex2f(x1,y2)
 	glEnd()
-	button_width=((x2-x1)/len(button_text))
 	button_height=(y2-y1)
-	text_width=button_width*40/100
+	text_width=10
 	text_height=button_height*40/100
-	button_x=(button_width-text_width)/2+x1
+	button_x=text_width/2+x1
 	button_y=(button_height-text_height)/2+y1
-	Text.render_text(button_text, button_x + 5, button_y, text_height, text_height, [255, 255, 255, 255])
+	Text.render_text(button_text, button_x + 5, button_y, text_height, text_height, [255, 255, 255, 255], highlighted)

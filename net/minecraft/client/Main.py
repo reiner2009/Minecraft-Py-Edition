@@ -106,11 +106,12 @@ temporary_errors=[]
 server_connection_thread=None
 client=None
 sock=None
+server_addr="192.168.178.35"
 
 menu_background_texture=load_texture("assets/minecraft/textures/gui/title/background/menu.png")
 
 def receive():
-	global game_state
+	global game_state, mouse_grab
 	buffer = ""
 	try:
 		while True:
@@ -118,6 +119,7 @@ def receive():
 				data = sock.recv(1024)
 				if not data:
 					game_state = state_menu
+					mouse_grab=False
 					break
 				buffer += data.decode()
 				while "\n" in buffer:
@@ -400,7 +402,7 @@ def render_settings(events):
 	slider(x1, y9, x2, y10, highlight3, block_sound_volume, display_block_sound_volume)
 
 def render_multiplayer_menu(events):
-	global game_state, mouse_grab, server_connection_thread, client
+	global game_state, mouse_grab, server_connection_thread, client, server_addr
 	setup_ortho()
 	hud.render_wallpaper(dark_menu_texture)
 	x, y = pygame.mouse.get_pos()
@@ -432,7 +434,7 @@ def render_multiplayer_menu(events):
 				stop_music()
 				button_click_sound.play()
 				try:
-					start_client("192.168.178.35")
+					start_client(server_addr)
 					game_state = state_game
 				except Exception as e:
 					show_error("Could not connect to Minecraft server: " + str(e), [168, 0, 0, 255])
@@ -440,9 +442,15 @@ def render_multiplayer_menu(events):
 				mouse_grab=True
 	else:
 		pygame.mouse.set_cursor(SYSTEM_CURSOR_ARROW)
+		for event in events:
+			if event.type == KEYDOWN:
+				if event.key==K_BACKSPACE:
+					server_addr=server_addr[:-1]
+				else:
+					server_addr = server_addr + event.unicode
 	button(x1, y1, x2, y2, "Back", highlight0)
 	button(x1, y3, x2, y4, "Connect", highlight1)
-	text_field(x1, y5, x2, y6, "192.168.178.35")
+	text_field(x1, y5, x2, y6, server_addr, True)
 
 def render_menu(events):
 	global settings, game_state, mouse_grab
