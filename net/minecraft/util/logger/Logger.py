@@ -1,6 +1,7 @@
 import time
 import os
 from colorama import init, Fore, Style
+import net.minecraft.world.level.Level as Level
 import net.minecraft.resources.DataLocation as DataLocation
 
 init(autoreset=True)
@@ -8,7 +9,10 @@ log = ""
 environment = "Main"
 programname = "Minecraft"
 base_path = os.path.join(os.environ[DataLocation.get_save_system()], ".minecraft-py")
-log_path = os.path.join(base_path, "log")
+if Level.isClient:
+    log_path = os.path.join(base_path, "log/client")
+else:
+    log_path = os.path.join(base_path, "log/server")
 os.makedirs(log_path, exist_ok=True)
 full_path = os.path.join(log_path, "latest.log")
 

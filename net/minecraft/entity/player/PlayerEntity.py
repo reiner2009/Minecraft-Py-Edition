@@ -1,7 +1,7 @@
-from net.minecraft.client.render.entity.PlayerEntityModel import render_body_layer, render_arms, cos, sin
 import net.minecraft.world.level.Level as Level
-from net.minecraft.textures.Textures import load_texture
-
+if Level.isClient:
+    from net.minecraft.client.render.entity.PlayerEntityModel import render_body_layer, render_arms, cos, sin
+    from net.minecraft.textures.Textures import load_texture
 
 class PlayerEntity:
     def __init__(self, name_tag_is_visible=True):
@@ -23,7 +23,8 @@ class PlayerEntity:
         self.right_arm_pitch_direction=0
         self.left_arm_pitch_direction=0
         self.mainhand_item=None
-        self.skin, self.w, self.h = load_texture("assets/minecraft/textures/entity/player/steve.png", True)
+        if Level.isClient:
+            self.skin, self.w, self.h = load_texture("assets/minecraft/textures/entity/player/steve.png", True)
     def spawn(self, x, y, z, yaw=90, pitch=0):
         self.x = x
         self.y = y

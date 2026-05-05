@@ -46,6 +46,7 @@ def show_text(msg, color, lifetime=10000):
 		})
 	if len(temporary_texts)>10:
 		temporary_texts.pop()
+
 def render_temporary_texts():
 	current_time=pygame.time.get_ticks()
 	hud.render_chat_background(98,len(temporary_texts)*24)
