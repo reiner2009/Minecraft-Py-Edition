@@ -106,7 +106,7 @@ temporary_errors=[]
 server_connection_thread=None
 client=None
 sock=None
-server_addr="192.168.178.35"
+server_addr=""
 
 menu_background_texture=load_texture("assets/minecraft/textures/gui/title/background/menu.png")
 
@@ -442,12 +442,12 @@ def render_multiplayer_menu(events):
 				mouse_grab=True
 	else:
 		pygame.mouse.set_cursor(SYSTEM_CURSOR_ARROW)
-		for event in events:
-			if event.type == KEYDOWN:
-				if event.key==K_BACKSPACE:
-					server_addr=server_addr[:-1]
-				else:
-					server_addr = server_addr + event.unicode
+	for event in events:
+		if event.type == KEYDOWN:
+			if event.key==K_BACKSPACE:
+				server_addr=server_addr[:-1]
+			else:
+				server_addr = server_addr + event.unicode
 	button(x1, y1, x2, y2, "Back", highlight0)
 	button(x1, y3, x2, y4, "Connect", highlight1)
 	text_field(x1, y5, x2, y6, server_addr, True)
