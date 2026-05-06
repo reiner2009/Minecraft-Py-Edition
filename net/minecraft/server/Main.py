@@ -10,7 +10,8 @@ logger.set_environment("Server thread")
 
 clients = {}
 lock = threading.Lock()
-
+running=True
+server=None
 
 def broadcast(msg, exclude=None):
     dead_clients = []
@@ -18,11 +19,8 @@ def broadcast(msg, exclude=None):
         if client == exclude:
             continue
         try:
-            if msg.endswith("/leave"):
-                disconnect_client(client)
-            else:
-                client.sendall((msg + "\n").encode())
-                logger.info(str(msg))
+            client.sendall((msg + "\n").encode())
+            logger.info(str(msg))
         except:
             dead_clients.append(client)
     for c in dead_clients:
@@ -49,7 +47,7 @@ def handle_client(client):
         with lock:
             clients[client] = name
         broadcast(f"{name} joined the game")
-        while True:
+        while running:
             data = client.recv(1024)
             if not data:
                 break
@@ -57,19 +55,39 @@ def handle_client(client):
             while "\n" in buffer:
                 line, buffer = buffer.split("\n", 1)
                 msg = line.strip()
-                broadcast(msg)
+                if msg.endswith("/leave"):
+                    disconnect_client(client)
+                else:
+                    broadcast(msg)
     except:
         pass
     finally:
         disconnect_client(client)
 
+def handle_commands():
+    global running, server
+    while running:
+        command = input()
+        if command.startswith("/kick"):
+            for c, n in list(clients.items()):
+                if n == command.split()[1]:
+                    disconnect_client(c)
+        elif command.startswith("/stop"):
+            print("Stopping server")
+            for client in list(clients.keys()):
+                client.close()
+                server.close()
+            running = False
+
 def start_server():
+    global server
     server = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
     server.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)
     server.bind((HOST, PORT))
     server.listen()
-    while True:
+    while running:
         client, addr = server.accept()
         threading.Thread(target=handle_client, args=(client,), daemon=True).start()
 
+threading.Thread(target=handle_commands, daemon=True).start()
 start_server()

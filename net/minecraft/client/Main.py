@@ -13,6 +13,7 @@ from net.minecraft.sounds.Sounds import*
 from net.minecraft.chat.Chat import show_text
 import net.minecraft.client.render.world.item.Item as Item
 import net.minecraft.world.chunk.Chunk as Chunk
+import net.minecraft.chat.Chat as Chat
 import sys
 import math
 import random
@@ -119,7 +120,8 @@ def receive():
 				data = sock.recv(1024)
 				if not data:
 					game_state = state_menu
-					mouse_grab=False
+					Chat.temporary_texts.clear()
+					Chat.texts.clear()
 					break
 				buffer += data.decode()
 				while "\n" in buffer:
@@ -395,7 +397,12 @@ def render_settings(events):
 			block_sound_volume=x-x1
 			block_sound_volume=max(0, min(489, block_sound_volume))
 	else:
-		pygame.mouse.set_cursor(SYSTEM_CURSOR_ARROW)
+		try:
+			pygame.mouse.set_cursor(SYSTEM_CURSOR_ARROW)
+		except:
+			pass
+	pygame.mouse.set_visible(True)
+	pygame.event.set_grab(False)
 	button(x1, y1, x2, y2, "Done", highlight0)
 	slider(x1, y5, x2, y6, highlight1, music_volume, display_music_volume)
 	slider(x1, y7, x2, y8, highlight2, ui_volume, display_ui_volume)
@@ -455,6 +462,9 @@ def render_multiplayer_menu(events):
 def render_menu(events):
 	global settings, game_state, mouse_grab
 	setup_ortho()
+	pygame.mouse.set_visible(True)
+	pygame.event.set_grab(False)
+	mouse_grab = False
 	pygame.mixer.music.set_volume((1/489)*music_volume)
 	hud.render_wallpaper(menu_background_texture)
 	hud.render_title_font()
