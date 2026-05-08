@@ -197,7 +197,7 @@ def place_block_by_player():
 		if Raycast.get_neighbour_block(X, Y, Z):
 			player.swing("right")
 			threading.Thread(target=set_block, args=(X, Y, Z, Item.selected_item[hotbar_slot_selected - 1]), daemon=True).start()
-			play_dig_sound(sound_categorys_dig[Item.selected_item[hotbar_slot_selected - 1]], block_sound_volume)
+			play_place_sound(block_place_sounds[Item.selected_item[hotbar_slot_selected - 1]], block_sound_volume)
 			rebuild_chunks()
 	except Exception as e:
 		logger.warning("place_block_by_player failed: " + str(e))
@@ -244,10 +244,10 @@ def break_block_by_player():
 	*_,X,Y,Z= Raycast.get_pos(player)
 	try:
 		if get_block(X, Y, Z)!="air":
-			if get_block(X, Y, Z)=="glass_block":
-				play_dig_sound(sound_categorys_dig[get_block(X,Y,Z)+"_break"], block_sound_volume)
-			else:
-				play_dig_sound(sound_categorys_dig[get_block(X, Y, Z)], block_sound_volume)
+			try:
+				play_break_sound(block_break_sounds[get_block(X, Y, Z)], block_sound_volume)
+			except:
+				play_place_sound(block_place_sounds[get_block(X, Y, Z)], block_sound_volume)
 			set_block(X,Y,Z, "air")
 			rebuild_chunks()
 	except Exception as e:

@@ -1,7 +1,7 @@
 import net.minecraft.text.Text as text
 import net.minecraft.util.translation.Lang as lang
 from net.minecraft.client.Client import *
-from net.minecraft.client.render.world.block.BlockRenderer import block_atlas, UV_MAP
+from net.minecraft.client.render.world.block.BlockRenderer import block_atlas, UV_MAP, block_atlas_data
 
 container_items=[]
 for i in range(54):
@@ -141,8 +141,9 @@ def render_items_for_container():
 				uv=UV_MAP[texture_map[texture]]
 			except KeyError:
 				continue
-		uv_map = [((uv[0]) / 6, (uv[1]) / 7), ((uv[0] + 1) / 6, (uv[1]) / 7),
-				  ((uv[0] + 1) / 6, (uv[1] + 1) / 7), ((uv[0]) / 6, (uv[1] + 1) / 7)]
+		w, h = block_atlas_data["width"], block_atlas_data["height"]
+		uv_map = [((uv[0]) / w, (uv[1]) / h), ((uv[0] + 1) / w, (uv[1]) / h),
+				  ((uv[0] + 1) / w, (uv[1] + 1) / h), ((uv[0]) / w, (uv[1] + 1) / h)]
 		orig_w = 62
 		orig_h = 58
 		orig_spacing = 44.6

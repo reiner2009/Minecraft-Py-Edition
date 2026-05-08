@@ -6,6 +6,7 @@ with open(os.devnull, 'w') as f, contextlib.redirect_stdout(f):
 from OpenGL.GL import *
 from OpenGL.GLU import *
 from screeninfo import get_monitors
+import net.minecraft.resources.DataLocation as DataLocation
 
 hud_=True
 width, height=0,0
@@ -13,7 +14,7 @@ clock=None
 pygame.mixer.pre_init(frequency=44100, size=16, channels=2, buffer=4096)
 pygame.init()
 pygame.mixer.init()
-icon_surface = pygame.image.load("assets/minecraft/textures/minecraftlogo.png")
+icon_surface = pygame.image.load(DataLocation.get_resource_path("assets/minecraft/textures/minecraftlogo.png"))
 pygame.display.set_icon(icon_surface)
 pygame.display.set_caption("Minecraft loading...")
 for m in get_monitors():

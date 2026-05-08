@@ -1,91 +1,57 @@
 from net.minecraft.textures.Textures import *
 import net.minecraft.sounds.Sounds as sounds
 import net.minecraft.client.render.world.block.Models as Models
+import json
+import net.minecraft.resources.DataLocation as DataLocation
 
-sound_categorys_dig={
-    "stone_bricks":sounds.dig_stone_music_tracks,
-    "cobblestone":sounds.dig_stone_music_tracks,
-    "stone":sounds.dig_stone_music_tracks,
-    "deepslate":sounds.dig_stone_music_tracks,
-    "bedrock":sounds.dig_stone_music_tracks,
-    "dirt":sounds.dig_gravel_music_tracks,
-    "grass_block":sounds.dig_grass_music_tracks,
-    "oak_planks":sounds.dig_wood_music_tracks,
-    "oak_log":sounds.dig_wood_music_tracks,
-    "white_wool":sounds.dig_cloth_music_tracks,
-    "light_blue_wool":sounds.dig_cloth_music_tracks,
-    "green_wool":sounds.dig_cloth_music_tracks,
-    "black_wool":sounds.dig_cloth_music_tracks,
-    "blue_wool":sounds.dig_cloth_music_tracks,
-    "brown_wool":sounds.dig_cloth_music_tracks,
-    "cyan_wool":sounds.dig_cloth_music_tracks,
-    "gray_wool":sounds.dig_cloth_music_tracks,
-    "light_gray_wool":sounds.dig_cloth_music_tracks,
-    "lime_wool":sounds.dig_cloth_music_tracks,
-    "magenta_wool":sounds.dig_cloth_music_tracks,
-    "orange_wool":sounds.dig_cloth_music_tracks,
-    "pink_wool":sounds.dig_cloth_music_tracks,
-    "purple_wool":sounds.dig_cloth_music_tracks,
-    "red_wool":sounds.dig_cloth_music_tracks,
-    "yellow_wool":sounds.dig_cloth_music_tracks,
-    "oak_leaves":sounds.dig_grass_music_tracks,
-    "glass_block":sounds.dig_stone_music_tracks,
-    "glass_block_break":sounds.glass_music_tracks,
-    "gold_block":sounds.dig_stone_music_tracks,
-    "smooth_stone":sounds.dig_stone_music_tracks,
-    "diamond_block":sounds.dig_stone_music_tracks,
-    "lapis_block":sounds.dig_stone_music_tracks,
-    "iron_block":sounds.dig_stone_music_tracks,
-    "bricks":sounds.dig_stone_music_tracks,
-    "deepslate_bricks":sounds.dig_stone_music_tracks,
-    "polished_deepslate":sounds.dig_stone_music_tracks
+block_place_sounds={
+    "stone_bricks":"stone",
+    "cobblestone":"stone",
+    "stone":"stone",
+    "deepslate":"stone",
+    "bedrock":"stone",
+    "dirt":"gravel",
+    "grass_block":"grass",
+    "oak_planks":"wood",
+    "oak_log":"wood",
+    "white_wool":"cloth",
+    "light_blue_wool":"cloth",
+    "green_wool":"cloth",
+    "black_wool":"cloth",
+    "blue_wool":"cloth",
+    "brown_wool":"cloth",
+    "cyan_wool":"cloth",
+    "gray_wool":"cloth",
+    "light_gray_wool":"cloth",
+    "lime_wool":"cloth",
+    "magenta_wool":"cloth",
+    "orange_wool":"cloth",
+    "pink_wool":"cloth",
+    "purple_wool":"cloth",
+    "red_wool":"cloth",
+    "yellow_wool":"cloth",
+    "oak_leaves":"grass",
+    "glass_block":"stone",
+    "gold_block":"stone",
+    "smooth_stone":"stone",
+    "diamond_block":"stone",
+    "lapis_block":"stone",
+    "iron_block":"stone",
+    "bricks":"stone",
+    "deepslate_bricks":"stone",
+    "polished_deepslate":"stone"
+}
+
+block_break_sounds={
+    "glass_block":"glass"
 }
 
 blocks= Models.model_names
 
 block_atlas=load_texture("assets/minecraft/textures/block/atlas.png")
 
-UV_MAP = {
-    "stone_bricks": [4,5],
-    "dirt": [5,1],
-    "grass_block_side": [2,2],
-    "grass_block_top": [3,2],
-    "stone": [5,5],
-    "bedrock": [0,0],
-    "deepslate": [3,1],
-    "deepslate_top": [2,1],
-    "cobblestone":[5,0],
-    "oak_planks":[3,4],
-    "oak_log":[2,4],
-    "oak_log_top":[1,4],
-    "error":[2,6],
-    "white_wool":[0,6],
-    "light_blue_wool":[2,3],
-    "green_wool":[5,2],
-    "black_wool":[1,0],
-    "blue_wool":[2,0],
-    "brown_wool":[4,0],
-    "cyan_wool":[0,1],
-    "gray_wool":[4,2],
-    "light_gray_wool":[3,3],
-    "lime_wool":[4,3],
-    "magenta_wool":[5,3],
-    "orange_wool":[4,4],
-    "pink_wool":[5,4],
-    "purple_wool":[1,5],
-    "red_wool":[2,5],
-    "yellow_wool":[1,6],
-    "oak_leaves":[0,4],
-    "glass_block":[0,2],
-    "smooth_stone":[3,5],
-    "gold_block":[1,2],
-    "diamond_block":[4,1],
-    "lapis_block":[1,3],
-    "iron_block":[0,3],
-    "bricks":[3,0],
-    "deepslate_bricks":[1,1],
-    "polished_deepslate":[0,5]
-}
+block_atlas_data=json.load(open(DataLocation.get_resource_path("assets/minecraft/atlas_data/blocks.json")))
+UV_MAP = block_atlas_data["values"]
 
 translucent_blocks=[
     "glass_block"
@@ -112,8 +78,9 @@ def draw_block(vertices, surfaces, UVs, x, y, z):
         uv = UVs[i] if i < len(UVs) else UVs[0]
         if (neighbor=="air" or (neighbor in translucent_blocks and get_block(x,y,z)!=neighbor) or neighbor in cutout_blocks):
             glBegin(GL_QUADS)
-            uv_map = [((uv[0]) / 6, (uv[1]) / 7), ((uv[0] + 1) / 6, (uv[1]) / 7),
-                      ((uv[0] + 1) / 6, (uv[1] + 1) / 7), ((uv[0]) / 6, (uv[1] + 1) / 7)]
+            w,h=block_atlas_data["width"], block_atlas_data["height"]
+            uv_map = [((uv[0]) / w, (uv[1]) / h), ((uv[0] + 1) / w, (uv[1]) / h),
+                      ((uv[0] + 1) / w, (uv[1] + 1) / h), ((uv[0]) / w, (uv[1] + 1) / h)]
             for j in range(4):
                 tx,ty=uv_map[j]
                 vx, vy, vz = vertices[surfaces[i][j]]

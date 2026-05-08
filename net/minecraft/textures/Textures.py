@@ -1,10 +1,11 @@
 from net.minecraft.client.Client import*
 import net.minecraft.util.logger.Logger as logger
+import net.minecraft.resources.DataLocation as DataLocation
 
 def load_texture(path, isSkin=False):
     logger.set_environment("Client")
     try:
-        surface = pygame.image.load(path).convert_alpha()
+        surface = pygame.image.load(DataLocation.get_resource_path(path)).convert_alpha()
         surface = pygame.transform.flip(surface, False, True)
         data = pygame.image.tostring(surface, "RGBA", 1)
         width, height = surface.get_size()
@@ -29,7 +30,7 @@ def load_texture(path, isSkin=False):
             return tex_id
     except:
         logger.error("Falied to load texture " + path)
-        surface = pygame.image.load("assets/minecraft/textures/error.png").convert_alpha()
+        surface = pygame.image.load(DataLocation.get_resource_path("assets/minecraft/textures/error.png")).convert_alpha()
         surface = pygame.transform.flip(surface, False, True)
         data = pygame.image.tostring(surface, "RGBA", 1)
         width, height = surface.get_size()

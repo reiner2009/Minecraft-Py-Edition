@@ -6,6 +6,7 @@ import net.minecraft.entity.Entities as Entities
 import net.minecraft.world.EntityList as EntityList
 from net.minecraft.chat.Chat import *
 import traceback
+import net.minecraft.resources.DataLocation as DataLocation
 
 def irange(o,t):
 	t=int(t)
@@ -148,7 +149,7 @@ def assume_command(string, entity, chunklist):
 			try:
 				entity.setSkin(string.split()[6])
 			except:
-				entity.setSkin("assets/minecraft/textures/entity/player/steve.png")
+				entity.setSkin(DataLocation.get_resource_path("assets/minecraft/textures/entity/player/steve.png"))
 			entity.set_thirt_person_perspective()
 			EntityList.entities.append(entity)
 			logger.info(f"[COMMAND] Added {entityName} successfully at {string_to_position(string, entity)}")

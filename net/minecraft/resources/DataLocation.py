@@ -1,4 +1,7 @@
+import os
 import platform
+import sys
+
 
 def get_save_system():
 	system=platform.system()
@@ -6,3 +9,10 @@ def get_save_system():
 		return "APPDATA"
 	else:
 		return "HOME"
+
+def get_resource_path(path):
+	if getattr(sys, 'frozen', False):
+		base_path=sys._MEIPASS
+	else:
+		base_path=os.path.abspath(".")
+	return os.path.join(base_path, path)

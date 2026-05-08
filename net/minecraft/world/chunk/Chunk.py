@@ -6,21 +6,19 @@ import pickle
 import net.minecraft.resources.DataLocation as DataLocation
 from opensimplex import OpenSimplex
 import random
+import net.minecraft.world.Features as features
 
 dark_menu_texture=load_texture("assets/minecraft/textures/gui/title/background/dark_menu.png")
 
-def create_random_chunk(_x_=0, _z_=0, seed=0):
+def create_random_chunk(seed=0):
+	tree_percent_map=features.get_feature_list("tree")
+	noise_settings=json.load(open(DataLocation.get_resource_path("data/minecraft/worldgen/noise_settings/overworld.json")))
 	noise=OpenSimplex(seed=seed)
 	c={}
 	tree_map = []
-	for x in range(50):
-		for z in range(50):
-			c[(x,-1,z)]="stone"
-	for x_ in range(50):
-		for z_ in range(50):
-			x=x_+_x_*16
-			z=z_+_z_*16
-			value=noise.noise2(x * 0.05, z * 0.05)*10+6
+	for x in range(noise_settings["world_scale"]):
+		for z in range(noise_settings["world_scale"]):
+			value=noise.noise2(x * noise_settings["x"], z * noise_settings["z"])*noise_settings["hilly_intensity"]+noise_settings["terrian_height"]
 			ay=round(value)
 			for y in range(ay):
 				if (x,y,z) not in c:
@@ -28,18 +26,19 @@ def create_random_chunk(_x_=0, _z_=0, seed=0):
 			for y in range(ay):
 				if y==ay-1:
 					c[(x,y,z)]="grass_block"
-	for x in range(50):
-		for z in range(50):
+	for x in range(noise_settings["world_scale"]):
+		for z in range(noise_settings["world_scale"]):
 			tree_wight=random.randint(0,100)
-			if tree_wight<1:
-				tree_map.append((x,noise.noise2(x * 0.05, z * 0.05)*10+6, z))
-	with open("data/minecraft/worldgen/feature/tree.dat", "rb") as f:
-		tree=pickle.load(f)
+			if tree_wight==0:
+				tree_map.append((x, noise.noise2(x*noise_settings["x"], z * noise_settings["z"])*noise_settings["hilly_intensity"]+noise_settings["terrian_height"], z))
 	for i in tree_map:
+		feature=random.choices(list(tree_percent_map.keys()), weights=tree_percent_map.values())[0]
+		with open(DataLocation.get_resource_path("data/minecraft/worldgen/feature/tree/" + feature + ".dat"), "rb") as file:
+			tree=pickle.load(file)
 		for pos, block in tree.items():
 			c[(round(pos[0]+i[0]),round(pos[1]+i[1]),round(pos[2]+i[2]))]=block
 	for player in entities:
-		player.spawn(25,round(noise.noise2(25 * 0.05, 25 * 0.05)*10+7), 25)
+		player.spawn(25,round(noise.noise2(25 * noise_settings["x"], 25 * noise_settings["z"])*noise_settings["hilly_intensity"]+noise_settings["terrian_height"]+1), 25)
 	return c
 
 def build_chunk_display_list():

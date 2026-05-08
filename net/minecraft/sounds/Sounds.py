@@ -1,103 +1,31 @@
 from net.minecraft.client.Client import*
 import random
+import net.minecraft.resources.DataLocation as DataLocation
+import json
 
 next_music_time=0
 music_paused=False
 music_menu=0
 music_creative=1
 current_music_mode=None
+sound_data=json.load(open(DataLocation.get_resource_path("assets/minecraft/sounds/sounds.json")))
 
-button_click_sound=pygame.mixer.Sound("assets/minecraft/sounds/random/click.ogg")
+button_click_sound=pygame.mixer.Sound(DataLocation.get_resource_path("assets/minecraft/sounds/gui/"+sound_data["gui"]["button"]+".ogg"))
 button_channel=pygame.mixer.Channel(0)
 
 creative_music_tracks_path= "assets/minecraft/sounds/music/game/creative/"
 menu_music_tracks_path= "assets/minecraft/sounds/music/menu/"
 dig_music_tracks_path= "assets/minecraft/sounds/random/dig/"
 
-creative_music_tracks=[
-	creative_music_tracks_path+"creative1.ogg",
-	creative_music_tracks_path+"creative2.ogg",
-	creative_music_tracks_path+"creative3.ogg",
-	creative_music_tracks_path+"creative4.ogg",
-	creative_music_tracks_path+"creative5.ogg",
-	creative_music_tracks_path+"creative6.ogg",
-	creative_music_tracks_path+"creative7.ogg",
-	creative_music_tracks_path+"creative8.ogg",
-	creative_music_tracks_path+"creative9.ogg",
-	creative_music_tracks_path+"creative10.ogg",
-	creative_music_tracks_path+"creative11.ogg",
-	creative_music_tracks_path+"creative12.ogg",
-	creative_music_tracks_path+"creative13.ogg",
-	creative_music_tracks_path+"creative14.ogg",
-	creative_music_tracks_path+"creative15.ogg",
-	creative_music_tracks_path+"creative16.ogg",
-	creative_music_tracks_path+"creative17.ogg",
-	creative_music_tracks_path+"creative18.ogg",
-	creative_music_tracks_path+"creative19.ogg",
-	creative_music_tracks_path+"creative20.ogg",
-	creative_music_tracks_path+"creative21.ogg",
-	creative_music_tracks_path+"creative22.ogg",
-	creative_music_tracks_path+"creative23.ogg",
-	creative_music_tracks_path+"creative24.ogg"
-]
+creative_music_tracks=[]
 
-menu_music_tracks=[
-	menu_music_tracks_path+"menu1.ogg",
-	menu_music_tracks_path+"menu2.ogg",
-	menu_music_tracks_path+"menu3.ogg",
-	menu_music_tracks_path+"menu4.ogg",
-	menu_music_tracks_path+"menu5.ogg",
-	menu_music_tracks_path+"menu6.ogg",
-	menu_music_tracks_path+"menu7.ogg",
-	menu_music_tracks_path+"menu8.ogg",
-	menu_music_tracks_path+"menu9.ogg",
-	menu_music_tracks_path+"menu10.ogg",
-	menu_music_tracks_path+"menu11.ogg",
-	menu_music_tracks_path+"menu12.ogg",
-	menu_music_tracks_path+"menu13.ogg",
-	menu_music_tracks_path+"menu14.ogg",
-	menu_music_tracks_path+"menu15.ogg",
-	menu_music_tracks_path+"menu16.ogg",
-	menu_music_tracks_path+"menu17.ogg",
-	menu_music_tracks_path+"menu18.ogg",
-	menu_music_tracks_path+"menu19.ogg",
-	menu_music_tracks_path+"menu20.ogg"
-]
+for i in sound_data["music"]["creative"]:
+	creative_music_tracks.append(creative_music_tracks_path+i+".ogg")
 
-dig_stone_music_tracks=[
-	dig_music_tracks_path+"stone1.ogg",
-	dig_music_tracks_path+"stone2.ogg",
-	dig_music_tracks_path+"stone3.ogg",
-	dig_music_tracks_path+"stone4.ogg",
-]
+menu_music_tracks=[]
 
-dig_grass_music_tracks=[
-	dig_music_tracks_path+"grass1.ogg",
-	dig_music_tracks_path+"grass2.ogg",
-	dig_music_tracks_path+"grass3.ogg",
-	dig_music_tracks_path+"grass4.ogg",
-]
-
-dig_wood_music_tracks=[
-	dig_music_tracks_path+"wood1.ogg",
-	dig_music_tracks_path+"wood2.ogg",
-	dig_music_tracks_path+"wood3.ogg",
-	dig_music_tracks_path+"wood4.ogg",
-]
-
-dig_gravel_music_tracks=[
-	dig_music_tracks_path+"gravel1.ogg",
-	dig_music_tracks_path+"gravel2.ogg",
-	dig_music_tracks_path+"gravel3.ogg",
-	dig_music_tracks_path+"gravel4.ogg",
-]
-
-dig_cloth_music_tracks=[
-	dig_music_tracks_path+"cloth1.ogg",
-	dig_music_tracks_path+"cloth2.ogg",
-	dig_music_tracks_path+"cloth3.ogg",
-	dig_music_tracks_path+"cloth4.ogg",
-]
+for i in sound_data["music"]["menu"]:
+	menu_music_tracks.append(menu_music_tracks_path+i+".ogg")
 
 glass_music_tracks=[
 	"assets/minecraft/sounds/random/glass1.ogg",
@@ -125,7 +53,7 @@ def play_music_mode(mode):
 		track=random.choice(creative_music_tracks)
 	else:
 		return
-	pygame.mixer.music.load(track)
+	pygame.mixer.music.load(DataLocation.get_resource_path(track))
 	pygame.mixer.music.set_volume(0.5)
 	pygame.mixer.music.play()
 	delay=random.randint(2000, 6000)
@@ -149,8 +77,20 @@ def stop_music():
 	global music_paused
 	music_paused=False
 
-def play_dig_sound(category, v):
-	block_sound = random.choice(category)
-	sound = pygame.mixer.Sound(block_sound)
+def play_place_sound(name, v):
+	block_sound = random.choice(sound_data["blocks"]["place"][name])
+	try:
+		sound = pygame.mixer.Sound(DataLocation.get_resource_path("assets/minecraft/sounds/blocks/place/"+block_sound+".ogg"))
+	except:
+		sound = pygame.mixer.Sound(DataLocation.get_resource_path("assets/minecraft/sounds/blocks/place/stone.ogg"))
 	sound.set_volume((1/489)*v)
+	sound.play()
+
+def play_break_sound(name, v):
+	block_sound = random.choice(sound_data["blocks"]["break"][name])
+	try:
+		sound = pygame.mixer.Sound(DataLocation.get_resource_path("assets/minecraft/sounds/blocks/break/" + block_sound + ".ogg"))
+	except:
+		sound = pygame.mixer.Sound(DataLocation.get_resource_path("assets/minecraft/sounds/blocks/place/stone.ogg"))
+	sound.set_volume((1 / 489) * v)
 	sound.play()
