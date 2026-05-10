@@ -9,6 +9,9 @@ import random
 import net.minecraft.world.Features as features
 
 dark_menu_texture=load_texture("assets/minecraft/textures/gui/title/background/dark_menu.png")
+base_path = os.path.join(os.environ[DataLocation.get_save_system()], ".minecraft-py")
+pack = os.path.join(base_path, "datapacks")
+os.makedirs(pack, exist_ok=True)
 
 def create_random_chunk(seed=0):
 	tree_percent_map=features.get_feature_list("tree")

@@ -40,6 +40,7 @@
     "iron_block":[0,3],
     "bricks":[3,0],
     "deepslate_bricks":[1,1],
-    "polished_deepslate":[0,5]
+    "polished_deepslate":[0,5],
+    "copper_block": [2,6]
   }
 }

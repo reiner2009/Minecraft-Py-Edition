@@ -74,9 +74,10 @@ add_item("gold_block", "gold_block", 25)
 add_item("diamond_block", "diamond_block", 24)
 add_item("lapis_block", "lapis_block", 23)
 add_item("iron_block", "iron_block", 22)
-add_item("bricks", "bricks", 21)
-add_item("deepslate_bricks", "deepslate_bricks", 20)
-add_item("polished_deepslate", "polished_deepslate", 19)
+add_item("copper_block", "copper_block", 21)
+add_item("bricks", "bricks", 20)
+add_item("deepslate_bricks", "deepslate_bricks", 19)
+add_item("polished_deepslate", "polished_deepslate", 18)
 
 texture_map = {
 	"grass_block":"grass_block_side"

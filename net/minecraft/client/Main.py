@@ -1,4 +1,12 @@
 print("Starting net.minecraft.client.Main")
+import os
+import shutil
+import net.minecraft.resources.DataLocation as DataLocation
+base_path = os.path.join(os.environ[DataLocation.get_save_system()], ".minecraft-py")
+try:
+	shutil.rmtree(os.path.join(base_path, ".cache"))
+except:
+	pass
 from net.minecraft.world.level.Level import setEnv
 setEnv("client")
 import net.minecraft.util.math.Raycast as Raycast
@@ -108,6 +116,8 @@ server_connection_thread=None
 client=None
 sock=None
 server_addr=""
+pack = os.path.join(base_path, "resourcepacks")
+os.makedirs(pack, exist_ok=True)
 
 menu_background_texture=load_texture("assets/minecraft/textures/gui/title/background/menu.png")
 

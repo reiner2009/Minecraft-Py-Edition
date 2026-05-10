@@ -1,5 +1,4 @@
 from net.minecraft.textures.Textures import *
-import net.minecraft.sounds.Sounds as sounds
 import net.minecraft.client.render.world.block.Models as Models
 import json
 import net.minecraft.resources.DataLocation as DataLocation
@@ -39,7 +38,8 @@ block_place_sounds={
     "iron_block":"stone",
     "bricks":"stone",
     "deepslate_bricks":"stone",
-    "polished_deepslate":"stone"
+    "polished_deepslate":"stone",
+    "copper_block":"stone"
 }
 
 block_break_sounds={

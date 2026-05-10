@@ -1,7 +1,7 @@
 {
-  "terrian_height": 20,
-  "hilly_intensity": 20,
-  "x": 0.01,
-  "z": 0.01,
+  "terrian_height": 10,
+  "hilly_intensity": 10,
+  "x": 0.05,
+  "z": 0.05,
   "world_scale": 50
 }
