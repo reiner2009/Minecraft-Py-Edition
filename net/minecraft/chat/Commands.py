@@ -5,6 +5,7 @@ import net.minecraft.entity.player.Playername as Playername
 import net.minecraft.entity.Entities as Entities
 import net.minecraft.world.EntityList as EntityList
 from net.minecraft.chat.Chat import *
+from net.minecraft.world.Time import set_tick, get_time
 import traceback
 import net.minecraft.resources.DataLocation as DataLocation
 
@@ -155,8 +156,15 @@ def assume_command(string, entity, chunklist):
 			logger.info(f"[COMMAND] Added {entityName} successfully at {string_to_position(string, entity)}")
 			show_text(f"Added {entityName} successfully at {string_to_position(string, entity)}", [255, 255, 255, 255])
 		elif string.split()[0]=="/time":
-			t=float(string.split()[1])
-			set_tick(t)
+			try:
+				if string.split()[1]=="set":
+					if string.split()[2]=="day":
+						set_tick(90,0,0,1)
+					if string.split()[2]=="night":
+						set_tick(-90,0,0,0)
+			except:
+				logger.info(f"[COMMAND] Current time: {get_time()}")
+				show_text(f"Current time: {get_time()}",[255, 255, 255, 255])
 		else:
 			show_text("Unknown or incomplete command: "+string, [255,85,85,255])
 			logger.set_environment("Main")

@@ -10,6 +10,9 @@ def set_tick(t_, s1, s2, l):
     sunriseblend=s1
     sunsetblend=s2
 
+def get_time():
+    return t
+
 def get_sun__blend():
     global sunriseblend, sunsetblend
     if t>=150 and t<=170:
