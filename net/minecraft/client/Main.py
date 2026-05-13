@@ -205,7 +205,10 @@ def place_block_by_player():
 				get_block_data(X,Y,Z).finallyPlace(player)
 			except:
 				pass
-			play_place_sound(block_place_sounds[Item.selected_item[hotbar_slot_selected - 1]], block_sound_volume)
+			try:
+				play_place_sound(block_place_sounds[Item.selected_item[hotbar_slot_selected - 1]], block_sound_volume)
+			except:
+				play_place_sound("stone", block_sound_volume)
 			rebuild_chunks()
 	except:
 		logger.error(str(traceback.format_exc()))
@@ -255,7 +258,10 @@ def break_block_by_player():
 			try:
 				play_break_sound(block_break_sounds[get_block(X, Y, Z)], block_sound_volume)
 			except:
-				play_place_sound(block_place_sounds[get_block(X, Y, Z)], block_sound_volume)
+				try:
+					play_place_sound(block_place_sounds[get_block(X, Y, Z)], block_sound_volume)
+				except:
+					play_place_sound("stone", block_sound_volume)
 			set_block(X,Y,Z, "air")
 			rebuild_chunks()
 	except:

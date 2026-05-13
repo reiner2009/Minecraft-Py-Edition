@@ -1,6 +1,21 @@
 from typing import override
 
+
 from net.minecraft.world.block.props import AxisProperty, FacingProperty
+import net.minecraft.world.Features as features
+import net.minecraft.resources.DataLocation as DataLocation
+import random
+import pickle
+
+def spawnTree(x,y,z):
+    from net.minecraft.world.chunk.Chunk import set_block, reload_chunks
+    tree_percent_map = features.get_feature_list("tree")
+    feature = random.choices(list(tree_percent_map.keys()), weights=tree_percent_map.values())[0]
+    with open(DataLocation.get_resource_path("data/minecraft/worldgen/feature/tree/" + feature + ".dat"), "rb") as file:
+        tree = pickle.load(file)
+    for pos, block in tree.items():
+        set_block(x+pos[0],y+pos[1],z+pos[2], block)
+    reload_chunks()
 
 class Block:
     def __init__(self, NAME):
@@ -71,3 +86,10 @@ class FurnaceBlock(Block):
     @override
     def getProperties(self):
         return self.FACING.getFacingKeys()
+
+class OakSapling(Block):
+    def __init__(self, NAME):
+        super().__init__(NAME)
+    @override
+    def finallyPlace(self, entity):
+        spawnTree(*self.MAP_POSITION)

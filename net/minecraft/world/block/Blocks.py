@@ -1,4 +1,4 @@
-from net.minecraft.world.block import Block, LogBlock, FurnaceBlock
+from net.minecraft.world.block import Block, LogBlock, FurnaceBlock, OakSapling
 
 registries={
     "bedrock":Block,
@@ -37,5 +37,7 @@ registries={
     "deepslate_bricks":Block,
     "polished_deepslate":Block,
     "copper_block":Block,
-    "furnace":FurnaceBlock
+    "furnace":FurnaceBlock,
+    "crafting_table":FurnaceBlock,
+    "oak_sapling":OakSapling
 }

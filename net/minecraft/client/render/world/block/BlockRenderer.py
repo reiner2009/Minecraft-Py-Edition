@@ -4,49 +4,11 @@ import json
 import net.minecraft.resources.DataLocation as DataLocation
 from net.minecraft.world.block.Blocks import registries
 
-block_place_sounds={
-    "stone_bricks":"stone",
-    "cobblestone":"stone",
-    "stone":"stone",
-    "deepslate":"stone",
-    "bedrock":"stone",
-    "dirt":"gravel",
-    "grass_block":"grass",
-    "oak_planks":"wood",
-    "oak_log":"wood",
-    "white_wool":"cloth",
-    "light_blue_wool":"cloth",
-    "green_wool":"cloth",
-    "black_wool":"cloth",
-    "blue_wool":"cloth",
-    "brown_wool":"cloth",
-    "cyan_wool":"cloth",
-    "gray_wool":"cloth",
-    "light_gray_wool":"cloth",
-    "lime_wool":"cloth",
-    "magenta_wool":"cloth",
-    "orange_wool":"cloth",
-    "pink_wool":"cloth",
-    "purple_wool":"cloth",
-    "red_wool":"cloth",
-    "yellow_wool":"cloth",
-    "oak_leaves":"grass",
-    "glass_block":"stone",
-    "gold_block":"stone",
-    "smooth_stone":"stone",
-    "diamond_block":"stone",
-    "lapis_block":"stone",
-    "iron_block":"stone",
-    "bricks":"stone",
-    "deepslate_bricks":"stone",
-    "polished_deepslate":"stone",
-    "copper_block":"stone",
-    "furnace":"stone"
-}
+sound_categories=json.load(open(DataLocation.get_resource_path("assets/minecraft/sounds/sounds.json")))
 
-block_break_sounds={
-    "glass_block":"glass"
-}
+block_place_sounds=sound_categories["categories"]["block_place"]
+
+block_break_sounds=sound_categories["categories"]["block_break"]
 
 blocks= registries.keys()
 
@@ -55,13 +17,11 @@ block_atlas=load_texture("assets/minecraft/textures/block/atlas.png")
 block_atlas_data=json.load(open(DataLocation.get_resource_path("assets/minecraft/atlas_data/blocks.json")))
 UV_MAP = block_atlas_data["values"]
 
-translucent_blocks=[
-    "glass_block"
-]
+render_data=json.load(open(DataLocation.get_resource_path("assets/minecraft/render_data.json")))
 
-cutout_blocks=[
-    "oak_leaves"
-]
+translucent_blocks=render_data["translucent"]
+
+cutout_blocks=render_data["cutout"]
 
 def cube_vertices(x, y, z):
     return [

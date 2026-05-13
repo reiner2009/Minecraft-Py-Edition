@@ -79,10 +79,14 @@ add_item("bricks", "bricks", 20)
 add_item("deepslate_bricks", "deepslate_bricks", 19)
 add_item("polished_deepslate", "polished_deepslate", 18)
 add_item("furnace_front","furnace", 17)
+add_item("crafting_table_front", "crafting_table", 16)
+add_item("oak_sapling","oak_sapling", 15)
 
 texture_map = {
 	"grass_block":"grass_block_side",
-	"furnace":"furnace_front"
+	"furnace":"furnace_front",
+	"crafting_table":"crafting_table_front",
+	"oak_sapling":"oak_sapling"
 }
 
 def render_items_for_hotbar():

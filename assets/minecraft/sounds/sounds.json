@@ -92,5 +92,35 @@
   },
   "gui": {
     "button": "click"
+  },
+  "categories": {
+    "block_place": {
+      "dirt":"gravel",
+      "grass_block":"grass",
+      "oak_planks":"wood",
+      "oak_log":"wood",
+      "white_wool":"cloth",
+      "light_blue_wool":"cloth",
+      "green_wool":"cloth",
+      "black_wool":"cloth",
+      "blue_wool":"cloth",
+      "brown_wool":"cloth",
+      "cyan_wool":"cloth",
+      "gray_wool":"cloth",
+      "light_gray_wool":"cloth",
+      "lime_wool":"cloth",
+      "magenta_wool":"cloth",
+      "orange_wool":"cloth",
+      "pink_wool":"cloth",
+      "purple_wool":"cloth",
+      "red_wool":"cloth",
+      "yellow_wool":"cloth",
+      "oak_leaves":"grass",
+      "crafting_table": "wood",
+      "oak_sapling": "grass"
+    },
+    "block_break": {
+      "glass_block":"glass"
+    }
   }
 }
