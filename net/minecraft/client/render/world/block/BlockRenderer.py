@@ -2,6 +2,7 @@ from net.minecraft.textures.Textures import *
 import net.minecraft.client.render.world.block.Models as Models
 import json
 import net.minecraft.resources.DataLocation as DataLocation
+from net.minecraft.world.block.Blocks import registries
 
 block_place_sounds={
     "stone_bricks":"stone",
@@ -39,14 +40,15 @@ block_place_sounds={
     "bricks":"stone",
     "deepslate_bricks":"stone",
     "polished_deepslate":"stone",
-    "copper_block":"stone"
+    "copper_block":"stone",
+    "furnace":"stone"
 }
 
 block_break_sounds={
     "glass_block":"glass"
 }
 
-blocks= Models.model_names
+blocks= registries.keys()
 
 block_atlas=load_texture("assets/minecraft/textures/block/atlas.png")
 
@@ -88,9 +90,9 @@ def draw_block(vertices, surfaces, UVs, x, y, z):
                 glVertex3f(vx, vy, vz)
             glEnd()
 
-def place_block(name, x, y, z):
+def place_block(name, x, y, z, property=""):
     global chunk
-    data= Models.get_model(name)
+    data= Models.get_model(name, property)
     texture_names = data["textures"]
     UVs = []
     if isinstance(texture_names, dict):
@@ -125,9 +127,16 @@ def place_block(name, x, y, z):
 def get_block(x,y,z):
     global chunk
     try:
-        return chunk[(x,y,z)]
+        return chunk[(x,y,z)].getName()
     except:
         return "air"
+
+def get_block_data(x,y,z):
+    global chunk
+    try:
+        return chunk[(x,y,z)]
+    except:
+        return None
 
 lines=[
     (0,1),(1,2),(2,3),(3,0),(4,5),(5,6),(6,7),(7,4),(0,4),(1,5),(2,6),(3,7)

@@ -1,6 +1,10 @@
+import traceback
+
 import net.minecraft.text.Text as text
 from net.minecraft.client.render.world.block.BlockRenderer import *
 import math
+
+from net.minecraft.world.block.Blocks import registries
 
 
 def cos(i):
@@ -210,7 +214,7 @@ def render_arms(x,y,z, yaw,left_arm_pitch,right_arm_pitch, block_name, skin_text
         glRotatef(-yaw - 90, 0.0, 1.0, 0.0)
         glTranslatef(0, -0.5, 0)
         glRotatef(right_arm_pitch, 0.0, 0.0, 1.0)
-        data = Models.get_model(block_name)
+        data = Models.get_model(block_name+registries[block_name](block_name).getDefaultProperty())
         texture_names = data["textures"]
         UVs = []
         if isinstance(texture_names, dict):
@@ -232,8 +236,9 @@ def render_arms(x,y,z, yaw,left_arm_pitch,right_arm_pitch, block_name, skin_text
         for i in range(6):
             uv = UVs[i] if i < len(UVs) else UVs[0]
             glBegin(GL_QUADS)
-            uv_map = [((uv[0]) / 6, (uv[1]) / 7), ((uv[0] + 1) / 6, (uv[1]) / 7),
-                      ((uv[0] + 1) / 6, (uv[1] + 1) / 7), ((uv[0]) / 6, (uv[1] + 1) / 7)]
+            w, h = block_atlas_data["width"], block_atlas_data["height"]
+            uv_map = [((uv[0]) / w, (uv[1]) / h), ((uv[0] + 1) / w, (uv[1]) / h),
+                      ((uv[0] + 1) / w, (uv[1] + 1) / h), ((uv[0]) / w, (uv[1] + 1) / h)]
             for j in range(4):
                 tx, ty = uv_map[j]
                 vx, vy, vz = item_vertices()[surfaces[i][j]]

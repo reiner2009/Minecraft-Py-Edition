@@ -1,5 +1,5 @@
 {
-  "width": 6,
+  "width": 7,
   "height": 7,
   "values":{
     "stone_bricks": [4,5],
@@ -41,6 +41,10 @@
     "bricks":[3,0],
     "deepslate_bricks":[1,1],
     "polished_deepslate":[0,5],
-    "copper_block": [2,6]
+    "copper_block": [2,6],
+    "oak_log_axis": [3,6],
+    "furnace_top": [4,6],
+    "furnace_side": [5,6],
+    "furnace_front": [6,0]
   }
 }

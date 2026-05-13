@@ -6,12 +6,15 @@ import pickle
 import net.minecraft.resources.DataLocation as DataLocation
 from opensimplex import OpenSimplex
 import random
+import gzip
 import net.minecraft.world.Features as features
+from net.minecraft.world.block.Blocks import registries
 
 dark_menu_texture=load_texture("assets/minecraft/textures/gui/title/background/dark_menu.png")
 base_path = os.path.join(os.environ[DataLocation.get_save_system()], ".minecraft-py")
 pack = os.path.join(base_path, "datapacks")
 os.makedirs(pack, exist_ok=True)
+chunklist=None
 
 def create_random_chunk(seed=0):
 	tree_percent_map=features.get_feature_list("tree")
@@ -60,22 +63,24 @@ def render_chunk():
 		base_path = os.path.join(os.environ[DataLocation.get_save_system()], ".minecraft-py")
 		world = os.path.join(base_path, "world")
 		full_path = os.path.join(world, "chunks.dat")
-		with open(full_path, "rb") as f:
+		with gzip.open(full_path, "rb") as f:
 			_chunk=pickle.load(f)
 		pygame.mouse.set_cursor(SYSTEM_CURSOR_WAIT)
 		setup_ortho()
 		hud.render_wallpaper(dark_menu_texture)
-		text.render_text("Loading terrian.,,", width / 2 - 67, height - height / 1152 * 200, 15, 15, [255, 255, 255, 255])
+		text.render_text("Saving world...", width / 2 - 67, height - height / 1152 * 200, 15, 15, [255, 255, 255, 255])
 		pygame.display.flip()
 		clock.tick(60)
 		logger.info("Loading terrian")
 		for (x,y,z), block_name in _chunk.items():
-			set_block(x,y,z, block_name)
+			chunk[(x,y,z)]=block_name
+		load_chunks()
 	except:
 		logger.set_environment("Main")
 		logger.info("No existing world data, creating new world")
 		logger.set_environment("Client")
 		create_new_world()
+		load_chunks()
 
 
 def create_new_world():
@@ -83,7 +88,7 @@ def create_new_world():
 	pygame.mouse.set_cursor(SYSTEM_CURSOR_WAIT)
 	setup_ortho()
 	hud.render_wallpaper(dark_menu_texture)
-	text.render_text("Loading terrian.,,", width / 2 - 67, height - height / 1152 * 200, 15, 15, [255, 255, 255, 255])
+	text.render_text("Loading terrian...", width / 2 - 67, height - height / 1152 * 200, 15, 15, [255, 255, 255, 255])
 	pygame.display.flip()
 	clock.tick(60)
 	logger.info("Loading terrian")
@@ -91,6 +96,7 @@ def create_new_world():
 	chunk_ = create_random_chunk(seed=random.randint(0,100))
 	for (x, y, z), block_name in chunk_.items():
 		set_block(x, y, z, block_name)
+	reload_chunks()
 
 def set_block(x,y,z,name):
 	global blocks
@@ -98,7 +104,9 @@ def set_block(x,y,z,name):
 		name="air"
 	if name != "air":
 		global chunk
-		chunk[(x,y,z)]=name
+		tc=registries[name](name)
+		tc.setPos(x,y,z)
+		chunk[(x,y,z)]=tc
 	else:
 		chunk.pop((x,y,z), None)
 
@@ -107,18 +115,18 @@ def build_chunk():
 	glDepthMask(GL_TRUE)
 	glDisable(GL_BLEND)
 	for (x, y, z), block_name in chunk.items():
-		if block_name not in translucent_blocks and block_name not in cutout_blocks:
-			place_block(block_name, x, y, z)
+		if str(block_name.getName()) not in translucent_blocks and str(block_name.getName()) not in cutout_blocks:
+			place_block(block_name.getName(), x, y, z, block_name.getProperty())
 	glEnable(GL_ALPHA_TEST)
 	glAlphaFunc(GL_GREATER, 0.5)
 	for (x, y, z), block_name in chunk.items():
-		if block_name in cutout_blocks:
-			place_block(block_name, x, y, z)
+		if block_name.getName() in cutout_blocks:
+			place_block(str(block_name.getName()), x, y, z, block_name.getProperty())
 	glEnable(GL_BLEND)
 	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA)
 	for (x, y, z), block_name in chunk.items():
-		if block_name in translucent_blocks:
-			place_block(block_name, x, y, z)
+		if block_name.getName() in translucent_blocks:
+			place_block(str(block_name.getName()), x, y, z, block_name.getProperty())
 	glDisable(GL_ALPHA_TEST)
 	glDepthMask(GL_TRUE)
 
@@ -128,14 +136,50 @@ def save_world():
 	world = os.path.join(base_path, "world")
 	full_path = os.path.join(world, "chunks.dat")
 	try:
-		with open(full_path, "wb") as f:
+		pygame.mouse.set_cursor(SYSTEM_CURSOR_WAIT)
+		setup_ortho()
+		hud.render_wallpaper(dark_menu_texture)
+		text.render_text("Saving world...", width / 2 - 67, height - height / 1152 * 200, 15, 15, [255, 255, 255, 255])
+		pygame.display.flip()
+		clock.tick(60)
+		with gzip.open(full_path, "wb", compresslevel=9) as f:
 			pickle.dump(chunk, f)
 	except:
+		pygame.mouse.set_cursor(SYSTEM_CURSOR_WAIT)
+		setup_ortho()
+		hud.render_wallpaper(dark_menu_texture)
+		text.render_text("Saving world...", width / 2 - 67, height - height / 1152 * 200, 15, 15, [255, 255, 255, 255])
+		pygame.display.flip()
+		clock.tick(60)
 		os.mkdir(world)
-		with open(full_path, "wb") as f:
+		with gzip.open(full_path, "wb", compresslevel=9) as f:
 			pickle.dump(chunk, f)
 
 def rebuild_chunks():
 	global chunklist
 	glDeleteLists(chunklist, 1)
 	chunklist=build_chunk_display_list()
+
+def reload_chunks():
+	global chunklist
+	glDeleteLists(chunklist, 1)
+	chunklist=build_chunk_display_list()
+
+def load_chunks():
+	global chunklist
+	chunklist=build_chunk_display_list()
+
+def getChunkList():
+	global chunklist
+	if chunklist==None:
+		return None
+	else:
+		return chunklist
+
+def unload_chunks():
+	global chunklist
+	try:
+		glDeleteLists(chunklist, 1)
+	except:
+		pass
+	chunklist=None

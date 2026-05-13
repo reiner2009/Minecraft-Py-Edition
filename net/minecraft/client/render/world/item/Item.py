@@ -78,9 +78,11 @@ add_item("copper_block", "copper_block", 21)
 add_item("bricks", "bricks", 20)
 add_item("deepslate_bricks", "deepslate_bricks", 19)
 add_item("polished_deepslate", "polished_deepslate", 18)
+add_item("furnace_front","furnace", 17)
 
 texture_map = {
-	"grass_block":"grass_block_side"
+	"grass_block":"grass_block_side",
+	"furnace":"furnace_front"
 }
 
 def render_items_for_hotbar():
@@ -102,8 +104,9 @@ def render_items_for_hotbar():
 			uv = UV_MAP[tex_name]
 		except:
 			uv = UV_MAP[texture_map[tex_name]]
-		uv_map = [((uv[0]) / 6, (uv[1]) / 7), ((uv[0] + 1) / 6, (uv[1]) / 7),
-				  ((uv[0] + 1) / 6, (uv[1] + 1) / 7), ((uv[0]) / 6, (uv[1] + 1) / 7)]
+		w, h = block_atlas_data["width"], block_atlas_data["height"]
+		uv_map = [((uv[0]) / w, (uv[1]) / h), ((uv[0] + 1) / w, (uv[1]) / h),
+				  ((uv[0] + 1) / w, (uv[1] + 1) / h), ((uv[0]) / w, (uv[1] + 1) / h)]
 		glBegin(GL_QUADS)
 		orig_w = 62
 		orig_h = 59

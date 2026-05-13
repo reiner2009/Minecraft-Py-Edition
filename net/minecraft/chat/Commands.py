@@ -101,11 +101,11 @@ def string_to_position_for_fill(string, entity):
 def teleport(x,y,z, entity):
 	entity.spawn(x,y,z)
 
-def assume_command(string, entity, chunklist):
+def assume_command(string, entity):
 	try:
 		if string.split()[0]=="/setblock":
 			set_block(*string_to_position(string, entity), string.split()[4])
-			rebuild_chunks(chunklist)
+			rebuild_chunks()
 			show_text(f"block in {string_to_position(string, entity)} successfully replaced", [255,255,255,255])
 			logger.set_environment("Main")
 			logger.info(f"[COMMAND] block in {string_to_position(string, entity)} successfully replaced")
@@ -121,7 +121,7 @@ def assume_command(string, entity, chunklist):
 					for z2 in irange(z,z1):
 						set_block(x2,y2,z2, string.split()[7])
 						a+=1
-			rebuild_chunks(chunklist)
+			rebuild_chunks()
 			show_text(f"{a} blocks successfully replaced", [255,255,255,255])
 			logger.set_environment("Main")
 			logger.info(f"[COMMAND] {a} blocks successfully replaced")
@@ -134,7 +134,7 @@ def assume_command(string, entity, chunklist):
 			logger.set_environment("Client")
 		elif string.split()[0]=="/reset_world":
 			chunk.create_new_world()
-			rebuild_chunks(chunklist)
+			rebuild_chunks()
 			show_text("World successfully reset ", [255, 255, 255, 255])
 			logger.set_environment("Main")
 			logger.info("[COMMAND] World successfully reset")
@@ -175,7 +175,3 @@ def assume_command(string, entity, chunklist):
 		logger.set_environment("Main")
 		logger.info("[COMMAND] Unknown or incomplete command: "+string+" | Error: "+str(traceback.format_exc()))
 		logger.set_environment("Client")
-
-def rebuild_chunks(chunklist):
-	glDeleteLists(chunklist, 1)
-	chunklist=build_chunk_display_list()

@@ -1,9 +1,13 @@
 import json
 import net.minecraft.util.logger.Logger as logger
 import net.minecraft.resources.DataLocation as DataLocation
+from net.minecraft.world.block.Blocks import registries
 
 models=[]
-model_names=["bedrock", "cobblestone", "deepslate", "dirt", "grass_block", "oak_log", "oak_planks", "stone", "stone_bricks", "white_wool", "light_blue_wool", "green_wool","black_wool","blue_wool","brown_wool","cyan_wool", "gray_wool","light_gray_wool","lime_wool","magenta_wool","orange_wool","pink_wool","purple_wool","red_wool","yellow_wool","oak_leaves","glass_block", "smooth_stone", "gold_block", "diamond_block", "lapis_block", "iron_block", "bricks","deepslate_bricks","polished_deepslate", "copper_block"]
+model_names=[]
+for name_, name in registries.items():
+	for property in name(name_).getProperties():
+		model_names.append(name(name_).getName()+property)
 
 def load_model(name):
 	logger.set_environment("Client")
@@ -23,5 +27,5 @@ model_map={}
 for m, i in zip(model_names, range(len(models))):
 	model_map[m]=models[i]
 
-def get_model(name):
-	return(model_map[name])
+def get_model(name, property=""):
+	return (model_map[name + property])

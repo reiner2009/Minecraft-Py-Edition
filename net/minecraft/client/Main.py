@@ -20,7 +20,7 @@ from net.minecraft.util.gui.Widgets import*
 from net.minecraft.sounds.Sounds import*
 from net.minecraft.chat.Chat import show_text
 import net.minecraft.client.render.world.item.Item as Item
-import net.minecraft.world.chunk.Chunk as Chunk
+from net.minecraft.world.chunk.Chunk import *
 import net.minecraft.chat.Chat as Chat
 import sys
 import math
@@ -102,7 +102,6 @@ block_preview=True
 chat=False
 running_app=True
 container=False
-chunklist=None
 player=PlayerEntity(False)
 player.spawn(0,0,0)
 player.setName(Playername.playername)
@@ -195,22 +194,21 @@ def take_screenshot():
     if game_state == state_game:
         show_text("Screenshot saved as " + filename, [255, 255, 255, 255])
 
-def rebuild_chunks():
-	global chunklist
-	glDeleteLists(chunklist, 1)
-	chunklist=build_chunk_display_list()
-
 def place_block_by_player():
 	global block_sound_volume
 	X,Y,Z,*_= Raycast.get_pos(player)
 	try:
 		if Raycast.get_neighbour_block(X, Y, Z):
 			player.swing("right")
-			threading.Thread(target=set_block, args=(X, Y, Z, Item.selected_item[hotbar_slot_selected - 1]), daemon=True).start()
+			set_block(X, Y, Z, Item.selected_item[hotbar_slot_selected - 1])
+			try:
+				get_block_data(X,Y,Z).finallyPlace(player)
+			except:
+				pass
 			play_place_sound(block_place_sounds[Item.selected_item[hotbar_slot_selected - 1]], block_sound_volume)
 			rebuild_chunks()
-	except Exception as e:
-		logger.warning("place_block_by_player failed: " + str(e))
+	except:
+		logger.error(str(traceback.format_exc()))
 
 def get_block_by_player():
 	global hotbar_slot_selected
@@ -224,8 +222,8 @@ def get_block_by_player():
 			except:
 				try:
 					Item.add_item(Item.texture_map[get_block(X, Y, Z)], get_block(X, Y, Z), hotbar_slot_selected - 1)
-				except Exception as e:
-					logger.error("get_block_by_player failed: " + str(e))
+				except:
+					logger.error(str(traceback.format_exc()))
 
 def show_error(msg, color, lifetime=10000):
 	msg=str(msg)
@@ -260,8 +258,8 @@ def break_block_by_player():
 				play_place_sound(block_place_sounds[get_block(X, Y, Z)], block_sound_volume)
 			set_block(X,Y,Z, "air")
 			rebuild_chunks()
-	except Exception as e:
-		logger.warning("break_block_by_player failed: " + str(e))
+	except:
+		logger.error(str(traceback.format_exc()))
 
 def render_hud():
 	global pause_menu, message, hotbar_slot_selected, debug_charts,container
@@ -282,6 +280,7 @@ def render_hud():
 		hud.display_fps()
 		hud.display_position(round(world_x), round(world_y), round(world_z))
 		hud.display_rotate(round(yaw),round(pitch))
+		hud.render_cardinal_direction_facing(player.get_cardinal_direction_facing())
 	if container==True:
 		pygame.mouse.set_cursor(SYSTEM_CURSOR_ARROW)
 		hud.render_tab_items()
@@ -296,7 +295,7 @@ def draw_scene():
 	sky.render(camera_x/2, camera_y/2, camera_z/2,worldTime.get_light(), worldTime.sunriseblend, worldTime.sunsetblend, worldTime.t)
 	glTexEnvf(GL_TEXTURE_ENV, GL_TEXTURE_ENV_MODE, GL_MODULATE)
 	glColor3f(worldTime.get_light(), worldTime.get_light(), worldTime.get_light())
-	glCallList(chunklist)
+	glCallList(getChunkList())
 	for p in EntityList.entities:
 		p.tick()
 	x,y,z,x1,y1,z1= Raycast.get_pos(player)
@@ -507,6 +506,7 @@ def render_menu(events):
 				button_click_sound.play()
 				game_state=state_game
 				mouse_grab=True
+				load_chunks()
 	elif x>=x1 and x<=x2 and y>=y3 and y<=y4:
 		highlight0 = False
 		highlight1 = True
@@ -549,15 +549,12 @@ def render_menu(events):
 	button(x1, y7, x2, y8, "Quit Game", highlight3)
 
 def running_world(events):
-	global menu, running, x,y,z, camera_x, camera_y, camera_z, speed, mouse_grab,hud_,hotbar_slot_selected, debug_charts, game_state, chunklist, pause_menu, mouse_grab, chat, chat_text, block_preview, container,client, sock
+	global menu, running, x,y,z, camera_x, camera_y, camera_z, speed, mouse_grab,hud_,hotbar_slot_selected, debug_charts, game_state, pause_menu, mouse_grab, chat, chat_text, block_preview, container,client, sock
 	pygame.mixer.music.set_volume((1/489)*music_volume)
-	if chunklist==None:
+	if getChunkList()==1:
 		render_chunk()
 		load_level()
-		chunklist = build_chunk_display_list()
 		show_text("[TIP] "+random.choice(tips), [84,84,251,255])
-		logger.set_environment("Main")
-		logger.info(Playername.playername + " joined the game")
 	play_music_mode(music_creative)
 	if pause_menu==True:
 		pause_music()
@@ -651,16 +648,15 @@ def running_world(events):
 				if event.type==MOUSEBUTTONDOWN and event.button==1 and pause_menu==True:
 					texts.clear()
 					temporary_texts.clear()
+					unload_chunks()
 					button_click_sound.play()
 					pygame.time.delay(150)
 					stop_music()
 					logger.set_environment("Main")
-					logger.info(Playername.playername + " left the game")
 					game_state=state_menu
 					pygame.mouse.set_visible(True)
 					pygame.event.set_grab(False)
 					mouse_grab=False
-					chunklist=None
 					game_state=state_menu
 					pause_menu=False
 					logger.info("Saving world")
@@ -710,7 +706,7 @@ def running_world(events):
 					mouse_grab=True
 					if chat_text != "":
 						if chat_text.startswith("/"):
-							assume_command(chat_text, player, chunklist)
+							assume_command(chat_text, player)
 						else:
 							logger.set_environment("Main")
 							logger.info("[CHAT] <" + str(Playername.playername) + "> " + chat_text)
@@ -761,5 +757,5 @@ except Exception:
 	logger.set_environment("Main")
 	logger.error(crash)
 	save_level()
-	if Chunk.chunk!={}:
+	if chunk!={}:
 		save_world()

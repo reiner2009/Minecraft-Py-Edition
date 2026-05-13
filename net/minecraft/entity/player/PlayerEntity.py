@@ -38,6 +38,16 @@ class PlayerEntity:
         self.pitch=max(-90, min(90, self.pitch))
     def get_entity_facing(self):
         return self.yaw, self.pitch
+    def get_cardinal_direction_facing(self):
+        yaw = self.get_entity_facing()[0]
+        if -45 <= yaw <= 45:
+            return "north"
+        elif 45 < yaw <= 135:
+            return "east"
+        elif yaw > 135 or yaw <= -135:
+            return "south"
+        elif -135 < yaw <= -45:
+            return "west"
     def set_facing(self, yaw, pitch):
         self.yaw = yaw
         self.pitch = pitch

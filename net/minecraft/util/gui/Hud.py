@@ -158,3 +158,7 @@ def display_fps():
 def display_rotate(yaw, pitch):
     rotate_data="yaw: "+str(yaw)+", pitch: "+str(pitch)
     render_text(rotate_data,10,height-60,15,15,[255,255,255,255])
+
+def render_cardinal_direction_facing(string):
+    rotate_data = "facing: " +str(string)
+    render_text(rotate_data, 10, height - 80, 15, 15, [255, 255, 255, 255])
