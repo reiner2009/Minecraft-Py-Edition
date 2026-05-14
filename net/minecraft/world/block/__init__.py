@@ -17,6 +17,10 @@ def spawnTree(x,y,z):
         set_block(x+pos[0],y+pos[1],z+pos[2], block)
     reload_chunks()
 
+def reloadChunks():
+    from net.minecraft.world.chunk.Chunk import reload_chunks
+    reload_chunks()
+
 class Block:
     def __init__(self, NAME):
         self.VOXEL_SHAPE=[1,1,1]
@@ -36,7 +40,7 @@ class Block:
     def getDefaultProperty(self):
         return ""
     def finallyPlace(self, entity):
-        pass
+        reloadChunks()
     def getProperties(self):
         return [""]
 
@@ -53,6 +57,7 @@ class LogBlock(Block):
                 self.AXIS.setAxis("x")
         else:
             self.AXIS.setAxis("y")
+        super().finallyPlace(entity)
     @override
     def getProperty(self):
         return self.AXIS.getAxis()
@@ -63,20 +68,14 @@ class LogBlock(Block):
     def getProperties(self):
         return self.AXIS.getAxisKeys()
 
-class FurnaceBlock(Block):
+class CardinalableBlock(Block):
     def __init__(self, NAME):
         super().__init__(NAME)
         self.FACING=FacingProperty()
     @override
     def finallyPlace(self, entity):
-        if entity.get_cardinal_direction_facing()=="north":
-            self.FACING.setFacing("north")
-        if entity.get_cardinal_direction_facing()=="south":
-            self.FACING.setFacing("south")
-        if entity.get_cardinal_direction_facing()=="east":
-            self.FACING.setFacing("east")
-        if entity.get_cardinal_direction_facing()=="west":
-            self.FACING.setFacing("west")
+        self.FACING.setFacing(entity.get_cardinal_direction_facing())
+        super().finallyPlace(entity)
     @override
     def getProperty(self):
         return self.FACING.getFacing()
@@ -93,3 +92,4 @@ class OakSapling(Block):
     @override
     def finallyPlace(self, entity):
         spawnTree(*self.MAP_POSITION)
+        super().finallyPlace(entity)

@@ -209,7 +209,6 @@ def place_block_by_player():
 				play_place_sound(block_place_sounds[Item.selected_item[hotbar_slot_selected - 1]], block_sound_volume)
 			except:
 				play_place_sound("stone", block_sound_volume)
-			rebuild_chunks()
 	except:
 		logger.error(str(traceback.format_exc()))
 
