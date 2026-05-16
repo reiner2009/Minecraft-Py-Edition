@@ -44,7 +44,15 @@ def render(x, y, z, light, sunriseblend, sunsetblend, t):
     glDepthMask(GL_FALSE)
     vertices = cube_vertices(x, y, z)
     surfaces = [
-        (0, 1, 2, 3),
+        (3, 0, 1, 2),
+        (7, 6, 5, 4),
+        (4, 5, 1, 0),
+        (5, 6, 2, 1),
+        (6, 7, 3, 2),
+        (7, 4, 0, 3)
+    ]
+    surfaces1=[
+        (1, 2, 3, 0),
         (7, 6, 5, 4),
         (4, 5, 1, 0),
         (5, 6, 2, 1),
@@ -88,7 +96,7 @@ def render(x, y, z, light, sunriseblend, sunsetblend, t):
         glBegin(GL_QUADS)
         for j in range(4):
             tx, ty = tex_coords[j]
-            vx, vy, vz = vertices[surfaces[i][j]]
+            vx, vy, vz = vertices[surfaces1[i][j]]
             glTexCoord2f(tx, ty)
             glVertex3f(vx, vy, vz)
         glEnd()

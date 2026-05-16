@@ -2,6 +2,8 @@ import net.minecraft.text.Text as text
 import net.minecraft.util.translation.Lang as lang
 from net.minecraft.client.Client import *
 from net.minecraft.client.render.world.block.BlockRenderer import block_atlas, UV_MAP, block_atlas_data
+from net.minecraft.resources.DataLocation import get_resource_path
+import json
 
 container_items=[]
 for i in range(54):
@@ -19,75 +21,31 @@ def set_vars(event_, hotbar_slot_selected_):
 	events=event_
 	hotbar_slot_selected=hotbar_slot_selected_
 
-def add_item(texture, item, slot):
+def add_item(item, slot):
 	global container_items
 	if item != "air":
-		container_items[slot]=(texture, item, slot)
+		try:
+			container_items[slot]=(texture_map[item], item, slot)
+		except:
+			container_items[slot] = (item, item, slot)
 		if slot <=8:
 			selected_item[slot]=item
 	else:
 		pass
 
+ItemGroup=json.load(open(get_resource_path("data/minecraft/item/ItemGroup.json")))
+for item, slot in ItemGroup.items():
+	add_item(str(item), slot)
+
+for i in range(9):
+	add_item(list(ItemGroup.keys())[i], i)
 
 slot_coords=[]
 for i in range(54):
 	slot_coords.append((0, 0, i, "air"))
 
-add_item("stone_bricks", "stone_bricks", 0)
-add_item("cobblestone", "cobblestone", 1)
-add_item("stone", "stone", 2)
-add_item("deepslate", "deepslate", 3)
-add_item("bedrock", "bedrock", 4)
-add_item("dirt", "dirt", 5)
-add_item("grass_block_side", "grass_block", 6)
-add_item("oak_planks", "oak_planks", 7)
-add_item("oak_log", "oak_log", 8)
-add_item("stone_bricks", "stone_bricks", 53)
-add_item("cobblestone", "cobblestone", 52)
-add_item("stone", "stone", 51)
-add_item("deepslate", "deepslate", 50)
-add_item("bedrock", "bedrock", 49)
-add_item("dirt", "dirt", 48)
-add_item("grass_block_side", "grass_block", 47)
-add_item("oak_planks", "oak_planks", 46)
-add_item("oak_log", "oak_log", 45)
-add_item("white_wool", "white_wool", 44)
-add_item("light_blue_wool", "light_blue_wool", 43)
-add_item("green_wool", "green_wool", 42)
-add_item("black_wool", "black_wool", 41)
-add_item("blue_wool", "blue_wool", 40)
-add_item("brown_wool", "brown_wool", 39)
-add_item("cyan_wool", "cyan_wool", 38)
-add_item("gray_wool", "gray_wool", 37)
-add_item("light_gray_wool", "light_gray_wool", 36)
-add_item("lime_wool", "lime_wool", 35)
-add_item("magenta_wool", "magenta_wool", 34)
-add_item("orange_wool", "orange_wool", 33)
-add_item("pink_wool", "pink_wool", 32)
-add_item("purple_wool", "purple_wool", 31)
-add_item("red_wool", "red_wool", 30)
-add_item("yellow_wool", "yellow_wool", 29)
-add_item("oak_leaves", "oak_leaves", 28)
-add_item("glass_block", "glass_block", 27)
-add_item("smooth_stone", "smooth_stone", 26)
-add_item("gold_block", "gold_block", 25)
-add_item("diamond_block", "diamond_block", 24)
-add_item("lapis_block", "lapis_block", 23)
-add_item("iron_block", "iron_block", 22)
-add_item("copper_block", "copper_block", 21)
-add_item("bricks", "bricks", 20)
-add_item("deepslate_bricks", "deepslate_bricks", 19)
-add_item("polished_deepslate", "polished_deepslate", 18)
-add_item("furnace_front","furnace", 17)
-add_item("crafting_table_front", "crafting_table", 16)
-add_item("oak_sapling","oak_sapling", 15)
 
-texture_map = {
-	"grass_block":"grass_block_side",
-	"furnace":"furnace_front",
-	"crafting_table":"crafting_table_front",
-	"oak_sapling":"oak_sapling"
-}
+texture_map = json.load(open(get_resource_path("data/minecraft/item/textureMap.json")))
 
 def render_items_for_hotbar():
 	global selected_item
@@ -204,4 +162,4 @@ def render_items_for_container():
 			for x, y , slot_, name_ in slot_coords:
 				if mx >= x and mx <= x + quad_w and my >= y and my <= y + quad_h:
 					if name_!="air":
-						add_item(name_,name_ , hotbar_slot_selected-1)
+						add_item(name_ , hotbar_slot_selected-1)

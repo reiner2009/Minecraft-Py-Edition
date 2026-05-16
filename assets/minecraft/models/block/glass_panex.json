@@ -1,0 +1,15 @@
+{
+  "type":"custom_model",
+  "elements": {
+    "frame": {
+      "textures": ["glass_pane_top", "glass_pane_top", "glass_pane_top", "translucent", "glass_pane_top", "translucent"],
+      "vertices": [-1,-1,-1,1,1,1],
+      "not_cullable": [false, false, false, false, false, false]
+    },
+    "glass": {
+      "textures": ["translucent", "translucent", "translucent", "glass_block", "translucent", "glass_block"],
+      "vertices": [-0.125,-1,-1,0.125,1,1],
+      "not_cullable": [false, false, false, true, false, true]
+    }
+  }
+}

@@ -56,7 +56,7 @@ def play_music_mode(mode):
 	pygame.mixer.music.load(DataLocation.get_resource_path(track))
 	pygame.mixer.music.set_volume(0.5)
 	pygame.mixer.music.play()
-	delay=random.randint(2000, 6000)
+	delay=random.randint(20000, 60000)
 	next_music_time=now+delay
 	
 

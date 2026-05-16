@@ -3,6 +3,7 @@
     "oak_leaves"
   ],
   "translucent": [
-    "glass_block"
+    "glass_block",
+    "glass_pane"
   ]
 }

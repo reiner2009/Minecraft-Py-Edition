@@ -31,3 +31,20 @@ class FacingProperty:
         return self.FACING
     def getFacingKeys(self):
         return self.FACING_KEYS
+
+class TwoDirectionsProperty:
+    def __init__(self, DIRECTION="x"):
+        self.DIRECTION_KEYS=["x","z"]
+        if DIRECTION in self.DIRECTION_KEYS:
+            self.DIRECTION = DIRECTION
+        else:
+            self.DIRECTION = "x"
+    def setDirection(self, DIRECTION):
+        if DIRECTION in self.DIRECTION_KEYS:
+            self.DIRECTION = DIRECTION
+        else:
+            self.DIRECTION = "x"
+    def getDirection(self):
+        return self.DIRECTION
+    def getDirectionKeys(self):
+        return self.DIRECTION_KEYS

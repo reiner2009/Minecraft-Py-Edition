@@ -39,10 +39,10 @@ def create_random_chunk(seed=0):
 				tree_map.append((x, noise.noise2(x*noise_settings["x"], z * noise_settings["z"])*noise_settings["hilly_intensity"]+noise_settings["terrian_height"], z))
 	for i in tree_map:
 		feature=random.choices(list(tree_percent_map.keys()), weights=tree_percent_map.values())[0]
-		with open(DataLocation.get_resource_path("data/minecraft/worldgen/feature/tree/" + feature + ".dat"), "rb") as file:
+		with gzip.open(DataLocation.get_resource_path("data/minecraft/worldgen/feature/tree/" + feature + ".dat"), "rb") as file:
 			tree=pickle.load(file)
 		for pos, block in tree.items():
-			c[(round(pos[0]+i[0]),round(pos[1]+i[1]),round(pos[2]+i[2]))]=block
+			c[(round(pos[0]+i[0]),round(pos[1]+i[1]),round(pos[2]+i[2]))]=block.getName()
 	for player in entities:
 		player.spawn(25,round(noise.noise2(25 * noise_settings["x"], 25 * noise_settings["z"])*noise_settings["hilly_intensity"]+noise_settings["terrian_height"]+1), 25)
 	return c
@@ -68,12 +68,12 @@ def render_chunk():
 		pygame.mouse.set_cursor(SYSTEM_CURSOR_WAIT)
 		setup_ortho()
 		hud.render_wallpaper(dark_menu_texture)
-		text.render_text("Saving world...", width / 2 - 67, height - height / 1152 * 200, 15, 15, [255, 255, 255, 255])
+		text.render_text("Loading terrian...", width / 2 - 67, height - height / 1152 * 200, 15, 15, [255, 255, 255, 255])
 		pygame.display.flip()
 		clock.tick(60)
 		logger.info("Loading terrian")
-		for (x,y,z), block_name in _chunk.items():
-			chunk[(x,y,z)]=block_name
+		for (x,y,z), block in _chunk.items():
+			chunk[(x,y,z)]=block
 		load_chunks()
 	except:
 		logger.set_environment("Main")
@@ -94,8 +94,8 @@ def create_new_world():
 	logger.info("Loading terrian")
 	chunk.clear()
 	chunk_ = create_random_chunk(seed=random.randint(0,100))
-	for (x, y, z), block_name in chunk_.items():
-		set_block(x, y, z, block_name)
+	for (x, y, z), block in chunk_.items():
+		set_block(x, y, z, block)
 	reload_chunks()
 
 def set_block(x,y,z,name):
@@ -114,19 +114,19 @@ def build_chunk():
 	glEnable(GL_CULL_FACE)
 	glDepthMask(GL_TRUE)
 	glDisable(GL_BLEND)
-	for (x, y, z), block_name in chunk.items():
-		if str(block_name.getName()) not in translucent_blocks and str(block_name.getName()) not in cutout_blocks:
-			place_block(block_name.getName(), x, y, z, block_name.getProperty())
+	for (x, y, z), block in chunk.items():
+		if str(block.getName()) not in translucent_blocks and str(block.getName()) not in cutout_blocks:
+			place_block(block.getName(), x, y, z, block.getProperty())
 	glEnable(GL_ALPHA_TEST)
 	glAlphaFunc(GL_GREATER, 0.5)
-	for (x, y, z), block_name in chunk.items():
-		if block_name.getName() in cutout_blocks:
-			place_block(str(block_name.getName()), x, y, z, block_name.getProperty())
+	for (x, y, z), block in chunk.items():
+		if block.getName() in cutout_blocks:
+			place_block(str(block.getName()), x, y, z, block.getProperty())
 	glEnable(GL_BLEND)
 	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA)
-	for (x, y, z), block_name in chunk.items():
-		if block_name.getName() in translucent_blocks:
-			place_block(str(block_name.getName()), x, y, z, block_name.getProperty())
+	for (x, y, z), block in chunk.items():
+		if block.getName() in translucent_blocks:
+			place_block(str(block.getName()), x, y, z, block.getProperty())
 	glDisable(GL_ALPHA_TEST)
 	glDepthMask(GL_TRUE)
 

@@ -1,4 +1,4 @@
-from net.minecraft.world.block import Block, LogBlock, CardinalableBlock, OakSapling
+from net.minecraft.world.block import Block, LogBlock, CardinalableBlock, OakSapling, GlassPane
 
 registries={
     "bedrock":Block,
@@ -39,5 +39,6 @@ registries={
     "copper_block":Block,
     "furnace":CardinalableBlock,
     "crafting_table":CardinalableBlock,
-    "oak_sapling":OakSapling
+    "oak_sapling":OakSapling,
+    "glass_pane":GlassPane
 }

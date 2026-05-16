@@ -17,7 +17,7 @@ block_atlas=load_texture("assets/minecraft/textures/block/atlas.png")
 block_atlas_data=json.load(open(DataLocation.get_resource_path("assets/minecraft/atlas_data/blocks.json")))
 UV_MAP = block_atlas_data["values"]
 
-render_data=json.load(open(DataLocation.get_resource_path("assets/minecraft/render_data.json")))
+render_data=json.load(open(DataLocation.get_resource_path("assets/minecraft/render/render_data.json")))
 
 translucent_blocks=render_data["translucent"]
 
@@ -29,20 +29,26 @@ def cube_vertices(x, y, z):
         (-1+x,1+y,-1+z),  (1+x,1+y,-1+z),  (1+x,1+y,1+z),  (-1+x,1+y,1+z)
     ]
 
+def custom_cube_vertices(x, y, z, x0,y0,z0,x1,y1,z1):
+    return [
+        (x0+x,y0+y,z0+z), (x1+x,y0+y,z0+z), (x1+x,y0+y,z1+z), (x0+x,y0+y,z1+z),
+        (x0+x,y1+y,z0+z), (x1+x,y1+y,z0+z), (x1+x,y1+y,z1+z), (x0+x,y1+y,z1+z)
+    ]
+
 chunk = {}
 
-def draw_block(vertices, surfaces, UVs, x, y, z):
+def draw_block(vertices, surfaces, UVs, x, y, z, not_cullable_surfaces=[False, False, False, False, False, False]):
     neighbors = [(0,-1,0), (0,1,0), (0,0,-1), (1,0,0), (0,0,1), (-1,0,0)]
     glEnable(GL_TEXTURE_2D)
     for i in range(6):
         dx, dy, dz = neighbors[i]
         neighbor=get_block(x+dx,y+dy,z+dz)
         uv = UVs[i] if i < len(UVs) else UVs[0]
-        if (neighbor=="air" or (neighbor in translucent_blocks and get_block(x,y,z)!=neighbor) or neighbor in cutout_blocks):
-            glBegin(GL_QUADS)
+        if (neighbor=="air" or (neighbor in translucent_blocks and get_block(x,y,z)!=neighbor) or neighbor in cutout_blocks) or not_cullable_surfaces[i]:
             w,h=block_atlas_data["width"], block_atlas_data["height"]
-            uv_map = [((uv[0]) / w, (uv[1]) / h), ((uv[0] + 1) / w, (uv[1]) / h),
-                      ((uv[0] + 1) / w, (uv[1] + 1) / h), ((uv[0]) / w, (uv[1] + 1) / h)]
+            uv_map = [((uv[0] + 1) / w, (uv[1]) / h), ((uv[0]) / w, (uv[1]) / h),
+                      ((uv[0]) / w, (uv[1] + 1) / h), ((uv[0] + 1) / w, (uv[1] + 1) / h)]
+            glBegin(GL_QUADS)
             for j in range(4):
                 tx,ty=uv_map[j]
                 vx, vy, vz = vertices[surfaces[i][j]]
@@ -53,36 +59,48 @@ def draw_block(vertices, surfaces, UVs, x, y, z):
 def place_block(name, x, y, z, property=""):
     global chunk
     data= Models.get_model(name, property)
-    texture_names = data["textures"]
-    UVs = []
-    if isinstance(texture_names, dict):
-        key_map = ["down","up","north","east","south","west"]
-        for key in key_map:
-            tex_name = texture_names.get(key)
-            if tex_name in UV_MAP:
-                UVs.append(UV_MAP[tex_name])
-            else:
-                UVs.append(UV_MAP[list(texture_names.values())[0]])
-    elif isinstance(texture_names, list):
+    if data["type"]=="full_cube":
+        texture_names = data["textures"]
+        UVs = []
         for tex_name in texture_names:
             UVs.append(UV_MAP[tex_name])
-        while len(UVs) < 6:
-            UVs.append(UVs[0])
-    else:
-        UVs = [UV_MAP[texture_names]]*6
-    draw_block(
-        cube_vertices(x*2, y*2, z*2),
-        [
-            (0, 1, 2, 3),
-            (7, 6, 5, 4),
-            (4, 5, 1, 0),
-            (5, 6, 2, 1),
-            (6, 7, 3, 2),
-            (7, 4, 0, 3)
-        ],
-        UVs,
-        x,y,z
-    )
+        draw_block(
+            cube_vertices(x*2, y*2, z*2),
+            [
+                (0, 1, 2, 3),
+                (7, 6, 5, 4),
+                (4, 5, 1, 0),
+                (5, 6, 2, 1),
+                (6, 7, 3, 2),
+                (7, 4, 0, 3)
+            ],
+            UVs,
+            x,y,z
+        )
+    if data["type"]=="custom_model":
+        for element in data["elements"].values():
+            texture_names = element["textures"]
+            UVs = []
+            for tex_name in texture_names:
+                UVs.append(UV_MAP[tex_name])
+            vertices=element["vertices"]
+            not_cullable_surfaces=element["not_cullable"]
+            draw_block(
+                custom_cube_vertices(x*2, y*2, z*2, *vertices),
+                [
+                    (0, 1, 2, 3),
+                    (7, 6, 5, 4),
+                    (4, 5, 1, 0),
+                    (5, 6, 2, 1),
+                    (6, 7, 3, 2),
+                    (7, 4, 0, 3)
+                ],
+                UVs,
+                x,y,z,
+                not_cullable_surfaces
+            )
+
+
 
 def get_block(x,y,z):
     global chunk

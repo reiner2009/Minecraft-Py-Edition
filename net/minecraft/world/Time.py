@@ -1,4 +1,3 @@
-from net.minecraft.chat.Chat import show_text
 t = 45
 light=1
 sunriseblend=0

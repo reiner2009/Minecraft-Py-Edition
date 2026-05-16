@@ -51,14 +51,7 @@ try:
 except:
 	pass
 
-tips=[
-	"Press 'e' to get more blocks",
-	"Move with w, a, s, d",
-	"Right klick to place a block",
-	"Left klick to break a block",
-	"Press t to open the chat",
-	"Press v to hide the block preview"
-]
+tips=json.load(open(DataLocation.get_resource_path("assets/minecraft/texts/tips.json")))
 
 x = 0
 y = 0
@@ -220,10 +213,10 @@ def get_block_by_player():
 			hotbar_slot_selected= Item.selected_item.index(get_block(X, Y, Z)) + 1
 		else:
 			try:
-				Item.add_item(get_block(X, Y, Z), get_block(X, Y, Z), hotbar_slot_selected - 1)
+				Item.add_item(get_block(X, Y, Z), hotbar_slot_selected - 1)
 			except:
 				try:
-					Item.add_item(Item.texture_map[get_block(X, Y, Z)], get_block(X, Y, Z), hotbar_slot_selected - 1)
+					Item.add_item(get_block(X, Y, Z), hotbar_slot_selected - 1)
 				except:
 					logger.error(str(traceback.format_exc()))
 

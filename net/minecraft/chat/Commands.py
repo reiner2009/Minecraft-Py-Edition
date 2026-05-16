@@ -161,7 +161,7 @@ def assume_command(string, entity):
 					if string.split()[2]=="day":
 						set_tick(90,0,0,1)
 					if string.split()[2]=="night":
-						set_tick(-90,0,0,0)
+						set_tick(270,0,0,0.1)
 			except:
 				logger.info(f"[COMMAND] Current time: {get_time()}")
 				show_text(f"Current time: {get_time()}",[255, 255, 255, 255])

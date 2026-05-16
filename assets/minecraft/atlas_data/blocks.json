@@ -1,5 +1,5 @@
 {
-  "width": 7,
+  "width": 8,
   "height": 7,
   "values":{
     "stone_bricks": [4,5],
@@ -50,6 +50,9 @@
     "crafting_table_side": [6,2],
     "crafting_table_front": [6,3],
     "oak_sapling": [6,4],
-    "translucent": [6,5]
+    "glass_pane_top": [6,5],
+    "glass_pane_top_": [6,6],
+    "translucent": [7,0],
+    "missing": [7,1]
   }
 }

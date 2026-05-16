@@ -120,7 +120,8 @@
       "oak_sapling": "grass"
     },
     "block_break": {
-      "glass_block":"glass"
+      "glass_block":"glass",
+      "glass_pane": "glass"
     }
   }
 }

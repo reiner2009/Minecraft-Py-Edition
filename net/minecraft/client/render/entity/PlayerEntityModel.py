@@ -48,8 +48,6 @@ surfaces = [
         (7,4,0,3)
 ]
 
-#textures=[down_texture,up_texture,left_texture,back_texture,right_texture, face_texture]
-
 tex_coords = [
     [(16,8),(16, 0),(24, 0),(24, 8)],
     [(8,8),(8, 0),(16, 0),(16, 8)],
@@ -214,24 +212,11 @@ def render_arms(x,y,z, yaw,left_arm_pitch,right_arm_pitch, block_name, skin_text
         glRotatef(-yaw - 90, 0.0, 1.0, 0.0)
         glTranslatef(0, -0.5, 0)
         glRotatef(right_arm_pitch, 0.0, 0.0, 1.0)
-        data = Models.get_model(block_name+registries[block_name](block_name).getDefaultProperty())
+        data = Models.get_item_model(block_name+registries[block_name](block_name).getDefaultProperty())
         texture_names = data["textures"]
         UVs = []
-        if isinstance(texture_names, dict):
-            key_map = ["down", "up", "north", "east", "south", "west"]
-            for key in key_map:
-                tex_name = texture_names.get(key)
-                if tex_name in UV_MAP:
-                    UVs.append(UV_MAP[tex_name])
-                else:
-                    UVs.append(UV_MAP[list(texture_names.values())[0]])
-        elif isinstance(texture_names, list):
-            for tex_name in texture_names:
-                UVs.append(UV_MAP[tex_name])
-            while len(UVs) < 6:
-                UVs.append(UVs[0])
-        else:
-            UVs = [UV_MAP[texture_names]] * 6
+        for tex_name in texture_names:
+            UVs.append(UV_MAP[tex_name])
         glBindTexture(GL_TEXTURE_2D, block_atlas)
         for i in range(6):
             uv = UVs[i] if i < len(UVs) else UVs[0]
@@ -246,7 +231,7 @@ def render_arms(x,y,z, yaw,left_arm_pitch,right_arm_pitch, block_name, skin_text
                 glVertex3f(vx, vy, vz)
             glEnd()
     except KeyError:
-        pass
+        print(traceback.format_exc())
     finally:
         glPopMatrix()
 
