@@ -34,7 +34,7 @@ for m, i in zip(model_names, range(len(models))):
 def get_model(name, property=""):
 	return (model_map[name + property])
 
-def get_item_model(name, property=""):
+def get_item_model(name):
 	if name in list(itemModels.keys()):
 		return (model_map[itemModels[name]])
 	else:

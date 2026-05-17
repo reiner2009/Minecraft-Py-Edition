@@ -48,3 +48,20 @@ class TwoDirectionsProperty:
         return self.DIRECTION
     def getDirectionKeys(self):
         return self.DIRECTION_KEYS
+
+class StairSetProperty:
+    def __init__(self, STAIR_SET="south0"):
+        self.STAIR_SET_KEYS=["north0","east0","south0","west0","north1","east1","south1","west1"]
+        if STAIR_SET in self.STAIR_SET_KEYS:
+            self.STAIR_SET = STAIR_SET
+        else:
+            self.STAIR_SET = "south0"
+    def setStairSet(self, STAIR_SET):
+        if STAIR_SET in self.STAIR_SET_KEYS:
+            self.STAIR_SET = STAIR_SET
+        else:
+            self.STAIR_SET = "south0"
+    def getStairSet(self):
+        return self.STAIR_SET
+    def getStairSetKeys(self):
+        return self.STAIR_SET_KEYS

@@ -2,6 +2,9 @@
   "cutout": [
     "oak_leaves"
   ],
+  "not_full":[
+    "oak_stair"
+  ],
   "translucent": [
     "glass_block",
     "glass_pane"

@@ -148,7 +148,7 @@ def start_client(HOST):
 def save_level():
 	world_x, world_y, world_z=player.get_entity_position()
 	yaw, pitch = player.get_entity_facing()
-	data=[world_x, world_y, world_z, yaw, pitch, worldTime.t, worldTime.sunriseblend, worldTime.sunsetblend, worldTime.light]
+	data=[world_x, world_y, world_z, yaw, pitch, worldTime.t, worldTime.get_sunriseblend(), worldTime.get_sunsetblend()]
 	base_path = os.path.join(os.environ[DataLocation.get_save_system()], ".minecraft-py")
 	world = os.path.join(base_path, "world")
 	full_path = os.path.join(world, "level.dat")
@@ -168,9 +168,9 @@ def load_level():
 		with open(full_path, "rb") as f:
 			d=pickle.load(f)
 		player.spawn(d[0], d[1], d[2], d[3], d[4])
-		worldTime.set_tick(d[5], d[6], d[7], d[8])
-	except Exception:
-		pass
+		worldTime.set_tick(d[5], d[6], d[7])
+	except:
+		print(traceback.format_exc())
 
 def take_screenshot():
     z = time.localtime()

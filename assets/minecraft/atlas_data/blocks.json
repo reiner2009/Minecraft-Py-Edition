@@ -51,7 +51,7 @@
     "crafting_table_front": [6,3],
     "oak_sapling": [6,4],
     "glass_pane_top": [6,5],
-    "glass_pane_top_": [6,6],
+    "oak_stair": [6,6],
     "translucent": [7,0],
     "missing": [7,1]
   }

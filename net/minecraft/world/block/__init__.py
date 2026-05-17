@@ -1,7 +1,7 @@
 from typing import override
 
 
-from net.minecraft.world.block.props import AxisProperty, FacingProperty, TwoDirectionsProperty
+from net.minecraft.world.block.props import AxisProperty, FacingProperty, TwoDirectionsProperty, StairSetProperty
 import net.minecraft.world.Features as features
 import net.minecraft.resources.DataLocation as DataLocation
 import random
@@ -95,7 +95,7 @@ class OakSapling(Block):
         spawnTree(*self.MAP_POSITION)
         super().finallyPlace(entity)
 
-class GlassPane(Block):
+class GlassPaneBlock(Block):
     def __init__(self, NAME):
         super().__init__(NAME)
         self.DIRECTION=TwoDirectionsProperty("x")
@@ -115,3 +115,26 @@ class GlassPane(Block):
     @override
     def getProperties(self):
         return self.DIRECTION.getDirectionKeys()
+
+class StairBlock(Block):
+    def __init__(self, NAME):
+        super().__init__(NAME)
+        self.STAIR_SET=StairSetProperty("south0")
+        self.VERTICAL_DIRECTION="0"
+    @override
+    def finallyPlace(self, entity):
+        if -90 < entity.get_entity_facing()[1] < 0:
+            self.VERTICAL_DIRECTION="1"
+        if 0 < entity.get_entity_facing()[1] < 90:
+            self.VERTICAL_DIRECTION="0"
+        self.STAIR_SET.setStairSet(entity.get_cardinal_direction_facing()+self.VERTICAL_DIRECTION)
+        super().finallyPlace(entity)
+    @override
+    def getProperty(self):
+        return self.STAIR_SET.getStairSet()
+    @override
+    def getDefaultProperty(self):
+        return "x0"
+    @override
+    def getProperties(self):
+        return self.STAIR_SET.getStairSetKeys()

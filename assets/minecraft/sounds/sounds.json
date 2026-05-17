@@ -117,7 +117,8 @@
       "yellow_wool":"cloth",
       "oak_leaves":"grass",
       "crafting_table": "wood",
-      "oak_sapling": "grass"
+      "oak_sapling": "grass",
+      "oak_stair": "wood"
     },
     "block_break": {
       "glass_block":"glass",

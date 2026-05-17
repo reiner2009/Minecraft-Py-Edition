@@ -6,12 +6,18 @@ py = load_texture("assets/minecraft/textures/environment/sky/py.png")
 ny = load_texture("assets/minecraft/textures/environment/sky/ny.png")
 pz = load_texture("assets/minecraft/textures/environment/sky/pz.png")
 nz = load_texture("assets/minecraft/textures/environment/sky/nz.png")
-pxs = load_texture("assets/minecraft/textures/environment/sunset_sunrise_sky/px.png")
-nxs = load_texture("assets/minecraft/textures/environment/sunset_sunrise_sky/nx.png")
-pys = load_texture("assets/minecraft/textures/environment/sunset_sunrise_sky/py.png")
-nys = load_texture("assets/minecraft/textures/environment/sunset_sunrise_sky/ny.png")
-pzs = load_texture("assets/minecraft/textures/environment/sunset_sunrise_sky/pz.png")
-nzs = load_texture("assets/minecraft/textures/environment/sunset_sunrise_sky/nz.png")
+pxs = load_texture("assets/minecraft/textures/environment/sunrise/px.png")
+nxs = load_texture("assets/minecraft/textures/environment/sunrise/nx.png")
+pys = load_texture("assets/minecraft/textures/environment/sunrise/py.png")
+nys = load_texture("assets/minecraft/textures/environment/sunrise/ny.png")
+pzs = load_texture("assets/minecraft/textures/environment/sunrise/pz.png")
+nzs = load_texture("assets/minecraft/textures/environment/sunrise/nz.png")
+pxs_ = load_texture("assets/minecraft/textures/environment/sunset/px.png")
+nxs_ = load_texture("assets/minecraft/textures/environment/sunset/nx.png")
+pys_ = load_texture("assets/minecraft/textures/environment/sunset/py.png")
+nys_ = load_texture("assets/minecraft/textures/environment/sunset/ny.png")
+pzs_ = load_texture("assets/minecraft/textures/environment/sunset/pz.png")
+nzs_ = load_texture("assets/minecraft/textures/environment/sunset/nz.png")
 clouds=load_texture("assets/minecraft/textures/environment/clouds.png")
 sun=load_texture("assets/minecraft/textures/environment/sun.png")
 clouds_z=0
@@ -60,7 +66,7 @@ def render(x, y, z, light, sunriseblend, sunsetblend, t):
         (7, 4, 0, 3)
     ]
     textures = [ny, py, nx, pz, px, nz]
-    sunsettextures=[nys, pys, nxs, pzs, pxs, nzs]
+    sunsettextures=[nys_, pys_, nxs_, pzs_, pxs_, nzs_]
     sunrisetextures=[nys, pys, pxs, nzs, nxs, pzs]
     glEnable(GL_TEXTURE_2D)
     tex_coords=[(0,0),(1,0),(1,1),(0,1)]
@@ -104,7 +110,7 @@ def render(x, y, z, light, sunriseblend, sunsetblend, t):
     glColor3f(1, 1, 1)
     glBindTexture(GL_TEXTURE_2D, sun)
     glTranslatef(x, y, z)
-    glRotatef(t-90, 0, 0, 1)
+    glRotatef(t*360/1440-180, 0, 0, 1)
     glTranslatef(0, 0.4, 0)
     vertices = sun_vertices()
     glBegin(GL_QUADS)

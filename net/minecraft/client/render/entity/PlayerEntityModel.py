@@ -231,7 +231,7 @@ def render_arms(x,y,z, yaw,left_arm_pitch,right_arm_pitch, block_name, skin_text
                 glVertex3f(vx, vy, vz)
             glEnd()
     except KeyError:
-        print(traceback.format_exc())
+        pass
     finally:
         glPopMatrix()
 
