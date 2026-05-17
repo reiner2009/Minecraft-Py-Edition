@@ -140,6 +140,7 @@ def receive():
 def start_client(HOST):
 	global sock, server_connection_thread
 	sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+	sock.settimeout(5.0)
 	sock.connect((HOST, 9999))
 	sock.sendall((Playername.playername).encode())
 	server_connection_thread=threading.Thread(target=receive, daemon=True).start()
