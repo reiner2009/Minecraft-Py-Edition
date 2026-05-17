@@ -454,7 +454,8 @@ def render_multiplayer_menu(events):
 				except Exception as e:
 					show_error("Could not connect to Minecraft server: " + str(e), [168, 0, 0, 255])
 					logger.error("Could not connect to Minecraft server: " + str(e))
-				mouse_grab=True
+				mouse_grab = True
+				load_chunks()
 	else:
 		pygame.mouse.set_cursor(SYSTEM_CURSOR_ARROW)
 	for event in events:
