@@ -135,6 +135,7 @@ tex_coords = [
 ]
 
 def render_arms(x,y,z, yaw,left_arm_pitch,right_arm_pitch, block_name, skin_texture, w=64, h=64):
+    glEnable(GL_BLEND)
     glEnable(GL_ALPHA_TEST)
     glDisable(GL_CULL_FACE)
     glEnable(GL_TEXTURE_2D)
@@ -237,6 +238,7 @@ def render_arms(x,y,z, yaw,left_arm_pitch,right_arm_pitch, block_name, skin_text
 
 
 def render_body_layer(x,y,z, yaw, pitch,left_arm_pitch,right_arm_pitch, walk_pitch_0, walk_pitch_1,name_tag_is_visible, name, block_name, skin_texture, w=64, h=64):
+    glEnable(GL_BLEND)
     glDisable(GL_CULL_FACE)
     glEnable(GL_ALPHA_TEST)
     glEnable(GL_TEXTURE_2D)

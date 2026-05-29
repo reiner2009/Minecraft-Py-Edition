@@ -1,9 +1,10 @@
-from net.minecraft.world.block import Block, LogBlock, CardinalableBlock, OakSapling, GlassPaneBlock, StairBlock
+from net.minecraft.world.block import Block, CardinalableBlock, OakSapling, GlassPaneBlock, StairBlock, LogBlock, \
+    DoorBlock
 
 registries={
     "bedrock":Block,
     "cobblestone":Block,
-    "deepslate":Block,
+    "deepslate":LogBlock,
     "dirt":Block,
     "grass_block":Block,
     "oak_log":LogBlock,
@@ -41,5 +42,6 @@ registries={
     "crafting_table":CardinalableBlock,
     "oak_sapling":OakSapling,
     "glass_pane":GlassPaneBlock,
-    "oak_stair":StairBlock
+    "oak_stair":StairBlock,
+    "oak_door":DoorBlock
 }

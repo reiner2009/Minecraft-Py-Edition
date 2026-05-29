@@ -1,8 +1,11 @@
+import traceback
+
 from net.minecraft.textures.Textures import *
 import net.minecraft.client.render.world.block.Models as Models
 import json
 import net.minecraft.resources.DataLocation as DataLocation
 from net.minecraft.world.block.Blocks import registries
+from net.minecraft.world.block import Block
 
 sound_categories=json.load(open(DataLocation.get_resource_path("assets/minecraft/sounds/sounds.json")))
 
@@ -134,27 +137,31 @@ def get_block_data(x,y,z):
     try:
         return chunk[(x,y,z)]
     except:
-        return None
+        return Block("air")
 
 lines=[
     (0,1),(1,2),(2,3),(3,0),(4,5),(5,6),(6,7),(7,4),(0,4),(1,5),(2,6),(3,7)
 ]
 
-def draw_block_preview(x, y, z, hit=False):
-    glDisable(GL_TEXTURE_2D)
+def draw_block_preview(name, x, y, z, hit=False, property=""):
     if hit:
         glColor3f(1,0,0)
         glLineWidth(12)
     else:
         glColor3f(1,1,1)
         glLineWidth(12)
-    glBegin(GL_LINES)
+    if not hit:
+        glEnable(GL_BLEND)
+        glColor4f(1,1,1,0.5001)
+        place_block(name,x,y,z, property)
+        glDisable(GL_BLEND)
     if hit:
+        glDisable(GL_TEXTURE_2D)
+        glEnable(GL_POLYGON_OFFSET_LINE)
+        glPolygonOffset(-1.0, -1.0)
+        glBegin(GL_LINES)
         for line in lines:
             for vertex in line:
-                glVertex3fv(cube_vertices(x*2, y*2, z*2)[vertex])
-    else:
-        for line in lines:
-            for vertex in line:
-                glVertex3fv(cube_vertices(x*2, y*2, z*2)[vertex])
-    glEnd()
+                glVertex3fv(get_block_data(x,y,z).getVoxelShape(x,y,z)[vertex])
+        glEnd()
+        glDisable(GL_POLYGON_OFFSET_LINE)

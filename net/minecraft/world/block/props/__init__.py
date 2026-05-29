@@ -65,3 +65,35 @@ class StairSetProperty:
         return self.STAIR_SET
     def getStairSetKeys(self):
         return self.STAIR_SET_KEYS
+
+class DoorSetProperty:
+    def __init__(self, DIRECTION="south0"):
+        self.DIRECTION_KEYS=["north0","east0","south0","west0","north1","east1","south1","west1"]
+        if DIRECTION in self.DIRECTION_KEYS:
+            self.DIRECTION=DIRECTION
+        else:
+            self.DIRECTION = "south0"
+    def setDirection(self, DIRECTION):
+        if DIRECTION in self.DIRECTION_KEYS:
+            self.DIRECTION = DIRECTION
+        else:
+            self.DIRECTION = "south0"
+    def getDirection(self):
+        return self.DIRECTION
+    def getDirectionKeys(self):
+        return self.DIRECTION_KEYS
+
+class DoorStateProperty:
+    def __init__(self, STATE="closed"):
+        self.STATE_KEYS=["open","closed"]
+        if STATE in self.STATE_KEYS:
+            self.STATE = STATE
+        else:
+            self.STATE = "closed"
+    def setState(self, STATE):
+        if STATE in self.STATE_KEYS:
+            self.STATE = STATE
+        else:
+            self.STATE = "closed"
+    def getState(self):
+        return self.STATE

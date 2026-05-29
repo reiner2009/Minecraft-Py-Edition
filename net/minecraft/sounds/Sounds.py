@@ -1,3 +1,5 @@
+import traceback
+
 from net.minecraft.client.Client import*
 import random
 import net.minecraft.resources.DataLocation as DataLocation
@@ -82,7 +84,7 @@ def play_place_sound(name, v):
 	try:
 		sound = pygame.mixer.Sound(DataLocation.get_resource_path("assets/minecraft/sounds/blocks/place/"+block_sound+".ogg"))
 	except:
-		sound = pygame.mixer.Sound(DataLocation.get_resource_path("assets/minecraft/sounds/blocks/place/stone.ogg"))
+		sound = pygame.mixer.Sound(DataLocation.get_resource_path("assets/minecraft/sounds/blocks/place/stone"+str(random.randint(1,4))+".ogg"))
 	sound.set_volume((1/489)*v)
 	sound.play()
 

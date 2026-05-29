@@ -52,6 +52,7 @@ def render_crosshair():
     glLoadIdentity()
     glDisable(GL_DEPTH_TEST)
     glEnable(GL_TEXTURE_2D)
+    glEnable(GL_BLEND)
     glBindTexture(GL_TEXTURE_2D, crosshair_texture)
     uv=[(0,0),(1,0),(1,1),(0,1)]
     glBegin(GL_QUADS)

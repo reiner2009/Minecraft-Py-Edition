@@ -39,5 +39,6 @@
   "crafting_table": 16,
   "oak_sapling": 15,
   "glass_pane": 14,
-  "oak_stair": 13
+  "oak_stair": 13,
+  "oak_door": 12
 }

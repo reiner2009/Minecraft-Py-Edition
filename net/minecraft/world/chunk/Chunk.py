@@ -112,21 +112,17 @@ def set_block(x,y,z,name):
 
 def build_chunk():
 	glEnable(GL_CULL_FACE)
-	glDepthMask(GL_TRUE)
-	glDisable(GL_BLEND)
 	for (x, y, z), block in chunk.items():
 		if str(block.getName()) not in translucent_blocks and str(block.getName()) not in cutout_blocks:
-			place_block(block.getName(), x, y, z, block.getProperty())
-	glEnable(GL_ALPHA_TEST)
-	glAlphaFunc(GL_GREATER, 0.5)
-	for (x, y, z), block in chunk.items():
+			glDepthMask(GL_TRUE)
+			glDisable(GL_BLEND)
 		if block.getName() in cutout_blocks:
-			place_block(str(block.getName()), x, y, z, block.getProperty())
-	glEnable(GL_BLEND)
-	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA)
-	for (x, y, z), block in chunk.items():
+			glEnable(GL_ALPHA_TEST)
+			glAlphaFunc(GL_GREATER, 0.5)
 		if block.getName() in translucent_blocks:
-			place_block(str(block.getName()), x, y, z, block.getProperty())
+			glEnable(GL_BLEND)
+			glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA)
+		place_block(block.getName(), x, y, z, block.getProperty())
 	glDisable(GL_ALPHA_TEST)
 	glDepthMask(GL_TRUE)
 

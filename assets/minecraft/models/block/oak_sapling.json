@@ -1,4 +1,4 @@
 {
 		"type":"full_cube",
-		"textures":["oak_sapling","translucent","translucent","translucent","translucent","translucent"]
+		"textures":["translucent","translucent","oak_sapling","oak_sapling","oak_sapling","oak_sapling"]
 }

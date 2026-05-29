@@ -1,6 +1,7 @@
 {
   "cutout": [
-    "oak_leaves"
+    "oak_leaves",
+    "grass"
   ],
   "not_full":[
     "oak_stair"

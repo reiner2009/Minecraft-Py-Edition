@@ -190,19 +190,9 @@ def take_screenshot():
 
 def place_block_by_player():
 	global block_sound_volume
-	X,Y,Z,*_= Raycast.get_pos(player)
+	*_,X,Y,Z= Raycast.get_pos(player)
 	try:
-		if Raycast.get_neighbour_block(X, Y, Z):
-			player.swing("right")
-			set_block(X, Y, Z, Item.selected_item[hotbar_slot_selected - 1])
-			try:
-				get_block_data(X,Y,Z).finallyPlace(player)
-			except:
-				pass
-			try:
-				play_place_sound(block_place_sounds[Item.selected_item[hotbar_slot_selected - 1]], block_sound_volume)
-			except:
-				play_place_sound("stone", block_sound_volume)
+		get_block_data(X, Y, Z).onInteraction(player, block_sound_volume)
 	except:
 		logger.error(str(traceback.format_exc()))
 
@@ -210,6 +200,8 @@ def get_block_by_player():
 	global hotbar_slot_selected
 	*_,X,Y,Z=Raycast.get_pos(player)
 	if get_block(X, Y, Z) != "air":
+		if get_block(X,Y,Z)==player.getMainhandItem():
+			show_text(get_block_data(X,Y,Z).getProperty(), [255,255,255,255])
 		if get_block(X,Y,Z) in Item.selected_item:
 			hotbar_slot_selected= Item.selected_item.index(get_block(X, Y, Z)) + 1
 		else:
@@ -255,6 +247,7 @@ def break_block_by_player():
 					play_place_sound(block_place_sounds[get_block(X, Y, Z)], block_sound_volume)
 				except:
 					play_place_sound("stone", block_sound_volume)
+			get_block_data(X,Y,Z).onBreak(player)
 			set_block(X,Y,Z, "air")
 			rebuild_chunks()
 	except:
@@ -300,13 +293,13 @@ def draw_scene():
 	x,y,z,x1,y1,z1= Raycast.get_pos(player)
 	if block_preview==True:
 		if get_block(x1, y1, z1)!="air":
-			draw_block_preview(x1, y1, z1,True)
+			draw_block_preview("", x1, y1, z1,True, None)
 		if Raycast.get_neighbour_block(x, y, z):
-			draw_block_preview(x, y, z)
+			name=player.getMainhandItem()
+			draw_block_preview(name, x, y, z, False, registries[name](name).getProperty(player))
 	setup_ortho()
 	render_hud()
-	player.setMainhandItem(Item.selected_item[hotbar_slot_selected - 1])
-    
+	player.setMainhandItem(player.getMainhandItem())
 def apply_camera():
 	global camera_x, camera_y, camera_z
 	yaw, pitch = player.get_entity_facing()
@@ -455,6 +448,7 @@ def render_multiplayer_menu(events):
 					show_error("Could not connect to Minecraft server: " + str(e), [168, 0, 0, 255])
 					logger.error("Could not connect to Minecraft server: " + str(e))
 				mouse_grab = True
+				mouse_grab = True
 				load_chunks()
 	else:
 		pygame.mouse.set_cursor(SYSTEM_CURSOR_ARROW)
@@ -551,6 +545,7 @@ def render_menu(events):
 def running_world(events):
 	global menu, running, x,y,z, camera_x, camera_y, camera_z, speed, mouse_grab,hud_,hotbar_slot_selected, debug_charts, game_state, pause_menu, mouse_grab, chat, chat_text, block_preview, container,client, sock
 	pygame.mixer.music.set_volume((1/489)*music_volume)
+	player.setMainhandItem(Item.selected_item[hotbar_slot_selected - 1])
 	if getChunkList()==1:
 		render_chunk()
 		load_level()

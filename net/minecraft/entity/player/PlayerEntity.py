@@ -84,6 +84,8 @@ class PlayerEntity:
             self.right_arm_pitch_direction=1
     def setMainhandItem(self, item):
         self.mainhand_item=item
+    def getMainhandItem(self):
+        return self.mainhand_item
     def tick(self):
         if not self.movement:
             self.walk_pitch_0 = -180
