@@ -82,18 +82,3 @@ class DoorSetProperty:
         return self.DIRECTION
     def getDirectionKeys(self):
         return self.DIRECTION_KEYS
-
-class DoorStateProperty:
-    def __init__(self, STATE="closed"):
-        self.STATE_KEYS=["open","closed"]
-        if STATE in self.STATE_KEYS:
-            self.STATE = STATE
-        else:
-            self.STATE = "closed"
-    def setState(self, STATE):
-        if STATE in self.STATE_KEYS:
-            self.STATE = STATE
-        else:
-            self.STATE = "closed"
-    def getState(self):
-        return self.STATE

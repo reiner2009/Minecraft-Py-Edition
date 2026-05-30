@@ -291,12 +291,13 @@ def draw_scene():
 	for p in EntityList.entities:
 		p.tick()
 	x,y,z,x1,y1,z1= Raycast.get_pos(player)
-	if block_preview==True:
-		if get_block(x1, y1, z1)!="air":
-			draw_block_preview("", x1, y1, z1,True, None)
+	if block_preview==True and hud_==True:
 		if Raycast.get_neighbour_block(x, y, z):
 			name=player.getMainhandItem()
 			draw_block_preview(name, x, y, z, False, registries[name](name).getProperty(player))
+	if hud_==True:
+		if get_block(x1, y1, z1) != "air":
+			draw_block_preview("", x1, y1, z1, True, None)
 	setup_ortho()
 	render_hud()
 	player.setMainhandItem(player.getMainhandItem())

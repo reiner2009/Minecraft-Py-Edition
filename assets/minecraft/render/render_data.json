@@ -1,10 +1,12 @@
 {
   "cutout": [
     "oak_leaves",
-    "grass"
+    "grass",
+    "oak_door"
   ],
   "not_full":[
-    "oak_stair"
+    "oak_stair",
+    "oak_door"
   ],
   "translucent": [
     "glass_block",

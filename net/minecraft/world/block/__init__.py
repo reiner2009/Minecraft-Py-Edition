@@ -1,7 +1,7 @@
 from typing import override
 
 from net.minecraft.world.block.props import AxisProperty, FacingProperty, TwoDirectionsProperty, StairSetProperty, \
-    DoorSetProperty, DoorStateProperty
+    DoorSetProperty
 import net.minecraft.world.Features as features
 import net.minecraft.resources.DataLocation as DataLocation
 import net.minecraft.util.math.Raycast as Raycast
@@ -10,7 +10,6 @@ import pickle
 import gzip
 
 from net.minecraft.world.phys.VoxelShape import getVoxelShapeVertices
-
 
 def spawnTree(x,y,z):
     from net.minecraft.world.chunk.Chunk import set_block, reload_chunks
@@ -178,9 +177,23 @@ class StairBlock(Block):
 class DoorBlock(Block):
     def __init__(self, NAME):
         super().__init__(NAME)
+        self.up_nighbour=None
+        self.down_nighbour=None
         self.DIRECTION=DoorSetProperty()
-        self.STATE=DoorStateProperty()
+        self.STATE="closed"
         self.VERTICAL_DIRECTION="0"
+        self.opening_keys={
+            "east":"south",
+            "south":"west",
+            "west":"north",
+            "north":"east"
+        }
+        self.closing_keys={
+            "south":"east",
+            "west":"south",
+            "north":"west",
+            "east":"north"
+        }
     def setProperty(self, property):
         self.DIRECTION.setDirection(property)
     @override
@@ -192,7 +205,7 @@ class DoorBlock(Block):
     def setPropertyByPlayer(self, entity):
         from net.minecraft.world.chunk.Chunk import get_block
         if get_block(self.MAP_POSITION[0],self.MAP_POSITION[1]-1,self.MAP_POSITION[2])=="oak_door":
-            self.VERTICAL_DIRECTION="1"
+            self.VERTICAL_DIRECTION="0"
         self.DIRECTION.setDirection(entity.get_cardinal_direction_facing()+self.VERTICAL_DIRECTION)
     @override
     def getDefaultProperty(self):
@@ -200,18 +213,50 @@ class DoorBlock(Block):
     @override
     def getProperties(self):
         return self.DIRECTION.getDirectionKeys()
+    def setVerticalDirection(self, direction):
+        self.VERTICAL_DIRECTION=direction
+    def getVerticalDirection(self):
+        return self.VERTICAL_DIRECTION
     @override
     def onPlace(self, entity):
+        self.up_nighbour = self.MAP_POSITION[0], self.MAP_POSITION[1] + 1, self.MAP_POSITION[2]
+        self.down_nighbour = self.MAP_POSITION[0], self.MAP_POSITION[1] - 1, self.MAP_POSITION[2]
         from net.minecraft.world.chunk.Chunk import set_block, get_block, get_block_data
-        if get_block(self.MAP_POSITION[0],self.MAP_POSITION[1]+1,self.MAP_POSITION[2])=="air":
-            set_block(self.MAP_POSITION[0],self.MAP_POSITION[1]+1,self.MAP_POSITION[2], "oak_door")
+        if get_block(*self.up_nighbour)=="air":
+            set_block(*self.up_nighbour, "oak_door")
+            get_block_data(*self.up_nighbour).setProperty(self.DIRECTION.getDirection()[:-1]+"1")
+            get_block_data(*self.up_nighbour).setVerticalDirection("1")
             super().finallyPlace(entity)
         else:
             set_block(*self.MAP_POSITION, "air")
     @override
     def onBreak(self, entity):
-        from net.minecraft.world.chunk.Chunk import set_block, get_block
-        if get_block(self.MAP_POSITION[0],self.MAP_POSITION[1]+1,self.MAP_POSITION[2])=="oak_door":
-            set_block(self.MAP_POSITION[0],self.MAP_POSITION[1]+1,self.MAP_POSITION[2], "air")
-        if get_block(self.MAP_POSITION[0],self.MAP_POSITION[1]-1,self.MAP_POSITION[2])=="oak_door":
-            set_block(self.MAP_POSITION[0],self.MAP_POSITION[1]-1,self.MAP_POSITION[2], "air")
+        self.up_nighbour = self.MAP_POSITION[0], self.MAP_POSITION[1] + 1, self.MAP_POSITION[2]
+        self.down_nighbour = self.MAP_POSITION[0], self.MAP_POSITION[1] - 1, self.MAP_POSITION[2]
+        from net.minecraft.world.chunk.Chunk import set_block, get_block_data, get_block
+        if get_block(*self.up_nighbour)=="oak_door":
+            if get_block_data(*self.up_nighbour).getVerticalDirection()=="1":
+                set_block(*self.up_nighbour, "air")
+        if get_block(*self.down_nighbour) == "oak_door":
+            if get_block_data(*self.down_nighbour).getVerticalDirection()=="0":
+                set_block(*self.down_nighbour, "air")
+    @override
+    def onInteraction(self, entity, block_sound_volume):
+        self.up_nighbour = self.MAP_POSITION[0], self.MAP_POSITION[1] + 1, self.MAP_POSITION[2]
+        self.down_nighbour = self.MAP_POSITION[0], self.MAP_POSITION[1] - 1, self.MAP_POSITION[2]
+        from net.minecraft.world.chunk.Chunk import get_block_data
+        if self.STATE=="closed":
+            self.STATE="open"
+            self.DIRECTION.setDirection(self.opening_keys[self.DIRECTION.getDirection()[:-1]]+self.VERTICAL_DIRECTION)
+            if self.VERTICAL_DIRECTION=="0":
+                get_block_data(*self.up_nighbour).setProperty(self.DIRECTION.getDirection()[:-1]+"1")
+            elif self.VERTICAL_DIRECTION=="1":
+                get_block_data(*self.down_nighbour).setProperty(self.DIRECTION.getDirection()[:-1]+"0")
+        elif self.STATE=="open":
+            self.STATE="closed"
+            self.DIRECTION.setDirection(self.closing_keys[self.DIRECTION.getDirection()[:-1]]+self.VERTICAL_DIRECTION)
+            if self.VERTICAL_DIRECTION=="0":
+                get_block_data(*self.up_nighbour).setProperty(self.DIRECTION.getDirection()[:-1]+"1")
+            elif self.VERTICAL_DIRECTION=="1":
+                get_block_data(*self.down_nighbour).setProperty(self.DIRECTION.getDirection()[:-1]+"0")
+        super().finallyPlace(entity)
