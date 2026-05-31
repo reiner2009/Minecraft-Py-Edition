@@ -88,6 +88,22 @@
         "glass2",
         "glass3"
       ]
+    },
+    "generic": {
+      "oak_door_open": [
+        "door/open",
+        "door/open2",
+        "door/open3",
+        "door/open4"
+      ],
+      "oak_door_close": [
+        "door/close",
+        "door/close2",
+        "door/close3",
+        "door/close4",
+        "door/close5",
+        "door/close6"
+      ]
     }
   },
   "gui": {

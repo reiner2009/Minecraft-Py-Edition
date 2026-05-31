@@ -1,5 +1,6 @@
 from typing import override
 
+from net.minecraft.sounds.Sounds import play_block_sound
 from net.minecraft.world.block.props import AxisProperty, FacingProperty, TwoDirectionsProperty, StairSetProperty, \
     DoorSetProperty
 import net.minecraft.world.Features as features
@@ -68,6 +69,8 @@ class Block:
             from net.minecraft.client.render.world.block.BlockRenderer import get_block_data
             self.setNewBlock(entity, block_sound_volume, X,Y,Z)
             get_block_data(X, Y, Z).onPlace(entity)
+    def PlaceableBlockDuringInteraction(self):
+        return True
 
 class LogBlock(Block):
     def __init__(self, NAME):
@@ -252,6 +255,7 @@ class DoorBlock(Block):
                 get_block_data(*self.up_nighbour).setProperty(self.DIRECTION.getDirection()[:-1]+"1")
             elif self.VERTICAL_DIRECTION=="1":
                 get_block_data(*self.down_nighbour).setProperty(self.DIRECTION.getDirection()[:-1]+"0")
+            play_block_sound("oak_door_open", block_sound_volume)
         elif self.STATE=="open":
             self.STATE="closed"
             self.DIRECTION.setDirection(self.closing_keys[self.DIRECTION.getDirection()[:-1]]+self.VERTICAL_DIRECTION)
@@ -259,4 +263,8 @@ class DoorBlock(Block):
                 get_block_data(*self.up_nighbour).setProperty(self.DIRECTION.getDirection()[:-1]+"1")
             elif self.VERTICAL_DIRECTION=="1":
                 get_block_data(*self.down_nighbour).setProperty(self.DIRECTION.getDirection()[:-1]+"0")
+            play_block_sound("oak_door_close", block_sound_volume)
         super().finallyPlace(entity)
+    @override
+    def PlaceableBlockDuringInteraction(self):
+        return False

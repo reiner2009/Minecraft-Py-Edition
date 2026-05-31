@@ -1,8 +1,7 @@
-import traceback
-
 from net.minecraft.client.Client import*
 import random
 import net.minecraft.resources.DataLocation as DataLocation
+import net.minecraft.util.logger.Logger as logger
 import json
 
 next_music_time=0
@@ -80,19 +79,31 @@ def stop_music():
 	music_paused=False
 
 def play_place_sound(name, v):
-	block_sound = random.choice(sound_data["blocks"]["place"][name])
 	try:
+		block_sound = random.choice(sound_data["blocks"]["place"][name])
 		sound = pygame.mixer.Sound(DataLocation.get_resource_path("assets/minecraft/sounds/blocks/place/"+block_sound+".ogg"))
-	except:
+	except Exception as e:
+		logger.warning(str(e))
 		sound = pygame.mixer.Sound(DataLocation.get_resource_path("assets/minecraft/sounds/blocks/place/stone"+str(random.randint(1,4))+".ogg"))
 	sound.set_volume((1/489)*v)
 	sound.play()
 
 def play_break_sound(name, v):
-	block_sound = random.choice(sound_data["blocks"]["break"][name])
 	try:
+		block_sound = random.choice(sound_data["blocks"]["break"][name])
 		sound = pygame.mixer.Sound(DataLocation.get_resource_path("assets/minecraft/sounds/blocks/break/" + block_sound + ".ogg"))
-	except:
-		sound = pygame.mixer.Sound(DataLocation.get_resource_path("assets/minecraft/sounds/blocks/place/stone.ogg"))
+	except Exception as e:
+		logger.warning(str(e))
+		sound = pygame.mixer.Sound(DataLocation.get_resource_path("assets/minecraft/sounds/blocks/place/stone"+str(random.randint(1,4))+".ogg"))
+	sound.set_volume((1 / 489) * v)
+	sound.play()
+
+def play_block_sound(name, v):
+	try:
+		block_sound = random.choice(sound_data["blocks"]["generic"][name])
+		sound = pygame.mixer.Sound(DataLocation.get_resource_path("assets/minecraft/sounds/blocks/generic/" + block_sound + ".ogg"))
+	except Exception as e:
+		logger.warning(str(e))
+		sound = pygame.mixer.Sound(DataLocation.get_resource_path("assets/minecraft/sounds/blocks/place/stone"+str(random.randint(1,4))+".ogg"))
 	sound.set_volume((1 / 489) * v)
 	sound.play()
