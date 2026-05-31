@@ -220,6 +220,8 @@ class DoorBlock(Block):
         self.VERTICAL_DIRECTION=direction
     def getVerticalDirection(self):
         return self.VERTICAL_DIRECTION
+    def setState(self, state):
+        self.STATE=state
     @override
     def onPlace(self, entity):
         self.up_nighbour = self.MAP_POSITION[0], self.MAP_POSITION[1] + 1, self.MAP_POSITION[2]
@@ -244,6 +246,20 @@ class DoorBlock(Block):
             if get_block_data(*self.down_nighbour).getVerticalDirection()=="0":
                 set_block(*self.down_nighbour, "air")
     @override
+    def getVoxelShape(self, x, y, z):
+        self.VOXEL_SHAPE_MAP={
+            "south0":[(-1, -1, -1), (1, -1, -1), (1, -1, -0.625), (-1, -1, -0.625), (-1, 3, -1), (1, 3, -1), (1, 3, -0.625),(-1, 3, -0.625)],
+            "north0":[(-1, -1, 1), (1, -1, 1), (1, -1, 0.625), (-1, -1, 0.625), (-1, 3, 1), (1, 3, 1), (1, 3, 0.625),(-1, 3, 0.625)],
+            "east0": [(-0.625, -1, -1), (-1, -1, -1), (-1, -1, 1), (-0.625, -1, 1), (-0.625, 3, -1), (-1, 3, -1), (-1, 3, 1),(-0.625, 3, 1)],
+            "west0": [(1, -1, -1), (0.625, -1, -1), (0.625, -1, 1), (1, -1, 1), (1, 3, -1), (0.625, 3, -1), (0.625, 3, 1),(1, 3, 1)],
+            "south1": [(-1, -3, -1), (1, -3, -1), (1, -3, -0.625), (-1, -3, -0.625), (-1, 1, -1), (1, 1, -1),(1, 1, -0.625), (-1, 1, -0.625)],
+            "north1": [(-1, -3, 1), (1, -3, 1), (1, -3, 0.625), (-1, -3, 0.625), (-1, 1, 1), (1, 1, 1), (1, 1, 0.625),(-1, 1, 0.625)],
+            "east1": [(-0.625, -3, -1), (-1, -3, -1), (-1, -3, 1), (-0.625, -3, 1), (-0.625, 1, -1), (-1, 1, -1), (-1, 1, 1), (-0.625, 1, 1)],
+            "west1": [(1, -3, -1), (0.625, -3, -1), (0.625, -3, 1), (1, -3, 1), (1, 1, -1), (0.625, 1, -1),(0.625, 1, 1), (1, 1, 1)],
+        }
+        self.VOXEL_SHAPE = self.VOXEL_SHAPE_MAP[self.DIRECTION.getDirection()]
+        return getVoxelShapeVertices(x, y, z, self.VOXEL_SHAPE)
+    @override
     def onInteraction(self, entity, block_sound_volume):
         self.up_nighbour = self.MAP_POSITION[0], self.MAP_POSITION[1] + 1, self.MAP_POSITION[2]
         self.down_nighbour = self.MAP_POSITION[0], self.MAP_POSITION[1] - 1, self.MAP_POSITION[2]
@@ -253,16 +269,20 @@ class DoorBlock(Block):
             self.DIRECTION.setDirection(self.opening_keys[self.DIRECTION.getDirection()[:-1]]+self.VERTICAL_DIRECTION)
             if self.VERTICAL_DIRECTION=="0":
                 get_block_data(*self.up_nighbour).setProperty(self.DIRECTION.getDirection()[:-1]+"1")
+                get_block_data(*self.up_nighbour).setState(self.STATE)
             elif self.VERTICAL_DIRECTION=="1":
                 get_block_data(*self.down_nighbour).setProperty(self.DIRECTION.getDirection()[:-1]+"0")
+                get_block_data(*self.down_nighbour).setState(self.STATE)
             play_block_sound("oak_door_open", block_sound_volume)
         elif self.STATE=="open":
             self.STATE="closed"
             self.DIRECTION.setDirection(self.closing_keys[self.DIRECTION.getDirection()[:-1]]+self.VERTICAL_DIRECTION)
             if self.VERTICAL_DIRECTION=="0":
                 get_block_data(*self.up_nighbour).setProperty(self.DIRECTION.getDirection()[:-1]+"1")
+                get_block_data(*self.up_nighbour).setState(self.STATE)
             elif self.VERTICAL_DIRECTION=="1":
                 get_block_data(*self.down_nighbour).setProperty(self.DIRECTION.getDirection()[:-1]+"0")
+                get_block_data(*self.down_nighbour).setState(self.STATE)
             play_block_sound("oak_door_close", block_sound_volume)
         super().finallyPlace(entity)
     @override

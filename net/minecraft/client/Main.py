@@ -294,7 +294,12 @@ def draw_scene():
 	if block_preview==True and hud_==True and get_block_data(x1,y1,z1).PlaceableBlockDuringInteraction():
 		if Raycast.get_neighbour_block(x, y, z):
 			name=player.getMainhandItem()
-			draw_block_preview(name, x, y, z, False, registries[name](name).getProperty(player))
+			if name=="oak_door":
+				if get_block(x,y+1,z)=="air":
+					draw_block_preview(name, x, y, z, False, registries[name](name).getProperty(player))
+					draw_block_preview(name, x, y+1, z, False, registries[name](name).getProperty(player)[:-1]+"1")
+			else:
+				draw_block_preview(name, x, y, z, False, registries[name](name).getProperty(player))
 	if hud_==True:
 		if get_block(x1, y1, z1) != "air":
 			draw_block_preview("", x1, y1, z1, True, None)

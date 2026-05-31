@@ -134,7 +134,8 @@
       "oak_leaves":"grass",
       "crafting_table": "wood",
       "oak_sapling": "grass",
-      "oak_stair": "wood"
+      "oak_stair": "wood",
+      "oak_door": "wood"
     },
     "block_break": {
       "glass_block":"glass",

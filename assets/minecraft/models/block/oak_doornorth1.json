@@ -2,10 +2,10 @@
   "type":"custom_model",
   "elements": {
     "glass": {
-      "textures": ["oak_planks", "oak_planks", "oak_door_top", "oak_planks", "oak_door_top", "oak_planks"],
+      "textures": ["", "", "oak_door_top", "", "oak_door_top", ""],
       "vertices": [-1,-1,0.625,1,1,1],
       "not_cullable": [true, true, true, true, true, true],
-      "custom_uv": [false,false,false,false,false,false]
+      "custom_uv": [[[8,2],[8,3],[7.8125,3],[7.8125,2]],[[8,2],[8,3],[7.8125,3],[7.8125,2]],false,[[7.8125,2],[8,2],[8,3],[7.8125,3]],false,[[7.8125,2],[8,2],[8,3],[7.8125,3]]]
     }
   }
 }
