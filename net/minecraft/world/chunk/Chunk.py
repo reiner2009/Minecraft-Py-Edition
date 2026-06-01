@@ -120,6 +120,7 @@ def build_chunk():
 			glEnable(GL_ALPHA_TEST)
 			glAlphaFunc(GL_GREATER, 0.5)
 		if block.getName() in translucent_blocks:
+			glEnable(GL_ALPHA_TEST)
 			glEnable(GL_BLEND)
 			glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA)
 		place_block(block.getName(), x, y, z, block.getProperty())

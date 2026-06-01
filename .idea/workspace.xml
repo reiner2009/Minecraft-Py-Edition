@@ -77,7 +77,7 @@
       <recent name="$PROJECT_DIR$" />
     </key>
   </component>
-  <component name="RunManager" selected="Shell Script.Build Client">
+  <component name="RunManager" selected="Python.Minecraft Client">
     <configuration name="Data Fixer" type="PythonConfigurationType" factoryName="Python">
       <module name="Minecraft" />
       <option name="ENV_FILES" value="" />
@@ -443,7 +443,15 @@
       <option name="project" value="LOCAL" />
       <updated>1780320128116</updated>
     </task>
-    <option name="localTasksCounter" value="29" />
+    <task id="LOCAL-00029" summary="Minecraft-Py-Edition">
+      <option name="closed" value="true" />
+      <created>1780321359214</created>
+      <option name="number" value="00029" />
+      <option name="presentableId" value="LOCAL-00029" />
+      <option name="project" value="LOCAL" />
+      <updated>1780321359214</updated>
+    </task>
+    <option name="localTasksCounter" value="30" />
     <servers />
   </component>
   <component name="VcsManagerConfiguration">
