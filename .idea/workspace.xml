@@ -2,8 +2,8 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="84e547ab-f90c-4988-ba87-3386de936751" name="Changes" comment="Minecraft-Py-Edition">
-      <change afterPath="$PROJECT_DIR$/example_resourcepacks/realistic_sky/pack.zip" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/net/minecraft/world/chunk/Chunk.py" beforeDir="false" afterPath="$PROJECT_DIR$/net/minecraft/world/chunk/Chunk.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -57,14 +57,14 @@
     "Shell Script.Build Server.executor": "Run",
     "Shell Script.Install.executor": "Run",
     "git-widget-placeholder": "main",
-    "last_opened_file_path": "/Users/mathiasrhein/IdeaProjects/Minecraft-Py-Edition",
+    "last_opened_file_path": "/Users/mathiasrhein/IdeaProjects/Minecraft-Py-Edition/example_resourcepacks/realistic_sky",
     "settings.editor.selected.configurable": "editor.preferences.completion"
   }
 }]]></component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
-      <recent name="$PROJECT_DIR$" />
       <recent name="$PROJECT_DIR$/example_resourcepacks/realistic_sky" />
+      <recent name="$PROJECT_DIR$" />
       <recent name="$PROJECT_DIR$/assets/minecraft/models/block" />
       <recent name="$PROJECT_DIR$/net" />
       <recent name="$PROJECT_DIR$/example_datapacks/beatifull_map" />
@@ -77,7 +77,7 @@
       <recent name="$PROJECT_DIR$" />
     </key>
   </component>
-  <component name="RunManager" selected="Python.Minecraft Client">
+  <component name="RunManager" selected="Shell Script.Build Client">
     <configuration name="Data Fixer" type="PythonConfigurationType" factoryName="Python">
       <module name="Minecraft" />
       <option name="ENV_FILES" value="" />
@@ -427,7 +427,15 @@
       <option name="project" value="LOCAL" />
       <updated>1780307558446</updated>
     </task>
-    <option name="localTasksCounter" value="27" />
+    <task id="LOCAL-00027" summary="Minecraft-Py-Edition">
+      <option name="closed" value="true" />
+      <created>1780318642273</created>
+      <option name="number" value="00027" />
+      <option name="presentableId" value="LOCAL-00027" />
+      <option name="project" value="LOCAL" />
+      <updated>1780318642273</updated>
+    </task>
+    <option name="localTasksCounter" value="28" />
     <servers />
   </component>
   <component name="VcsManagerConfiguration">
