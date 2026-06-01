@@ -284,6 +284,7 @@ class DoorBlock(Block):
                 get_block_data(*self.down_nighbour).setProperty(self.DIRECTION.getDirection()[:-1]+"0")
                 get_block_data(*self.down_nighbour).setState(self.STATE)
             play_block_sound("oak_door_close", block_sound_volume)
+        entity.swing("right")
         super().finallyPlace(entity)
     @override
     def PlaceableBlockDuringInteraction(self):

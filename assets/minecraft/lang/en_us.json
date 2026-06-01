@@ -24,7 +24,7 @@
   "purple_wool": "Purple Wool",
   "red_wool": "Red Wool",
   "yellow_wool": "Yellow Wool",
-  "oak_leaves": "Oak leaves",
+  "oak_leaves": "Oak Leaves",
   "glass_block": "Glass Block",
   "smooth_stone": "Smooth Stone",
   "gold_block": "Block of Gold",
@@ -39,5 +39,6 @@
   "crafting_table": "Crafting Table",
   "oak_sapling": "Oak Sapling",
   "glass_pane": "Glass Pane",
-  "oak_stair": "Oak Stair"
+  "oak_stair": "Oak Stair",
+  "oak_door": "Oak Door"
 }

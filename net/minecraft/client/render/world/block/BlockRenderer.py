@@ -151,6 +151,7 @@ def draw_block_preview(name, x, y, z, hit=False, property=""):
         glColor3f(1,1,1)
         glLineWidth(12)
     if not hit:
+        glBindTexture(GL_TEXTURE_2D, block_atlas)
         glEnable(GL_BLEND)
         glColor4f(1,1,1,0.5001)
         place_block(name,x,y,z, property)

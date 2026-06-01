@@ -3,6 +3,10 @@
   <component name="ChangeListManager">
     <list default="true" id="84e547ab-f90c-4988-ba87-3386de936751" name="Changes" comment="Minecraft-Py-Edition">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/minecraft/lang/en_us.json" beforeDir="false" afterPath="$PROJECT_DIR$/assets/minecraft/lang/en_us.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/net/minecraft/client/render/world/SkyRenderer.py" beforeDir="false" afterPath="$PROJECT_DIR$/net/minecraft/client/render/world/SkyRenderer.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/net/minecraft/client/render/world/block/BlockRenderer.py" beforeDir="false" afterPath="$PROJECT_DIR$/net/minecraft/client/render/world/block/BlockRenderer.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/net/minecraft/world/block/__init__.py" beforeDir="false" afterPath="$PROJECT_DIR$/net/minecraft/world/block/__init__.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -401,7 +405,15 @@
       <option name="project" value="LOCAL" />
       <updated>1780159406052</updated>
     </task>
-    <option name="localTasksCounter" value="24" />
+    <task id="LOCAL-00024" summary="Minecraft-Py-Edition">
+      <option name="closed" value="true" />
+      <created>1780304059042</created>
+      <option name="number" value="00024" />
+      <option name="presentableId" value="LOCAL-00024" />
+      <option name="project" value="LOCAL" />
+      <updated>1780304059042</updated>
+    </task>
+    <option name="localTasksCounter" value="25" />
     <servers />
   </component>
   <component name="VcsManagerConfiguration">

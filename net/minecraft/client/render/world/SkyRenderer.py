@@ -51,7 +51,7 @@ def render(x, y, z, light, sunriseblend, sunsetblend, t):
     vertices = cube_vertices(x, y, z)
     surfaces = [
         (3, 0, 1, 2),
-        (7, 6, 5, 4),
+        (5, 6, 7, 4),
         (4, 5, 1, 0),
         (5, 6, 2, 1),
         (6, 7, 3, 2),
