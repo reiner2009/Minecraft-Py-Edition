@@ -435,7 +435,15 @@
       <option name="project" value="LOCAL" />
       <updated>1780318642273</updated>
     </task>
-    <option name="localTasksCounter" value="28" />
+    <task id="LOCAL-00028" summary="Minecraft-Py-Edition">
+      <option name="closed" value="true" />
+      <created>1780320128116</created>
+      <option name="number" value="00028" />
+      <option name="presentableId" value="LOCAL-00028" />
+      <option name="project" value="LOCAL" />
+      <updated>1780320128116</updated>
+    </task>
+    <option name="localTasksCounter" value="29" />
     <servers />
   </component>
   <component name="VcsManagerConfiguration">
