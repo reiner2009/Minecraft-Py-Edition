@@ -2,11 +2,23 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="84e547ab-f90c-4988-ba87-3386de936751" name="Changes" comment="Minecraft-Py-Edition">
+      <change afterPath="$PROJECT_DIR$/assets/minecraft/models/block/oak_slab_mainhand.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/assets/minecraft/models/block/oak_slabdown.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/assets/minecraft/models/block/oak_slabup.json" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/minecraft/atlas_data/blocks.json" beforeDir="false" afterPath="$PROJECT_DIR$/assets/minecraft/atlas_data/blocks.json" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/assets/minecraft/lang/en_us.json" beforeDir="false" afterPath="$PROJECT_DIR$/assets/minecraft/lang/en_us.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/net/minecraft/client/render/world/SkyRenderer.py" beforeDir="false" afterPath="$PROJECT_DIR$/net/minecraft/client/render/world/SkyRenderer.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/net/minecraft/client/render/world/block/BlockRenderer.py" beforeDir="false" afterPath="$PROJECT_DIR$/net/minecraft/client/render/world/block/BlockRenderer.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/minecraft/models/ItemModels.json" beforeDir="false" afterPath="$PROJECT_DIR$/assets/minecraft/models/ItemModels.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/minecraft/render/render_data.json" beforeDir="false" afterPath="$PROJECT_DIR$/assets/minecraft/render/render_data.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/minecraft/sounds/sounds.json" beforeDir="false" afterPath="$PROJECT_DIR$/assets/minecraft/sounds/sounds.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/minecraft/textures/block/atlas.png" beforeDir="false" afterPath="$PROJECT_DIR$/assets/minecraft/textures/block/atlas.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/data/minecraft/item/ItemGroup.json" beforeDir="false" afterPath="$PROJECT_DIR$/data/minecraft/item/ItemGroup.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/data/minecraft/item/TextureMap.json" beforeDir="false" afterPath="$PROJECT_DIR$/assets/minecraft/item/TextureMap.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/example_resourcepacks/faithful512/pack.zip" beforeDir="false" afterPath="$PROJECT_DIR$/example_resourcepacks/faithful512/pack.zip" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/net/minecraft/client/render/world/item/Item.py" beforeDir="false" afterPath="$PROJECT_DIR$/net/minecraft/client/render/world/item/Item.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/net/minecraft/world/block/Blocks.py" beforeDir="false" afterPath="$PROJECT_DIR$/net/minecraft/world/block/Blocks.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/net/minecraft/world/block/__init__.py" beforeDir="false" afterPath="$PROJECT_DIR$/net/minecraft/world/block/__init__.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/net/minecraft/world/block/props/__init__.py" beforeDir="false" afterPath="$PROJECT_DIR$/net/minecraft/world/block/props/__init__.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -46,23 +58,23 @@
   <component name="ProjectViewState">
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;ModuleVcsDetector.initialDetectionPerformed&quot;: &quot;true&quot;,
-    &quot;Python.Data Fixer.executor&quot;: &quot;Run&quot;,
-    &quot;Python.Minecraft Client.executor&quot;: &quot;Run&quot;,
-    &quot;Python.Minecraft Server.executor&quot;: &quot;Run&quot;,
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.TerminalTabsStorage.copyFrom.TerminalArrangementManager.252&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.git.unshallow&quot;: &quot;true&quot;,
-    &quot;Shell Script.Build Client.executor&quot;: &quot;Run&quot;,
-    &quot;Shell Script.Build DataFixer.executor&quot;: &quot;Run&quot;,
-    &quot;Shell Script.Build Server.executor&quot;: &quot;Run&quot;,
-    &quot;git-widget-placeholder&quot;: &quot;main&quot;,
-    &quot;last_opened_file_path&quot;: &quot;/Users/mathiasrhein/Python/Minecraft/assets/minecraft/models/block&quot;,
-    &quot;settings.editor.selected.configurable&quot;: &quot;editor.preferences.completion&quot;
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "ModuleVcsDetector.initialDetectionPerformed": "true",
+    "Python.Data Fixer.executor": "Run",
+    "Python.Minecraft Client.executor": "Run",
+    "Python.Minecraft Server.executor": "Run",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "RunOnceActivity.TerminalTabsStorage.copyFrom.TerminalArrangementManager.252": "true",
+    "RunOnceActivity.git.unshallow": "true",
+    "Shell Script.Build Client.executor": "Run",
+    "Shell Script.Build DataFixer.executor": "Run",
+    "Shell Script.Build Server.executor": "Run",
+    "git-widget-placeholder": "main",
+    "last_opened_file_path": "/Users/mathiasrhein/IdeaProjects/Minecraft-Py-Edition/assets/minecraft/models/block",
+    "settings.editor.selected.configurable": "editor.preferences.completion"
   }
-}</component>
+}]]></component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
       <recent name="$PROJECT_DIR$/assets/minecraft/models/block" />
@@ -72,11 +84,11 @@
       <recent name="$PROJECT_DIR$/example_resourcepacks/faithful512" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/assets/minecraft/item" />
       <recent name="$PROJECT_DIR$" />
       <recent name="$PROJECT_DIR$/assets/minecraft/textures/environment" />
       <recent name="$PROJECT_DIR$/assets/minecraft/models/block" />
       <recent name="$PROJECT_DIR$/assets/minecraft/render" />
-      <recent name="$PROJECT_DIR$/net/minecraft/client/render/world" />
     </key>
   </component>
   <component name="RunManager" selected="Python.Minecraft Client">
@@ -413,7 +425,15 @@
       <option name="project" value="LOCAL" />
       <updated>1780304059042</updated>
     </task>
-    <option name="localTasksCounter" value="25" />
+    <task id="LOCAL-00025" summary="Minecraft-Py-Edition">
+      <option name="closed" value="true" />
+      <created>1780305148596</created>
+      <option name="number" value="00025" />
+      <option name="presentableId" value="LOCAL-00025" />
+      <option name="project" value="LOCAL" />
+      <updated>1780305148596</updated>
+    </task>
+    <option name="localTasksCounter" value="26" />
     <servers />
   </component>
   <component name="VcsManagerConfiguration">

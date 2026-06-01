@@ -2,7 +2,7 @@ from typing import override
 
 from net.minecraft.sounds.Sounds import play_block_sound
 from net.minecraft.world.block.props import AxisProperty, FacingProperty, TwoDirectionsProperty, StairSetProperty, \
-    DoorSetProperty
+    DoorSetProperty, SlabSetProperty
 import net.minecraft.world.Features as features
 import net.minecraft.resources.DataLocation as DataLocation
 import net.minecraft.util.math.Raycast as Raycast
@@ -289,3 +289,33 @@ class DoorBlock(Block):
     @override
     def PlaceableBlockDuringInteraction(self):
         return False
+
+class SlabBlock(Block):
+    def __init__(self, NAME):
+        super().__init__(NAME)
+        self.VERICAL_POS=SlabSetProperty()
+    @override
+    def getProperties(self):
+        return self.VERICAL_POS.getVerticalPosKeys()
+    @override
+    def getProperty(self, entity=None):
+        if entity:
+            self.setPropertyByPlayer(entity)
+        return self.VERICAL_POS.getVerticalPos()
+    @override
+    def setPropertyByPlayer(self, entity):
+        if -90 < entity.get_entity_facing()[1] < 0:
+            self.VERICAL_POS.setVerticalPos("up")
+        if 0 < entity.get_entity_facing()[1] < 90:
+            self.VERICAL_POS.setVerticalPos("down")
+    @override
+    def getDefaultProperty(self):
+        return "down"
+    @override
+    def getVoxelShape(self, x, y, z):
+        self.VOXEL_SHAPE_MAP = {
+            "up": [(-1, 0, -1), (1, 0, -1), (1, 0, 1), (-1, 0, 1), (-1, 1, -1), (1, 1, -1), (1, 1, 1),(-1, 1, 1)],
+            "down":[(-1, -1, -1), (1, -1, -1), (1, -1, 1), (-1, -1, 1), (-1, 0, -1), (1, 0, -1), (1, 0, 1),(-1, 0, 1)]
+        }
+        self.VOXEL_SHAPE = self.VOXEL_SHAPE_MAP[self.VERICAL_POS.getVerticalPos()]
+        return getVoxelShapeVertices(x, y, z, self.VOXEL_SHAPE)

@@ -1,5 +1,5 @@
 from net.minecraft.world.block import Block, CardinalableBlock, OakSapling, GlassPaneBlock, StairBlock, LogBlock, \
-    DoorBlock
+    DoorBlock, SlabBlock
 
 registries={
     "bedrock":Block,
@@ -43,5 +43,6 @@ registries={
     "oak_sapling":OakSapling,
     "glass_pane":GlassPaneBlock,
     "oak_stair":StairBlock,
-    "oak_door":DoorBlock
+    "oak_door":DoorBlock,
+    "oak_slab":SlabBlock
 }

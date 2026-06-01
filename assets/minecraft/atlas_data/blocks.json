@@ -57,6 +57,7 @@
     "oak_door_bottom": [7,2],
     "oak_door": [7,3],
     "translucent": [7,4],
-    "missing": [7,5]
+    "oak_slab": [7,5],
+    "missing": [7,6]
   }
 }

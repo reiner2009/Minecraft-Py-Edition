@@ -6,7 +6,8 @@
   ],
   "not_full":[
     "oak_stair",
-    "oak_door"
+    "oak_door",
+    "oak_slab"
   ],
   "translucent": [
     "glass_block",

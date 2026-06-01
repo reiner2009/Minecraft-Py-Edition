@@ -82,3 +82,20 @@ class DoorSetProperty:
         return self.DIRECTION
     def getDirectionKeys(self):
         return self.DIRECTION_KEYS
+
+class SlabSetProperty:
+    def __init__(self, VERTICAL_POS="down"):
+        self.VERTICAL_POS_KEYS=["up", "down"]
+        if VERTICAL_POS in self.VERTICAL_POS_KEYS:
+            self.VERTICAL_POS = VERTICAL_POS
+        else:
+            self.VERTICAL_POS="down"
+    def setVerticalPos(self, VERTICAL_POS):
+        if VERTICAL_POS in self.VERTICAL_POS_KEYS:
+            self.VERTICAL_POS = VERTICAL_POS
+        else:
+            self.VERTICAL_POS = "down"
+    def getVerticalPos(self):
+        return self.VERTICAL_POS
+    def getVerticalPosKeys(self):
+        return self.VERTICAL_POS_KEYS

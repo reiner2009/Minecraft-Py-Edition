@@ -45,7 +45,7 @@ for i in range(54):
 	slot_coords.append((0, 0, i, "air"))
 
 
-texture_map = json.load(open(get_resource_path("data/minecraft/item/textureMap.json")))
+texture_map = json.load(open(get_resource_path("assets/minecraft/item/TextureMap.json")))
 
 def render_items_for_hotbar():
 	global selected_item

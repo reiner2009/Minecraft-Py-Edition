@@ -3,5 +3,6 @@
 	"furnace":"furnace_front",
 	"crafting_table":"crafting_table_front",
 	"oak_sapling":"oak_sapling",
-	"glass_pane": "glass_pane_top"
+	"glass_pane": "glass_pane_top",
+	"oak_slab": "oak_slab"
 }
