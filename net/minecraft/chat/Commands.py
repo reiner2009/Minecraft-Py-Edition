@@ -105,7 +105,7 @@ def assume_command(string, entity):
 	try:
 		if string.split()[0]=="/setblock":
 			set_block(*string_to_position(string, entity), string.split()[4])
-			rebuild_chunks()
+			reload_chunks()
 			show_text(f"block in {string_to_position(string, entity)} successfully replaced", [255,255,255,255])
 			logger.set_environment("Main")
 			logger.info(f"[COMMAND] block in {string_to_position(string, entity)} successfully replaced")
@@ -121,7 +121,7 @@ def assume_command(string, entity):
 					for z2 in irange(z,z1):
 						set_block(x2,y2,z2, string.split()[7])
 						a+=1
-			rebuild_chunks()
+			reload_chunks()
 			show_text(f"{a} blocks successfully replaced", [255,255,255,255])
 			logger.set_environment("Main")
 			logger.info(f"[COMMAND] {a} blocks successfully replaced")
@@ -134,7 +134,7 @@ def assume_command(string, entity):
 			logger.set_environment("Client")
 		elif string.split()[0]=="/reset_world":
 			chunk.create_new_world()
-			rebuild_chunks()
+			reload_chunks()
 			show_text("World successfully reset ", [255, 255, 255, 255])
 			logger.set_environment("Main")
 			logger.info("[COMMAND] World successfully reset")

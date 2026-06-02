@@ -22,9 +22,9 @@ def spawnTree(x,y,z):
         set_block(x+pos[0],y+pos[1],z+pos[2], block.getName())
     reload_chunks()
 
-def reloadChunks():
-    from net.minecraft.world.chunk.Chunk import reload_chunks
-    reload_chunks()
+def reloadChunks(x,y,z):
+    from net.minecraft.world.chunk.Chunk import reloadBlockRadius
+    reloadBlockRadius(x,y,z)
 
 class Block:
     def __init__(self, NAME):
@@ -50,7 +50,7 @@ class Block:
     def onBreak(self, entity):
         pass
     def finallyPlace(self, entity):
-        reloadChunks()
+        reloadChunks(*self.MAP_POSITION)
     def setNewBlock(self, entity, block_sound_volume, X,Y,Z, reload=True):
         from net.minecraft.client.render.world.block.BlockRenderer import block_place_sounds
         from net.minecraft.world.chunk.Chunk import get_block_data, get_block, set_block
@@ -318,4 +318,15 @@ class SlabBlock(Block):
             "down":[(-1, -1, -1), (1, -1, -1), (1, -1, 1), (-1, -1, 1), (-1, 0, -1), (1, 0, -1), (1, 0, 1),(-1, 0, 1)]
         }
         self.VOXEL_SHAPE = self.VOXEL_SHAPE_MAP[self.VERICAL_POS.getVerticalPos()]
+        return getVoxelShapeVertices(x, y, z, self.VOXEL_SHAPE)
+
+class FenceBlock(GlassPaneBlock):
+    def __init__(self, NAME):
+        super().__init__(NAME)
+    @override
+    def getVoxelShape(self, x, y, z):
+        if self.DIRECTION.getDirection() == "x":
+            self.VOXEL_SHAPE = [(-0.25, -1, -1), (0.25, -1, -1), (0.25, -1, 1), (-0.25, -1, 1), (-0.25, 1, -1),(0.25, 1, -1), (0.25, 1, 1), (-0.25, 1, 1)]
+        if self.DIRECTION.getDirection() == "z":
+            self.VOXEL_SHAPE = [(-1, -1, -0.25), (1, -1, -0.25), (1, -1, 0.25), (-1, -1, 0.25), (-1, 1, -0.25),(1, 1, -0.25), (1, 1, 0.25), (-1, 1, 0.25)]
         return getVoxelShapeVertices(x, y, z, self.VOXEL_SHAPE)

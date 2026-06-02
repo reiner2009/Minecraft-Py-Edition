@@ -51,7 +51,25 @@ def build_chunk_display_list():
 	dl = glGenLists(1)
 	glNewList(dl, GL_COMPILE)
 	glBindTexture(GL_TEXTURE_2D, block_atlas)
-	build_chunk()
+	for (x,y,z), cubes in global_vertices.items():
+		if get_block(x, y, z)!="air":
+			if get_block(x, y, z) not in translucent_blocks and get_block(x, y, z) not in cutout_blocks:
+				glDepthMask(GL_TRUE)
+				glDisable(GL_BLEND)
+			if get_block(x, y, z) in cutout_blocks:
+				glEnable(GL_ALPHA_TEST)
+				glAlphaFunc(GL_GREATER, 0.5)
+			if get_block(x, y, z) in translucent_blocks:
+				glEnable(GL_ALPHA_TEST)
+				glEnable(GL_BLEND)
+				glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA)
+			for cube in cubes:
+				for quad in cube:
+					glBegin(GL_QUADS)
+					for tex_coords, vertices in quad:
+						glTexCoord2f(*tex_coords)
+						glVertex3f(*vertices)
+					glEnd()
 	pygame.mouse.set_cursor(SYSTEM_CURSOR_ARROW)
 	glEndList()
 	return dl
@@ -113,16 +131,6 @@ def set_block(x,y,z,name):
 def build_chunk():
 	glEnable(GL_CULL_FACE)
 	for (x, y, z), block in chunk.items():
-		if str(block.getName()) not in translucent_blocks and str(block.getName()) not in cutout_blocks:
-			glDepthMask(GL_TRUE)
-			glDisable(GL_BLEND)
-		if block.getName() in cutout_blocks:
-			glEnable(GL_ALPHA_TEST)
-			glAlphaFunc(GL_GREATER, 0.5)
-		if block.getName() in translucent_blocks:
-			glEnable(GL_ALPHA_TEST)
-			glEnable(GL_BLEND)
-			glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA)
 		place_block(block.getName(), x, y, z, block.getProperty())
 	glDisable(GL_ALPHA_TEST)
 	glDepthMask(GL_TRUE)
@@ -152,18 +160,15 @@ def save_world():
 		with gzip.open(full_path, "wb", compresslevel=9) as f:
 			pickle.dump(chunk, f)
 
-def rebuild_chunks():
-	global chunklist
-	glDeleteLists(chunklist, 1)
-	chunklist=build_chunk_display_list()
-
 def reload_chunks():
-	global chunklist
+	global chunklist, global_vertices
 	glDeleteLists(chunklist, 1)
+	build_chunk()
 	chunklist=build_chunk_display_list()
 
 def load_chunks():
 	global chunklist
+	build_chunk()
 	chunklist=build_chunk_display_list()
 
 def getChunkList():
@@ -172,6 +177,15 @@ def getChunkList():
 		return None
 	else:
 		return chunklist
+
+def reloadBlockRadius(x,y,z):
+	neighbors=[(x,y,z),(x+1,y,z),(x,y+1,z),(x,y,z+1),(x-1,y,z),(x,y-1,z),(x,y,z-1)]
+	for block_pos in neighbors:
+		if get_block(*block_pos)!="air":
+			place_block(get_block(*block_pos),*block_pos, get_block_data(*block_pos).getProperty())
+	global chunklist
+	glDeleteLists(chunklist, 1)
+	chunklist=build_chunk_display_list()
 
 def unload_chunks():
 	global chunklist

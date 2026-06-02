@@ -41,5 +41,7 @@
   "glass_pane": "Glass Pane",
   "oak_stair": "Oak Stair",
   "oak_door": "Oak Door",
-  "oak_slab": "Oak Slab"
+  "oak_slab": "Oak Slab",
+  "oak_wood": "Oak Wood",
+  "oak_fence": "Oak Fence"
 }

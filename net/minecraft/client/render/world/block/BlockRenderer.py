@@ -39,24 +39,37 @@ def custom_cube_vertices(x, y, z, x0,y0,z0,x1,y1,z1):
     ]
 
 chunk = {}
+global_vertices={}
 
-def draw_block(vertices, surfaces, UVs, x, y, z, property="", not_cullable_surfaces=[False, False, False, False, False, False]):
+def draw_block(vertices, surfaces, UVs, x, y, z, property="", not_cullable_surfaces=[False, False, False, False, False, False], preview=False):
     neighbors = [(0,-1,0), (0,1,0), (0,0,-1), (1,0,0), (0,0,1), (-1,0,0)]
-    glEnable(GL_TEXTURE_2D)
-    for i in range(6):
-        dx, dy, dz = neighbors[i]
-        neighbor=get_block(x+dx,y+dy,z+dz)
-        neighborbool=(neighbor=="air")
-        if neighborbool or (((neighbor in translucent_blocks and get_block(x,y,z)!=neighbor) or neighbor in cutout_blocks or neighbor in not_full_blocks) and not_cullable_surfaces[i]!="only_when_fully_covered") or not_cullable_surfaces[i]==True:
-            glBegin(GL_QUADS)
-            for j in range(4):
-                tx,ty=UVs[i][j]
-                vx, vy, vz = vertices[surfaces[i][j]]
-                glTexCoord2f(tx,ty)
-                glVertex3f(vx, vy, vz)
-            glEnd()
-        neigbor_data=get_block_data(x+dx,y+dy,z+dz)
-        if (neighborbool or not_cullable_surfaces[i]=="only_when_fully_covered") and (neighbor=="glass_pane" and property=="x" and neigbor_data.getProperty()=="z") or (neighbor=="glass_pane" and property=="z" and neigbor_data.getProperty()=="x") or neighbor in not_full_blocks:
+    if preview == False:
+        display_cube=[]
+        for i in range(6):
+            quad = []
+            dx, dy, dz = neighbors[i]
+            neighbor=get_block(x+dx,y+dy,z+dz)
+            neighborbool=(neighbor=="air")
+            if neighborbool or (((neighbor in translucent_blocks and get_block(x,y,z)!=neighbor) or neighbor in cutout_blocks or neighbor in not_full_blocks) and not_cullable_surfaces[i]!="only_when_fully_covered") or not_cullable_surfaces[i]==True:
+                for j in range(4):
+                    tx,ty=UVs[i][j]
+                    vx, vy, vz = vertices[surfaces[i][j]]
+                    quad.append([[tx, ty], [vx, vy, vz]])
+                display_cube.append(quad)
+            neigbor_data=get_block_data(x+dx,y+dy,z+dz)
+            if (neighborbool or not_cullable_surfaces[i]=="only_when_fully_covered") and (neighbor=="glass_pane" and property=="x" and neigbor_data.getProperty()=="z") or (neighbor=="glass_pane" and property=="z" and neigbor_data.getProperty()=="x") or neighbor in not_full_blocks:
+                for j in range(4):
+                    tx, ty = UVs[i][j]
+                    vx, vy, vz = vertices[surfaces[i][j]]
+                    quad.append([[tx,ty],[vx,vy,vz]])
+                display_cube.append(quad)
+        try:
+            global_vertices[(x,y,z)].append(display_cube)
+        except:
+            global_vertices[(x,y,z)] = []
+            global_vertices[(x, y, z)].append(display_cube)
+    else:
+        for i in range(6):
             glBegin(GL_QUADS)
             for j in range(4):
                 tx, ty = UVs[i][j]
@@ -66,8 +79,10 @@ def draw_block(vertices, surfaces, UVs, x, y, z, property="", not_cullable_surfa
             glEnd()
 
 
-def place_block(name, x, y, z, property=""):
-    global chunk
+
+def place_block(name, x, y, z, property="", preview=False):
+    global chunk, global_vertices
+    global_vertices.pop((x,y,z), None)
     data= Models.get_model(name, property)
     if data["type"]=="full_cube":
         texture_names = data["textures"]
@@ -87,7 +102,8 @@ def place_block(name, x, y, z, property=""):
                 (7, 4, 0, 3)
             ],
             UVs,
-            x,y,z
+            x,y,z,
+            preview=preview
         )
     if data["type"]=="custom_model":
         for element in data["elements"].values():
@@ -120,7 +136,8 @@ def place_block(name, x, y, z, property=""):
                 UVs,
                 x,y,z,
                 property,
-                not_cullable_surfaces
+                not_cullable_surfaces,
+                preview=preview
             )
 
 
@@ -150,19 +167,18 @@ def draw_block_preview(name, x, y, z, hit=False, property=""):
     else:
         glColor3f(1,1,1)
         glLineWidth(12)
-    if not hit:
-        glBindTexture(GL_TEXTURE_2D, block_atlas)
-        glEnable(GL_BLEND)
-        glColor4f(1,1,1,0.5001)
-        place_block(name,x,y,z, property)
-        glDisable(GL_BLEND)
     if hit:
         glDisable(GL_TEXTURE_2D)
-        glEnable(GL_POLYGON_OFFSET_LINE)
-        glPolygonOffset(-1.0, -1.0)
         glBegin(GL_LINES)
         for line in lines:
             for vertex in line:
                 glVertex3fv(get_block_data(x,y,z).getVoxelShape(x,y,z)[vertex])
         glEnd()
-        glDisable(GL_POLYGON_OFFSET_LINE)
+    if not hit:
+        glBindTexture(GL_TEXTURE_2D, block_atlas)
+        glEnable(GL_ALPHA_TEST)
+        glEnable(GL_BLEND)
+        glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA)
+        glColor4f(1,1,1,0.5001)
+        place_block(name,x,y,z, property, True)
+        glDisable(GL_BLEND)

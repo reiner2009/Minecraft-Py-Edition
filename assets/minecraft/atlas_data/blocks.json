@@ -1,5 +1,5 @@
 {
-  "width": 8,
+  "width": 9,
   "height": 7,
   "values":{
     "stone_bricks": [4,5],
@@ -58,6 +58,7 @@
     "oak_door": [7,3],
     "translucent": [7,4],
     "oak_slab": [7,5],
-    "missing": [7,6]
+    "oak_fence": [7,6],
+    "missing": [8,0]
   }
 }

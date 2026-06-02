@@ -249,7 +249,7 @@ def break_block_by_player():
 					play_place_sound("stone", block_sound_volume)
 			get_block_data(X,Y,Z).onBreak(player)
 			set_block(X,Y,Z, "air")
-			rebuild_chunks()
+			reloadBlockRadius(X,Y,Z)
 	except:
 		logger.error(str(traceback.format_exc()))
 

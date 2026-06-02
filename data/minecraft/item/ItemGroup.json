@@ -41,5 +41,7 @@
   "glass_pane": 14,
   "oak_stair": 13,
   "oak_door": 12,
-  "oak_slab": 11
+  "oak_slab": 11,
+  "oak_wood": 10,
+  "oak_fence": 9
 }
