@@ -2,21 +2,11 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="84e547ab-f90c-4988-ba87-3386de936751" name="Changes" comment="Minecraft-Py-Edition">
-      <change afterPath="$PROJECT_DIR$/assets/minecraft/models/block/oak_fencex.json" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/assets/minecraft/models/block/oak_fencez.json" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/assets/minecraft/models/block/oak_wood.json" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/assets/minecraft/atlas_data/blocks.json" beforeDir="false" afterPath="$PROJECT_DIR$/assets/minecraft/atlas_data/blocks.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/assets/minecraft/item/TextureMap.json" beforeDir="false" afterPath="$PROJECT_DIR$/assets/minecraft/item/TextureMap.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/assets/minecraft/lang/en_us.json" beforeDir="false" afterPath="$PROJECT_DIR$/assets/minecraft/lang/en_us.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/assets/minecraft/render/render_data.json" beforeDir="false" afterPath="$PROJECT_DIR$/assets/minecraft/render/render_data.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/assets/minecraft/sounds/sounds.json" beforeDir="false" afterPath="$PROJECT_DIR$/assets/minecraft/sounds/sounds.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/assets/minecraft/textures/block/atlas.png" beforeDir="false" afterPath="$PROJECT_DIR$/assets/minecraft/textures/block/atlas.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/data/minecraft/item/ItemGroup.json" beforeDir="false" afterPath="$PROJECT_DIR$/data/minecraft/item/ItemGroup.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/net/minecraft/chat/Commands.py" beforeDir="false" afterPath="$PROJECT_DIR$/net/minecraft/chat/Commands.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/net/minecraft/client/Main.py" beforeDir="false" afterPath="$PROJECT_DIR$/net/minecraft/client/Main.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/net/minecraft/client/render/world/block/BlockRenderer.py" beforeDir="false" afterPath="$PROJECT_DIR$/net/minecraft/client/render/world/block/BlockRenderer.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/net/minecraft/world/block/Blocks.py" beforeDir="false" afterPath="$PROJECT_DIR$/net/minecraft/world/block/Blocks.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/minecraft/models/block/oak_fencex.json" beforeDir="false" afterPath="$PROJECT_DIR$/assets/minecraft/models/block/oak_fencex.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/minecraft/models/block/oak_fencez.json" beforeDir="false" afterPath="$PROJECT_DIR$/assets/minecraft/models/block/oak_fencez.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/minecraft/textures/gui/container/creative_inventory/tab_items.png" beforeDir="false" afterPath="$PROJECT_DIR$/assets/minecraft/textures/gui/container/creative_inventory/tab_items.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/net/minecraft/util/gui/Hud.py" beforeDir="false" afterPath="$PROJECT_DIR$/net/minecraft/util/gui/Hud.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/net/minecraft/world/block/__init__.py" beforeDir="false" afterPath="$PROJECT_DIR$/net/minecraft/world/block/__init__.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/net/minecraft/world/chunk/Chunk.py" beforeDir="false" afterPath="$PROJECT_DIR$/net/minecraft/world/chunk/Chunk.py" afterDir="false" />
     </list>
@@ -41,12 +31,12 @@
     &quot;assignee&quot;: &quot;reiner2009&quot;
   }
 }</component>
-  <component name="GithubPullRequestsUISettings">{
-  &quot;selectedUrlAndAccountId&quot;: {
-    &quot;url&quot;: &quot;https://github.com/reiner2009/Minecraft-Py-Edition.git&quot;,
-    &quot;accountId&quot;: &quot;b0401b13-d7e1-4d7d-964b-eb581c537a0e&quot;
+  <component name="GithubPullRequestsUISettings"><![CDATA[{
+  "selectedUrlAndAccountId": {
+    "url": "git@github.com:reiner2009/Minecraft-Py-Edition.git",
+    "accountId": "b0401b13-d7e1-4d7d-964b-eb581c537a0e"
   }
-}</component>
+}]]></component>
   <component name="ProblemsViewState">
     <option name="selectedTabId" value="CurrentFile" />
   </component>
@@ -474,7 +464,15 @@
       <option name="project" value="LOCAL" />
       <updated>1780321746710</updated>
     </task>
-    <option name="localTasksCounter" value="31" />
+    <task id="LOCAL-00031" summary="Minecraft-Py-Edition">
+      <option name="closed" value="true" />
+      <created>1780388420001</created>
+      <option name="number" value="00031" />
+      <option name="presentableId" value="LOCAL-00031" />
+      <option name="project" value="LOCAL" />
+      <updated>1780388420001</updated>
+    </task>
+    <option name="localTasksCounter" value="32" />
     <servers />
   </component>
   <component name="VcsManagerConfiguration">

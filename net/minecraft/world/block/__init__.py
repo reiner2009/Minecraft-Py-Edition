@@ -45,30 +45,31 @@ class Block:
     def getVoxelShape(self, x, y, z):
         self.VOXEL_SHAPE = [(-1, -1, -1), (1, -1, -1), (1, -1, 1), (-1, -1, 1), (-1, 1, -1), (1, 1, -1), (1, 1, 1),(-1, 1, 1)]
         return getVoxelShapeVertices(x, y, z, self.VOXEL_SHAPE)
-    def onPlace(self, entity):
-        self.finallyPlace(entity)
+    def onPlace(self, entity, block_sound_volume):
+        self.finallyPlace(block_sound_volume)
     def onBreak(self, entity):
         pass
-    def finallyPlace(self, entity):
-        reloadChunks(*self.MAP_POSITION)
-    def setNewBlock(self, entity, block_sound_volume, X,Y,Z, reload=True):
-        from net.minecraft.client.render.world.block.BlockRenderer import block_place_sounds
-        from net.minecraft.world.chunk.Chunk import get_block_data, get_block, set_block
+    def finallyPlace(self, block_sound_volume, play_sound=True):
+        from net.minecraft.world.chunk.Chunk import block_place_sounds
         from net.minecraft.sounds.Sounds import play_place_sound
+        block = self.getName()
+        if play_sound:
+            if block in block_place_sounds.keys():
+                play_place_sound(block_place_sounds[block], block_sound_volume)
+            else:
+                play_place_sound("stone", block_sound_volume)
+        reloadChunks(*self.MAP_POSITION)
+    def setNewBlock(self, entity, block_sound_volume, X,Y,Z):
+        from net.minecraft.world.chunk.Chunk import get_block_data, set_block
         set_block(X, Y, Z, entity.getMainhandItem())
         get_block_data(X, Y, Z).setPropertyByPlayer(entity)
-        block = get_block(X, Y, Z)
-        if block in block_place_sounds.keys():
-            play_place_sound(block_place_sounds[block], block_sound_volume)
-        else:
-            play_place_sound("stone", block_sound_volume)
         entity.swing("right")
     def onInteraction(self, entity, block_sound_volume):
         X, Y, Z, *_ = Raycast.get_pos(entity)
         if Raycast.get_neighbour_block(X, Y, Z):
             from net.minecraft.client.render.world.block.BlockRenderer import get_block_data
             self.setNewBlock(entity, block_sound_volume, X,Y,Z)
-            get_block_data(X, Y, Z).onPlace(entity)
+            get_block_data(X, Y, Z).onPlace(entity, block_sound_volume)
     def PlaceableBlockDuringInteraction(self):
         return True
 
@@ -120,9 +121,9 @@ class OakSapling(Block):
     def __init__(self, NAME):
         super().__init__(NAME)
     @override
-    def finallyPlace(self, entity):
+    def finallyPlace(self, block_sound_volume):
         spawnTree(*self.MAP_POSITION)
-        super().finallyPlace(entity)
+        super().finallyPlace(block_sound_volume)
 
 class GlassPaneBlock(Block):
     def __init__(self, NAME):
@@ -285,7 +286,7 @@ class DoorBlock(Block):
                 get_block_data(*self.down_nighbour).setState(self.STATE)
             play_block_sound("oak_door_close", block_sound_volume)
         entity.swing("right")
-        super().finallyPlace(entity)
+        super().finallyPlace(block_sound_volume, False)
     @override
     def PlaceableBlockDuringInteraction(self):
         return False

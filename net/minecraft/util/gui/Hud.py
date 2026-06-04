@@ -92,16 +92,16 @@ def render_tab_items():
     glEnable(GL_TEXTURE_2D)
     glColor4f(1,1,1,1)
     glBindTexture(GL_TEXTURE_2D, tab_items_texture)
-    uv=[(0.8,0.55),(0,0.55),(0,0),(0.8,0)]
+    uv=[(0,1),(1,1),(1,0),(0,0)]
     glBegin(GL_QUADS)
     glTexCoord2fv(uv[0])
-    glVertex2f(width/2-510/2,height/480*150)
+    glVertex2f(width/2-377/2,height/480*154)
     glTexCoord2fv(uv[1])
-    glVertex2f(width/2+508/2,height/480*150)
+    glVertex2f(width/2+593/2,height/480*154)
     glTexCoord2fv(uv[2])
-    glVertex2f(width/2+508/2, height/480*150+128*2.7)
+    glVertex2f(width/2+593/2, height/480*150+128*2.7)
     glTexCoord2fv(uv[3])
-    glVertex2f(width/2-510/2, height/480*150+128*2.7)
+    glVertex2f(width/2-377/2, height/480*150+128*2.7)
     glEnd()
     
     

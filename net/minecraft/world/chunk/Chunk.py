@@ -93,7 +93,7 @@ def render_chunk():
 		for (x,y,z), block in _chunk.items():
 			chunk[(x,y,z)]=block
 		load_chunks()
-	except:
+	except FileNotFoundError:
 		logger.set_environment("Main")
 		logger.info("No existing world data, creating new world")
 		logger.set_environment("Client")
