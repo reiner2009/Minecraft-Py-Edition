@@ -7,8 +7,6 @@ try:
 	shutil.rmtree(os.path.join(base_path, ".cache"))
 except:
 	pass
-from net.minecraft.world.level.Level import setEnv
-setEnv("client")
 import net.minecraft.util.math.Raycast as Raycast
 import net.minecraft.util.math.ThirtPersonPerspective as ThirtPersonPerspective
 import net.minecraft.resources.Config as config
@@ -73,7 +71,6 @@ pause_menu=False
 state_menu=0
 state_settings=1
 state_game=2
-state_online_game_menu=3
 game_state=state_menu
 pause_menu=False
 mouse_grab=False
@@ -103,47 +100,10 @@ if skin:
 	player.setSkin(skin)
 chat_text=""
 camera_x, camera_y, camera_z=0,0,0
-temporary_errors=[]
-server_connection_thread=None
-client=None
-sock=None
-server_addr=""
 pack = os.path.join(base_path, "resourcepacks")
 os.makedirs(pack, exist_ok=True)
 
 menu_background_texture=load_texture("assets/minecraft/textures/gui/title/background/menu.png")
-
-def receive():
-	global game_state, mouse_grab
-	buffer = ""
-	try:
-		while True:
-			try:
-				data = sock.recv(1024)
-				if not data:
-					game_state = state_menu
-					Chat.temporary_texts.clear()
-					Chat.texts.clear()
-					break
-				buffer += data.decode()
-				while "\n" in buffer:
-					line, buffer = buffer.split("\n", 1)
-					if line.strip().endswith("joined the game") or line.strip().endswith("left the game"):
-						show_text(line.strip(), [84, 251, 84, 255])
-					else:
-						show_text(line.strip(), [255,255,255,255])
-			except OSError:
-				break
-	except Exception as e:
-		logger.error(f"Receive error: {e}")
-
-def start_client(HOST):
-	global sock, server_connection_thread
-	sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-	sock.settimeout(5.0)
-	sock.connect((HOST, 9999))
-	sock.sendall((Playername.playername).encode())
-	server_connection_thread=threading.Thread(target=receive, daemon=True).start()
 
 
 def save_level():
@@ -212,28 +172,6 @@ def get_block_by_player():
 					Item.add_item(get_block(X, Y, Z), hotbar_slot_selected - 1)
 				except:
 					logger.error(str(traceback.format_exc()))
-
-def show_error(msg, color, lifetime=10000):
-	msg=str(msg)
-	msgs=split_text(msg)
-	for i in msgs:
-		temporary_errors.insert(0,{
-			"text":i,
-			"spawn_time":pygame.time.get_ticks(),
-			"life_time":lifetime,
-			"color":color
-		})
-	if len(temporary_errors)>10:
-		temporary_errors.pop()
-
-def render_temporary_errors():
-	current_time=pygame.time.get_ticks()
-	for i, t in enumerate(temporary_errors[:]):
-		if current_time-t["spawn_time"]>t["life_time"]:
-			temporary_errors.remove(t)
-			continue
-		y=height - height/ 1152 * 200+i*LINE_HIGHT
-		text.render_text(t["text"], width / 2 - 200, y, 20,20,t["color"])
 
 def break_block_by_player():
 	global block_sound_volume
@@ -417,60 +355,6 @@ def render_settings(events):
 	slider(x1, y7, x2, y8, highlight2, ui_volume, display_ui_volume)
 	slider(x1, y9, x2, y10, highlight3, block_sound_volume, display_block_sound_volume)
 
-def render_multiplayer_menu(events):
-	global game_state, mouse_grab, server_connection_thread, client, server_addr
-	setup_ortho()
-	hud.render_wallpaper(dark_menu_texture)
-	x, y = pygame.mouse.get_pos()
-	y = height - y
-	highlight0 = False
-	highlight1 = False
-	for event in events:
-		if event.type == QUIT:
-			pygame.quit()
-	x1, x2 = width/2-510/2, width/2+510/2
-	y1, y2 = height/480*200, height/480*200+60
-	y3, y4 = y1 + 65, y2 + 65
-	y7, y8 = y3 + 5, y4 + 5
-	y9, y10 = y7 + 60, y8 + 60
-	y5, y6 = y9 + 60, y10 + 60
-	if x >= x1 and x <= x2 and y >= y1 and y <= y2:
-		highlight0 = True
-		highlight1 = False
-		pygame.mouse.set_cursor(SYSTEM_CURSOR_HAND)
-		for event in events:
-			if event.type == MOUSEBUTTONDOWN and event.button == 1:
-				button_click_sound.play()
-				game_state = state_menu
-	elif x >= x1 and x <= x2 and y >= y3 and y <= y4:
-		highlight0 = False
-		highlight1 = True
-		pygame.mouse.set_cursor(SYSTEM_CURSOR_HAND)
-		for event in events:
-			if event.type==MOUSEBUTTONDOWN and event.button==1:
-				stop_music()
-				button_click_sound.play()
-				try:
-					start_client(server_addr)
-					game_state = state_game
-				except Exception as e:
-					show_error("Could not connect to Minecraft server: " + str(e), [168, 0, 0, 255])
-					logger.error("Could not connect to Minecraft server: " + str(e))
-				mouse_grab = True
-				mouse_grab = True
-				load_chunks()
-	else:
-		pygame.mouse.set_cursor(SYSTEM_CURSOR_ARROW)
-	for event in events:
-		if event.type == KEYDOWN:
-			if event.key==K_BACKSPACE:
-				server_addr=server_addr[:-1]
-			else:
-				server_addr = server_addr + event.unicode
-	button(x1, y1, x2, y2, "Back", highlight0)
-	button(x1, y3, x2, y4, "Connect", highlight1)
-	text_field(x1, y5, x2, y6, server_addr, True)
-
 def render_menu(events):
 	global settings, game_state, mouse_grab
 	setup_ortho()
@@ -495,13 +379,11 @@ def render_menu(events):
 	x1, x2 = width/2-510/2, width/2+510/2
 	y1, y2 = height/480*250, height/480*250+60
 	y3, y4 = y1-65, y2-65
-	y5, y6 = y3-65, y4-65
-	y7,y8=y5-65,y6-65
+	y5,y6=y3-65,y4-65
 	if x>=x1 and x<=x2 and y>=y1 and y<=y2:
 		highlight0=True
 		highlight1=False
 		highlight2=False
-		highlight3=False
 		pygame.mouse.set_cursor(SYSTEM_CURSOR_HAND)
 		for event in events:
 			if event.type==MOUSEBUTTONDOWN and event.button==1:
@@ -514,27 +396,15 @@ def render_menu(events):
 		highlight0 = False
 		highlight1 = True
 		highlight2 = False
-		highlight3=False
-		pygame.mouse.set_cursor(SYSTEM_CURSOR_HAND)
-		for event in events:
-			if event.type==MOUSEBUTTONDOWN and event.button==1:
-				button_click_sound.play()
-				game_state=state_online_game_menu
-	elif x>=x1 and x<=x2 and y>=y5 and y<=y6:
-		highlight0 = False
-		highlight1 = False
-		highlight2 = True
-		highlight3=False
 		pygame.mouse.set_cursor(SYSTEM_CURSOR_HAND)
 		for event in events:
 			if event.type==MOUSEBUTTONDOWN and event.button==1:
 				button_click_sound.play()
 				game_state=state_settings
-	elif x>=x1 and x<=x2 and y>=y7 and y<=y8:
+	elif x>=x1 and x<=x2 and y>=y5 and y<=y6:
 		highlight0 = False
 		highlight1 = False
-		highlight2 = False
-		highlight3 = True
+		highlight2 = True
 		pygame.mouse.set_cursor(SYSTEM_CURSOR_HAND)
 		for event in events:
 			if event.type==MOUSEBUTTONDOWN and event.button==1:
@@ -546,10 +416,9 @@ def render_menu(events):
 				sys.exit()
 	else:
 		pygame.mouse.set_cursor(SYSTEM_CURSOR_ARROW)
-	button(x1, y1, x2, y2, "Singleplayer", highlight0)
-	button(x1, y3, x2, y4, "Multiplayer", highlight1)
-	button(x1, y5, x2, y6, "Settings", highlight2)
-	button(x1, y7, x2, y8, "Quit Game", highlight3)
+	button(x1, y1, x2, y2, "Start game", highlight0)
+	button(x1, y3, x2, y4, "Settings", highlight1)
+	button(x1, y5, x2, y6, "Quit Game", highlight2)
 
 def running_world(events):
 	global menu, running, x,y,z, camera_x, camera_y, camera_z, speed, mouse_grab,hud_,hotbar_slot_selected, debug_charts, game_state, pause_menu, mouse_grab, chat, chat_text, block_preview, container,client, sock
@@ -664,10 +533,6 @@ def running_world(events):
 					game_state=state_menu
 					pause_menu=False
 					logger.info("Saving world")
-					try:
-						sock.sendall(("/leave\n").encode())
-					except:
-						pass
 					save_world()
 					save_level()
 		elif x>=x1 and x<=x2 and y>=y3 and y<=y4:
@@ -714,10 +579,7 @@ def running_world(events):
 						else:
 							logger.set_environment("Main")
 							logger.info("[CHAT] <" + str(Playername.playername) + "> " + chat_text)
-							try:
-								sock.sendall(("<" + str(Playername.playername) + "> " + chat_text +"\n").encode())
-							except:
-								show_text("<" + str(Playername.playername) + "> " + chat_text, [255,255,255,255])
+							show_text("<" + str(Playername.playername) + "> " + chat_text, [255,255,255,255])
 					chat_text=""
 					chat=False
 				elif event.key==K_ESCAPE:
@@ -751,9 +613,6 @@ try:
 			render_settings(events)
 		elif game_state==state_game:
 			running_world(events)
-		elif game_state==state_online_game_menu:
-			render_multiplayer_menu(events)
-		render_temporary_errors()
 		pygame.display.flip()
 		clock.tick(60)
 except Exception:

@@ -1,8 +1,6 @@
 from net.minecraft.entity.PathFinderMob import PathFinderMob
-import net.minecraft.world.level.Level as Level
-if Level.isClient:
-    from net.minecraft.textures.Textures import load_texture
-    import net.minecraft.client.render.entity.PigRenderer as PigRenderer
+from net.minecraft.textures.Textures import load_texture
+import net.minecraft.client.render.entity.PigRenderer as PigRenderer
 from net.minecraft.entity.ai.Goal import RandomStrollAroundGoal
 from net.minecraft.entity.PathFinderMob import PathFinderMob
 
@@ -12,5 +10,4 @@ class PigEntity(PathFinderMob):
 		self.targetSelector.addBehaviourGoal(0, RandomStrollAroundGoal, 1)
 	def tick(self):
 		super().tick()
-		if Level.isClient:
-			PigRenderer.render_body_layer(self.x, self.y, self.z, self.yaw, self.pitch, 0, 0)
+		PigRenderer.render_body_layer(self.x, self.y, self.z, self.yaw, self.pitch, 0, 0)

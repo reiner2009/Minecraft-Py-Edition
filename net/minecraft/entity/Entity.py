@@ -1,6 +1,4 @@
-import net.minecraft.world.level.Level as Level
-if Level.isClient:
-    from net.minecraft.textures.Textures import load_texture
+from net.minecraft.textures.Textures import load_texture
 from net.minecraft.world.EntityList import entity_chunk
 
 class Entity:
