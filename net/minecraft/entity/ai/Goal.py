@@ -1,0 +1,1 @@
+RandomStrollAroundGoal=0
