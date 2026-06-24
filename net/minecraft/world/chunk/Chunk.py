@@ -102,6 +102,8 @@ def render_chunk():
 		create_new_world()
 		load_chunks()
 
+def isFull(name):
+	return name!="air"
 
 def create_new_world():
 	global chunk

@@ -11,7 +11,6 @@ class Entity:
 		self.yaw = 90
 		self.pitch = 0
 		self.name="Entity"
-		self.walk_pitch_direction=0
 		self.movement=False
 		self.thirt_person_perspective = 0
 		entity_chunk.append(self)

@@ -2,7 +2,7 @@ from net.minecraft.entity.Entity import Entity
 from net.minecraft.world.chunk.Chunk import explode
 from net.minecraft.client.render.entity.PrimedTntRenderer import*
 
-class PrimedTnt(Entity):
+class IgnitedTnt(Entity):
 	def __init__(self):
 		super().__init__()
 		self.countdown=5*60

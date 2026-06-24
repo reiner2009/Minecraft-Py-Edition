@@ -2,32 +2,14 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="84e547ab-f90c-4988-ba87-3386de936751" name="Changes" comment="Minecraft-Py-Edition">
-      <change afterPath="$PROJECT_DIR$/assets/minecraft/models/block/oak_fence_mainhand.json" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/assets/minecraft/models/block/tnt.json" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/assets/minecraft/sounds/blocks/generic/explode/explode1.ogg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/assets/minecraft/sounds/blocks/generic/explode/explode2.ogg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/assets/minecraft/sounds/blocks/generic/explode/explode3.ogg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/assets/minecraft/sounds/blocks/generic/explode/explode4.ogg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/assets/minecraft/sounds/blocks/generic/fuse.ogg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/assets/minecraft/textures/entity/pig.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/data/minecraft/item/BlockItems.json" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/icon.icns" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/net/minecraft/client/render/entity/PigRenderer.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/net/minecraft/client/render/entity/PrimedTntRenderer.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/net/minecraft/entity/Entity.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/net/minecraft/entity/LivingEntity.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/net/minecraft/entity/PathFinderMob.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/net/minecraft/entity/PigEntity.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/net/minecraft/entity/PrimedTnt.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/net/minecraft/entity/ai/Goal.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/net/minecraft/entity/ai/__init__.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/net/minecraft/modloader/ModLoader.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/net/minecraft/modloader/__init__.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/net/minecraft/modloader/bus/EventBusRegistry.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/net/minecraft/modloader/bus/__init__.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/net/minecraft/modloader/core/registry/BuiltInRegistries.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/net/minecraft/world/item/Items.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/net/minecraft/world/item/__init__.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/net/minecraft/client/render/entity/PrimedTntRenderer.py" beforeDir="false" afterPath="$PROJECT_DIR$/net/minecraft/client/render/entity/PrimedTntRenderer.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/net/minecraft/entity/Entities.py" beforeDir="false" afterPath="$PROJECT_DIR$/net/minecraft/entity/Entities.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/net/minecraft/entity/Entity.py" beforeDir="false" afterPath="$PROJECT_DIR$/net/minecraft/entity/Entity.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/net/minecraft/entity/LivingEntity.py" beforeDir="false" afterPath="$PROJECT_DIR$/net/minecraft/entity/LivingEntity.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/net/minecraft/entity/PrimedTnt.py" beforeDir="false" afterPath="$PROJECT_DIR$/net/minecraft/entity/IgnitedTnt.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/net/minecraft/world/block/__init__.py" beforeDir="false" afterPath="$PROJECT_DIR$/net/minecraft/world/block/__init__.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/net/minecraft/world/chunk/Chunk.py" beforeDir="false" afterPath="$PROJECT_DIR$/net/minecraft/world/chunk/Chunk.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -507,7 +489,15 @@
       <option name="project" value="LOCAL" />
       <updated>1782305719361</updated>
     </task>
-    <option name="localTasksCounter" value="34" />
+    <task id="LOCAL-00034" summary="Minecraft-Py-Edition">
+      <option name="closed" value="true" />
+      <created>1782306029633</created>
+      <option name="number" value="00034" />
+      <option name="presentableId" value="LOCAL-00034" />
+      <option name="project" value="LOCAL" />
+      <updated>1782306029633</updated>
+    </task>
+    <option name="localTasksCounter" value="35" />
     <servers />
   </component>
   <component name="VcsManagerConfiguration">

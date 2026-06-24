@@ -307,9 +307,9 @@ class TntBlock(Block):
         if entity.getMainhandItem()=="flint_and_steel":
             from net.minecraft.entity.Entities import entites
             from net.minecraft.world.chunk.Chunk import set_block
-            self.primed_tnt=entites["primed_tnt"]()
-            self.primed_tnt.set_sound_volume(block_sound_volume)
-            self.primed_tnt.spawn(*self.MAP_POSITION)
+            self.ignited_tnt=entites["ignited_tnt"]()
+            self.ignited_tnt.set_sound_volume(block_sound_volume)
+            self.ignited_tnt.spawn(*self.MAP_POSITION)
             set_block(*self.MAP_POSITION, "air")
             reloadChunks()
             play_block_sound("fuse", block_sound_volume)
