@@ -3,12 +3,266 @@
   <component name="ChangeListManager">
     <list default="true" id="84e547ab-f90c-4988-ba87-3386de936751" name="Changes" comment="Minecraft-Py-Edition">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/minecraft/atlas_data/blocks.json" beforeDir="false" afterPath="$PROJECT_DIR$/assets/minecraft/atlas_data/blocks.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/minecraft/item/TextureMap.json" beforeDir="false" afterPath="$PROJECT_DIR$/assets/minecraft/item/TextureMap.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/minecraft/lang/en_us.json" beforeDir="false" afterPath="$PROJECT_DIR$/assets/minecraft/lang/en_us.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/minecraft/models/ItemModels.json" beforeDir="false" afterPath="$PROJECT_DIR$/assets/minecraft/models/ItemModels.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/minecraft/models/block/bedrock.json" beforeDir="false" afterPath="$PROJECT_DIR$/assets/minecraft/models/block/bedrock.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/minecraft/models/block/black_wool.json" beforeDir="false" afterPath="$PROJECT_DIR$/assets/minecraft/models/block/black_wool.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/minecraft/models/block/blue_wool.json" beforeDir="false" afterPath="$PROJECT_DIR$/assets/minecraft/models/block/blue_wool.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/minecraft/models/block/bricks.json" beforeDir="false" afterPath="$PROJECT_DIR$/assets/minecraft/models/block/bricks.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/minecraft/models/block/brown_wool.json" beforeDir="false" afterPath="$PROJECT_DIR$/assets/minecraft/models/block/brown_wool.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/minecraft/models/block/cobblestone.json" beforeDir="false" afterPath="$PROJECT_DIR$/assets/minecraft/models/block/cobblestone.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/minecraft/models/block/copper_block.json" beforeDir="false" afterPath="$PROJECT_DIR$/assets/minecraft/models/block/copper_block.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/minecraft/models/block/crafting_tableeast.json" beforeDir="false" afterPath="$PROJECT_DIR$/assets/minecraft/models/block/crafting_tableeast.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/minecraft/models/block/crafting_tablenorth.json" beforeDir="false" afterPath="$PROJECT_DIR$/assets/minecraft/models/block/crafting_tablenorth.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/minecraft/models/block/crafting_tablesouth.json" beforeDir="false" afterPath="$PROJECT_DIR$/assets/minecraft/models/block/crafting_tablesouth.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/minecraft/models/block/crafting_tablewest.json" beforeDir="false" afterPath="$PROJECT_DIR$/assets/minecraft/models/block/crafting_tablewest.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/minecraft/models/block/cyan_wool.json" beforeDir="false" afterPath="$PROJECT_DIR$/assets/minecraft/models/block/cyan_wool.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/minecraft/models/block/deepslate_bricks.json" beforeDir="false" afterPath="$PROJECT_DIR$/assets/minecraft/models/block/deepslate_bricks.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/minecraft/models/block/deepslatex.json" beforeDir="false" afterPath="$PROJECT_DIR$/assets/minecraft/models/block/deepslatex.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/minecraft/models/block/deepslatey.json" beforeDir="false" afterPath="$PROJECT_DIR$/assets/minecraft/models/block/deepslatey.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/minecraft/models/block/deepslatez.json" beforeDir="false" afterPath="$PROJECT_DIR$/assets/minecraft/models/block/deepslatez.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/minecraft/models/block/diamond_block.json" beforeDir="false" afterPath="$PROJECT_DIR$/assets/minecraft/models/block/diamond_block.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/minecraft/models/block/dirt.json" beforeDir="false" afterPath="$PROJECT_DIR$/assets/minecraft/models/block/dirt.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/minecraft/models/block/furnaceeast.json" beforeDir="false" afterPath="$PROJECT_DIR$/assets/minecraft/models/block/furnaceeast.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/minecraft/models/block/furnacenorth.json" beforeDir="false" afterPath="$PROJECT_DIR$/assets/minecraft/models/block/furnacenorth.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/minecraft/models/block/furnacesouth.json" beforeDir="false" afterPath="$PROJECT_DIR$/assets/minecraft/models/block/furnacesouth.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/minecraft/models/block/furnacewest.json" beforeDir="false" afterPath="$PROJECT_DIR$/assets/minecraft/models/block/furnacewest.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/minecraft/models/block/glass_block.json" beforeDir="false" afterPath="$PROJECT_DIR$/assets/minecraft/models/block/glass_block.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/minecraft/models/block/glass_pane_mainhand.json" beforeDir="false" afterPath="$PROJECT_DIR$/assets/minecraft/models/block/glass_pane_mainhand.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/minecraft/models/block/glass_panex.json" beforeDir="false" afterPath="$PROJECT_DIR$/assets/minecraft/models/block/glass_panex.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/minecraft/models/block/glass_panez.json" beforeDir="false" afterPath="$PROJECT_DIR$/assets/minecraft/models/block/glass_panez.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/minecraft/models/block/gold_block.json" beforeDir="false" afterPath="$PROJECT_DIR$/assets/minecraft/models/block/gold_block.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/minecraft/models/block/grass_block.json" beforeDir="false" afterPath="$PROJECT_DIR$/assets/minecraft/models/block/grass_block.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/minecraft/models/block/gray_wool.json" beforeDir="false" afterPath="$PROJECT_DIR$/assets/minecraft/models/block/gray_wool.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/minecraft/models/block/green_wool.json" beforeDir="false" afterPath="$PROJECT_DIR$/assets/minecraft/models/block/green_wool.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/minecraft/models/block/iron_block.json" beforeDir="false" afterPath="$PROJECT_DIR$/assets/minecraft/models/block/iron_block.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/minecraft/models/block/lapis_block.json" beforeDir="false" afterPath="$PROJECT_DIR$/assets/minecraft/models/block/lapis_block.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/minecraft/models/block/light_blue_wool.json" beforeDir="false" afterPath="$PROJECT_DIR$/assets/minecraft/models/block/light_blue_wool.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/minecraft/models/block/light_gray_wool.json" beforeDir="false" afterPath="$PROJECT_DIR$/assets/minecraft/models/block/light_gray_wool.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/minecraft/models/block/lime_wool.json" beforeDir="false" afterPath="$PROJECT_DIR$/assets/minecraft/models/block/lime_wool.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/minecraft/models/block/magenta_wool.json" beforeDir="false" afterPath="$PROJECT_DIR$/assets/minecraft/models/block/magenta_wool.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/minecraft/models/block/oak_door_mainhand.json" beforeDir="false" afterPath="$PROJECT_DIR$/assets/minecraft/models/block/oak_door_mainhand.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/minecraft/models/block/oak_dooreast0.json" beforeDir="false" afterPath="$PROJECT_DIR$/assets/minecraft/models/block/oak_dooreast0.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/minecraft/models/block/oak_dooreast1.json" beforeDir="false" afterPath="$PROJECT_DIR$/assets/minecraft/models/block/oak_dooreast1.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/minecraft/models/block/oak_doornorth0.json" beforeDir="false" afterPath="$PROJECT_DIR$/assets/minecraft/models/block/oak_doornorth0.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/minecraft/models/block/oak_doornorth1.json" beforeDir="false" afterPath="$PROJECT_DIR$/assets/minecraft/models/block/oak_doornorth1.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/minecraft/models/block/oak_doorsouth0.json" beforeDir="false" afterPath="$PROJECT_DIR$/assets/minecraft/models/block/oak_doorsouth0.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/minecraft/models/block/oak_doorsouth1.json" beforeDir="false" afterPath="$PROJECT_DIR$/assets/minecraft/models/block/oak_doorsouth1.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/minecraft/models/block/oak_doorwest0.json" beforeDir="false" afterPath="$PROJECT_DIR$/assets/minecraft/models/block/oak_doorwest0.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/minecraft/models/block/oak_doorwest1.json" beforeDir="false" afterPath="$PROJECT_DIR$/assets/minecraft/models/block/oak_doorwest1.json" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/assets/minecraft/models/block/oak_fencex.json" beforeDir="false" afterPath="$PROJECT_DIR$/assets/minecraft/models/block/oak_fencex.json" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/assets/minecraft/models/block/oak_fencez.json" beforeDir="false" afterPath="$PROJECT_DIR$/assets/minecraft/models/block/oak_fencez.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/minecraft/models/block/oak_leaves.json" beforeDir="false" afterPath="$PROJECT_DIR$/assets/minecraft/models/block/oak_leaves.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/minecraft/models/block/oak_logx.json" beforeDir="false" afterPath="$PROJECT_DIR$/assets/minecraft/models/block/oak_logx.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/minecraft/models/block/oak_logy.json" beforeDir="false" afterPath="$PROJECT_DIR$/assets/minecraft/models/block/oak_logy.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/minecraft/models/block/oak_logz.json" beforeDir="false" afterPath="$PROJECT_DIR$/assets/minecraft/models/block/oak_logz.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/minecraft/models/block/oak_planks.json" beforeDir="false" afterPath="$PROJECT_DIR$/assets/minecraft/models/block/oak_planks.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/minecraft/models/block/oak_sapling.json" beforeDir="false" afterPath="$PROJECT_DIR$/assets/minecraft/models/block/oak_sapling.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/minecraft/models/block/oak_slab_mainhand.json" beforeDir="false" afterPath="$PROJECT_DIR$/assets/minecraft/models/block/oak_slab_mainhand.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/minecraft/models/block/oak_slabdown.json" beforeDir="false" afterPath="$PROJECT_DIR$/assets/minecraft/models/block/oak_slabdown.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/minecraft/models/block/oak_slabup.json" beforeDir="false" afterPath="$PROJECT_DIR$/assets/minecraft/models/block/oak_slabup.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/minecraft/models/block/oak_stair_mainhand.json" beforeDir="false" afterPath="$PROJECT_DIR$/assets/minecraft/models/block/oak_stair_mainhand.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/minecraft/models/block/oak_staireast0.json" beforeDir="false" afterPath="$PROJECT_DIR$/assets/minecraft/models/block/oak_staireast0.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/minecraft/models/block/oak_staireast1.json" beforeDir="false" afterPath="$PROJECT_DIR$/assets/minecraft/models/block/oak_staireast1.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/minecraft/models/block/oak_stairnorth0.json" beforeDir="false" afterPath="$PROJECT_DIR$/assets/minecraft/models/block/oak_stairnorth0.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/minecraft/models/block/oak_stairnorth1.json" beforeDir="false" afterPath="$PROJECT_DIR$/assets/minecraft/models/block/oak_stairnorth1.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/minecraft/models/block/oak_stairsouth0.json" beforeDir="false" afterPath="$PROJECT_DIR$/assets/minecraft/models/block/oak_stairsouth0.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/minecraft/models/block/oak_stairsouth1.json" beforeDir="false" afterPath="$PROJECT_DIR$/assets/minecraft/models/block/oak_stairsouth1.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/minecraft/models/block/oak_stairwest0.json" beforeDir="false" afterPath="$PROJECT_DIR$/assets/minecraft/models/block/oak_stairwest0.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/minecraft/models/block/oak_stairwest1.json" beforeDir="false" afterPath="$PROJECT_DIR$/assets/minecraft/models/block/oak_stairwest1.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/minecraft/models/block/oak_wood.json" beforeDir="false" afterPath="$PROJECT_DIR$/assets/minecraft/models/block/oak_wood.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/minecraft/models/block/orange_wool.json" beforeDir="false" afterPath="$PROJECT_DIR$/assets/minecraft/models/block/orange_wool.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/minecraft/models/block/pink_wool.json" beforeDir="false" afterPath="$PROJECT_DIR$/assets/minecraft/models/block/pink_wool.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/minecraft/models/block/polished_deepslate.json" beforeDir="false" afterPath="$PROJECT_DIR$/assets/minecraft/models/block/polished_deepslate.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/minecraft/models/block/purple_wool.json" beforeDir="false" afterPath="$PROJECT_DIR$/assets/minecraft/models/block/purple_wool.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/minecraft/models/block/red_wool.json" beforeDir="false" afterPath="$PROJECT_DIR$/assets/minecraft/models/block/red_wool.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/minecraft/models/block/smooth_stone.json" beforeDir="false" afterPath="$PROJECT_DIR$/assets/minecraft/models/block/smooth_stone.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/minecraft/models/block/stone.json" beforeDir="false" afterPath="$PROJECT_DIR$/assets/minecraft/models/block/stone.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/minecraft/models/block/stone_bricks.json" beforeDir="false" afterPath="$PROJECT_DIR$/assets/minecraft/models/block/stone_bricks.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/minecraft/models/block/white_wool.json" beforeDir="false" afterPath="$PROJECT_DIR$/assets/minecraft/models/block/white_wool.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/minecraft/models/block/yellow_wool.json" beforeDir="false" afterPath="$PROJECT_DIR$/assets/minecraft/models/block/yellow_wool.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/minecraft/render/render_data.json" beforeDir="false" afterPath="$PROJECT_DIR$/assets/minecraft/render/render_data.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/minecraft/sounds/blocks/break/glass1.ogg" beforeDir="false" afterPath="$PROJECT_DIR$/assets/minecraft/sounds/blocks/break/glass1.ogg" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/minecraft/sounds/blocks/break/glass2.ogg" beforeDir="false" afterPath="$PROJECT_DIR$/assets/minecraft/sounds/blocks/break/glass2.ogg" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/minecraft/sounds/blocks/break/glass3.ogg" beforeDir="false" afterPath="$PROJECT_DIR$/assets/minecraft/sounds/blocks/break/glass3.ogg" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/minecraft/sounds/blocks/place/cloth1.ogg" beforeDir="false" afterPath="$PROJECT_DIR$/assets/minecraft/sounds/blocks/place/cloth1.ogg" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/minecraft/sounds/blocks/place/cloth2.ogg" beforeDir="false" afterPath="$PROJECT_DIR$/assets/minecraft/sounds/blocks/place/cloth2.ogg" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/minecraft/sounds/blocks/place/cloth3.ogg" beforeDir="false" afterPath="$PROJECT_DIR$/assets/minecraft/sounds/blocks/place/cloth3.ogg" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/minecraft/sounds/blocks/place/cloth4.ogg" beforeDir="false" afterPath="$PROJECT_DIR$/assets/minecraft/sounds/blocks/place/cloth4.ogg" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/minecraft/sounds/blocks/place/grass1.ogg" beforeDir="false" afterPath="$PROJECT_DIR$/assets/minecraft/sounds/blocks/place/grass1.ogg" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/minecraft/sounds/blocks/place/grass2.ogg" beforeDir="false" afterPath="$PROJECT_DIR$/assets/minecraft/sounds/blocks/place/grass2.ogg" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/minecraft/sounds/blocks/place/grass3.ogg" beforeDir="false" afterPath="$PROJECT_DIR$/assets/minecraft/sounds/blocks/place/grass3.ogg" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/minecraft/sounds/blocks/place/grass4.ogg" beforeDir="false" afterPath="$PROJECT_DIR$/assets/minecraft/sounds/blocks/place/grass4.ogg" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/minecraft/sounds/blocks/place/gravel1.ogg" beforeDir="false" afterPath="$PROJECT_DIR$/assets/minecraft/sounds/blocks/place/gravel1.ogg" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/minecraft/sounds/blocks/place/gravel2.ogg" beforeDir="false" afterPath="$PROJECT_DIR$/assets/minecraft/sounds/blocks/place/gravel2.ogg" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/minecraft/sounds/blocks/place/gravel3.ogg" beforeDir="false" afterPath="$PROJECT_DIR$/assets/minecraft/sounds/blocks/place/gravel3.ogg" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/minecraft/sounds/blocks/place/gravel4.ogg" beforeDir="false" afterPath="$PROJECT_DIR$/assets/minecraft/sounds/blocks/place/gravel4.ogg" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/minecraft/sounds/blocks/place/stone1.ogg" beforeDir="false" afterPath="$PROJECT_DIR$/assets/minecraft/sounds/blocks/place/stone1.ogg" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/minecraft/sounds/blocks/place/stone2.ogg" beforeDir="false" afterPath="$PROJECT_DIR$/assets/minecraft/sounds/blocks/place/stone2.ogg" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/minecraft/sounds/blocks/place/stone3.ogg" beforeDir="false" afterPath="$PROJECT_DIR$/assets/minecraft/sounds/blocks/place/stone3.ogg" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/minecraft/sounds/blocks/place/stone4.ogg" beforeDir="false" afterPath="$PROJECT_DIR$/assets/minecraft/sounds/blocks/place/stone4.ogg" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/minecraft/sounds/blocks/place/wood1.ogg" beforeDir="false" afterPath="$PROJECT_DIR$/assets/minecraft/sounds/blocks/place/wood1.ogg" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/minecraft/sounds/blocks/place/wood2.ogg" beforeDir="false" afterPath="$PROJECT_DIR$/assets/minecraft/sounds/blocks/place/wood2.ogg" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/minecraft/sounds/blocks/place/wood3.ogg" beforeDir="false" afterPath="$PROJECT_DIR$/assets/minecraft/sounds/blocks/place/wood3.ogg" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/minecraft/sounds/blocks/place/wood4.ogg" beforeDir="false" afterPath="$PROJECT_DIR$/assets/minecraft/sounds/blocks/place/wood4.ogg" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/minecraft/sounds/gui/click.ogg" beforeDir="false" afterPath="$PROJECT_DIR$/assets/minecraft/sounds/gui/click.ogg" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/minecraft/sounds/music/game/creative/creative1.ogg" beforeDir="false" afterPath="$PROJECT_DIR$/assets/minecraft/sounds/music/game/creative/creative1.ogg" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/minecraft/sounds/music/game/creative/creative10.ogg" beforeDir="false" afterPath="$PROJECT_DIR$/assets/minecraft/sounds/music/game/creative/creative10.ogg" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/minecraft/sounds/music/game/creative/creative11.ogg" beforeDir="false" afterPath="$PROJECT_DIR$/assets/minecraft/sounds/music/game/creative/creative11.ogg" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/minecraft/sounds/music/game/creative/creative12.ogg" beforeDir="false" afterPath="$PROJECT_DIR$/assets/minecraft/sounds/music/game/creative/creative12.ogg" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/minecraft/sounds/music/game/creative/creative13.ogg" beforeDir="false" afterPath="$PROJECT_DIR$/assets/minecraft/sounds/music/game/creative/creative13.ogg" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/minecraft/sounds/music/game/creative/creative14.ogg" beforeDir="false" afterPath="$PROJECT_DIR$/assets/minecraft/sounds/music/game/creative/creative14.ogg" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/minecraft/sounds/music/game/creative/creative15.ogg" beforeDir="false" afterPath="$PROJECT_DIR$/assets/minecraft/sounds/music/game/creative/creative15.ogg" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/minecraft/sounds/music/game/creative/creative16.ogg" beforeDir="false" afterPath="$PROJECT_DIR$/assets/minecraft/sounds/music/game/creative/creative16.ogg" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/minecraft/sounds/music/game/creative/creative17.ogg" beforeDir="false" afterPath="$PROJECT_DIR$/assets/minecraft/sounds/music/game/creative/creative17.ogg" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/minecraft/sounds/music/game/creative/creative18.ogg" beforeDir="false" afterPath="$PROJECT_DIR$/assets/minecraft/sounds/music/game/creative/creative18.ogg" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/minecraft/sounds/music/game/creative/creative19.ogg" beforeDir="false" afterPath="$PROJECT_DIR$/assets/minecraft/sounds/music/game/creative/creative19.ogg" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/minecraft/sounds/music/game/creative/creative2.ogg" beforeDir="false" afterPath="$PROJECT_DIR$/assets/minecraft/sounds/music/game/creative/creative2.ogg" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/minecraft/sounds/music/game/creative/creative20.ogg" beforeDir="false" afterPath="$PROJECT_DIR$/assets/minecraft/sounds/music/game/creative/creative20.ogg" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/minecraft/sounds/music/game/creative/creative21.ogg" beforeDir="false" afterPath="$PROJECT_DIR$/assets/minecraft/sounds/music/game/creative/creative21.ogg" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/minecraft/sounds/music/game/creative/creative22.ogg" beforeDir="false" afterPath="$PROJECT_DIR$/assets/minecraft/sounds/music/game/creative/creative22.ogg" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/minecraft/sounds/music/game/creative/creative23.ogg" beforeDir="false" afterPath="$PROJECT_DIR$/assets/minecraft/sounds/music/game/creative/creative23.ogg" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/minecraft/sounds/music/game/creative/creative24.ogg" beforeDir="false" afterPath="$PROJECT_DIR$/assets/minecraft/sounds/music/game/creative/creative24.ogg" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/minecraft/sounds/music/game/creative/creative3.ogg" beforeDir="false" afterPath="$PROJECT_DIR$/assets/minecraft/sounds/music/game/creative/creative3.ogg" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/minecraft/sounds/music/game/creative/creative4.ogg" beforeDir="false" afterPath="$PROJECT_DIR$/assets/minecraft/sounds/music/game/creative/creative4.ogg" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/minecraft/sounds/music/game/creative/creative5.ogg" beforeDir="false" afterPath="$PROJECT_DIR$/assets/minecraft/sounds/music/game/creative/creative5.ogg" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/minecraft/sounds/music/game/creative/creative6.ogg" beforeDir="false" afterPath="$PROJECT_DIR$/assets/minecraft/sounds/music/game/creative/creative6.ogg" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/minecraft/sounds/music/game/creative/creative7.ogg" beforeDir="false" afterPath="$PROJECT_DIR$/assets/minecraft/sounds/music/game/creative/creative7.ogg" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/minecraft/sounds/music/game/creative/creative8.ogg" beforeDir="false" afterPath="$PROJECT_DIR$/assets/minecraft/sounds/music/game/creative/creative8.ogg" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/minecraft/sounds/music/game/creative/creative9.ogg" beforeDir="false" afterPath="$PROJECT_DIR$/assets/minecraft/sounds/music/game/creative/creative9.ogg" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/minecraft/sounds/music/menu/menu1.ogg" beforeDir="false" afterPath="$PROJECT_DIR$/assets/minecraft/sounds/music/menu/menu1.ogg" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/minecraft/sounds/music/menu/menu10.ogg" beforeDir="false" afterPath="$PROJECT_DIR$/assets/minecraft/sounds/music/menu/menu10.ogg" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/minecraft/sounds/music/menu/menu11.ogg" beforeDir="false" afterPath="$PROJECT_DIR$/assets/minecraft/sounds/music/menu/menu11.ogg" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/minecraft/sounds/music/menu/menu12.ogg" beforeDir="false" afterPath="$PROJECT_DIR$/assets/minecraft/sounds/music/menu/menu12.ogg" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/minecraft/sounds/music/menu/menu13.ogg" beforeDir="false" afterPath="$PROJECT_DIR$/assets/minecraft/sounds/music/menu/menu13.ogg" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/minecraft/sounds/music/menu/menu14.ogg" beforeDir="false" afterPath="$PROJECT_DIR$/assets/minecraft/sounds/music/menu/menu14.ogg" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/minecraft/sounds/music/menu/menu15.ogg" beforeDir="false" afterPath="$PROJECT_DIR$/assets/minecraft/sounds/music/menu/menu15.ogg" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/minecraft/sounds/music/menu/menu16.ogg" beforeDir="false" afterPath="$PROJECT_DIR$/assets/minecraft/sounds/music/menu/menu16.ogg" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/minecraft/sounds/music/menu/menu17.ogg" beforeDir="false" afterPath="$PROJECT_DIR$/assets/minecraft/sounds/music/menu/menu17.ogg" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/minecraft/sounds/music/menu/menu18.ogg" beforeDir="false" afterPath="$PROJECT_DIR$/assets/minecraft/sounds/music/menu/menu18.ogg" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/minecraft/sounds/music/menu/menu19.ogg" beforeDir="false" afterPath="$PROJECT_DIR$/assets/minecraft/sounds/music/menu/menu19.ogg" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/minecraft/sounds/music/menu/menu2.ogg" beforeDir="false" afterPath="$PROJECT_DIR$/assets/minecraft/sounds/music/menu/menu2.ogg" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/minecraft/sounds/music/menu/menu20.ogg" beforeDir="false" afterPath="$PROJECT_DIR$/assets/minecraft/sounds/music/menu/menu20.ogg" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/minecraft/sounds/music/menu/menu3.ogg" beforeDir="false" afterPath="$PROJECT_DIR$/assets/minecraft/sounds/music/menu/menu3.ogg" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/minecraft/sounds/music/menu/menu4.ogg" beforeDir="false" afterPath="$PROJECT_DIR$/assets/minecraft/sounds/music/menu/menu4.ogg" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/minecraft/sounds/music/menu/menu5.ogg" beforeDir="false" afterPath="$PROJECT_DIR$/assets/minecraft/sounds/music/menu/menu5.ogg" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/minecraft/sounds/music/menu/menu6.ogg" beforeDir="false" afterPath="$PROJECT_DIR$/assets/minecraft/sounds/music/menu/menu6.ogg" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/minecraft/sounds/music/menu/menu7.ogg" beforeDir="false" afterPath="$PROJECT_DIR$/assets/minecraft/sounds/music/menu/menu7.ogg" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/minecraft/sounds/music/menu/menu8.ogg" beforeDir="false" afterPath="$PROJECT_DIR$/assets/minecraft/sounds/music/menu/menu8.ogg" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/minecraft/sounds/music/menu/menu9.ogg" beforeDir="false" afterPath="$PROJECT_DIR$/assets/minecraft/sounds/music/menu/menu9.ogg" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/minecraft/sounds/sounds.json" beforeDir="false" afterPath="$PROJECT_DIR$/assets/minecraft/sounds/sounds.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/minecraft/texts/tips.json" beforeDir="false" afterPath="$PROJECT_DIR$/assets/minecraft/texts/tips.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/minecraft/textures/block/atlas.png" beforeDir="false" afterPath="$PROJECT_DIR$/assets/minecraft/textures/block/atlas.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/minecraft/textures/entity/player/steve.png" beforeDir="false" afterPath="$PROJECT_DIR$/assets/minecraft/textures/entity/player/steve.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/minecraft/textures/environment/clouds.png" beforeDir="false" afterPath="$PROJECT_DIR$/assets/minecraft/textures/environment/clouds.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/minecraft/textures/environment/sky/nx.png" beforeDir="false" afterPath="$PROJECT_DIR$/assets/minecraft/textures/environment/sky/nx.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/minecraft/textures/environment/sky/ny.png" beforeDir="false" afterPath="$PROJECT_DIR$/assets/minecraft/textures/environment/sky/ny.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/minecraft/textures/environment/sky/nz.png" beforeDir="false" afterPath="$PROJECT_DIR$/assets/minecraft/textures/environment/sky/nz.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/minecraft/textures/environment/sky/px.png" beforeDir="false" afterPath="$PROJECT_DIR$/assets/minecraft/textures/environment/sky/px.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/minecraft/textures/environment/sky/py.png" beforeDir="false" afterPath="$PROJECT_DIR$/assets/minecraft/textures/environment/sky/py.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/minecraft/textures/environment/sky/pz.png" beforeDir="false" afterPath="$PROJECT_DIR$/assets/minecraft/textures/environment/sky/pz.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/minecraft/textures/environment/sky/sky.png" beforeDir="false" afterPath="$PROJECT_DIR$/assets/minecraft/textures/environment/sky/sky.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/minecraft/textures/environment/sun.png" beforeDir="false" afterPath="$PROJECT_DIR$/assets/minecraft/textures/environment/sun.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/minecraft/textures/environment/sunrise/nx.png" beforeDir="false" afterPath="$PROJECT_DIR$/assets/minecraft/textures/environment/sunrise/nx.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/minecraft/textures/environment/sunrise/ny.png" beforeDir="false" afterPath="$PROJECT_DIR$/assets/minecraft/textures/environment/sunrise/ny.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/minecraft/textures/environment/sunrise/nz.png" beforeDir="false" afterPath="$PROJECT_DIR$/assets/minecraft/textures/environment/sunrise/nz.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/minecraft/textures/environment/sunrise/px.png" beforeDir="false" afterPath="$PROJECT_DIR$/assets/minecraft/textures/environment/sunrise/px.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/minecraft/textures/environment/sunrise/py.png" beforeDir="false" afterPath="$PROJECT_DIR$/assets/minecraft/textures/environment/sunrise/py.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/minecraft/textures/environment/sunrise/pz.png" beforeDir="false" afterPath="$PROJECT_DIR$/assets/minecraft/textures/environment/sunrise/pz.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/minecraft/textures/environment/sunset/nx.png" beforeDir="false" afterPath="$PROJECT_DIR$/assets/minecraft/textures/environment/sunset/nx.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/minecraft/textures/environment/sunset/ny.png" beforeDir="false" afterPath="$PROJECT_DIR$/assets/minecraft/textures/environment/sunset/ny.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/minecraft/textures/environment/sunset/nz.png" beforeDir="false" afterPath="$PROJECT_DIR$/assets/minecraft/textures/environment/sunset/nz.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/minecraft/textures/environment/sunset/px.png" beforeDir="false" afterPath="$PROJECT_DIR$/assets/minecraft/textures/environment/sunset/px.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/minecraft/textures/environment/sunset/py.png" beforeDir="false" afterPath="$PROJECT_DIR$/assets/minecraft/textures/environment/sunset/py.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/minecraft/textures/environment/sunset/pz.png" beforeDir="false" afterPath="$PROJECT_DIR$/assets/minecraft/textures/environment/sunset/pz.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/minecraft/textures/error.png" beforeDir="false" afterPath="$PROJECT_DIR$/assets/minecraft/textures/error.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/minecraft/textures/font/ascii.png" beforeDir="false" afterPath="$PROJECT_DIR$/assets/minecraft/textures/font/ascii.png" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/assets/minecraft/textures/gui/container/creative_inventory/tab_items.png" beforeDir="false" afterPath="$PROJECT_DIR$/assets/minecraft/textures/gui/container/creative_inventory/tab_items.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/minecraft/textures/gui/sprites/hud/crosshair.png" beforeDir="false" afterPath="$PROJECT_DIR$/assets/minecraft/textures/gui/sprites/hud/crosshair.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/minecraft/textures/gui/sprites/hud/hotbar.png" beforeDir="false" afterPath="$PROJECT_DIR$/assets/minecraft/textures/gui/sprites/hud/hotbar.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/minecraft/textures/gui/sprites/hud/hotbar_selection.png" beforeDir="false" afterPath="$PROJECT_DIR$/assets/minecraft/textures/gui/sprites/hud/hotbar_selection.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/minecraft/textures/gui/sprites/widget/button.png" beforeDir="false" afterPath="$PROJECT_DIR$/assets/minecraft/textures/gui/sprites/widget/button.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/minecraft/textures/gui/sprites/widget/button_highlighted.png" beforeDir="false" afterPath="$PROJECT_DIR$/assets/minecraft/textures/gui/sprites/widget/button_highlighted.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/minecraft/textures/gui/sprites/widget/slider.png" beforeDir="false" afterPath="$PROJECT_DIR$/assets/minecraft/textures/gui/sprites/widget/slider.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/minecraft/textures/gui/sprites/widget/slider_handle.png" beforeDir="false" afterPath="$PROJECT_DIR$/assets/minecraft/textures/gui/sprites/widget/slider_handle.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/minecraft/textures/gui/sprites/widget/slider_handle_highlighted.png" beforeDir="false" afterPath="$PROJECT_DIR$/assets/minecraft/textures/gui/sprites/widget/slider_handle_highlighted.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/minecraft/textures/gui/sprites/widget/text_field.png" beforeDir="false" afterPath="$PROJECT_DIR$/assets/minecraft/textures/gui/sprites/widget/text_field.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/minecraft/textures/gui/title/background/dark_menu.png" beforeDir="false" afterPath="$PROJECT_DIR$/assets/minecraft/textures/gui/title/background/dark_menu.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/minecraft/textures/gui/title/background/menu.png" beforeDir="false" afterPath="$PROJECT_DIR$/assets/minecraft/textures/gui/title/background/menu.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/minecraft/textures/gui/title/minecraft.png" beforeDir="false" afterPath="$PROJECT_DIR$/assets/minecraft/textures/gui/title/minecraft.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/minecraft/textures/minecraftlogo.png" beforeDir="false" afterPath="$PROJECT_DIR$/assets/minecraft/textures/minecraftlogo.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/data/minecraft/item/ItemGroup.json" beforeDir="false" afterPath="$PROJECT_DIR$/data/minecraft/item/ItemGroup.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/data/minecraft/worldgen/feature/tree/config.json" beforeDir="false" afterPath="$PROJECT_DIR$/data/minecraft/worldgen/feature/tree/config.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/data/minecraft/worldgen/feature/tree/tree0.dat" beforeDir="false" afterPath="$PROJECT_DIR$/data/minecraft/worldgen/feature/tree/tree0.dat" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/data/minecraft/worldgen/feature/tree/tree1.dat" beforeDir="false" afterPath="$PROJECT_DIR$/data/minecraft/worldgen/feature/tree/tree1.dat" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/data/minecraft/worldgen/feature/tree/tree2.dat" beforeDir="false" afterPath="$PROJECT_DIR$/data/minecraft/worldgen/feature/tree/tree2.dat" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/data/minecraft/worldgen/feature/tree/tree3.dat" beforeDir="false" afterPath="$PROJECT_DIR$/data/minecraft/worldgen/feature/tree/tree3.dat" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/data/minecraft/worldgen/feature/tree/tree4.dat" beforeDir="false" afterPath="$PROJECT_DIR$/data/minecraft/worldgen/feature/tree/tree4.dat" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/data/minecraft/worldgen/feature/tree/tree5.dat" beforeDir="false" afterPath="$PROJECT_DIR$/data/minecraft/worldgen/feature/tree/tree5.dat" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/data/minecraft/worldgen/feature/tree/tree6.dat" beforeDir="false" afterPath="$PROJECT_DIR$/data/minecraft/worldgen/feature/tree/tree6.dat" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/data/minecraft/worldgen/feature/tree/tree7.dat" beforeDir="false" afterPath="$PROJECT_DIR$/data/minecraft/worldgen/feature/tree/tree7.dat" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/data/minecraft/worldgen/noise_settings/overworld.json" beforeDir="false" afterPath="$PROJECT_DIR$/data/minecraft/worldgen/noise_settings/overworld.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/net/__init__.py" beforeDir="false" afterPath="$PROJECT_DIR$/net/__init__.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/net/minecraft/__init__.py" beforeDir="false" afterPath="$PROJECT_DIR$/net/minecraft/__init__.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/net/minecraft/chat/Chat.py" beforeDir="false" afterPath="$PROJECT_DIR$/net/minecraft/chat/Chat.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/net/minecraft/chat/Commands.py" beforeDir="false" afterPath="$PROJECT_DIR$/net/minecraft/chat/Commands.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/net/minecraft/chat/__init__.py" beforeDir="false" afterPath="$PROJECT_DIR$/net/minecraft/chat/__init__.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/net/minecraft/client/Client.py" beforeDir="false" afterPath="$PROJECT_DIR$/net/minecraft/client/Client.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/net/minecraft/client/Main.py" beforeDir="false" afterPath="$PROJECT_DIR$/net/minecraft/client/Main.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/net/minecraft/client/__init__.py" beforeDir="false" afterPath="$PROJECT_DIR$/net/minecraft/client/__init__.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/net/minecraft/client/render/__init__.py" beforeDir="false" afterPath="$PROJECT_DIR$/net/minecraft/client/render/__init__.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/net/minecraft/client/render/entity/PlayerEntityModel.py" beforeDir="false" afterPath="$PROJECT_DIR$/net/minecraft/client/render/entity/PlayerEntityModel.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/net/minecraft/client/render/entity/__init__.py" beforeDir="false" afterPath="$PROJECT_DIR$/net/minecraft/client/render/entity/__init__.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/net/minecraft/client/render/world/SkyRenderer.py" beforeDir="false" afterPath="$PROJECT_DIR$/net/minecraft/client/render/world/SkyRenderer.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/net/minecraft/client/render/world/__init__.py" beforeDir="false" afterPath="$PROJECT_DIR$/net/minecraft/client/render/world/__init__.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/net/minecraft/client/render/world/block/BlockRenderer.py" beforeDir="false" afterPath="$PROJECT_DIR$/net/minecraft/client/render/world/block/BlockRenderer.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/net/minecraft/client/render/world/block/Models.py" beforeDir="false" afterPath="$PROJECT_DIR$/net/minecraft/client/render/world/block/Models.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/net/minecraft/client/render/world/block/__init__.py" beforeDir="false" afterPath="$PROJECT_DIR$/net/minecraft/client/render/world/block/__init__.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/net/minecraft/client/render/world/item/Item.py" beforeDir="false" afterPath="$PROJECT_DIR$/net/minecraft/client/render/world/item/Item.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/net/minecraft/client/render/world/item/__init__.py" beforeDir="false" afterPath="$PROJECT_DIR$/net/minecraft/client/render/world/item/__init__.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/net/minecraft/entity/Entities.py" beforeDir="false" afterPath="$PROJECT_DIR$/net/minecraft/entity/Entities.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/net/minecraft/entity/__init__.py" beforeDir="false" afterPath="$PROJECT_DIR$/net/minecraft/entity/__init__.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/net/minecraft/entity/player/PlayerEntity.py" beforeDir="false" afterPath="$PROJECT_DIR$/net/minecraft/entity/player/PlayerEntity.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/net/minecraft/entity/player/Playername.py" beforeDir="false" afterPath="$PROJECT_DIR$/net/minecraft/entity/player/Playername.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/net/minecraft/entity/player/__init__.py" beforeDir="false" afterPath="$PROJECT_DIR$/net/minecraft/entity/player/__init__.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/net/minecraft/resources/Config.py" beforeDir="false" afterPath="$PROJECT_DIR$/net/minecraft/resources/Config.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/net/minecraft/resources/DataFixer.py" beforeDir="false" afterPath="$PROJECT_DIR$/net/minecraft/resources/DataFixer.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/net/minecraft/resources/DataLocation.py" beforeDir="false" afterPath="$PROJECT_DIR$/net/minecraft/resources/DataLocation.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/net/minecraft/resources/__init__.py" beforeDir="false" afterPath="$PROJECT_DIR$/net/minecraft/resources/__init__.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/net/minecraft/server/Main.py" beforeDir="false" afterPath="$PROJECT_DIR$/net/minecraft/server/Main.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/net/minecraft/server/__init__.py" beforeDir="false" afterPath="$PROJECT_DIR$/net/minecraft/server/__init__.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/net/minecraft/sounds/Sounds.py" beforeDir="false" afterPath="$PROJECT_DIR$/net/minecraft/sounds/Sounds.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/net/minecraft/sounds/__init__.py" beforeDir="false" afterPath="$PROJECT_DIR$/net/minecraft/sounds/__init__.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/net/minecraft/text/Text.py" beforeDir="false" afterPath="$PROJECT_DIR$/net/minecraft/text/Text.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/net/minecraft/text/__init__.py" beforeDir="false" afterPath="$PROJECT_DIR$/net/minecraft/text/__init__.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/net/minecraft/textures/Textures.py" beforeDir="false" afterPath="$PROJECT_DIR$/net/minecraft/textures/Textures.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/net/minecraft/textures/__init__.py" beforeDir="false" afterPath="$PROJECT_DIR$/net/minecraft/textures/__init__.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/net/minecraft/util/__init__.py" beforeDir="false" afterPath="$PROJECT_DIR$/net/minecraft/util/__init__.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/net/minecraft/util/gui/Hud.py" beforeDir="false" afterPath="$PROJECT_DIR$/net/minecraft/util/gui/Hud.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/net/minecraft/util/gui/Widgets.py" beforeDir="false" afterPath="$PROJECT_DIR$/net/minecraft/util/gui/Widgets.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/net/minecraft/util/gui/__init__.py" beforeDir="false" afterPath="$PROJECT_DIR$/net/minecraft/util/gui/__init__.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/net/minecraft/util/logger/Logger.py" beforeDir="false" afterPath="$PROJECT_DIR$/net/minecraft/util/logger/Logger.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/net/minecraft/util/logger/__init__.py" beforeDir="false" afterPath="$PROJECT_DIR$/net/minecraft/util/logger/__init__.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/net/minecraft/util/math/Raycast.py" beforeDir="false" afterPath="$PROJECT_DIR$/net/minecraft/util/math/Raycast.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/net/minecraft/util/math/ThirtPersonPerspective.py" beforeDir="false" afterPath="$PROJECT_DIR$/net/minecraft/util/math/ThirtPersonPerspective.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/net/minecraft/util/math/__init__.py" beforeDir="false" afterPath="$PROJECT_DIR$/net/minecraft/util/math/__init__.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/net/minecraft/util/translation/Lang.py" beforeDir="false" afterPath="$PROJECT_DIR$/net/minecraft/util/translation/Lang.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/net/minecraft/util/translation/__init__.py" beforeDir="false" afterPath="$PROJECT_DIR$/net/minecraft/util/translation/__init__.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/net/minecraft/world/EntityList.py" beforeDir="false" afterPath="$PROJECT_DIR$/net/minecraft/world/EntityList.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/net/minecraft/world/Features.py" beforeDir="false" afterPath="$PROJECT_DIR$/net/minecraft/world/Features.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/net/minecraft/world/Time.py" beforeDir="false" afterPath="$PROJECT_DIR$/net/minecraft/world/Time.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/net/minecraft/world/__init__.py" beforeDir="false" afterPath="$PROJECT_DIR$/net/minecraft/world/__init__.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/net/minecraft/world/block/Blocks.py" beforeDir="false" afterPath="$PROJECT_DIR$/net/minecraft/world/block/Blocks.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/net/minecraft/world/block/__init__.py" beforeDir="false" afterPath="$PROJECT_DIR$/net/minecraft/world/block/__init__.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/net/minecraft/world/block/props/__init__.py" beforeDir="false" afterPath="$PROJECT_DIR$/net/minecraft/world/block/props/__init__.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/net/minecraft/world/chunk/Chunk.py" beforeDir="false" afterPath="$PROJECT_DIR$/net/minecraft/world/chunk/Chunk.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/net/minecraft/world/chunk/__init__.py" beforeDir="false" afterPath="$PROJECT_DIR$/net/minecraft/world/chunk/__init__.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/net/minecraft/world/level/Level.py" beforeDir="false" afterPath="$PROJECT_DIR$/net/minecraft/world/level/Level.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/net/minecraft/world/level/__init__.py" beforeDir="false" afterPath="$PROJECT_DIR$/net/minecraft/world/level/__init__.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/net/minecraft/world/phys/VoxelShape.py" beforeDir="false" afterPath="$PROJECT_DIR$/net/minecraft/world/phys/VoxelShape.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/net/minecraft/world/phys/__init__.py" beforeDir="false" afterPath="$PROJECT_DIR$/net/minecraft/world/phys/__init__.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -31,12 +285,12 @@
     &quot;assignee&quot;: &quot;reiner2009&quot;
   }
 }</component>
-  <component name="GithubPullRequestsUISettings"><![CDATA[{
-  "selectedUrlAndAccountId": {
-    "url": "git@github.com:reiner2009/Minecraft-Py-Edition.git",
-    "accountId": "b0401b13-d7e1-4d7d-964b-eb581c537a0e"
+  <component name="GithubPullRequestsUISettings">{
+  &quot;selectedUrlAndAccountId&quot;: {
+    &quot;url&quot;: &quot;git@github.com:reiner2009/Minecraft-Py-Edition.git&quot;,
+    &quot;accountId&quot;: &quot;b0401b13-d7e1-4d7d-964b-eb581c537a0e&quot;
   }
-}]]></component>
+}</component>
   <component name="ProblemsViewState">
     <option name="selectedTabId" value="CurrentFile" />
   </component>
@@ -472,7 +726,15 @@
       <option name="project" value="LOCAL" />
       <updated>1780388420001</updated>
     </task>
-    <option name="localTasksCounter" value="32" />
+    <task id="LOCAL-00032" summary="Minecraft-Py-Edition">
+      <option name="closed" value="true" />
+      <created>1780573571689</created>
+      <option name="number" value="00032" />
+      <option name="presentableId" value="LOCAL-00032" />
+      <option name="project" value="LOCAL" />
+      <updated>1780573571689</updated>
+    </task>
+    <option name="localTasksCounter" value="33" />
     <servers />
   </component>
   <component name="VcsManagerConfiguration">

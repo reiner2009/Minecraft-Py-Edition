@@ -103,7 +103,14 @@
         "door/close4",
         "door/close5",
         "door/close6"
-      ]
+      ],
+      "explode":[
+        "explode/explode1",
+        "explode/explode2",
+        "explode/explode3",
+        "explode/explode4"
+      ],
+      "fuse":["fuse"]
     }
   },
   "gui": {
@@ -113,6 +120,7 @@
     "block_place": {
       "dirt":"gravel",
       "grass_block":"grass",
+      "tnt":"grass",
       "oak_planks":"wood",
       "oak_log":"wood",
       "white_wool":"cloth",

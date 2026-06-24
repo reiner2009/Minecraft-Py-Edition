@@ -1,4 +1,3 @@
-from net.minecraft.world.EntityList import entities
 from net.minecraft.client.render.world.block.BlockRenderer import*
 import net.minecraft.util.gui.Hud as hud
 import net.minecraft.text.Text as text
@@ -7,8 +6,11 @@ import net.minecraft.resources.DataLocation as DataLocation
 from opensimplex import OpenSimplex
 import random
 import gzip
+import math
 import net.minecraft.world.Features as features
 from net.minecraft.world.block.Blocks import registries
+import net.minecraft.sounds.Sounds as Sounds
+from net.minecraft.world.EntityList import entity_chunk
 
 dark_menu_texture=load_texture("assets/minecraft/textures/gui/title/background/dark_menu.png")
 base_path = os.path.join(os.environ[DataLocation.get_save_system()], ".minecraft-py")
@@ -43,7 +45,7 @@ def create_random_chunk(seed=0):
 			tree=pickle.load(file)
 		for pos, block in tree.items():
 			c[(round(pos[0]+i[0]),round(pos[1]+i[1]),round(pos[2]+i[2]))]=block.getName()
-	for player in entities:
+	for player in entity_chunk:
 		player.spawn(25,round(noise.noise2(25 * noise_settings["x"], 25 * noise_settings["z"])*noise_settings["hilly_intensity"]+noise_settings["terrian_height"]+1), 25)
 	return c
 
@@ -93,7 +95,7 @@ def render_chunk():
 		for (x,y,z), block in _chunk.items():
 			chunk[(x,y,z)]=block
 		load_chunks()
-	except FileNotFoundError:
+	except:
 		logger.set_environment("Main")
 		logger.info("No existing world data, creating new world")
 		logger.set_environment("Client")
@@ -127,6 +129,17 @@ def set_block(x,y,z,name):
 		chunk[(x,y,z)]=tc
 	else:
 		chunk.pop((x,y,z), None)
+
+def explode(world_x, world_y, world_z, radius, v=489):
+	Sounds.play_block_sound("explode", v)
+	for yaw in range(36):
+		for pitch in range(36):
+			for ran in range(radius):
+				tx=round(world_x+(math.sin(math.radians(yaw*10))*math.cos(math.radians(pitch*10)))*ran)
+				ty=round(world_y-(math.sin(math.radians(pitch*10)))*ran)
+				tz=round(world_z-(math.cos(math.radians(yaw*10))*math.cos(math.radians(pitch*10)))*ran)
+				set_block(tx,ty,tz, "air")
+	reload_chunks()
 
 def build_chunk():
 	glEnable(GL_CULL_FACE)
@@ -177,15 +190,6 @@ def getChunkList():
 		return None
 	else:
 		return chunklist
-
-def reloadBlockRadius(x,y,z):
-	neighbors=[(x,y,z),(x+1,y,z),(x,y+1,z),(x,y,z+1),(x-1,y,z),(x,y-1,z),(x,y,z-1)]
-	for block_pos in neighbors:
-		if get_block(*block_pos)!="air":
-			place_block(get_block(*block_pos),*block_pos, get_block_data(*block_pos).getProperty())
-	global chunklist
-	glDeleteLists(chunklist, 1)
-	chunklist=build_chunk_display_list()
 
 def unload_chunks():
 	global chunklist

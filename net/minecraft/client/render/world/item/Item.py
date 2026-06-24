@@ -65,7 +65,10 @@ def render_items_for_hotbar():
 		try:
 			uv = UV_MAP[tex_name]
 		except:
-			uv = UV_MAP[texture_map[tex_name]]
+			try:
+				uv = UV_MAP[texture_map[tex_name]]
+			except:
+				uv=UV_MAP["missing"]
 		w, h = block_atlas_data["width"], block_atlas_data["height"]
 		uv_map = [((uv[0]) / w, (uv[1]) / h), ((uv[0] + 1) / w, (uv[1]) / h),
 				  ((uv[0] + 1) / w, (uv[1] + 1) / h), ((uv[0]) / w, (uv[1] + 1) / h)]
@@ -114,17 +117,17 @@ def render_items_for_container():
 			try:
 				uv=UV_MAP[texture_map[texture]]
 			except KeyError:
-				continue
+				uv=UV_MAP["missing"]
 		w, h = block_atlas_data["width"], block_atlas_data["height"]
 		uv_map = [((uv[0]) / w, (uv[1]) / h), ((uv[0] + 1) / w, (uv[1]) / h),
 				  ((uv[0] + 1) / w, (uv[1] + 1) / h), ((uv[0]) / w, (uv[1] + 1) / h)]
 		orig_w = 62
 		orig_h = 58
-		orig_spacing = 44.6
+		orig_spacing = 44.5
 		quad_w = orig_w * scale
 		quad_h = orig_h * scale
 		base_x = width / 2 - 372 / 2
-		base_y = height / 960 * 315
+		base_y = height / 1000 * 314
 		col = slot % slots_per_row
 		row = slot // slots_per_row
 		old_left = base_x + orig_spacing * col
@@ -133,7 +136,7 @@ def render_items_for_container():
 		x = center_x - (quad_w - 20) / 2
 		old_top = base_y + orig_h
 		center_y = (base_y + old_top) / 2
-		extra_spacing = 5 * (height / 900)
+		extra_spacing = 11
 		if row == 0:
 			y = center_y - quad_h / 2
 		elif row == 1:

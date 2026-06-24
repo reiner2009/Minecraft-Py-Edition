@@ -17,6 +17,14 @@ def get_resource_path_finally(path):
 		base_path=os.path.abspath(".")
 	return os.path.join(base_path, path)
 
+def load_from_mod(path):
+	base_path = os.path.join(os.environ[get_save_system()], ".minecraft-py")
+	mod_path=os.path.join(base_path, ".cache/mods")
+	if os.path.exists(os.path.join(mod_path, path)):
+		return(os.path.join(mod_path, path))
+	else:
+		return get_resource_path_finally(path)
+
 def get_resource_path(path):
 	pack=""
 	try:
@@ -31,6 +39,7 @@ def get_resource_path(path):
 		if os.path.exists(os.path.join(temp_dir, path)):
 			return os.path.join(temp_dir, path)
 		else:
-			return get_resource_path_finally(path)
+			return load_from_mod(path)
 	except:
-		return get_resource_path_finally(path)
+		return load_from_mod(path)
+		

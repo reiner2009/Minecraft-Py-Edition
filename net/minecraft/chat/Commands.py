@@ -3,7 +3,6 @@ import net.minecraft.util.logger.Logger as logger
 import net.minecraft.world.chunk.Chunk as chunk
 import net.minecraft.entity.player.Playername as Playername
 import net.minecraft.entity.Entities as Entities
-import net.minecraft.world.EntityList as EntityList
 from net.minecraft.chat.Chat import *
 from net.minecraft.world.Time import set_tick, get_time
 import traceback
@@ -152,7 +151,6 @@ def assume_command(string, entity):
 			except:
 				entity.setSkin(DataLocation.get_resource_path("assets/minecraft/textures/entity/player/steve.png"))
 			entity.set_thirt_person_perspective()
-			EntityList.entities.append(entity)
 			logger.info(f"[COMMAND] Added {entityName} successfully at {string_to_position(string, entity)}")
 			show_text(f"Added {entityName} successfully at {string_to_position(string, entity)}", [255, 255, 255, 255])
 		elif string.split()[0]=="/time":
@@ -169,6 +167,10 @@ def assume_command(string, entity):
 			except:
 				logger.info(f"[COMMAND] Current time: {get_time()}")
 				show_text(f"Current time: {get_time()}",[255, 255, 255, 255])
+		elif string.split()[0] == "/explode":
+			x,y,z=string_to_position(string, entity)
+			r=int(string.split()[4])
+			chunk.explode(x,y,z,r)
 		else:
 			show_text("Unknown or incomplete command: "+string, [255,85,85,255])
 			logger.set_environment("Main")

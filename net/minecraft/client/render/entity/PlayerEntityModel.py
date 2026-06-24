@@ -6,6 +6,7 @@ import math
 
 from net.minecraft.world.block.Blocks import registries
 
+from net.minecraft.world.item.Items import items
 
 def cos(i):
     return math.cos(math.radians(i))
@@ -136,7 +137,7 @@ tex_coords = [
 
 def render_arms(x,y,z, yaw,left_arm_pitch,right_arm_pitch, block_name, skin_texture, w=64, h=64):
     glEnable(GL_BLEND)
-    glEnable(GL_ALPHA_TEST)
+    glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA)
     glDisable(GL_CULL_FACE)
     glEnable(GL_TEXTURE_2D)
     glBindTexture(GL_TEXTURE_2D,skin_texture)
@@ -213,7 +214,13 @@ def render_arms(x,y,z, yaw,left_arm_pitch,right_arm_pitch, block_name, skin_text
         glRotatef(-yaw - 90, 0.0, 1.0, 0.0)
         glTranslatef(0, -0.5, 0)
         glRotatef(right_arm_pitch, 0.0, 0.0, 1.0)
-        data = Models.get_item_model(block_name+registries[block_name](block_name).getDefaultProperty())
+        if block_name in items:
+            try:
+                data={"textures":[block_name,"translucent","translucent","translucent","translucent","translucent"]}
+            except:
+                data={"textures":["missing","translucent","translucent","translucent","translucent","translucent"]}
+        else:
+            data = Models.get_item_model(block_name+registries[block_name](block_name).getDefaultProperty())
         texture_names = data["textures"]
         UVs = []
         for tex_name in texture_names:
@@ -239,8 +246,8 @@ def render_arms(x,y,z, yaw,left_arm_pitch,right_arm_pitch, block_name, skin_text
 
 def render_body_layer(x,y,z, yaw, pitch,left_arm_pitch,right_arm_pitch, walk_pitch_0, walk_pitch_1,name_tag_is_visible, name, block_name, skin_texture, w=64, h=64):
     glEnable(GL_BLEND)
+    glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA)
     glDisable(GL_CULL_FACE)
-    glEnable(GL_ALPHA_TEST)
     glEnable(GL_TEXTURE_2D)
     glBindTexture(GL_TEXTURE_2D, skin_texture)
     glPushMatrix()

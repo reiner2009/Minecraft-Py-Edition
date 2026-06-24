@@ -59,6 +59,10 @@
     "translucent": [7,4],
     "oak_slab": [7,5],
     "oak_fence": [7,6],
-    "missing": [8,0]
+    "missing": [8,0],
+    "flint_and_steel": [8,1],
+    "tnt_top":[8,2],
+    "tnt_bottom":[8,3],
+    "tnt":[8,4]
   }
 }

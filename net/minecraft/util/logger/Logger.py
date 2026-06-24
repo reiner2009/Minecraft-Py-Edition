@@ -7,7 +7,6 @@ import net.minecraft.resources.DataLocation as DataLocation
 init(autoreset=True)
 log = ""
 environment = "Main"
-programname = "Minecraft"
 base_path = os.path.join(os.environ[DataLocation.get_save_system()], ".minecraft-py")
 if Level.isClient:
     log_path = os.path.join(base_path, "log/client")
@@ -15,11 +14,6 @@ else:
     log_path = os.path.join(base_path, "log/server")
 os.makedirs(log_path, exist_ok=True)
 full_path = os.path.join(log_path, "latest.log")
-
-
-def set_programname(name):
-    global programname
-    programname = name
 
 
 def set_environment(name):
@@ -48,21 +42,21 @@ def write_log(strip):
         print(f"Falied to write log file: {e}")
 
 
-def info(text):
+def info(text, programname="minecraft"):
     strip = f"{get_timestamp()} {Fore.GREEN}[{environment}/INFO]{Style.RESET_ALL} {Fore.BLUE}({programname}){Style.RESET_ALL} {text}"
     print(strip)
     strip_ = f"{get_timestamp(False)} [{environment}/INFO] ({programname}) {text}"
     write_log(strip_)
 
 
-def error(text):
+def error(text, programname="minecraft"):
     strip = f"{get_timestamp()} {Fore.RED}[{environment}/ERROR] ({programname}) {text}{Style.RESET_ALL}"
     print(strip)
     strip_ = f"{get_timestamp(False)} [{environment}/ERROR] ({programname}) {text}"
     write_log(strip_)
 
 
-def warning(text):
+def warning(text, programname="minecraft"):
     strip = f"{get_timestamp()} {Fore.YELLOW}[{environment}/WARNING] ({programname}) {text}{Style.RESET_ALL}"
     print(strip)
     strip_ = f"{get_timestamp(False)} [{environment}/WARNING] ({programname}) {text}"

@@ -43,5 +43,7 @@
   "oak_door": "Oak Door",
   "oak_slab": "Oak Slab",
   "oak_wood": "Oak Wood",
-  "oak_fence": "Oak Fence"
+  "oak_fence": "Oak Fence",
+  "tnt": "TNT",
+  "flint_and_steel": "Flint and Steel"
 }

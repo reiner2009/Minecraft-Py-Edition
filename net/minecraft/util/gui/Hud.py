@@ -45,7 +45,7 @@ def render_title_font():
     glTexCoord2fv(uv[3])
     glVertex2f(width/800*127, height/480*460)
     glEnd()
-    render_text("PyEdition Alpha rc-010620260", width/800*180, height/480*360, width/800*20, height/480*20, [255,255,255,255])
+    render_text("PyEdition Alpha rc-220620260", width/800*180, height/480*360, width/800*20, height/480*20, [255,255,255,255])
 
 def render_crosshair():
     glMatrixMode(GL_MODELVIEW)
@@ -53,6 +53,7 @@ def render_crosshair():
     glDisable(GL_DEPTH_TEST)
     glEnable(GL_TEXTURE_2D)
     glEnable(GL_BLEND)
+    glColor3f(1,1,1)
     glBindTexture(GL_TEXTURE_2D, crosshair_texture)
     uv=[(0,0),(1,0),(1,1),(0,1)]
     glBegin(GL_QUADS)
@@ -71,7 +72,7 @@ def render_hotbar():
     glLoadIdentity()
     glDisable(GL_DEPTH_TEST)
     glEnable(GL_TEXTURE_2D)
-    glColor4f(1,1,1,1)
+    glColor3f(1,1,1)
     glBindTexture(GL_TEXTURE_2D, hotbar_texture)
     uv=[(0,0),(1,0),(1,1),(0,1)]
     glBegin(GL_QUADS)
@@ -95,13 +96,13 @@ def render_tab_items():
     uv=[(0,1),(1,1),(1,0),(0,0)]
     glBegin(GL_QUADS)
     glTexCoord2fv(uv[0])
-    glVertex2f(width/2-377/2,height/480*154)
+    glVertex2f(width/2-377/2,height/480*147)
     glTexCoord2fv(uv[1])
-    glVertex2f(width/2+593/2,height/480*154)
+    glVertex2f(width/2+593/2,height/480*147)
     glTexCoord2fv(uv[2])
-    glVertex2f(width/2+593/2, height/480*150+128*2.7)
+    glVertex2f(width/2+593/2, height/480*149+123*2.7)
     glTexCoord2fv(uv[3])
-    glVertex2f(width/2-377/2, height/480*150+128*2.7)
+    glVertex2f(width/2-377/2, height/480*149+123*2.7)
     glEnd()
     
     

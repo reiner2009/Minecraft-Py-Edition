@@ -1,7 +1,7 @@
 import json
 import net.minecraft.util.logger.Logger as logger
 import net.minecraft.resources.DataLocation as DataLocation
-from net.minecraft.world.block.Blocks import registries
+from net.minecraft.world.block.Blocks import registries, modregistries
 
 models=[]
 model_names=[]
@@ -13,18 +13,21 @@ for name in itemModels.values():
 	model_names.append(name)
 
 
-def load_model(name):
+def load_model(name, namespace="minecraft"):
 	logger.set_environment("Client")
 	try:
-		with open(DataLocation.get_resource_path(f"assets/minecraft/models/block/{name}.json"), "r") as f:
+		with open(DataLocation.get_resource_path(f"assets/{namespace}/models/block/{name}.json"), "r") as f:
 			models.append(json.load(f))
 	except:
-		logger.error(f"Failed to load model assets/minecraft/models/block/{name}.json")
+		logger.error(f"Failed to load model assets/{namespace}/models/block/{name}.json")
 		models.append({"type":"full_cube","textures":["missing","missing","missing","missing","missing","missing"]})
 		
 	
 for i in model_names:
-	load_model(i)
+	if i in modregistries.keys():
+		load_model(i, modregistries[i])
+	else:
+		load_model(i)
 
 model_map={}
 

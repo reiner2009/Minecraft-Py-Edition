@@ -22,6 +22,7 @@ from net.minecraft.chat.Chat import show_text
 import net.minecraft.client.render.world.item.Item as Item
 from net.minecraft.world.chunk.Chunk import *
 import net.minecraft.chat.Chat as Chat
+import net.minecraft.world.EntityList as EntityList
 import sys
 import math
 import random
@@ -100,7 +101,6 @@ player.spawn(0,0,0)
 player.setName(Playername.playername)
 if skin:
 	player.setSkin(skin)
-EntityList.entities.append(player)
 chat_text=""
 camera_x, camera_y, camera_z=0,0,0
 temporary_errors=[]
@@ -171,7 +171,7 @@ def load_level():
 		player.spawn(d[0], d[1], d[2], d[3], d[4])
 		worldTime.set_tick(d[5], d[6], d[7])
 	except:
-		print(traceback.format_exc())
+		pass
 
 def take_screenshot():
     z = time.localtime()
@@ -249,7 +249,7 @@ def break_block_by_player():
 					play_place_sound("stone", block_sound_volume)
 			get_block_data(X,Y,Z).onBreak(player)
 			set_block(X,Y,Z, "air")
-			reloadBlockRadius(X,Y,Z)
+			reload_chunks()
 	except:
 		logger.error(str(traceback.format_exc()))
 
@@ -288,10 +288,10 @@ def draw_scene():
 	glTexEnvf(GL_TEXTURE_ENV, GL_TEXTURE_ENV_MODE, GL_MODULATE)
 	glColor3f(worldTime.get_light(), worldTime.get_light(), worldTime.get_light())
 	glCallList(getChunkList())
-	for p in EntityList.entities:
-		p.tick()
+	for entity in EntityList.entity_chunk:
+		entity.tick()
 	x,y,z,x1,y1,z1= Raycast.get_pos(player)
-	if block_preview==True and hud_==True and get_block_data(x1,y1,z1).PlaceableBlockDuringInteraction():
+	if block_preview==True and hud_==True and get_block_data(x1,y1,z1).PlaceableBlockDuringInteraction(player):
 		if Raycast.get_neighbour_block(x, y, z):
 			name=player.getMainhandItem()
 			if name=="oak_door":
@@ -299,13 +299,15 @@ def draw_scene():
 					draw_block_preview(name, x, y, z, False, registries[name](name).getProperty(player))
 					draw_block_preview(name, x, y+1, z, False, registries[name](name).getProperty(player)[:-1]+"1")
 			else:
-				draw_block_preview(name, x, y, z, False, registries[name](name).getProperty(player))
+				if name in registries:
+					draw_block_preview(name, x, y, z, False, registries[name](name).getProperty(player))
 	if hud_==True:
 		if get_block(x1, y1, z1) != "air":
 			draw_block_preview("", x1, y1, z1, True, None)
 	setup_ortho()
 	render_hud()
 	player.setMainhandItem(player.getMainhandItem())
+
 def apply_camera():
 	global camera_x, camera_y, camera_z
 	yaw, pitch = player.get_entity_facing()
@@ -355,7 +357,7 @@ def render_settings(events):
 		if event.type == QUIT:
 			pygame.quit()
 	x1, x2 = width/2-510/2, width/2+510/2
-	y1, y2 = height/480*250, height/480*250+60
+	y1, y2 = height/480*200, height/480*200+60
 	y3, y4 = y1+65, y2+65
 	y7, y8 = y3+5, y4+5
 	y9, y10 = y7+60, y8+60
@@ -426,8 +428,8 @@ def render_multiplayer_menu(events):
 	for event in events:
 		if event.type == QUIT:
 			pygame.quit()
-	x1, x2 = width / 2 - 510 / 2, width / 2 + 510 / 2
-	y1, y2 = height / 480 * 250, height / 480 * 250 + 60
+	x1, x2 = width/2-510/2, width/2+510/2
+	y1, y2 = height/480*200, height/480*200+60
 	y3, y4 = y1 + 65, y2 + 65
 	y7, y8 = y3 + 5, y4 + 5
 	y9, y10 = y7 + 60, y8 + 60
@@ -438,6 +440,7 @@ def render_multiplayer_menu(events):
 		pygame.mouse.set_cursor(SYSTEM_CURSOR_HAND)
 		for event in events:
 			if event.type == MOUSEBUTTONDOWN and event.button == 1:
+				button_click_sound.play()
 				game_state = state_menu
 	elif x >= x1 and x <= x2 and y >= y3 and y <= y4:
 		highlight0 = False
