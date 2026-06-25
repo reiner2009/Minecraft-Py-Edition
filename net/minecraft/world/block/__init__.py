@@ -305,9 +305,9 @@ class TntBlock(Block):
         super().__init__(NAME)
     def onInteraction(self, entity, block_sound_volume):
         if entity.getMainhandItem()=="flint_and_steel":
-            from net.minecraft.entity.Entities import entites
+            from net.minecraft.entity.Entities import entities
             from net.minecraft.world.chunk.Chunk import set_block
-            self.ignited_tnt=entites["ignited_tnt"]()
+            self.ignited_tnt=entities["ignited_tnt"]()
             self.ignited_tnt.set_sound_volume(block_sound_volume)
             self.ignited_tnt.spawn(*self.MAP_POSITION)
             set_block(*self.MAP_POSITION, "air")

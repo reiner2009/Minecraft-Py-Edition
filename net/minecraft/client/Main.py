@@ -28,8 +28,6 @@ import traceback
 import time
 import argparse
 import requests
-import threading
-import socket
 
 parser = argparse.ArgumentParser(description="Minecraft Launcher Script")
 parser.add_argument("--username", type=str, help="username")
