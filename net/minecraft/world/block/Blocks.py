@@ -50,7 +50,8 @@ registries={
     "oak_wood":Block,
     "oak_fence":FenceBlock,
     "tnt":TntBlock,
-    "sand":FallingBlock
+    "sand":FallingBlock,
+    "gravel":FallingBlock
 }
 
 modregistries={}

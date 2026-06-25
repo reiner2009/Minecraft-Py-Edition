@@ -124,6 +124,7 @@
   },
   "categories": {
     "block_place": {
+      "gravel": "gravel",
       "dirt":"gravel",
       "grass_block":"grass",
       "tnt":"grass",

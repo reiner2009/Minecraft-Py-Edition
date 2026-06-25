@@ -333,7 +333,7 @@ class FallingBlock(Block):
         if get_block(self.MAP_POSITION[0], self.MAP_POSITION[1]-1,self.MAP_POSITION[2])=="air":
             from net.minecraft.entity.Entities import entities
             from net.minecraft.world.chunk.Chunk import set_block
-            self.falling_block=entities["falling_sand"]()
+            self.falling_block=entities["falling_"+self.NAME]()
             self.falling_block.spawn(*self.MAP_POSITION)
             set_block(*self.MAP_POSITION, "air")
             reloadChunks()

@@ -2,14 +2,18 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="84e547ab-f90c-4988-ba87-3386de936751" name="Changes" comment="Minecraft-Py-Edition">
+      <change afterPath="$PROJECT_DIR$/assets/minecraft/models/block/gravel.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/net/minecraft/entity/FallingGravel.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/net/minecraft/client/render/entity/PrimedTntRenderer.py" beforeDir="false" afterPath="$PROJECT_DIR$/net/minecraft/client/render/entity/PrimedTntRenderer.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/minecraft/atlas_data/blocks.json" beforeDir="false" afterPath="$PROJECT_DIR$/assets/minecraft/atlas_data/blocks.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/minecraft/lang/en_us.json" beforeDir="false" afterPath="$PROJECT_DIR$/assets/minecraft/lang/en_us.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/minecraft/sounds/sounds.json" beforeDir="false" afterPath="$PROJECT_DIR$/assets/minecraft/sounds/sounds.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/minecraft/textures/block/atlas.png" beforeDir="false" afterPath="$PROJECT_DIR$/assets/minecraft/textures/block/atlas.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/data/minecraft/item/ItemGroup.json" beforeDir="false" afterPath="$PROJECT_DIR$/data/minecraft/item/ItemGroup.json" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/net/minecraft/entity/Entities.py" beforeDir="false" afterPath="$PROJECT_DIR$/net/minecraft/entity/Entities.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/net/minecraft/entity/Entity.py" beforeDir="false" afterPath="$PROJECT_DIR$/net/minecraft/entity/Entity.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/net/minecraft/entity/LivingEntity.py" beforeDir="false" afterPath="$PROJECT_DIR$/net/minecraft/entity/LivingEntity.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/net/minecraft/entity/PrimedTnt.py" beforeDir="false" afterPath="$PROJECT_DIR$/net/minecraft/entity/IgnitedTnt.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/net/minecraft/entity/FallingBlock.py" beforeDir="false" afterPath="$PROJECT_DIR$/net/minecraft/entity/FallingBlock.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/net/minecraft/world/block/Blocks.py" beforeDir="false" afterPath="$PROJECT_DIR$/net/minecraft/world/block/Blocks.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/net/minecraft/world/block/__init__.py" beforeDir="false" afterPath="$PROJECT_DIR$/net/minecraft/world/block/__init__.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/net/minecraft/world/chunk/Chunk.py" beforeDir="false" afterPath="$PROJECT_DIR$/net/minecraft/world/chunk/Chunk.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -22,6 +26,9 @@
         <option value="Python Script" />
       </list>
     </option>
+  </component>
+  <component name="Git.Merge.Settings">
+    <option name="BRANCH" value="origin/main" />
   </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
@@ -497,7 +504,15 @@
       <option name="project" value="LOCAL" />
       <updated>1782306029633</updated>
     </task>
-    <option name="localTasksCounter" value="35" />
+    <task id="LOCAL-00035" summary="Minecraft-Py-Edition">
+      <option name="closed" value="true" />
+      <created>1782309543907</created>
+      <option name="number" value="00035" />
+      <option name="presentableId" value="LOCAL-00035" />
+      <option name="project" value="LOCAL" />
+      <updated>1782309543907</updated>
+    </task>
+    <option name="localTasksCounter" value="36" />
     <servers />
   </component>
   <component name="VcsManagerConfiguration">
