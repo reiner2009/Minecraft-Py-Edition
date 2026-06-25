@@ -40,10 +40,6 @@ def render_items_for_hotbar():
 	glDisable(GL_DEPTH_TEST)
 	glEnable(GL_TEXTURE_2D)
 	glBindTexture(GL_TEXTURE_2D, block_atlas)
-	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST)
-	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST)
-	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE)
-	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE)
 	scale = 0.6
 	for slot in list(hotbar_items.keys()):
 		name=hotbar_items[slot]
@@ -90,12 +86,7 @@ def render_items_for_container():
 	glDisable(GL_DEPTH_TEST)
 	glEnable(GL_TEXTURE_2D)
 	glEnable(GL_BLEND)
-	glColor4f(1,1,1,1)
 	glBindTexture(GL_TEXTURE_2D, block_atlas)
-	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST)
-	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST)
-	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE)
-	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE)
 	for slot in list(container_items.keys()):
 		name=container_items[slot]
 		glColor3f(1,1,1)

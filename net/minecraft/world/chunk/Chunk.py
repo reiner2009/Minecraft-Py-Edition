@@ -102,9 +102,6 @@ def render_chunk():
 		create_new_world()
 		load_chunks()
 
-def isFull(name):
-	return name!="air"
-
 def create_new_world():
 	global chunk
 	pygame.mouse.set_cursor(SYSTEM_CURSOR_WAIT)
@@ -120,6 +117,11 @@ def create_new_world():
 		set_block(x, y, z, block)
 	reload_chunks()
 
+def updateNigbours(x,y,z):
+	nighbours=[(x+1,y,z), (x-1,y,z), (x,y+1,z), (x,y-1,z), (x,y,z+1), (x,y,z-1)]
+	for X,Y,Z in nighbours:
+		get_block_data(X,Y,Z).update()
+
 def set_block(x,y,z,name):
 	global blocks
 	if not name in blocks:
@@ -131,6 +133,7 @@ def set_block(x,y,z,name):
 		chunk[(x,y,z)]=tc
 	else:
 		chunk.pop((x,y,z), None)
+	updateNigbours(x,y,z)
 
 def explode(world_x, world_y, world_z, radius, v=489):
 	Sounds.play_block_sound("explode", v)
@@ -140,7 +143,7 @@ def explode(world_x, world_y, world_z, radius, v=489):
 				tx=round(world_x+(math.sin(math.radians(yaw*10))*math.cos(math.radians(pitch*10)))*ran)
 				ty=round(world_y-(math.sin(math.radians(pitch*10)))*ran)
 				tz=round(world_z-(math.cos(math.radians(yaw*10))*math.cos(math.radians(pitch*10)))*ran)
-				set_block(tx,ty,tz, "air")
+				get_block_data(tx,ty,tz).onExplode(v)
 	reload_chunks()
 
 def build_chunk():

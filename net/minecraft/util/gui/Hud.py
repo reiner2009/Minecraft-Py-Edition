@@ -4,15 +4,12 @@ title_font_texture=load_texture("assets/minecraft/textures/gui/title/minecraft.p
 crosshair_texture=load_texture("assets/minecraft/textures/gui/sprites/hud/crosshair.png")
 hotbar_texture=load_texture("assets/minecraft/textures/gui/sprites/hud/hotbar.png")
 hotbar_selection_texture=load_texture("assets/minecraft/textures/gui/sprites/hud/hotbar_selection.png")
-tab_items_texture=load_texture("assets/minecraft/textures/gui/container/creative_inventory/tab_items.png")
 
 def render_wallpaper(name):
     glMatrixMode(GL_MODELVIEW)
     glLoadIdentity()
     glDisable(GL_DEPTH_TEST)
     glEnable(GL_TEXTURE_2D)
-    glEnable(GL_BLEND)
-    glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA)
     glColor4f(1,1,1,1)
     glBindTexture(GL_TEXTURE_2D, name)
     uv=[(0,1),(1,1),(1,0),(0,0)]
@@ -93,7 +90,6 @@ def render_tab_items():
     glDisable(GL_DEPTH_TEST)
     glDisable(GL_TEXTURE_2D)
     glEnable(GL_BLEND)
-    glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA)
     glColor4f(102/255,81/255,51/255,0.51)
     glBegin(GL_QUADS)
     glVertex2f(0,0)
@@ -142,7 +138,6 @@ def render_chat_background(y, height):
     glVertex2f(5,y+height)
     glVertex2f(0,y+height)
     glEnd()
-    glDisable(GL_BLEND)
 
 def render_copyright_text():
     render_text("reiner2009 Copyright. Do not distribute!",width/800*5,height/480*5,15,15,[255,255,255,255])

@@ -80,6 +80,12 @@
         "wood2",
         "wood3",
         "wood4"
+      ],
+      "sand":[
+        "sand1",
+        "sand2",
+        "sand3",
+        "sand4"
       ]
     },
     "break": {
@@ -146,7 +152,8 @@
       "oak_door": "wood",
       "oak_slab": "wood",
       "oak_wood": "wood",
-      "oak_fence": "wood"
+      "oak_fence": "wood",
+      "sand":"sand"
     },
     "block_break": {
       "glass_block":"glass",

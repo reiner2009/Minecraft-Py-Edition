@@ -1,11 +1,11 @@
 [
-	"stone_bricks",
-	"stone",
-	"oak_log",
-	"grass_block",
-	"dirt",
-	"oak_planks",
-	"cobblestone",
-	"smooth_stone",
-	"deepslate"
+    "stone",
+    "oak_planks",
+    "glass_block",
+    "oak_log",
+    "dirt",
+    "crafting_table",
+    "furnace",
+    "tnt",
+    "flint_and_steel"
 ]
