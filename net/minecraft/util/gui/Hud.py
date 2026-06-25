@@ -32,6 +32,7 @@ def render_title_font():
     glLoadIdentity()
     glDisable(GL_DEPTH_TEST)
     glEnable(GL_TEXTURE_2D)
+    glEnable(GL_BLEND)
     glColor4f(1,1,1,1)
     glBindTexture(GL_TEXTURE_2D, title_font_texture)
     uv=[(0,1),(1,1),(1,0),(0,0)]
@@ -91,13 +92,16 @@ def render_tab_items():
     glLoadIdentity()
     glDisable(GL_DEPTH_TEST)
     glDisable(GL_TEXTURE_2D)
-    glColor4f(1,1,1,0.51)
+    glEnable(GL_BLEND)
+    glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA)
+    glColor4f(102/255,81/255,51/255,0.51)
     glBegin(GL_QUADS)
-    glVertex2f(width/2-377/2,height/480*147)
-    glVertex2f(width/2+593/2,height/480*147)
-    glVertex2f(width/2+593/2, height/480*149+123*2.7)
-    glVertex2f(width/2-377/2, height/480*149+123*2.7)
+    glVertex2f(0,0)
+    glVertex2f(width, 0)
+    glVertex2f(width, height)
+    glVertex2f(0, height)
     glEnd()
+    glDisable(GL_BLEND)
     
     
 def render_hotbar_selection(count):
@@ -138,13 +142,13 @@ def render_chat_background(y, height):
     glVertex2f(5,y+height)
     glVertex2f(0,y+height)
     glEnd()
+    glDisable(GL_BLEND)
 
 def render_copyright_text():
     render_text("reiner2009 Copyright. Do not distribute!",width/800*5,height/480*5,15,15,[255,255,255,255])
 
 def display_position(x,y,z):
     position_data="position: "+str(x)+", "+str(y)+", "+str(z)
-    glColor4f(0.3, 0.3, 0.3, 0.3)
     render_text(position_data, 10,height-20,15,15,[255,255,255,255])
 
 def display_fps():
