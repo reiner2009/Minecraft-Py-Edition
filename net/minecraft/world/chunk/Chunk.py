@@ -1,6 +1,6 @@
 from net.minecraft.client.render.world.block.BlockRenderer import*
-import net.minecraft.util.gui.Hud as hud
-import net.minecraft.text.Text as text
+import net.minecraft.client.render.gui.Hud as hud
+import net.minecraft.client.render.Text as text
 import pickle
 import net.minecraft.resources.DataLocation as DataLocation
 from opensimplex import OpenSimplex
@@ -9,7 +9,7 @@ import gzip
 import math
 import net.minecraft.world.Features as features
 from net.minecraft.world.block.Blocks import registries
-import net.minecraft.sounds.Sounds as Sounds
+import net.minecraft.client.Sounds as Sounds
 from net.minecraft.world.EntityList import entity_chunk
 
 dark_menu_texture=load_texture("assets/minecraft/textures/gui/title/background/dark_menu.png")

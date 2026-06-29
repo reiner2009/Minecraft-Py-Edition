@@ -1,8 +1,6 @@
 from net.minecraft.entity.PathFinderMob import PathFinderMob
-from net.minecraft.textures.Textures import load_texture
 import net.minecraft.client.render.entity.PigRenderer as PigRenderer
 from net.minecraft.entity.ai.Goal import RandomStrollAroundGoal
-from net.minecraft.entity.PathFinderMob import PathFinderMob
 
 class PigEntity(PathFinderMob):
 	def __init__(self, name_tag_is_visible=True):

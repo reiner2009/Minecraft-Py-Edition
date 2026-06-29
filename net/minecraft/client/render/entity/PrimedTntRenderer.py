@@ -1,4 +1,4 @@
-from net.minecraft.client.Client import*
+from net.minecraft.client import*
 from net.minecraft.client.render.world.block.BlockRenderer import block_atlas, place_block
 
 

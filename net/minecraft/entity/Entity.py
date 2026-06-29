@@ -1,4 +1,3 @@
-from net.minecraft.textures.Textures import load_texture
 from net.minecraft.world.EntityList import entity_chunk
 
 class Entity:
@@ -40,8 +39,6 @@ class Entity:
 		self.pitch = pitch
 	def setName(self, name):
 		self.name = name
-	def setSkin(self, path):
-		self.skin, self.w, self.h = load_texture(path,True)
 	def move(self, x,y,z):
 		self.x += x
 		self.y += y

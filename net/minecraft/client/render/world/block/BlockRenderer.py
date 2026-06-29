@@ -1,6 +1,6 @@
 import traceback
 
-from net.minecraft.textures.Textures import *
+from net.minecraft.client.Textures import *
 import net.minecraft.client.render.world.block.Models as Models
 import json
 import net.minecraft.resources.DataLocation as DataLocation

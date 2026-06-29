@@ -1,7 +1,7 @@
 from net.minecraft.entity.LivingEntity import LivingEntity
 import random
 import math
-import net.minecraft.text.Text as text
+import net.minecraft.client.render.Text as text
 
 def cos(i):
 	return(math.cos(math.radians(i)))

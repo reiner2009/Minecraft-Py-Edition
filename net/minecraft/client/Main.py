@@ -13,11 +13,11 @@ import net.minecraft.resources.Config as config
 import net.minecraft.world.Time as worldTime
 import net.minecraft.client.render.world.SkyRenderer as sky
 from net.minecraft.chat.Commands import*
-from net.minecraft.entity.player.PlayerEntity import PlayerEntity
-from net.minecraft.util.gui.Widgets import*
-from net.minecraft.sounds.Sounds import*
+from net.minecraft.entity.PlayerEntity import PlayerEntity
+from net.minecraft.client.render.gui.Widgets import*
+from net.minecraft.client.Sounds import*
 from net.minecraft.chat.Chat import show_text
-import net.minecraft.client.render.world.item.Item as Item
+import net.minecraft.client.render.world.Item as Item
 from net.minecraft.world.chunk.Chunk import *
 import net.minecraft.chat.Chat as Chat
 import net.minecraft.world.EntityList as EntityList
@@ -34,10 +34,11 @@ parser.add_argument("--username", type=str, help="username")
 parser.add_argument("--skin", type=str, help="skin texture")
 parser.add_argument("--online-skin", type=str, help="skin texture from the internet")
 args = parser.parse_args()
-username = args.username
+if args.username:
+	username = args.username
+else:
+	username="StevePy"
 online_skin = args.online_skin
-if username:
-	Playername.set(username)
 skin = args.skin
 try:
 	if online_skin:
@@ -93,7 +94,7 @@ running_app=True
 container=False
 player=PlayerEntity(False)
 player.spawn(0,0,0)
-player.setName(Playername.playername)
+player.setName(username)
 if skin:
 	player.setSkin(skin)
 chat_text=""
@@ -576,8 +577,8 @@ def running_world(events):
 							assume_command(chat_text, player)
 						else:
 							logger.set_environment("Main")
-							logger.info("[CHAT] <" + str(Playername.playername) + "> " + chat_text)
-							show_text("<" + str(Playername.playername) + "> " + chat_text, [255,255,255,255])
+							logger.info("[CHAT] <" + str(username) + "> " + chat_text)
+							show_text("<" + str(username) + "> " + chat_text, [255,255,255,255])
 					chat_text=""
 					chat=False
 				elif event.key==K_ESCAPE:

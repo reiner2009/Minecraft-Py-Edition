@@ -1,7 +1,6 @@
 from net.minecraft.world.chunk.Chunk import *
-import net.minecraft.util.logger.Logger as logger
+import net.minecraft.util.Logger as logger
 import net.minecraft.world.chunk.Chunk as chunk
-import net.minecraft.entity.player.Playername as Playername
 import net.minecraft.entity.Entities as Entities
 from net.minecraft.chat.Chat import *
 from net.minecraft.world.Time import set_tick, get_time
@@ -149,7 +148,10 @@ def assume_command(string, entity):
 			try:
 				entity.setSkin(string.split()[6])
 			except:
-				entity.setSkin(DataLocation.get_resource_path("assets/minecraft/textures/entity/player/steve.png"))
+				try:
+					entity.setSkin(DataLocation.get_resource_path("assets/minecraft/textures/entity/player/steve.png"))
+				except:
+					pass
 			entity.set_thirt_person_perspective()
 			logger.info(f"[COMMAND] Added {entityName} successfully at {string_to_position(string, entity)}")
 			show_text(f"Added {entityName} successfully at {string_to_position(string, entity)}", [255, 255, 255, 255])

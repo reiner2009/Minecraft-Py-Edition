@@ -1,4 +1,4 @@
-from net.minecraft.textures.Textures import *
+from net.minecraft.client.Textures import *
 
 px = load_texture("assets/minecraft/textures/environment/sky/px.png")
 nx = load_texture("assets/minecraft/textures/environment/sky/nx.png")

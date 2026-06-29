@@ -1,0 +1,160 @@
+from net.minecraft.client.render.Text import*
+
+title_font_texture=load_texture("assets/minecraft/textures/gui/title/minecraft.png")
+crosshair_texture=load_texture("assets/minecraft/textures/gui/sprites/hud/crosshair.png")
+hotbar_texture=load_texture("assets/minecraft/textures/gui/sprites/hud/hotbar.png")
+hotbar_selection_texture=load_texture("assets/minecraft/textures/gui/sprites/hud/hotbar_selection.png")
+
+def render_wallpaper(name):
+    glMatrixMode(GL_MODELVIEW)
+    glLoadIdentity()
+    glDisable(GL_DEPTH_TEST)
+    glEnable(GL_TEXTURE_2D)
+    glColor4f(1,1,1,1)
+    glBindTexture(GL_TEXTURE_2D, name)
+    uv=[(0,1),(1,1),(1,0),(0,0)]
+    glBegin(GL_QUADS)
+    glTexCoord2fv(uv[0])
+    glVertex2f(0,0)
+    glTexCoord2fv(uv[1])
+    glVertex2f(width,0)
+    glTexCoord2fv(uv[2])
+    glVertex2f(width,height)
+    glTexCoord2fv(uv[3])
+    glVertex2f(0,height)
+    glEnd()
+
+def render_title_font():
+    glMatrixMode(GL_MODELVIEW)
+    glLoadIdentity()
+    glDisable(GL_DEPTH_TEST)
+    glEnable(GL_TEXTURE_2D)
+    glEnable(GL_BLEND)
+    glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA)
+    glColor4f(1,1,1,1)
+    glBindTexture(GL_TEXTURE_2D, title_font_texture)
+    uv=[(0,1),(1,1),(1,0),(0,0)]
+    glBegin(GL_QUADS)
+    glTexCoord2fv(uv[0])
+    glVertex2f(width/800*127,height/480*340)
+    glTexCoord2fv(uv[1])
+    glVertex2f(width/800*637,height/480*340)
+    glTexCoord2fv(uv[2])
+    glVertex2f(width/800*637, height/480*460)
+    glTexCoord2fv(uv[3])
+    glVertex2f(width/800*127, height/480*460)
+    glEnd()
+    render_text("PyEdition Alpha rc-250620260", width/800*180, height/480*360, width/800*20, height/480*20, [255,255,255,255])
+
+def render_crosshair():
+    glMatrixMode(GL_MODELVIEW)
+    glLoadIdentity()
+    glDisable(GL_DEPTH_TEST)
+    glEnable(GL_TEXTURE_2D)
+    glEnable(GL_BLEND)
+    glColor3f(1,1,1)
+    glBindTexture(GL_TEXTURE_2D, crosshair_texture)
+    uv=[(0,0),(1,0),(1,1),(0,1)]
+    glBegin(GL_QUADS)
+    glTexCoord2fv(uv[0])
+    glVertex2f(width/2-35/2, height/2-35/2)
+    glTexCoord2fv(uv[1])
+    glVertex2f(35+width/2-35/2, height/2-35/2)
+    glTexCoord2fv(uv[2])
+    glVertex2f(35+width/2-35/2,35+height/2-35/2)
+    glTexCoord2fv(uv[3])
+    glVertex2f(width/2-35/2,35+height/2-35/2)
+    glEnd()
+
+def render_hotbar():
+    glMatrixMode(GL_MODELVIEW)
+    glLoadIdentity()
+    glDisable(GL_DEPTH_TEST)
+    glEnable(GL_TEXTURE_2D)
+    glColor3f(1,1,1)
+    glBindTexture(GL_TEXTURE_2D, hotbar_texture)
+    uv=[(0,0),(1,0),(1,1),(0,1)]
+    glBegin(GL_QUADS)
+    glTexCoord2fv(uv[0])
+    glVertex2f(width/2-510/2,height/480*24)
+    glTexCoord2fv(uv[1])
+    glVertex2f(width/2+510/2,height/480*24)
+    glTexCoord2fv(uv[2])
+    glVertex2f(width/2+510/2, height/480*24+56)
+    glTexCoord2fv(uv[3])
+    glVertex2f(width/2-510/2, height/480*24+56)
+    glEnd()
+    
+def render_tab_items():
+    glMatrixMode(GL_MODELVIEW)
+    glLoadIdentity()
+    glDisable(GL_DEPTH_TEST)
+    glDisable(GL_TEXTURE_2D)
+    glEnable(GL_BLEND)
+    glColor4f(102/255,81/255,51/255,0.51)
+    glBegin(GL_QUADS)
+    glVertex2f(0,0)
+    glVertex2f(width, 0)
+    glVertex2f(width, height)
+    glVertex2f(0, height)
+    glEnd()
+    glDisable(GL_BLEND)
+    
+    
+def render_hotbar_selection(count):
+    glMatrixMode(GL_MODELVIEW)
+    glLoadIdentity()
+    glDisable(GL_DEPTH_TEST)
+    glEnable(GL_TEXTURE_2D)
+    glColor4f(1,1,1,1)
+    glBindTexture(GL_TEXTURE_2D, hotbar_selection_texture)
+    uv=[(0,1),(1,1),(1,0),(0,0)]
+    glBegin(GL_QUADS)
+    glTexCoord2fv(uv[0])
+    glVertex2f(width/2-510/2+56*(count-1), height/480*23)
+    glTexCoord2fv(uv[1])
+    glVertex2f(width/2-510/2+62+56*(count-1), height/480*23)
+    glTexCoord2fv(uv[2])
+    glVertex2f(width/2-510/2+62+56*(count-1), height/480*23+59)
+    glTexCoord2fv(uv[3])
+    glVertex2f(width/2-510/2+56*(count-1), height/480*23+59)
+    glEnd()
+
+def render_chat_background(y, height):
+    glMatrixMode(GL_MODELVIEW)
+    glLoadIdentity()
+    glDisable(GL_DEPTH_TEST)
+    glDisable(GL_TEXTURE_2D)
+    glEnable(GL_BLEND)
+    glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA)
+    glBegin(GL_QUADS)
+    glColor4f(0,0,0,0.7)
+    glVertex2f(5,y)
+    glVertex2f(800,y)
+    glVertex2f(800, y+height)
+    glVertex2f(5, y+height)
+    glColor4f(1.0,1.0,1.0,1.0)
+    glVertex2f(0,y)
+    glVertex2f(5,y)
+    glVertex2f(5,y+height)
+    glVertex2f(0,y+height)
+    glEnd()
+
+def render_copyright_text():
+    render_text("reiner2009 Copyright. Do not distribute!",width/800*5,height/480*5,15,15,[255,255,255,255])
+
+def display_position(x,y,z):
+    position_data="position: "+str(x)+", "+str(y)+", "+str(z)
+    render_text(position_data, 10,height-20,15,15,[255,255,255,255])
+
+def display_fps():
+    fps=round(clock.get_fps())
+    render_text(str(fps)+" fps",10,height-40,15,15,[255,255,255,255])
+
+def display_rotate(yaw, pitch):
+    rotate_data="yaw: "+str(yaw)+", pitch: "+str(pitch)
+    render_text(rotate_data,10,height-60,15,15,[255,255,255,255])
+
+def render_cardinal_direction_facing(string):
+    rotate_data = "facing: " +str(string)
+    render_text(rotate_data, 10, height - 80, 15, 15, [255, 255, 255, 255])

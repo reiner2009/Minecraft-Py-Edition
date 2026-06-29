@@ -1,4 +1,4 @@
-from net.minecraft.sounds.Sounds import play_block_sound
+from net.minecraft.client.Sounds import*
 from net.minecraft.world.block.props import AxisProperty, FacingProperty, TwoDirectionsProperty, StairSetProperty, \
     DoorSetProperty, SlabSetProperty
 import net.minecraft.world.Features as features
@@ -10,8 +10,6 @@ import gzip
 import json
 
 from net.minecraft.world.phys.VoxelShape import getVoxelShapeVertices
-
-block_items=json.load(open(DataLocation.get_resource_path("data/minecraft/item/BlockItems.json")))
 
 def spawnTree(x,y,z):
     from net.minecraft.world.chunk.Chunk import set_block, reload_chunks
@@ -52,7 +50,6 @@ class Block:
         pass
     def finallyPlace(self, entity, block_sound_volume):
         from net.minecraft.client.render.world.block.BlockRenderer import block_place_sounds
-        from net.minecraft.sounds.Sounds import play_place_sound
         if self.NAME in block_place_sounds.keys():
             play_place_sound(block_place_sounds[self.NAME], block_sound_volume)
         else:

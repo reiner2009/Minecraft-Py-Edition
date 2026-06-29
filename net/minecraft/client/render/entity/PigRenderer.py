@@ -1,12 +1,9 @@
 import traceback
-
-import net.minecraft.text.Text as text
+import net.minecraft.client.render.Text as text
 from net.minecraft.client.render.world.block.BlockRenderer import *
 import math
-
-from net.minecraft.world.block.Blocks import registries
 from net.minecraft.resources.DataLocation import get_resource_path
-from net.minecraft.textures.Textures import load_texture
+from net.minecraft.client.Textures import load_texture
 
 
 def cos(i):

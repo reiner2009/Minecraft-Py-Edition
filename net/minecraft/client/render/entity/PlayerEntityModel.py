@@ -1,6 +1,6 @@
 import traceback
 
-import net.minecraft.text.Text as text
+import net.minecraft.client.render.Text as text
 from net.minecraft.client.render.world.block.BlockRenderer import *
 import math
 

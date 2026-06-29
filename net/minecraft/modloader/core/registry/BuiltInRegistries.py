@@ -1,1 +1,3 @@
-BLOCK=0
+BLOCK={}
+ITEM={}
+ENTITY={}

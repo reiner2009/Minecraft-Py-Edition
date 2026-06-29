@@ -1,6 +1,6 @@
-from net.minecraft.client.Client import *
-import net.minecraft.util.gui.Hud as hud
-import net.minecraft.text.Text as text
+from net.minecraft.client import *
+import net.minecraft.client.render.gui.Hud as hud
+import net.minecraft.client.render.Text as text
 
 temporary_texts=[]
 texts=[]
