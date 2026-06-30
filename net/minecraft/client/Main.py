@@ -13,7 +13,7 @@ import net.minecraft.resources.Config as config
 import net.minecraft.world.Time as worldTime
 import net.minecraft.client.render.world.SkyRenderer as sky
 from net.minecraft.chat.Commands import*
-from net.minecraft.entity.PlayerEntity import PlayerEntity
+from net.minecraft.world.entity.PlayerEntity import PlayerEntity
 from net.minecraft.client.render.gui.Widgets import*
 from net.minecraft.client.Sounds import*
 from net.minecraft.chat.Chat import show_text

@@ -3,6 +3,7 @@ import net.minecraft.util.Lang as lang
 from net.minecraft.client import *
 from net.minecraft.client.render.world.block.BlockRenderer import block_atlas, UV_MAP, block_atlas_data
 from net.minecraft.resources.DataLocation import get_resource_path
+import net.minecraft.modloader.bus.EventBusRegistry as EventBusRegistry
 import json
 import traceback
 
@@ -11,6 +12,9 @@ texture_map = json.load(open(get_resource_path("assets/minecraft/item/TextureMap
 hotbar_items_=json.load(open(get_resource_path("data/minecraft/item/Hotbar.json")))
 hotbar_items={}
 container_items={}
+
+for namespace, name in EventBusRegistry.eventBus.getItemGroupEntries().keys():
+    container_items_.append(name)
 
 for i in range(len(hotbar_items_)):
 	hotbar_items[i]=hotbar_items_[i]
@@ -50,7 +54,7 @@ def render_items_for_hotbar():
 			try:
 				uv = UV_MAP[texture_map[name]]
 			except:
-				uv=UV_MAP["translucent"]
+				uv=UV_MAP["missing"]
 		w, h = block_atlas_data["width"], block_atlas_data["height"]
 		uv_map = [((uv[0]) / w, (uv[1]) / h), ((uv[0] + 1) / w, (uv[1]) / h),
 				  ((uv[0] + 1) / w, (uv[1] + 1) / h), ((uv[0]) / w, (uv[1] + 1) / h)]
@@ -96,7 +100,7 @@ def render_items_for_container():
 			try:
 				uv = UV_MAP[texture_map[name]]
 			except:
-				uv=UV_MAP["translucent"]
+				uv=UV_MAP["missing"]
 		scale=0.5
 		w, h = block_atlas_data["width"], block_atlas_data["height"]
 		uv_map = [((uv[0]) / w, (uv[1]) / h), ((uv[0] + 1) / w, (uv[1]) / h),

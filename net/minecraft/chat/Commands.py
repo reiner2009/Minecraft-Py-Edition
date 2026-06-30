@@ -1,7 +1,7 @@
 from net.minecraft.world.chunk.Chunk import *
 import net.minecraft.util.Logger as logger
 import net.minecraft.world.chunk.Chunk as chunk
-import net.minecraft.entity.Entities as Entities
+import net.minecraft.world.entity.Entities as Entities
 from net.minecraft.chat.Chat import *
 from net.minecraft.world.Time import set_tick, get_time
 import traceback

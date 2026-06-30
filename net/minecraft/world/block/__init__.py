@@ -215,7 +215,7 @@ class DoorBlock(Block):
             super().finallyPlace(entity, block_sound_volume)
         else:
             set_block(*self.MAP_POSITION, "air")
-    def onBreak(self, entity):
+    def breakOtherDoor(self):
         self.up_nighbour = self.MAP_POSITION[0], self.MAP_POSITION[1] + 1, self.MAP_POSITION[2]
         self.down_nighbour = self.MAP_POSITION[0], self.MAP_POSITION[1] - 1, self.MAP_POSITION[2]
         from net.minecraft.world.chunk.Chunk import set_block, get_block_data, get_block
@@ -225,6 +225,8 @@ class DoorBlock(Block):
         if get_block(*self.down_nighbour) == "oak_door":
             if get_block_data(*self.down_nighbour).getVerticalDirection()=="0":
                 set_block(*self.down_nighbour, "air")
+    def onBreak(self, entity):
+        self.breakOtherDoor()
     def getVoxelShape(self, x, y, z):
         self.VOXEL_SHAPE_MAP={
             "south0":[(-1, -1, -1), (1, -1, -1), (1, -1, -0.625), (-1, -1, -0.625), (-1, 3, -1), (1, 3, -1), (1, 3, -0.625),(-1, 3, -0.625)],
@@ -264,6 +266,9 @@ class DoorBlock(Block):
             play_block_sound("oak_door_close", block_sound_volume)
         entity.swing("right")
         super().finallyPlace(entity, 0)
+    def onExplode(self, v):
+        self.breakOtherDoor()
+        super().onExplode(v)
     def PlaceableBlockDuringInteraction(self, entity):
         return False
 
@@ -306,7 +311,7 @@ class TntBlock(Block):
     def __init__(self, NAME):
         super().__init__(NAME)
     def ignite(self, block_sound_volume, c):
-        from net.minecraft.entity.Entities import entities
+        from net.minecraft.world.entity.Entities import entities
         from net.minecraft.world.chunk.Chunk import set_block
         self.ignited_tnt=entities["ignited_tnt"](c)
         self.ignited_tnt.set_sound_volume(block_sound_volume)
@@ -328,7 +333,7 @@ class FallingBlock(Block):
     def update(self):
         from net.minecraft.world.chunk.Chunk import get_block
         if get_block(self.MAP_POSITION[0], self.MAP_POSITION[1]-1,self.MAP_POSITION[2])=="air":
-            from net.minecraft.entity.Entities import entities
+            from net.minecraft.world.entity.Entities import entities
             from net.minecraft.world.chunk.Chunk import set_block
             self.falling_block=entities["falling_"+self.NAME]()
             self.falling_block.spawn(*self.MAP_POSITION)

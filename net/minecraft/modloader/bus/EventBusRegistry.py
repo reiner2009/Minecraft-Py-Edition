@@ -12,6 +12,8 @@ class EventBusRegistry:
 		return BuiltInRegistries.ITEM
 	def getEntities(self):
 		return BuiltInRegistries.ENTITY
+	def getItemGroupEntries(self):
+		return BuiltInRegistries.ITEM_GROUP_ENTRIES
 
 eventBus=EventBusRegistry()
 
