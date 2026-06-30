@@ -1,5 +1,5 @@
 from net.minecraft.world.block import Block, CardinalableBlock, OakSapling, GlassPaneBlock, StairBlock, LogBlock, \
-    DoorBlock, SlabBlock, FenceBlock, TntBlock, FallingBlock
+    DoorBlock, SlabBlock, FenceBlock, TntBlock, FallingBlock, TrapdoorBlock
 
 import net.minecraft.modloader.bus.EventBusRegistry as EventBusRegistry
 
@@ -51,7 +51,8 @@ registries={
     "oak_fence":FenceBlock,
     "tnt":TntBlock,
     "sand":FallingBlock,
-    "gravel":FallingBlock
+    "gravel":FallingBlock,
+    "oak_trapdoor":TrapdoorBlock
 }
 
 modregistries={}

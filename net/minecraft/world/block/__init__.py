@@ -342,3 +342,32 @@ class FallingBlock(Block):
     def onPlace(self, entity, block_sound_volume):
         self.update()
         super().onPlace(entity, block_sound_volume)
+
+class TrapdoorBlock(Block):
+    def __init__(self, NAME):
+        super().__init__(NAME)
+        self.DIRECTION=DoorSetProperty()
+    def onPlace(self, entity, block_sound_volume):
+        self.DIRECTION.setDirection(entity.get_cardinal_direction_facing()+"0")
+        super().onPlace(entity, block_sound_volume)
+    def onInteraction(self, entity, block_sound_volume):
+        if self.DIRECTION.getDirection()[-1]=="0":
+            self.DIRECTION.setDirection(self.DIRECTION.getDirection()[:-1]+"1")
+            play_block_sound("oak_trapdoor_open", block_sound_volume)
+        elif self.DIRECTION.getDirection()[-1]=="1":
+            self.DIRECTION.setDirection(self.DIRECTION.getDirection()[:-1]+"0")
+            play_block_sound("oak_trapdoor_close", block_sound_volume)
+        entity.swing("right")
+        super().finallyPlace(entity, 0)
+    def placeableBlockDuringInteraction(self, entity):
+        return False
+    def getProperty(self, entity=None):
+        if entity:
+            self.setPropertyByPlayer(entity)
+        return self.DIRECTION.getDirection()
+    def setPropertyByPlayer(self, entity):
+        self.DIRECTION.setDirection(entity.get_cardinal_direction_facing()+"0")
+    def getDefaultProperty(self):
+        return "south0"
+    def getProperties(self):
+        return self.DIRECTION.getDirectionKeys()

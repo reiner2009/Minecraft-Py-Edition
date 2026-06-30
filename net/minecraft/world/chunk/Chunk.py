@@ -150,8 +150,6 @@ def build_chunk():
 	glEnable(GL_CULL_FACE)
 	for (x, y, z), block in chunk.items():
 		place_block(block.getName(), x, y, z, block.getProperty())
-	glDisable(GL_ALPHA_TEST)
-	glDepthMask(GL_TRUE)
 
 def save_world():
 	global chunk

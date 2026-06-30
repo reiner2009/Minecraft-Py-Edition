@@ -110,6 +110,8 @@
         "door/close5",
         "door/close6"
       ],
+      "oak_trapdoor_open": ["trapdoor/open"],
+      "oak_trapdoor_close": ["trapdoor/close"],
       "explode":[
         "explode/explode1",
         "explode/explode2",
@@ -151,6 +153,7 @@
       "oak_sapling": "grass",
       "oak_stair": "wood",
       "oak_door": "wood",
+      "oak_trapdoor": "wood",
       "oak_slab": "wood",
       "oak_wood": "wood",
       "oak_fence": "wood",

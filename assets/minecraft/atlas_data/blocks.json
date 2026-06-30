@@ -65,6 +65,7 @@
     "tnt_bottom":[8,3],
     "tnt":[8,4],
     "sand":[8,5],
-    "gravel": [8,6]
+    "gravel": [8,6],
+    "oak_trapdoor": [9,0]
   }
 }
