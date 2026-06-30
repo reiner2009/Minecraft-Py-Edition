@@ -82,7 +82,6 @@ def render(x, y, z, light, sunriseblend, sunsetblend, t):
             glVertex3f(vx, vy, vz)
         glEnd()
     glEnable(GL_BLEND)
-    glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA)
     vertices=scube_vertices(x, y, z)
     glColor4f(light, light, light, sunriseblend)
     for i in range(6):

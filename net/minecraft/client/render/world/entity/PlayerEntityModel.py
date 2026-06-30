@@ -136,8 +136,6 @@ tex_coords = [
 ]
 
 def render_arms(x,y,z, yaw,left_arm_pitch,right_arm_pitch, block_name, skin_texture, w=64, h=64):
-    glEnable(GL_BLEND)
-    glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA)
     glDisable(GL_CULL_FACE)
     glEnable(GL_TEXTURE_2D)
     glBindTexture(GL_TEXTURE_2D,skin_texture)
@@ -171,6 +169,9 @@ def render_arms(x,y,z, yaw,left_arm_pitch,right_arm_pitch, block_name, skin_text
             glVertex3f(vx, vy, vz)
         glEnd()
     glPopMatrix()
+    glEnable(GL_BLEND)
+    glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA)
+    glDepthMask(GL_FALSE)
     glPushMatrix()
     glTranslatef(x * 2 - cos(yaw) * 0.74, y * 2 - 1.52, z * 2 - sin(yaw) * 0.74)
     glTranslatef(0, 2.0, 0)
@@ -207,6 +208,7 @@ def render_arms(x,y,z, yaw,left_arm_pitch,right_arm_pitch, block_name, skin_text
             glVertex3f(vx, vy, vz)
         glEnd()
     glPopMatrix()
+    glDepthMask(GL_TRUE)
     try:
         glPushMatrix()
         glTranslatef(x * 2 + cos(yaw-45), y * 2 - 1.52, z * 2 + sin(yaw-45))
@@ -242,8 +244,6 @@ def render_arms(x,y,z, yaw,left_arm_pitch,right_arm_pitch, block_name, skin_text
 
 
 def render_body_layer(x,y,z, yaw, pitch,left_arm_pitch,right_arm_pitch, walk_pitch_0, walk_pitch_1,name_tag_is_visible, name, block_name, skin_texture, w=64, h=64):
-    glEnable(GL_BLEND)
-    glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA)
     glDisable(GL_CULL_FACE)
     glEnable(GL_TEXTURE_2D)
     glBindTexture(GL_TEXTURE_2D, skin_texture)
@@ -263,24 +263,6 @@ def render_body_layer(x,y,z, yaw, pitch,left_arm_pitch,right_arm_pitch, walk_pit
         glEnd()
     glPopMatrix()
     glPushMatrix()
-    glTranslatef(x * 2, y * 2 + 0.48, z * 2)
-    glTranslatef(0, 0.5, 0)
-    glRotatef(-yaw - 90, 0.0, 1.0, 0.0)
-    glTranslatef(0, -0.5, 0)
-    glRotatef(pitch, 0.0, 0.0, 1.0)
-    glTranslatef(0,0.05, 0)
-    glScalef(1.05, 1.05, 1.05)
-    glTranslatef(0, -0.05, 0)
-    for i in range(6):
-        glBegin(GL_QUADS)
-        for j in range(4):
-            tx, ty = tex_coords[i+36][j]
-            vx, vy, vz = cube_vertices_head()[surfaces[i][j]]
-            glTexCoord2f(tx / 64, ty / 64)
-            glVertex3f(vx, vy, vz)
-        glEnd()
-    glPopMatrix()
-    glPushMatrix()
     glTranslatef(x * 2, y * 2-0.77, z * 2)
     glTranslatef(0, 0.5, 0)
     glRotatef(-yaw - 90, 0.0, 1.0, 0.0)
@@ -290,39 +272,6 @@ def render_body_layer(x,y,z, yaw, pitch,left_arm_pitch,right_arm_pitch, walk_pit
         for j in range(4):
             tx,ty=tex_coords[i+6][j]
             vx, vy, vz = cube_vertices_body()[surfaces[i][j]]
-            glTexCoord2f(tx/w, ty/h)
-            glVertex3f(vx, vy, vz)
-        glEnd()
-    glPopMatrix()
-    glPushMatrix()
-    glTranslatef(x * 2, y * 2 - 0.77, z * 2)
-    glTranslatef(0, 0.5, 0)
-    glRotatef(-yaw - 90, 0.0, 1.0, 0.0)
-    glTranslatef(0, -0.55, 0)
-    glScalef(1.05, 1.05, 1.05)
-    glTranslatef(0, 0.035, 0)
-    for i in range(6):
-        glBegin(GL_QUADS)
-        for j in range(4):
-            tx, ty = tex_coords[i + 54][j]
-            vx, vy, vz = cube_vertices_body()[surfaces[i][j]]
-            glTexCoord2f(tx / 64, ty / 64)
-            glVertex3f(vx, vy, vz)
-        glEnd()
-    glPopMatrix()
-    render_arms(x,y,z,yaw, left_arm_pitch,right_arm_pitch, block_name, skin_texture, w, h)
-    glPushMatrix()
-    glBindTexture(GL_TEXTURE_2D, skin_texture)
-    glTranslatef(x * 2 - cos(yaw) * 0.25, y * 2 - 1.52, z * 2 - sin(yaw) * 0.25)
-    glTranslatef(0, 0, 0)
-    glRotatef(-yaw - 90, 0.0, 1.0, 0.0)
-    glTranslatef(0, 0, 0)
-    glRotatef(walk_pitch_0, 0.0, 0.0, 1.0)
-    for i in range(6):
-        glBegin(GL_QUADS)
-        for j in range(4):
-            tx,ty=tex_coords[i+24][j]
-            vx, vy, vz = cube_vertices_arm_and_leg()[surfaces[i][j]]
             glTexCoord2f(tx/w, ty/h)
             glVertex3f(vx, vy, vz)
         glEnd()
@@ -349,14 +298,32 @@ def render_body_layer(x,y,z, yaw, pitch,left_arm_pitch,right_arm_pitch, walk_pit
     glRotatef(-yaw - 90, 0.0, 1.0, 0.0)
     glTranslatef(0, 0, 0)
     glRotatef(walk_pitch_0, 0.0, 0.0, 1.0)
-    glTranslatef(0, 0.05, 0)
-    glScalef(1.05, 1.05, 1.05)
-    glTranslatef(0, -0.025, 0)
     for i in range(6):
         glBegin(GL_QUADS)
         for j in range(4):
-            tx, ty = tex_coords[i + 60][j]
+            tx,ty=tex_coords[i+24][j]
             vx, vy, vz = cube_vertices_arm_and_leg()[surfaces[i][j]]
+            glTexCoord2f(tx/w, ty/h)
+            glVertex3f(vx, vy, vz)
+        glEnd()
+    glPopMatrix()
+    glEnable(GL_BLEND)
+    glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA)
+    glDepthMask(GL_FALSE)
+    glPushMatrix()
+    glTranslatef(x * 2, y * 2 + 0.48, z * 2)
+    glTranslatef(0, 0.5, 0)
+    glRotatef(-yaw - 90, 0.0, 1.0, 0.0)
+    glTranslatef(0, -0.5, 0)
+    glRotatef(pitch, 0.0, 0.0, 1.0)
+    glTranslatef(0,0.05, 0)
+    glScalef(1.05, 1.05, 1.05)
+    glTranslatef(0, -0.05, 0)
+    for i in range(6):
+        glBegin(GL_QUADS)
+        for j in range(4):
+            tx, ty = tex_coords[i+36][j]
+            vx, vy, vz = cube_vertices_head()[surfaces[i][j]]
             glTexCoord2f(tx / 64, ty / 64)
             glVertex3f(vx, vy, vz)
         glEnd()
@@ -379,5 +346,43 @@ def render_body_layer(x,y,z, yaw, pitch,left_arm_pitch,right_arm_pitch, walk_pit
             glVertex3f(vx, vy, vz)
         glEnd()
     glPopMatrix()
+    glPushMatrix()
+    glTranslatef(x * 2, y * 2 - 0.77, z * 2)
+    glTranslatef(0, 0.5, 0)
+    glRotatef(-yaw - 90, 0.0, 1.0, 0.0)
+    glTranslatef(0, -0.55, 0)
+    glScalef(1.05, 1.05, 1.05)
+    glTranslatef(0, 0.035, 0)
+    for i in range(6):
+        glBegin(GL_QUADS)
+        for j in range(4):
+            tx, ty = tex_coords[i + 54][j]
+            vx, vy, vz = cube_vertices_body()[surfaces[i][j]]
+            glTexCoord2f(tx / 64, ty / 64)
+            glVertex3f(vx, vy, vz)
+        glEnd()
+    glPopMatrix()
+    glPushMatrix()
+    glBindTexture(GL_TEXTURE_2D, skin_texture)
+    glTranslatef(x * 2 - cos(yaw) * 0.25, y * 2 - 1.52, z * 2 - sin(yaw) * 0.25)
+    glTranslatef(0, 0, 0)
+    glRotatef(-yaw - 90, 0.0, 1.0, 0.0)
+    glTranslatef(0, 0, 0)
+    glRotatef(walk_pitch_0, 0.0, 0.0, 1.0)
+    glTranslatef(0, 0.05, 0)
+    glScalef(1.05, 1.05, 1.05)
+    glTranslatef(0, -0.025, 0)
+    for i in range(6):
+        glBegin(GL_QUADS)
+        for j in range(4):
+            tx, ty = tex_coords[i + 60][j]
+            vx, vy, vz = cube_vertices_arm_and_leg()[surfaces[i][j]]
+            glTexCoord2f(tx / 64, ty / 64)
+            glVertex3f(vx, vy, vz)
+        glEnd()
+    glPopMatrix()
+    glDepthMask(GL_TRUE)
+    glDisable(GL_BLEND)
+    render_arms(x,y,z,yaw, left_arm_pitch,right_arm_pitch, block_name, skin_texture, w, h)
     if name_tag_is_visible:
         text.render_text_billboard(name, x*2,y*2+1,z*2,0.5,0.3)
