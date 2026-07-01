@@ -9,7 +9,7 @@ This project is a learning-focused implementation using OpenGL for rendering and
 
 This is a basic voxel-style sandbox game written in Python using PyOpenGL.
 
-When the game starts, the player does not enter a procedurally generated world. Instead, a small predefined scene is loaded, consisting of a house and a garden.
+When the game starts, the player enter a procedurally generated world.
 
 The main goal of this project is to learn:
 - 3D rendering with OpenGL
