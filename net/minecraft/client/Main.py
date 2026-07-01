@@ -228,7 +228,7 @@ def draw_scene():
 	for entity in EntityList.entity_chunk:
 		entity.tick()
 	x,y,z,x1,y1,z1= Raycast.get_pos(player)
-	if block_preview==True and hud_==True and get_block_data(x1,y1,z1).PlaceableBlockDuringInteraction(player):
+	if block_preview==True and hud_==True and get_block_data(x1,y1,z1).placeableBlockDuringInteraction(player):
 		if Raycast.get_neighbour_block(x, y, z):
 			name=player.getMainhandItem()
 			if name=="oak_door":

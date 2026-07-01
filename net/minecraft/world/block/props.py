@@ -99,3 +99,20 @@ class SlabSetProperty:
         return self.VERTICAL_POS
     def getVerticalPosKeys(self):
         return self.VERTICAL_POS_KEYS
+
+class TrapdoorSetProperty:
+    def __init__(self, STATE="down"):
+        self.STATE_KEYS=["down", "up", "south", "east", "north", "west"]
+        if STATE in self.STATE_KEYS:
+            self.STATE=STATE
+        else:
+            self.STATE="down"
+    def setState(self, STATE):
+        if STATE in self.STATE_KEYS:
+            self.STATE=STATE
+        else:
+            self.STATE="down"
+    def getState(self):
+        return self.STATE
+    def getStateKeys(self):
+        return self.STATE_KEYS

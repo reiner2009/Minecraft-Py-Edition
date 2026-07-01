@@ -1,6 +1,6 @@
 from net.minecraft.client.Sounds import*
 from net.minecraft.world.block.props import AxisProperty, FacingProperty, TwoDirectionsProperty, StairSetProperty, \
-    DoorSetProperty, SlabSetProperty
+    DoorSetProperty, SlabSetProperty, TrapdoorSetProperty
 import net.minecraft.world.Features as features
 import net.minecraft.resources.DataLocation as DataLocation
 import net.minecraft.util.math.Raycast as Raycast
@@ -68,7 +68,7 @@ class Block:
                 from net.minecraft.client.render.world.block.BlockRenderer import get_block_data
                 self.setNewBlock(entity, X,Y,Z)
                 get_block_data(X, Y, Z).onPlace(entity, block_sound_volume)
-    def PlaceableBlockDuringInteraction(self, entity):
+    def placeableBlockDuringInteraction(self, entity):
         return True
     def onExplode(self, v):
         from net.minecraft.world.chunk.Chunk import set_block
@@ -269,7 +269,7 @@ class DoorBlock(Block):
     def onExplode(self, v):
         self.breakOtherDoor()
         super().onExplode(v)
-    def PlaceableBlockDuringInteraction(self, entity):
+    def placeableBlockDuringInteraction(self, entity):
         return False
 
 class SlabBlock(Block):
@@ -346,28 +346,25 @@ class FallingBlock(Block):
 class TrapdoorBlock(Block):
     def __init__(self, NAME):
         super().__init__(NAME)
-        self.DIRECTION=DoorSetProperty()
-    def onPlace(self, entity, block_sound_volume):
-        self.DIRECTION.setDirection(entity.get_cardinal_direction_facing()+"0")
-        super().onPlace(entity, block_sound_volume)
+        self.STATE=TrapdoorSetProperty()
+        self.FACING="south"
+        self.VERTICAL_DIRECTION="down"
+    def setPropertyByPlayer(self, entity):
+        if -90 < entity.get_entity_facing()[1] < 0:
+            self.STATE.setState("up")
+        if 0 < entity.get_entity_facing()[1] < 90:
+            self.STATE.setState("down")
+        self.FACING=entity.get_cardinal_direction_facing()
     def onInteraction(self, entity, block_sound_volume):
-        if self.DIRECTION.getDirection()[-1]=="0":
-            self.DIRECTION.setDirection(self.DIRECTION.getDirection()[:-1]+"1")
-            play_block_sound("oak_trapdoor_open", block_sound_volume)
-        elif self.DIRECTION.getDirection()[-1]=="1":
-            self.DIRECTION.setDirection(self.DIRECTION.getDirection()[:-1]+"0")
-            play_block_sound("oak_trapdoor_close", block_sound_volume)
-        entity.swing("right")
+        
         super().finallyPlace(entity, 0)
     def placeableBlockDuringInteraction(self, entity):
         return False
     def getProperty(self, entity=None):
         if entity:
             self.setPropertyByPlayer(entity)
-        return self.DIRECTION.getDirection()
-    def setPropertyByPlayer(self, entity):
-        self.DIRECTION.setDirection(entity.get_cardinal_direction_facing()+"0")
+        return self.STATE.getState()
     def getDefaultProperty(self):
-        return "south0"
+        return "down"
     def getProperties(self):
-        return self.DIRECTION.getDirectionKeys()
+        return self.STATE.getStateKeys()
