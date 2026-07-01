@@ -352,11 +352,18 @@ class TrapdoorBlock(Block):
     def setPropertyByPlayer(self, entity):
         if -90 < entity.get_entity_facing()[1] < 0:
             self.STATE.setState("up")
+            self.VERTICAL_DIRECTION="up"
         if 0 < entity.get_entity_facing()[1] < 90:
             self.STATE.setState("down")
+            self.VERTICAL_DIRECTION="down"
         self.FACING=entity.get_cardinal_direction_facing()
     def onInteraction(self, entity, block_sound_volume):
-        
+        if self.STATE.getState()=="up" or self.STATE.getState()=="down":
+            self.STATE.setState(self.FACING)
+            play_block_sound("oak_trapdoor_open", block_sound_volume)
+        else:
+            self.STATE.setState(self.VERTICAL_DIRECTION)
+            play_block_sound("oak_trapdoor_close", block_sound_volume)
         super().finallyPlace(entity, 0)
     def placeableBlockDuringInteraction(self, entity):
         return False
