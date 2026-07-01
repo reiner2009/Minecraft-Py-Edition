@@ -52,7 +52,23 @@ registries={
     "tnt":TntBlock,
     "sand":FallingBlock,
     "gravel":FallingBlock,
-    "oak_trapdoor":TrapdoorBlock
+    "oak_trapdoor":TrapdoorBlock,
+    "white_stanied_glass_block":Block,
+    "orange_stanied_glass_block":Block,
+    "magenta_stanied_glass_block":Block,
+    "light_blue_stanied_glass_block":Block,
+    "yellow_blue_stanied_glass_block":Block,
+    "lime_stanied_glass_block":Block,
+    "pink_stanied_glass_block":Block,
+    "gray_stanied_glass_block":Block,
+    "light_gray_stanied_glass_block":Block,
+    "cyan_stanied_glass_block":Block,
+    "purple_stanied_glass_block":Block,
+    "blue_stanied_glass_block":Block,
+    "brown_stanied_glass_block":Block,
+    "green_stanied_glass_block":Block,
+    "red_stanied_glass_block":Block,
+    "black_stanied_glass_block":Block
 }
 
 modregistries={}

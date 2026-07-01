@@ -48,5 +48,21 @@
   "sand": "Sand",
   "gravel": "Gravel",
   "flint_and_steel": "Flint and Steel",
-  "oak_trapdoor": "Oak Trapdoor"
+  "oak_trapdoor": "Oak Trapdoor",
+  "white_stanied_glass_block":"white stanied Glass Block",
+  "orange_stanied_glass_block":"orange stanied Glass Block",
+  "magenta_stanied_glass_block":"magenta stanied Glass Block",
+  "light_blue_stanied_glass_block":"light blue stanied Glass Block",
+  "yellow_blue_stanied_glass_block":"yellow stanied Glass Block",
+  "lime_stanied_glass_block":"lime stanied Glass Block",
+  "pink_stanied_glass_block":"pink stanied Glass Block",
+  "gray_stanied_glass_block":"gray stanied Glass Block",
+  "light_gray_stanied_glass_block":"light gray stanied Glass Block",
+  "cyan_stanied_glass_block":"cyan stanied Glass Block",
+  "purple_stanied_glass_block":"purple stanied Glass Block",
+  "blue_stanied_glass_block":"blue stanied Glass Block",
+  "brown_stanied_glass_block":"brown stanied Glass Block",
+  "green_stanied_glass_block":"green stanied Glass Block",
+  "red_stanied_glass_block":"red stanied Glass Block",
+  "black_stanied_glass_block":"black stanied Glass Block"
 }

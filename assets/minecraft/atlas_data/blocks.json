@@ -1,6 +1,6 @@
 {
-  "width": 9,
-  "height": 7,
+  "width": 10,
+  "height": 8,
   "values":{
     "stone_bricks": [4,5],
     "dirt": [5,1],
@@ -66,6 +66,22 @@
     "tnt":[8,4],
     "sand":[8,5],
     "gravel": [8,6],
-    "oak_trapdoor": [9,0]
+    "oak_trapdoor": [9,0],
+    "white_stanied_glass_block":[9,1],
+    "orange_stanied_glass_block":[9,2],
+    "magenta_stanied_glass_block":[9,3],
+    "light_blue_stanied_glass_block":[9,4],
+    "yellow_blue_stanied_glass_block":[9,5],
+    "lime_stanied_glass_block":[9,6],
+    "pink_stanied_glass_block":[9,7],
+    "gray_stanied_glass_block":[0,7],
+    "light_gray_stanied_glass_block":[1,7],
+    "cyan_stanied_glass_block":[2,7],
+    "purple_stanied_glass_block":[3,7],
+    "blue_stanied_glass_block":[4,7],
+    "brown_stanied_glass_block":[5,7],
+    "green_stanied_glass_block":[6,7],
+    "red_stanied_glass_block":[7,7],
+    "black_stanied_glass_block":[8,7]
   }
 }

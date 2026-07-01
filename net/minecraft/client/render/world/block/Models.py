@@ -19,8 +19,11 @@ def load_model(name, namespace="minecraft"):
 		with open(DataLocation.get_resource_path(f"assets/{namespace}/models/block/{name}.json"), "r") as f:
 			models.append(json.load(f))
 	except:
-		logger.error(f"Failed to load model assets/{namespace}/models/block/{name}.json")
-		models.append({"type":"full_cube","textures":["missing","missing","missing","missing","missing","missing"]})
+		try:
+			models.append({"type": "full_cube", "textures": [name, name, name, name, name, name]})
+		except:
+			logger.error(f"Failed to load model assets/{namespace}/models/block/{name}.json")
+			models.append({"type":"full_cube","textures":["missing","missing","missing","missing","missing","missing"]})
 		
 	
 for i in model_names:

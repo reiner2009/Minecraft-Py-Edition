@@ -1,0 +1,11 @@
+{
+  "type": "custom_model",
+  "elements":{
+    "0": {
+      "textures": ["oak_trapdoor", "oak_trapdoor","","","",""],
+      "vertices": [-1,0.625,-1,1,1,1],
+      "not_cullable": [true,true,true,true,true,true],
+      "custom_uv": [false, false, [[8,1],[8,2],[7.8125,2],[7.8125,1]],[[8,1],[8,2],[7.8125,2],[7.8125,1]],[[8,1],[8,2],[7.8125,2],[7.8125,1]],[[8,1],[8,2],[7.8125,2],[7.8125,1]]]
+    }
+  }
+}

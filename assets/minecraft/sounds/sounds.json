@@ -161,6 +161,22 @@
     },
     "block_break": {
       "glass_block":"glass",
+      "white_stanied_glass_block":"glass",
+      "orange_stanied_glass_block":"glass",
+      "magenta_stanied_glass_block":"glass",
+      "light_blue_stanied_glass_block":"glass",
+      "yellow_blue_stanied_glass_block":"glass",
+      "lime_stanied_glass_block":"glass",
+      "pink_stanied_glass_block":"glass",
+      "gray_stanied_glass_block":"glass",
+      "light_gray_stanied_glass_block":"glass",
+      "cyan_stanied_glass_block":"glass",
+      "purple_stanied_glass_block":"glass",
+      "blue_stanied_glass_block":"glass",
+      "brown_stanied_glass_block":"glass",
+      "green_stanied_glass_block":"glass",
+      "red_stanied_glass_block":"glass",
+      "black_stanied_glass_block":"glass",
       "glass_pane": "glass"
     }
   }
