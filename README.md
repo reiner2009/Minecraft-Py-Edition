@@ -22,11 +22,14 @@ The main goal of this project is to learn:
 ## Features
 
 - 3D rendering using PyOpenGL
-- First-person camera movement
-- Predefined world (house + garden scene)
+- Camera movement
+- Procedurally generarated world
 - Basic interaction system (if implemented)
 - Window and resolution handling
 - FPS-style controls
+- Block classes
+- Entity classes
+- Support for mods, datapacks and resourcepacks
 
 ---
 

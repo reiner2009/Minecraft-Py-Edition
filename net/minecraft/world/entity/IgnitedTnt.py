@@ -1,6 +1,5 @@
 from net.minecraft.world.entity.FallingBlock import FallingBlock
 from net.minecraft.world.chunk.Chunk import explode
-from net.minecraft.client.render.world.entity.PrimedTntRenderer import*
 
 class IgnitedTnt(FallingBlock):
 	def __init__(self, c=5):
@@ -10,8 +9,9 @@ class IgnitedTnt(FallingBlock):
 	def set_sound_volume(self, v):
 		self.v=v
 	def tick(self):
+		from net.minecraft.client.render.world.entity.IgnitedTntRenderer import renderIgnitedTnt
 		super().tick()
-		renderPrimedTnt(*self.get_entity_position(), self.countdown)
+		renderIgnitedTnt(*self.get_entity_position(), self.countdown)
 		self.countdown-=1
 		if self.countdown<=0:
 			explode(*self.get_entity_position(), 4, self.v)
