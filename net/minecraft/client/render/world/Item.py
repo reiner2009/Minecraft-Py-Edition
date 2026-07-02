@@ -65,7 +65,7 @@ def render_items_for_hotbar():
 		quad_w = orig_w * scale
 		quad_h = orig_h * scale
 		base_x = width/2 - 510/2
-		base_y = height/480 * 23
+		base_y = 23
 		old_left = base_x + orig_spacing * slot
 		old_right = old_left + orig_w
 		center_x = (old_left + old_right) / 2
