@@ -44,7 +44,7 @@ def render_title_font():
     glTexCoord2fv(uv[3])
     glVertex2f(width/800*127, height/480*460)
     glEnd()
-    render_text("PyEdition Alpha rc-010720260", width/800*180, height/480*360, width/800*20, height/480*20, [255,255,255,255])
+    render_text("PyEdition Alpha rc-020720260", width/800*180, height/480*360, width/800*20, height/480*20, [255,255,255,255])
 
 def render_crosshair():
     glMatrixMode(GL_MODELVIEW)
