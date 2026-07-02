@@ -42,17 +42,17 @@ jobs:
         if: runner.os == 'Windows'
         shell: pwsh
         run: |
-          Compress-Archive -Path dist\* -DestinationPath build-Windows.zip
+          Compress-Archive -Path dist\Main\* -DestinationPath mcpy-Windows.zip
 
       - name: Create archive (Linux)
         if: runner.os == 'Linux'
         run: |
-          tar -czf build-Linux.tar.gz dist
+          tar -czf mcpy-Linux.tar.gz dist/Main
 
       - name: Create archive (macOS)
         if: runner.os == 'macOS'
         run: |
-          tar -czf build-macOS.tar.gz dist
+          tar -czf mcpy-macOS.tar.gz dist/Main
 
       - name: Upload to GitHub Release
         uses: softprops/action-gh-release@v2
