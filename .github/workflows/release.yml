@@ -47,12 +47,14 @@ jobs:
       - name: Create archive (Linux)
         if: runner.os == 'Linux'
         run: |
-          tar -czf mcpy-Linux.tar.gz dist/Main
+          cd dist
+          tar -czf mcpy-Linux.tar.gz Main
 
       - name: Create archive (macOS)
         if: runner.os == 'macOS'
         run: |
-          tar -czf mcpy-macOS.tar.gz dist/Main
+          cd dist
+          tar -czf mcpy-macOS.tar.gz Main
 
       - name: Upload to GitHub Release
         uses: softprops/action-gh-release@v2
