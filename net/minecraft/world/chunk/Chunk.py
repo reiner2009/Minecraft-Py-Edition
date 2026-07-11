@@ -53,25 +53,24 @@ def build_chunk_display_list():
 	dl = glGenLists(1)
 	glNewList(dl, GL_COMPILE)
 	glBindTexture(GL_TEXTURE_2D, block_atlas)
-	for (x,y,z), cubes in global_vertices.items():
+	for (x,y,z), block in chunk.items():
+		name=block.getName()
 		if get_block(x, y, z)!="air":
 			if get_block(x, y, z) not in translucent_blocks and get_block(x, y, z) not in cutout_blocks:
 				glDepthMask(GL_TRUE)
 				glDisable(GL_BLEND)
+				place_block(name, x, y, z, get_block_data(x,y,z).getProperty())
 			if get_block(x, y, z) in cutout_blocks:
 				glEnable(GL_ALPHA_TEST)
 				glAlphaFunc(GL_GREATER, 0.5)
+				place_block(name, x, y, z, get_block_data(x,y,z).getProperty())
 			if get_block(x, y, z) in translucent_blocks:
+				glDepthMask(GL_FALSE)
 				glEnable(GL_ALPHA_TEST)
 				glEnable(GL_BLEND)
 				glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA)
-			for cube in cubes:
-				for quad in cube:
-					glBegin(GL_QUADS)
-					for tex_coords, vertices in quad:
-						glTexCoord2f(*tex_coords)
-						glVertex3f(*vertices)
-					glEnd()
+				place_block(name, x, y, z, get_block_data(x,y,z).getProperty())
+			glDepthMask(GL_TRUE)
 	pygame.mouse.set_cursor(SYSTEM_CURSOR_ARROW)
 	glEndList()
 	return dl

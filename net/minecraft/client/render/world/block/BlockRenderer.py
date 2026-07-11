@@ -13,7 +13,7 @@ block_place_sounds=sound_categories["categories"]["block_place"]
 
 block_break_sounds=sound_categories["categories"]["block_break"]
 
-blocks= registries.keys()
+blocks=registries.keys()
 
 block_atlas=load_texture("assets/minecraft/textures/block/atlas.png")
 
@@ -39,35 +39,31 @@ def custom_cube_vertices(x, y, z, x0,y0,z0,x1,y1,z1):
     ]
 
 chunk = {}
-global_vertices={}
 
 def draw_block(vertices, surfaces, UVs, x, y, z, property="", not_cullable_surfaces=[False, False, False, False, False, False], preview=False):
     neighbors = [(0,-1,0), (0,1,0), (0,0,-1), (1,0,0), (0,0,1), (-1,0,0)]
     if preview == False:
-        display_cube=[]
         for i in range(6):
-            quad = []
             dx, dy, dz = neighbors[i]
             neighbor=get_block(x+dx,y+dy,z+dz)
             neighborbool=(neighbor=="air")
             if neighborbool or (((neighbor in translucent_blocks and get_block(x,y,z)!=neighbor) or neighbor in cutout_blocks or neighbor in not_full_blocks) and not_cullable_surfaces[i]!="only_when_fully_covered") or not_cullable_surfaces[i]==True:
+                glBegin(GL_QUADS)
                 for j in range(4):
                     tx,ty=UVs[i][j]
                     vx, vy, vz = vertices[surfaces[i][j]]
-                    quad.append([[tx, ty], [vx, vy, vz]])
-                display_cube.append(quad)
+                    glTexCoord2f(tx, ty)
+                    glVertex3f(vx, vy, vz)
+                glEnd()
             neigbor_data=get_block_data(x+dx,y+dy,z+dz)
             if (neighborbool or not_cullable_surfaces[i]=="only_when_fully_covered") and (neighbor=="glass_pane" and property=="x" and neigbor_data.getProperty()=="z") or (neighbor=="glass_pane" and property=="z" and neigbor_data.getProperty()=="x") or neighbor in not_full_blocks:
+                glBegin(GL_QUADS)
                 for j in range(4):
                     tx, ty = UVs[i][j]
                     vx, vy, vz = vertices[surfaces[i][j]]
-                    quad.append([[tx,ty],[vx,vy,vz]])
-                display_cube.append(quad)
-        try:
-            global_vertices[(x,y,z)].append(display_cube)
-        except:
-            global_vertices[(x,y,z)] = []
-            global_vertices[(x, y, z)].append(display_cube)
+                    glTexCoord2f(tx, ty)
+                    glVertex3f(vx, vy, vz)
+                glEnd()
     else:
         for i in range(6):
             glBegin(GL_QUADS)
@@ -81,8 +77,7 @@ def draw_block(vertices, surfaces, UVs, x, y, z, property="", not_cullable_surfa
 
 
 def place_block(name, x, y, z, property="", preview=False):
-    global chunk, global_vertices
-    global_vertices.pop((x,y,z), None)
+    global chunk
     data= Models.get_model(name, property)
     if data["type"]=="full_cube":
         texture_names = data["textures"]

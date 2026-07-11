@@ -3,7 +3,7 @@ from net.minecraft.world.entity.PlayerEntity import PlayerEntity
 from net.minecraft.world.entity.PigEntity import PigEntity
 from net.minecraft.world.entity.IgnitedTnt import IgnitedTnt
 from net.minecraft.world.entity.FallingSand import FallingSand
-import net.minecraft.modloader.bus.EventBusRegistry as EventBusRegistry
+import net.minecraft.modloader.bus.EventBus as EventBus
 
 entities={
     "player":PlayerEntity,
@@ -13,5 +13,5 @@ entities={
     "falling_gravel":FallingGravel
 }
 
-for (namespace, name), class_ in EventBusRegistry.eventBus.getEntities().items():
+for (namespace, name), class_ in EventBus.eventBusRegistry.getEntities().items():
     entities[name]=class_

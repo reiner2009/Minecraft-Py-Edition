@@ -1,6 +1,6 @@
-import net.minecraft.modloader.bus.EventBusRegistry as EventBusRegistry
+import net.minecraft.modloader.bus.EventBus as EventBus
 
 items=["flint_and_steel"]
 
-for namespace, name in EventBusRegistry.eventBus.getItems().items():
+for namespace, name in EventBus.eventBusRegistry.getItems().items():
     items.append(name)

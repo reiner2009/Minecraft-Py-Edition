@@ -1,7 +1,7 @@
 from net.minecraft.world.block import Block, CardinalableBlock, OakSapling, GlassPaneBlock, StairBlock, LogBlock, \
     DoorBlock, SlabBlock, FenceBlock, TntBlock, FallingBlock, TrapdoorBlock
 
-import net.minecraft.modloader.bus.EventBusRegistry as EventBusRegistry
+import net.minecraft.modloader.bus.EventBus as EventBus
 
 registries={
     "bedrock":Block,
@@ -53,26 +53,26 @@ registries={
     "sand":FallingBlock,
     "gravel":FallingBlock,
     "oak_trapdoor":TrapdoorBlock,
-    "white_stanied_glass_block":Block,
-    "orange_stanied_glass_block":Block,
-    "magenta_stanied_glass_block":Block,
-    "light_blue_stanied_glass_block":Block,
-    "yellow_blue_stanied_glass_block":Block,
-    "lime_stanied_glass_block":Block,
-    "pink_stanied_glass_block":Block,
-    "gray_stanied_glass_block":Block,
-    "light_gray_stanied_glass_block":Block,
-    "cyan_stanied_glass_block":Block,
-    "purple_stanied_glass_block":Block,
-    "blue_stanied_glass_block":Block,
-    "brown_stanied_glass_block":Block,
-    "green_stanied_glass_block":Block,
-    "red_stanied_glass_block":Block,
-    "black_stanied_glass_block":Block
+    "white_stained_glass_block":Block,
+    "orange_stained_glass_block":Block,
+    "magenta_stained_glass_block":Block,
+    "light_blue_stained_glass_block":Block,
+    "yellow_blue_stained_glass_block":Block,
+    "lime_stained_glass_block":Block,
+    "pink_stained_glass_block":Block,
+    "gray_stained_glass_block":Block,
+    "light_gray_stained_glass_block":Block,
+    "cyan_stained_glass_block":Block,
+    "purple_stained_glass_block":Block,
+    "blue_stained_glass_block":Block,
+    "brown_stained_glass_block":Block,
+    "green_stained_glass_block":Block,
+    "red_stained_glass_block":Block,
+    "black_stained_glass_block":Block
 }
 
 modregistries={}
 
-for (ns,n),c in EventBusRegistry.eventBus.getBlocks().items():
+for (ns,n),c in EventBus.eventBusRegistry.getBlocks().items():
     registries[n]=c
     modregistries[n]=ns

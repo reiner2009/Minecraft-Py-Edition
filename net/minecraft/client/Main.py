@@ -17,7 +17,7 @@ from net.minecraft.world.entity.PlayerEntity import PlayerEntity
 from net.minecraft.client.render.gui.Widgets import*
 from net.minecraft.client.Sounds import*
 from net.minecraft.chat.Chat import show_text
-import net.minecraft.client.render.world.Item as Item
+import net.minecraft.client.render.world.ItemRenderer as ItemRenderer
 from net.minecraft.world.chunk.Chunk import *
 import net.minecraft.chat.Chat as Chat
 import net.minecraft.world.EntityList as EntityList
@@ -161,14 +161,14 @@ def get_block_by_player():
 	if get_block(X, Y, Z) != "air":
 		if get_block(X,Y,Z)==player.getMainhandItem():
 			show_text(get_block_data(X,Y,Z).getProperty(), [255,255,255,255])
-		if get_block(X,Y,Z) in Item.selected_item:
-			hotbar_slot_selected= Item.selected_item.index(get_block(X, Y, Z)) + 1
+		if get_block(X,Y,Z) in ItemRenderer.selected_item:
+			hotbar_slot_selected= ItemRenderer.selected_item.index(get_block(X, Y, Z)) + 1
 		else:
 			try:
-				Item.add_item(get_block(X, Y, Z), hotbar_slot_selected - 1)
+				ItemRenderer.add_item(get_block(X, Y, Z), hotbar_slot_selected - 1)
 			except:
 				try:
-					Item.add_item(get_block(X, Y, Z), hotbar_slot_selected - 1)
+					ItemRenderer.add_item(get_block(X, Y, Z), hotbar_slot_selected - 1)
 				except:
 					logger.error(str(traceback.format_exc()))
 
@@ -200,7 +200,7 @@ def render_hud():
 		hud.render_hotbar_selection(hotbar_slot_selected)
 		if chat==False:
 			render_temporary_texts()
-		Item.render_items_for_hotbar()
+		ItemRenderer.render_items_for_hotbar()
 	if debug_charts and hud_==True:
 		world_x, world_y, world_z=player.get_entity_position()
 		yaw, pitch = player.get_entity_facing()
@@ -213,7 +213,7 @@ def render_hud():
 	if container==True:
 		pygame.mouse.set_cursor(SYSTEM_CURSOR_ARROW)
 		hud.render_tab_items()
-		Item.render_items_for_container()
+		ItemRenderer.render_items_for_container()
 
 def draw_scene():
 	if pause_menu==False:
@@ -368,9 +368,6 @@ def render_menu(events):
 	y=height-y
 	if game_state==state_menu:
 		play_music_mode(music_menu)
-	for event in events:
-		if event.type == QUIT:
-			pygame.quit()
 	highlight0=False
 	highlight1=False
 	highlight2=False
@@ -410,6 +407,9 @@ def render_menu(events):
 				button_click_sound.play()
 				pygame.time.delay(150)
 				pygame.quit()
+				import net.minecraft.modloader.ModLoader as ModLoader
+				from net.minecraft.modloader.bus.EventBus import staticEventBus
+				ModLoader.onShutdown(staticEventBus)
 				logger.set_environment("Main")
 				logger.info("Stopped!")
 				sys.exit()
@@ -422,7 +422,7 @@ def render_menu(events):
 def running_world(events):
 	global menu, running, x,y,z, camera_x, camera_y, camera_z, speed, mouse_grab,hud_,hotbar_slot_selected, debug_charts, game_state, pause_menu, mouse_grab, chat, chat_text, block_preview, container,client, sock
 	pygame.mixer.music.set_volume((1/489)*music_volume)
-	player.setMainhandItem(Item.selected_item[hotbar_slot_selected - 1])
+	player.setMainhandItem(ItemRenderer.selected_item[hotbar_slot_selected - 1])
 	if getChunkList()==1:
 		render_chunk()
 		load_level()
@@ -597,15 +597,20 @@ try:
 		if chat==False:
 			events=pygame.event.get()
 		for event in events:
-			if event.type==QUIT and game_state==state_game:
+			if event.type==QUIT:
 				save_world()
 				save_level()
+				import net.minecraft.modloader.ModLoader as ModLoader
+				from net.minecraft.modloader.bus.EventBus import staticEventBus
+				ModLoader.onShutdown(staticEventBus)
+				logger.set_environment("Main")
+				logger.info("Stopped!")
 				running_app=False
 			elif event.type==KEYDOWN and event.key==K_F2:
 				take_screenshot()
 		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT)
 		pygame.display.set_caption("Minecraft")
-		Item.set_vars(events, hotbar_slot_selected)
+		ItemRenderer.set_vars(events, hotbar_slot_selected)
 		if game_state==state_menu:
 			render_menu(events)
 		elif game_state==state_settings:

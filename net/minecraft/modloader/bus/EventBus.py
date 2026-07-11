@@ -1,5 +1,6 @@
 import net.minecraft.modloader.core.registry.BuiltInRegistries as BuiltInRegistries
 import net.minecraft.modloader.ModLoader as ModLoader
+import net.minecraft.util.Logger as Logger
 
 class EventBusRegistry:
 	def __init__(self):
@@ -15,7 +16,21 @@ class EventBusRegistry:
 	def getItemGroupEntries(self):
 		return BuiltInRegistries.ITEM_GROUP_ENTRIES
 
-eventBus=EventBusRegistry()
+class StaticEventBus:
+	def __init__(self, LOGGER_ENV):
+		self.LOGGER_ENV=LOGGER_ENV
+	def getLogger(self):
+		return self.LOGGER_ENV
+	def info(self, msg):
+		Logger.info(msg, self.LOGGER_ENV)
+	def warn(self, msg):
+		Logger.warn(msg, self.LOGGER_ENV)
+	def error(self, msg):
+		Logger.error(msg, self.LOGGER_ENV)
 
-ModLoader.startup(eventBus)
 
+eventBusRegistry=EventBusRegistry()
+staticEventBus=StaticEventBus("ModLoader")
+
+ModLoader.onStartup(staticEventBus)
+ModLoader.initRegistry(eventBusRegistry)

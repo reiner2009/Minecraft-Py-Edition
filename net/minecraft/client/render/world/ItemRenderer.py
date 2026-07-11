@@ -3,7 +3,7 @@ import net.minecraft.util.Lang as lang
 from net.minecraft.client import *
 from net.minecraft.client.render.world.block.BlockRenderer import block_atlas, UV_MAP, block_atlas_data
 from net.minecraft.resources.DataLocation import get_resource_path
-import net.minecraft.modloader.bus.EventBusRegistry as EventBusRegistry
+import net.minecraft.modloader.bus.EventBus as EventBus
 import json
 import traceback
 
@@ -13,7 +13,7 @@ hotbar_items_=json.load(open(get_resource_path("data/minecraft/item/Hotbar.json"
 hotbar_items={}
 container_items={}
 
-for namespace, name in EventBusRegistry.eventBus.getItemGroupEntries().keys():
+for namespace, name in EventBus.eventBusRegistry.getItemGroupEntries().keys():
     container_items_.append(name)
 
 for i in range(len(hotbar_items_)):
@@ -65,7 +65,7 @@ def render_items_for_hotbar():
 		quad_w = orig_w * scale
 		quad_h = orig_h * scale
 		base_x = width/2 - 510/2
-		base_y = 23
+		base_y = height/480*23
 		old_left = base_x + orig_spacing * slot
 		old_right = old_left + orig_w
 		center_x = (old_left + old_right) / 2
@@ -111,8 +111,8 @@ def render_items_for_container():
 		quad_w = orig_w * scale
 		quad_h = orig_h * scale
 		base_x = orig_spacing
-		base_y = orig_spacing
-		slots_per_row=round(width/quad_w*0.6)
+		base_y = height/480*orig_spacing
+		slots_per_row=round(width/quad_w*0.65)
 		col = slot % slots_per_row
 		row = slot // slots_per_row
 		old_left = base_x + orig_spacing * col
@@ -122,6 +122,16 @@ def render_items_for_container():
 		old_top = base_y + orig_h
 		center_y = (base_y + old_top) / 2
 		y = center_y - quad_h / 2 + orig_spacing  + (row - 1) * orig_spacing + 30
+		glDisable(GL_TEXTURE_2D)
+		glBegin(GL_QUADS)
+		glColor4f(0, 0, 0, 0.5)
+		glVertex2f(x-10, y-10)
+		glVertex2f(x + quad_w + 10, y-10)
+		glVertex2f(x + quad_w + 10, y + quad_h + 10)
+		glVertex2f(x-10, y + quad_h + 10)
+		glEnd()
+		glColor3f(1,1,1)
+		glEnable(GL_TEXTURE_2D)
 		glBegin(GL_QUADS)
 		glTexCoord2fv(uv_map[3])
 		glVertex2f(x, y)

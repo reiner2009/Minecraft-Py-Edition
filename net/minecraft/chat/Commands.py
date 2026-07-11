@@ -139,7 +139,10 @@ def assume_command(string, entity):
 		elif string.split()[0]=="/summon":
 			x,y,z=string_to_position(string, entity)
 			entityName=string.split()[4]
-			entity=Entities.entities[entityName](True)
+			try:
+				entity=Entities.entities[entityName](True)
+			except:
+				entity=Entities.entities[entityName]()
 			entity.spawn(x,y,z)
 			try:
 				entity.setName(string.split()[5])
