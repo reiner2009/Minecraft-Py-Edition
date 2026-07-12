@@ -39,6 +39,8 @@ class Entity:
 		self.pitch = pitch
 	def setName(self, name):
 		self.name = name
+	def getName(self):
+		return self.name
 	def move(self, x,y,z):
 		self.x += x
 		self.y += y
