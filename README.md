@@ -45,3 +45,12 @@ python -m net.minecraft.client.Main
 ```
 
 The program arguments —skin and —username are not required, but with them you can set your own player name and skin, with the skin you specify the path, if you only specify the file name, the image file must be in the root of the repository. It is important that the skin has an aspect ratio of 1:1, otherwise it is bugged.With --online-skin you can use another player's skin, e.g. with --online-skin Dream you have Dream's skin.
+
+## Controls
+- Move with WASD
+- Place blocks with a right-click and mine them with a left-click.
+- Scroll or press the number keys to switch the block in the bottom bar.
+- Press 'e' to get more blocks.
+- Press F5 to see yourself.
+- Press F2 to take a screenshot. These are saved in %AppData%\.minecraft-py\screenshots\ on Windows and in $HOME/.minecraft-py/screenshots/ on other systems.
+- Press F1 to hide your GUI and 'v' to hide the block preview.
