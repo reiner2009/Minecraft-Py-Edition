@@ -57,7 +57,6 @@ def build_chunk_display_list():
 		name=block.getName()
 		if get_block(x, y, z)!="air":
 			if get_block(x, y, z) not in translucent_blocks and get_block(x, y, z) not in cutout_blocks:
-				glDepthMask(GL_TRUE)
 				glDisable(GL_BLEND)
 				place_block(name, x, y, z, get_block_data(x,y,z).getProperty())
 			if get_block(x, y, z) in cutout_blocks:
@@ -65,10 +64,11 @@ def build_chunk_display_list():
 				glAlphaFunc(GL_GREATER, 0.5)
 				place_block(name, x, y, z, get_block_data(x,y,z).getProperty())
 			if get_block(x, y, z) in translucent_blocks:
-				glDepthMask(GL_FALSE)
 				glEnable(GL_ALPHA_TEST)
 				glEnable(GL_BLEND)
 				glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA)
+				glEnable(GL_ALPHA_TEST)
+				glAlphaFunc(GL_GREATER, 0.5)
 				place_block(name, x, y, z, get_block_data(x,y,z).getProperty())
 			glDepthMask(GL_TRUE)
 	pygame.mouse.set_cursor(SYSTEM_CURSOR_ARROW)

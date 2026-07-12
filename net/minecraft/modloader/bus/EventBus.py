@@ -28,9 +28,18 @@ class StaticEventBus:
 	def error(self, msg):
 		Logger.error(msg, self.LOGGER_ENV)
 
+class StartupEventBus(StaticEventBus):
+	def __init__(self, LOGGER_ENV):
+		super().__init__(LOGGER_ENV)
+
+class ShutdownEventBus(StaticEventBus):
+	def __init__(self, LOGGER_ENV):
+		super().__init__(LOGGER_ENV)
 
 eventBusRegistry=EventBusRegistry()
 staticEventBus=StaticEventBus("ModLoader")
+startupEventBus=StartupEventBus("ModLoader")
+shutdownEventBus=ShutdownEventBus("ModLoader")
 
-ModLoader.onStartup(staticEventBus)
-ModLoader.initRegistry(eventBusRegistry)
+ModLoader.initRegistry()
+ModLoader.onStartup()

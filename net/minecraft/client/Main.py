@@ -408,8 +408,7 @@ def render_menu(events):
 				pygame.time.delay(150)
 				pygame.quit()
 				import net.minecraft.modloader.ModLoader as ModLoader
-				from net.minecraft.modloader.bus.EventBus import staticEventBus
-				ModLoader.onShutdown(staticEventBus)
+				ModLoader.onShutdown()
 				logger.set_environment("Main")
 				logger.info("Stopped!")
 				sys.exit()
@@ -594,6 +593,8 @@ def running_world(events):
 
 try:
 	while running_app:
+		import net.minecraft.modloader.ModLoader as ModLoader
+		ModLoader.tick()
 		if chat==False:
 			events=pygame.event.get()
 		for event in events:
@@ -601,8 +602,7 @@ try:
 				save_world()
 				save_level()
 				import net.minecraft.modloader.ModLoader as ModLoader
-				from net.minecraft.modloader.bus.EventBus import staticEventBus
-				ModLoader.onShutdown(staticEventBus)
+				ModLoader.onShutdown()
 				logger.set_environment("Main")
 				logger.info("Stopped!")
 				running_app=False

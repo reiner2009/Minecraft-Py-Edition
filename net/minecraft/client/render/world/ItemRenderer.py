@@ -112,7 +112,7 @@ def render_items_for_container():
 		quad_h = orig_h * scale
 		base_x = orig_spacing
 		base_y = height/480*orig_spacing
-		slots_per_row=round(width/quad_w*0.64)
+		slots_per_row=round(width/quad_w*0.63)
 		col = slot % slots_per_row
 		row = slot // slots_per_row
 		old_left = base_x + orig_spacing * col
