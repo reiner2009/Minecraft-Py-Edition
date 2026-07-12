@@ -55,14 +55,23 @@ def render_item_name(name,x,y):
 	glDisable(GL_TEXTURE_2D)
 	glEnable(GL_BLEND)
 	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA)
-	glBegin(GL_QUADS)
 	glColor4f(0, 0, 0, 0.7)
-	glVertex2f(x, y-5)
-	glVertex2f(x+len(name)*20, y-5)
-	glVertex2f(x+len(name)*20, y + 25)
-	glVertex2f(x, y + 25)
-	glEnd()
-	render_text(name, x+10, y, 20, 20)
+	if x+len(name)*20 <=width:
+		glBegin(GL_QUADS)
+		glVertex2f(x, y-5)
+		glVertex2f(x+len(name)*20, y-5)
+		glVertex2f(x+len(name)*20, y + 25)
+		glVertex2f(x, y + 25)
+		glEnd()
+		render_text(name, x+10, y, 20, 20)
+	else:
+		glBegin(GL_QUADS)
+		glVertex2f(x, y-5)
+		glVertex2f(x-len(name)*20, y-5)
+		glVertex2f(x-len(name)*20, y + 25)
+		glVertex2f(x, y + 25)
+		glEnd()
+		render_text(name, x+10-len(name)*20, y, 20, 20)
 
 def render_text(text,x,y,width,height, color=[255,255,255,255], blink_cursor=False):
 	if blink_cursor==True and pulse()==True:

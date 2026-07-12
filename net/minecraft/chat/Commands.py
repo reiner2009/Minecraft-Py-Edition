@@ -181,13 +181,8 @@ def assume_command(string, entity):
 			for e in entity_chunk:
 				if e != entity:
 					e.discard()
-		elif string.split()[0] == "/kill":
-			from net.minecraft.world.EntityList import entity_chunk
-			for e in entity_chunk:
-				if e.getName() == string.split()[1]:
-					e.discard()
 		elif string.split()[0] == "/help":
-			show_text("Commands: /setblock, /list_blocks, /fill, /tp, /reset_world, /summon, /time, /explode, /killall, /kill", [255, 255, 255, 255])
+			show_text("Commands: /setblock, /list_blocks, /fill, /tp, /reset_world, /summon, /time, /explode, /killall", [255, 255, 255, 255])
 		else:
 			show_text("Unknown or incomplete command: "+string, [255,85,85,255])
 			logger.set_environment("Main")
