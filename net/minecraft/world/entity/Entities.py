@@ -13,5 +13,5 @@ entities={
     "falling_gravel":FallingGravel
 }
 
-for (namespace, name), class_ in EventBus.eventBusRegistry.getEntities().items():
+for (namespace, name), class_ in EventBus.registryEventBus.getEntities().items():
     entities[name]=class_

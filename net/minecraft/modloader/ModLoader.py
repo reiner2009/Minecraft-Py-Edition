@@ -19,58 +19,16 @@ try:
 except:
 	pass
 
-def onStartup():
+def dispatch(eventBusType, eventBus):
 	try:
 		import mod
-		from net.minecraft.modloader.bus.EventBus import StartupEventBus, startupEventBus
 		try:
 			for name, obj in inspect.getmembers(mod):
 				if hasattr(obj, "is_event_handler"):
-					if obj.event_type == StartupEventBus:
-						obj(startupEventBus)
+					if obj.event_type == eventBusType:
+						obj(eventBus)
 		except AttributeError:
-			pass
+			print(traceback.format_exc())
 	except:
 		print(traceback.format_exc())
 
-def initRegistry():
-	try:
-		import mod
-		from net.minecraft.modloader.bus.EventBus import EventBusRegistry, eventBusRegistry
-		try:
-			for name, obj in inspect.getmembers(mod):
-				if hasattr(obj, "is_event_handler"):
-					if obj.event_type == EventBusRegistry:
-						obj(eventBusRegistry)
-		except AttributeError:
-			pass
-	except:
-		print(traceback.format_exc())
-
-def onShutdown():
-	try:
-		import mod
-		from net.minecraft.modloader.bus.EventBus import ShutdownEventBus, shutdownEventBus
-		try:
-			for name, obj in inspect.getmembers(mod):
-				if hasattr(obj, "is_event_handler"):
-					if obj.event_type == ShutdownEventBus:
-						obj(shutdownEventBus)
-		except AttributeError:
-			pass
-	except:
-		print(traceback.format_exc())
-
-def tick():
-	try:
-		import mod
-		from net.minecraft.modloader.bus.EventBus import StaticEventBus, staticEventBus
-		try:
-			for name, obj in inspect.getmembers(mod):
-				if hasattr(obj, "is_event_handler"):
-					if obj.event_type == StaticEventBus:
-						obj(staticEventBus)
-		except AttributeError:
-			pass
-	except:
-		print(traceback.format_exc())

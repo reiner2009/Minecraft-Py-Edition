@@ -2,21 +2,7 @@ import net.minecraft.modloader.core.registry.BuiltInRegistries as BuiltInRegistr
 import net.minecraft.modloader.ModLoader as ModLoader
 import net.minecraft.util.Logger as Logger
 
-class EventBusRegistry:
-	def __init__(self):
-		pass
-	def register(self, registry, namespace, name, class_=None):
-		registry[(namespace, name)]=class_
-	def getBlocks(self):
-		return BuiltInRegistries.BLOCK
-	def getItems(self):
-		return BuiltInRegistries.ITEM
-	def getEntities(self):
-		return BuiltInRegistries.ENTITY
-	def getItemGroupEntries(self):
-		return BuiltInRegistries.ITEM_GROUP_ENTRIES
-
-class StaticEventBus:
+class EventBus:
 	def __init__(self, LOGGER_ENV):
 		self.LOGGER_ENV=LOGGER_ENV
 	def getLogger(self):
@@ -28,18 +14,36 @@ class StaticEventBus:
 	def error(self, msg):
 		Logger.error(msg, self.LOGGER_ENV)
 
-class StartupEventBus(StaticEventBus):
+class RegistryEventBus(EventBus):
+	def __init__(self, LOGGER_ENV):
+		super().__init__(LOGGER_ENV)
+	def register(self, registry, namespace, name, class_=None):
+		registry[(namespace, name)]=class_
+	def getBlocks(self):
+		return BuiltInRegistries.BLOCK
+	def getItems(self):
+		return BuiltInRegistries.ITEM
+	def getEntities(self):
+		return BuiltInRegistries.ENTITY
+	def getItemGroupEntries(self):
+		return BuiltInRegistries.ITEM_GROUP_ENTRIES
+
+class TickEventBus(EventBus):
 	def __init__(self, LOGGER_ENV):
 		super().__init__(LOGGER_ENV)
 
-class ShutdownEventBus(StaticEventBus):
+class StartupEventBus(EventBus):
 	def __init__(self, LOGGER_ENV):
 		super().__init__(LOGGER_ENV)
 
-eventBusRegistry=EventBusRegistry()
-staticEventBus=StaticEventBus("ModLoader")
+class ShutdownEventBus(EventBus):
+	def __init__(self, LOGGER_ENV):
+		super().__init__(LOGGER_ENV)
+
+registryEventBus=RegistryEventBus("ModLoader")
+tickEventBus=TickEventBus("ModLoader")
 startupEventBus=StartupEventBus("ModLoader")
 shutdownEventBus=ShutdownEventBus("ModLoader")
 
-ModLoader.initRegistry()
-ModLoader.onStartup()
+ModLoader.dispatch(StartupEventBus, startupEventBus)
+ModLoader.dispatch(RegistryEventBus, registryEventBus)

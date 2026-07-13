@@ -408,7 +408,8 @@ def render_menu(events):
 				pygame.time.delay(150)
 				pygame.quit()
 				import net.minecraft.modloader.ModLoader as ModLoader
-				ModLoader.onShutdown()
+				from net.minecraft.modloader.bus.EventBus import ShutdownEventBus, shutdownEventBus
+				ModLoader.dispatch(ShutdownEventBus, shutdownEventBus)
 				logger.set_environment("Main")
 				logger.info("Stopped!")
 				sys.exit()
@@ -594,7 +595,8 @@ def running_world(events):
 try:
 	while running_app:
 		import net.minecraft.modloader.ModLoader as ModLoader
-		ModLoader.tick()
+		from net.minecraft.modloader.bus.EventBus import TickEventBus, tickEventBus
+		ModLoader.dispatch(TickEventBus, tickEventBus)
 		if chat==False:
 			events=pygame.event.get()
 		for event in events:
@@ -602,7 +604,8 @@ try:
 				save_world()
 				save_level()
 				import net.minecraft.modloader.ModLoader as ModLoader
-				ModLoader.onShutdown()
+				from net.minecraft.modloader.bus.EventBus import ShutdownEventBus, shutdownEventBus
+				ModLoader.dispatch(ShutdownEventBus, shutdownEventBus)
 				logger.set_environment("Main")
 				logger.info("Stopped!")
 				running_app=False
@@ -626,3 +629,6 @@ except Exception:
 	save_level()
 	if chunk!={}:
 		save_world()
+	import net.minecraft.modloader.ModLoader as ModLoader
+	from net.minecraft.modloader.bus.EventBus import ShutdownEventBus, shutdownEventBus
+	ModLoader.dispatch(ShutdownEventBus, shutdownEventBus)

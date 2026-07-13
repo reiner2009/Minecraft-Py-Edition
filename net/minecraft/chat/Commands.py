@@ -126,9 +126,9 @@ def assume_command(string, entity):
 			logger.set_environment("Client")
 		elif string.split()[0]=="/tp" or string.split()[0]=="/teleport":
 			teleport(*string_to_position(string, entity), entity)
-			show_text(f"Teleported {Playername.playername} to {string_to_position(string, entity)}", [255, 255, 255, 255])
+			show_text(f"Teleported {entity.getName()} to {string_to_position(string, entity)}", [255, 255, 255, 255])
 			logger.set_environment("Main")
-			logger.info(f"[COMMAND] Teleported {Playername.playername} to {string_to_position(string, entity)}")
+			logger.info(f"[COMMAND] Teleported {entity.getName()} to {string_to_position(string, entity)}")
 			logger.set_environment("Client")
 		elif string.split()[0]=="/reset_world":
 			chunk.create_new_world()

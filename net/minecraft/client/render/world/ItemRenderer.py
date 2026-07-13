@@ -13,7 +13,7 @@ hotbar_items_=json.load(open(get_resource_path("data/minecraft/item/Hotbar.json"
 hotbar_items={}
 container_items={}
 
-for namespace, name in EventBus.eventBusRegistry.getItemGroupEntries().keys():
+for namespace, name in EventBus.registryEventBus.getItemGroupEntries().keys():
     container_items_.append(name)
 
 for i in range(len(hotbar_items_)):

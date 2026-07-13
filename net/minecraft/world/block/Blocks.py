@@ -73,6 +73,6 @@ registries={
 
 modregistries={}
 
-for (ns,n),c in EventBus.eventBusRegistry.getBlocks().items():
+for (ns,n),c in EventBus.registryEventBus.getBlocks().items():
     registries[n]=c
     modregistries[n]=ns
