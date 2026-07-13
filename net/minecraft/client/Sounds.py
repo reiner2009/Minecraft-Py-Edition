@@ -28,12 +28,6 @@ menu_music_tracks=[]
 for i in sound_data["music"]["menu"]:
 	menu_music_tracks.append(menu_music_tracks_path+i+".ogg")
 
-glass_music_tracks=[
-	"assets/minecraft/sounds/random/glass1.ogg",
-	"assets/minecraft/sounds/random/glass2.ogg",
-	"assets/minecraft/sounds/random/glass3.ogg"
-]
-
 def play_music_mode(mode):
 	global current_music_mode, next_music_time, music_paused
 	now=pygame.time.get_ticks()

@@ -14,3 +14,4 @@ def renderIgnitedTnt(x, y, z, c):
 		glColor3f(0.1,0.1,0.1)
 		place_block("tnt",x,y,z, "", True)
 		glTexEnvf(GL_TEXTURE_ENV, GL_TEXTURE_ENV_MODE, GL_MODULATE)
+		glColor3f(1,1,1)

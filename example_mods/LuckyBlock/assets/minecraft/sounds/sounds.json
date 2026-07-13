@@ -1,0 +1,184 @@
+{
+  "music": {
+    "creative":[
+      "creative1",
+      "creative2",
+      "creative3",
+      "creative4",
+      "creative5",
+      "creative6",
+      "creative7",
+      "creative8",
+      "creative9",
+      "creative10",
+      "creative11",
+      "creative12",
+      "creative13",
+      "creative14",
+      "creative15",
+      "creative16",
+      "creative17",
+      "creative18",
+      "creative19",
+      "creative20",
+      "creative21",
+      "creative22",
+      "creative23",
+      "creative24"
+    ],
+    "menu": [
+      "menu1",
+      "menu2",
+      "menu3",
+      "menu4",
+      "menu5",
+      "menu6",
+      "menu7",
+      "menu8",
+      "menu9",
+      "menu10",
+      "menu11",
+      "menu12",
+      "menu13",
+      "menu14",
+      "menu15",
+      "menu16",
+      "menu17",
+      "menu18",
+      "menu19",
+      "menu20"
+    ]
+  },
+  "blocks": {
+    "place": {
+      "cloth": [
+        "cloth1",
+        "cloth2",
+        "cloth3",
+        "cloth4"
+      ],
+      "grass": [
+        "grass1",
+        "grass2",
+        "grass3",
+        "grass4"
+      ],
+      "gravel": [
+        "gravel1",
+        "gravel2",
+        "gravel3",
+        "gravel4"
+      ],
+      "stone":[
+        "stone1",
+        "stone2",
+        "stone3",
+        "stone4"
+      ],
+      "wood": [
+        "wood1",
+        "wood2",
+        "wood3",
+        "wood4"
+      ],
+      "sand":[
+        "sand1",
+        "sand2",
+        "sand3",
+        "sand4"
+      ]
+    },
+    "break": {
+      "glass": [
+        "glass1",
+        "glass2",
+        "glass3"
+      ]
+    },
+    "generic": {
+      "oak_door_open": [
+        "door/open",
+        "door/open2",
+        "door/open3",
+        "door/open4"
+      ],
+      "oak_door_close": [
+        "door/close",
+        "door/close2",
+        "door/close3",
+        "door/close4",
+        "door/close5",
+        "door/close6"
+      ],
+      "oak_trapdoor_open": ["trapdoor/open"],
+      "oak_trapdoor_close": ["trapdoor/close"],
+      "explode":[
+        "explode/explode1",
+        "explode/explode2",
+        "explode/explode3",
+        "explode/explode4"
+      ],
+      "fuse":["fuse"]
+    }
+  },
+  "gui": {
+    "button": "click"
+  },
+  "categories": {
+    "block_place": {
+      "gravel": "gravel",
+      "dirt":"gravel",
+      "grass_block":"grass",
+      "tnt":"grass",
+      "oak_planks":"wood",
+      "oak_log":"wood",
+      "white_wool":"cloth",
+      "light_blue_wool":"cloth",
+      "green_wool":"cloth",
+      "black_wool":"cloth",
+      "blue_wool":"cloth",
+      "brown_wool":"cloth",
+      "cyan_wool":"cloth",
+      "gray_wool":"cloth",
+      "light_gray_wool":"cloth",
+      "lime_wool":"cloth",
+      "magenta_wool":"cloth",
+      "orange_wool":"cloth",
+      "pink_wool":"cloth",
+      "purple_wool":"cloth",
+      "red_wool":"cloth",
+      "yellow_wool":"cloth",
+      "oak_leaves":"grass",
+      "crafting_table": "wood",
+      "oak_sapling": "grass",
+      "oak_stair": "wood",
+      "oak_door": "wood",
+      "oak_trapdoor": "wood",
+      "oak_slab": "wood",
+      "oak_wood": "wood",
+      "oak_fence": "wood",
+      "lucky_block": "wood",
+      "sand":"sand"
+    },
+    "block_break": {
+      "glass_block":"glass",
+      "white_stained_glass_block":"glass",
+      "orange_stained_glass_block":"glass",
+      "magenta_stained_glass_block":"glass",
+      "light_blue_stained_glass_block":"glass",
+      "yellow_blue_stained_glass_block":"glass",
+      "lime_stained_glass_block":"glass",
+      "pink_stained_glass_block":"glass",
+      "gray_stained_glass_block":"glass",
+      "light_gray_stained_glass_block":"glass",
+      "cyan_stained_glass_block":"glass",
+      "purple_stained_glass_block":"glass",
+      "blue_stained_glass_block":"glass",
+      "brown_stained_glass_block":"glass",
+      "green_stained_glass_block":"glass",
+      "red_stained_glass_block":"glass",
+      "black_stained_glass_block":"glass",
+      "glass_pane": "glass"
+    }
+  }
+}

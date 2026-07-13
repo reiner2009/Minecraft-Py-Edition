@@ -1,7 +1,7 @@
 import json
 import net.minecraft.util.Logger as logger
 import net.minecraft.resources.DataLocation as DataLocation
-from net.minecraft.world.block.Blocks import registries, modregistries#
+from net.minecraft.world.block.Blocks import registries, modregistries
 import json
 
 models=[]
