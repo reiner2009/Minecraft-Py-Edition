@@ -26,16 +26,16 @@ translucent_blocks=render_data["translucent"]
 not_full_blocks=render_data["not_full"]
 cutout_blocks=render_data["cutout"]
 
-def cube_vertices(x, y, z):
+def cube_vertices(x, y, z, scale):
     return [
-        (-1+x,-1+y,-1+z), (1+x,-1+y,-1+z), (1+x,-1+y,1+z), (-1+x,-1+y,1+z),
-        (-1+x,1+y,-1+z),  (1+x,1+y,-1+z),  (1+x,1+y,1+z),  (-1+x,1+y,1+z)
+        (-1*scale+x,-1*scale+y,-1*scale+z), (1*scale+x,-1*scale+y,-1*scale+z), (1*scale+x,-1*scale+y,1*scale+z), (-1*scale+x,-1*scale+y,1*scale+z),
+        (-1*scale+x,1*scale+y,-1*scale+z),  (1*scale+x,1*scale+y,-1*scale+z),  (1*scale+x,1*scale+y,1*scale+z),  (-1*scale+x,1*scale+y,1*scale+z)
     ]
 
-def custom_cube_vertices(x, y, z, x0,y0,z0,x1,y1,z1):
+def custom_cube_vertices(x, y, z, x0,y0,z0,x1,y1,z1, scale):
     return [
-        (x0+x,y0+y,z0+z), (x1+x,y0+y,z0+z), (x1+x,y0+y,z1+z), (x0+x,y0+y,z1+z),
-        (x0+x,y1+y,z0+z), (x1+x,y1+y,z0+z), (x1+x,y1+y,z1+z), (x0+x,y1+y,z1+z)
+        (x0*scale+x,y0*scale+y,z0*scale+z), (x1*scale+x,y0*scale+y,z0*scale+z), (x1*scale+x,y0*scale+y,z1*scale+z), (x0*scale+x,y0*scale+y,z1*scale+z),
+        (x0*scale+x,y1*scale+y,z0*scale+z), (x1*scale+x,y1*scale+y,z0*scale+z), (x1*scale+x,y1*scale+y,z1*scale+z), (x0*scale+x,y1*scale+y,z1*scale+z)
     ]
 
 chunk = {}
@@ -76,7 +76,7 @@ def draw_block(vertices, surfaces, UVs, x, y, z, property="", not_cullable_surfa
 
 
 
-def place_block(name, x, y, z, property="", preview=False):
+def place_block(name, x, y, z, property="", preview=False, scale=1.0):
     global chunk
     data= Models.get_model(name, property)
     if data["type"]=="full_cube":
@@ -87,7 +87,7 @@ def place_block(name, x, y, z, property="", preview=False):
             uv=UV_MAP[tex_name]
             UVs.append([((uv[0] + 1) / w, (uv[1]) / h), ((uv[0]) / w, (uv[1]) / h),((uv[0]) / w, (uv[1] + 1) / h), ((uv[0] + 1) / w, (uv[1] + 1) / h)])
         draw_block(
-            cube_vertices(x*2, y*2, z*2),
+            cube_vertices(x*2, y*2, z*2, scale),
             [
                 (0, 1, 2, 3),
                 (7, 6, 5, 4),
@@ -119,7 +119,7 @@ def place_block(name, x, y, z, property="", preview=False):
             vertices=element["vertices"]
             not_cullable_surfaces=element["not_cullable"]
             draw_block(
-                custom_cube_vertices(x*2, y*2, z*2, *vertices),
+                custom_cube_vertices(x*2, y*2, z*2, *vertices, scale),
                 [
                     (0, 1, 2, 3),
                     (7, 6, 5, 4),

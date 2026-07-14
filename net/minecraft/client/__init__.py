@@ -30,7 +30,7 @@ glCullFace(GL_BACK)
 glFrontFace(GL_CCW)
 glMatrixMode(GL_PROJECTION)
 glLoadIdentity()
-gluPerspective(70, width / height, 0.1, 2000.0)
+gluPerspective(70, width / height, 0.1, 2000000.0)
 glMatrixMode(GL_MODELVIEW)
 glLoadIdentity()
 
@@ -38,7 +38,7 @@ def setup_perspective():
     glEnable(GL_DEPTH_TEST)
     glMatrixMode(GL_PROJECTION)
     glLoadIdentity()
-    gluPerspective(70, width / height, 0.1, 2000.0)
+    gluPerspective(70, width / height, 0.1, 2000000.0)
     glMatrixMode(GL_MODELVIEW)
 
 def setup_ortho():

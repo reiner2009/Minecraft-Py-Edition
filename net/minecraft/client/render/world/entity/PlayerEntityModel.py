@@ -16,12 +16,6 @@ def sin(i):
 
 block_tex_coords=[(0,0),(1,0),(1,1),(0,1)]
 
-def item_vertices():
-    return [
-        (-0.5, 1.3, -0.5), (0, 1.3, -0.5), (0, 1.3, 0), (-0.5, 1.3, 0),
-        (-0.5, 0.8, -0.5), (0, 0.8, -0.5), (0, 0.8, 0), (-0.5, 0.8, 0)
-    ]
-
 def cube_vertices_head():
     return [
         (-0.5, -0.5, -0.5), (0.5, -0.5, -0.5), (0.5, -0.5, 0.5), (-0.5, -0.5, 0.5),
@@ -135,7 +129,7 @@ tex_coords = [
     [(16, 52), (12, 52), (12, 64), (16, 64)],
 ]
 
-def render_arms(x,y,z, yaw,left_arm_pitch,right_arm_pitch, block_name, skin_texture, w=64, h=64):
+def render_arms(x,y,z, yaw,left_arm_pitch,right_arm_pitch, item, skin_texture, w=64, h=64):
     glDisable(GL_CULL_FACE)
     glEnable(GL_TEXTURE_2D)
     glBindTexture(GL_TEXTURE_2D,skin_texture)
@@ -215,28 +209,9 @@ def render_arms(x,y,z, yaw,left_arm_pitch,right_arm_pitch, block_name, skin_text
         glTranslatef(0, 2.0, 0)
         glRotatef(-yaw - 90, 0.0, 1.0, 0.0)
         glTranslatef(0, -0.5, 0)
-        glRotatef(right_arm_pitch, 0.0, 0.0, 1.0)
-        if block_name in items:
-            data={"textures":[block_name,"translucent","translucent","translucent","translucent","translucent"]}
-        else:
-            data = Models.get_item_model(block_name+registries[block_name](block_name).getDefaultProperty())
-        texture_names = data["textures"]
-        UVs = []
-        for tex_name in texture_names:
-            UVs.append(UV_MAP[tex_name])
-        glBindTexture(GL_TEXTURE_2D, block_atlas)
-        for i in range(6):
-            uv = UVs[i] if i < len(UVs) else UVs[0]
-            glBegin(GL_QUADS)
-            w, h = block_atlas_data["width"], block_atlas_data["height"]
-            uv_map = [((uv[0]) / w, (uv[1]) / h), ((uv[0] + 1) / w, (uv[1]) / h),
-                      ((uv[0] + 1) / w, (uv[1] + 1) / h), ((uv[0]) / w, (uv[1] + 1) / h)]
-            for j in range(4):
-                tx, ty = uv_map[j]
-                vx, vy, vz = item_vertices()[surfaces[i][j]]
-                glTexCoord2f(tx, ty)
-                glVertex3f(vx, vy, vz)
-            glEnd()
+        glRotatef(right_arm_pitch + 180, 0.0, 0.0, 1.0)
+        glBindTexture(GL_TEXTURE_2D,block_atlas)
+        place_block(item, 0, -0.6, 0, registries[item](item).getDefaultProperty(), False, 0.35)
     except KeyError:
         pass
     finally:

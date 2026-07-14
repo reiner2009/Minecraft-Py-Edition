@@ -364,6 +364,7 @@ class TrapdoorBlock(Block):
         else:
             self.STATE.setState(self.VERTICAL_DIRECTION)
             play_block_sound("oak_trapdoor_close", block_sound_volume)
+        entity.swing("right")
         super().finallyPlace(entity, 0)
     def placeableBlockDuringInteraction(self, entity):
         return False

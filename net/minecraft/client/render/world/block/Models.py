@@ -6,12 +6,9 @@ import json
 
 models=[]
 model_names=[]
-itemModels = json.load(open(DataLocation.get_resource_path("assets/minecraft/models/ItemModels.json")))
 for name_, name in registries.items():
 	for property in name(name_).getProperties():
 		model_names.append(name(name_).getName()+property)
-for name in itemModels.values():
-	model_names.append(name)
 
 block_atlas_data=json.load(open(DataLocation.get_resource_path("assets/minecraft/atlas_data/blocks.json")))
 
@@ -41,9 +38,3 @@ for m, i in zip(model_names, range(len(models))):
 
 def get_model(name, property=""):
 	return (model_map[name + property])
-
-def get_item_model(name):
-	if name in list(itemModels.keys()):
-		return (model_map[itemModels[name]])
-	else:
-		return (model_map[name])

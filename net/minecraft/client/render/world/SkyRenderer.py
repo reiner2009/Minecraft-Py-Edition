@@ -21,6 +21,7 @@ nzs_ = load_texture("assets/minecraft/textures/environment/sunset/nz.png")
 clouds=load_texture("assets/minecraft/textures/environment/clouds.png")
 sun=load_texture("assets/minecraft/textures/environment/sun.png")
 clouds_z=0
+cloudDisplayList=None
 
 def cube_vertices(x, y, z):
     return [
@@ -39,6 +40,31 @@ def cloud_vertices(x, z):
 
 def sun_vertices():
     return [(-0.03, 0.4, -0.03),(0.03, 0.4, -0.03),(0.03,0.4,0.03),(-0.03, 0.4, 0.03)]
+
+def buildClouds():
+    tex_coords=[(0,0),(1,0),(1,1),(0,1)]
+    cloud_list=glGenLists(2)
+    glNewList(cloud_list, GL_COMPILE)
+    glBindTexture(GL_TEXTURE_2D, clouds)
+    for cx in range(10):
+        for cz in range(10):
+            glBegin(GL_QUADS)
+            for i in range(4):
+                tx, ty = tex_coords[i]
+                glTexCoord2f(tx, ty)
+                glVertex3f(*cloud_vertices(0+(cx-5)*4096, (cz-5)*4096)[i])
+            glEnd()
+    glEndList()
+    return cloud_list
+
+def build():
+    global cloudDisplayList
+    cloudDisplayList=buildClouds()
+
+def unload():
+    global cloudDisplayList
+    glDeleteLists(cloudDisplayList, 2)
+    cloudDisplayList=None
 
 def render(x, y, z, light, sunriseblend, sunsetblend, t):
     global clouds_z
@@ -121,26 +147,11 @@ def render(x, y, z, light, sunriseblend, sunsetblend, t):
     glPopMatrix()
     glDepthMask(GL_TRUE)
     glEnable(GL_ALPHA_TEST)
-    glBindTexture(GL_TEXTURE_2D, clouds)
+    glPushMatrix()
+    glTranslatef(0,0,clouds_z)
     glColor4f(light, light, light,0.8)
-    glBegin(GL_QUADS)
-    for i in range(4):
-        tx, ty = tex_coords[i]
-        glTexCoord2f(tx, ty)
-        glVertex3f(*cloud_vertices(0, clouds_z-4096)[i])
-    glEnd()
-    glBegin(GL_QUADS)
-    for i in range(4):
-        tx, ty = tex_coords[i]
-        glTexCoord2f(tx, ty)
-        glVertex3f(*cloud_vertices(0, clouds_z-4096*2)[i])
-    glEnd()
-    glBegin(GL_QUADS)
-    for i in range(4):
-        tx, ty = tex_coords[i]
-        glTexCoord2f(tx, ty)
-        glVertex3f(*cloud_vertices(0, clouds_z)[i])
-    glEnd()
+    glCallList(cloudDisplayList)
+    glPopMatrix()
     glEnable(GL_CULL_FACE)
     glDisable(GL_BLEND)
     glDisable(GL_ALPHA_TEST)

@@ -11,6 +11,7 @@ import net.minecraft.world.Features as features
 from net.minecraft.world.block.Blocks import registries
 import net.minecraft.client.Sounds as Sounds
 from net.minecraft.world.EntityList import entity_chunk
+import net.minecraft.client.render.world.SkyRenderer as SkyRenderer
 
 dark_menu_texture=load_texture("assets/minecraft/textures/gui/title/background/dark_menu.png")
 base_path = os.path.join(os.environ[DataLocation.get_save_system()], ".minecraft-py")
@@ -73,6 +74,7 @@ def build_chunk_display_list():
 			glDepthMask(GL_TRUE)
 	pygame.mouse.set_cursor(SYSTEM_CURSOR_ARROW)
 	glEndList()
+	SkyRenderer.build()
 	return dl
 
 def render_chunk():
@@ -200,3 +202,4 @@ def unload_chunks():
 	except:
 		pass
 	chunklist=None
+	SkyRenderer.unload()
