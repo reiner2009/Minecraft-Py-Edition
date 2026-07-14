@@ -89,8 +89,6 @@ button_click_sound.set_volume((1/489)*ui_volume)
 chat=False
 running_app=True
 block_preview=True
-chat=False
-running_app=True
 container=False
 player=PlayerEntity(False)
 player.spawn(0,0,0)
