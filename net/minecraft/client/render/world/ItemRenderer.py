@@ -6,12 +6,14 @@ from net.minecraft.resources.DataLocation import get_resource_path
 import net.minecraft.modloader.bus.EventBus as EventBus
 import json
 import traceback
+from net.minecraft.client.render.world.block.BlockRenderer import place_block
+from net.minecraft.world.block.Blocks import registries as block_registries
 
 container_items_=json.load(open(get_resource_path("data/minecraft/item/ItemGroup.json")))
-texture_map = json.load(open(get_resource_path("assets/minecraft/item/TextureMap.json")))
 hotbar_items_=json.load(open(get_resource_path("data/minecraft/item/Hotbar.json")))
 hotbar_items={}
 container_items={}
+mainhand_2D_items=json.load(open(get_resource_path("assets/minecraft/models/items.json")))
 
 for namespace, name in EventBus.registryEventBus.getItemGroupEntries().keys():
     container_items_.append(name)
@@ -51,14 +53,10 @@ def render_items_for_hotbar():
 		try:
 			uv = UV_MAP[name]
 		except:
-			try:
-				uv = UV_MAP[texture_map[name]]
-			except:
-				uv=UV_MAP["missing"]
+			uv=UV_MAP["missing"]
 		w, h = block_atlas_data["width"], block_atlas_data["height"]
 		uv_map = [((uv[0]) / w, (uv[1]) / h), ((uv[0] + 1) / w, (uv[1]) / h),
 				  ((uv[0] + 1) / w, (uv[1] + 1) / h), ((uv[0]) / w, (uv[1] + 1) / h)]
-		glBegin(GL_QUADS)
 		orig_w = 62
 		orig_h = 59
 		orig_spacing = 56
@@ -73,15 +71,36 @@ def render_items_for_hotbar():
 		center_y = (base_y + old_top) / 2
 		x = center_x - quad_w/2
 		y = center_y - quad_h/2
-		glTexCoord2fv(uv_map[3])
-		glVertex2f(x, y)
-		glTexCoord2fv(uv_map[2])
-		glVertex2f(x + quad_w, y)
-		glTexCoord2fv(uv_map[1])
-		glVertex2f(x + quad_w, y + quad_h)
-		glTexCoord2fv(uv_map[0])
-		glVertex2f(x, y + quad_h)
-		glEnd()
+		if name in block_registries and name not in mainhand_2D_items:
+			glEnable(GL_CULL_FACE)
+			glMatrixMode(GL_PROJECTION)
+			glPushMatrix()
+			glLoadIdentity()
+			glOrtho(0, width, 0, height, -100, 100)
+			glMatrixMode(GL_MODELVIEW)
+			glPushMatrix()
+			glLoadIdentity()
+			glEnable(GL_DEPTH_TEST)
+			glTranslatef((x+quad_w/2),(y+quad_h/2), 0)
+			glRotatef(30, 1, 0, 0)
+			glRotatef(-135, 0, 1, 0)
+			place_block(name, 0, 0, 0, block_registries[name](name).getDefaultProperty(), scale=width/2560*12)
+			glPopMatrix()
+			glMatrixMode(GL_PROJECTION)
+			glPopMatrix()
+			glMatrixMode(GL_MODELVIEW)
+		if name in mainhand_2D_items or name not in block_registries:
+			setup_ortho()
+			glBegin(GL_QUADS)
+			glTexCoord2fv(uv_map[3])
+			glVertex2f(x, y)
+			glTexCoord2fv(uv_map[2])
+			glVertex2f(x + quad_w, y)
+			glTexCoord2fv(uv_map[1])
+			glVertex2f(x + quad_w, y + quad_h)
+			glTexCoord2fv(uv_map[0])
+			glVertex2f(x, y + quad_h)
+			glEnd()
 
 def render_items_for_container():
 	global container_items, events, slot_coords, selected_item
@@ -97,10 +116,7 @@ def render_items_for_container():
 		try:
 			uv = UV_MAP[name]
 		except:
-			try:
-				uv = UV_MAP[texture_map[name]]
-			except:
-				uv=UV_MAP["missing"]
+			uv=UV_MAP["missing"]
 		scale=0.5
 		w, h = block_atlas_data["width"], block_atlas_data["height"]
 		uv_map = [((uv[0]) / w, (uv[1]) / h), ((uv[0] + 1) / w, (uv[1]) / h),
@@ -125,23 +141,43 @@ def render_items_for_container():
 		glDisable(GL_TEXTURE_2D)
 		glBegin(GL_QUADS)
 		glColor4f(0, 0, 0, 0.5)
-		glVertex2f(x-10, y-10)
-		glVertex2f(x + quad_w + 10, y-10)
-		glVertex2f(x + quad_w + 10, y + quad_h + 10)
-		glVertex2f(x-10, y + quad_h + 10)
+		glVertex3f(x-10, y-10, -50)
+		glVertex3f(x + quad_w + 10, y-10, -50)
+		glVertex3f(x + quad_w + 10, y + quad_h + 10, -50)
+		glVertex3f(x-10, y + quad_h + 10, -50)
 		glEnd()
 		glColor3f(1,1,1)
 		glEnable(GL_TEXTURE_2D)
-		glBegin(GL_QUADS)
-		glTexCoord2fv(uv_map[3])
-		glVertex2f(x, y)
-		glTexCoord2fv(uv_map[2])
-		glVertex2f(x + quad_w, y)
-		glTexCoord2fv(uv_map[1])
-		glVertex2f(x + quad_w, y + quad_h)
-		glTexCoord2fv(uv_map[0])
-		glVertex2f(x, y + quad_h)
-		glEnd()
+		if name in block_registries and name not in mainhand_2D_items:
+			glEnable(GL_CULL_FACE)
+			glMatrixMode(GL_PROJECTION)
+			glPushMatrix()
+			glLoadIdentity()
+			glOrtho(0, width, 0, height, -100, 100)
+			glMatrixMode(GL_MODELVIEW)
+			glPushMatrix()
+			glLoadIdentity()
+			glEnable(GL_DEPTH_TEST)
+			glTranslatef((x+quad_w/2),(y+quad_h/2), 0)
+			glRotatef(30, 1, 0, 0)
+			glRotatef(-135, 0, 1, 0)
+			place_block(name, 0, 0, 0, block_registries[name](name).getDefaultProperty(), scale=width/2560*12)
+			glPopMatrix()
+			glMatrixMode(GL_PROJECTION)
+			glPopMatrix()
+			glMatrixMode(GL_MODELVIEW)
+		if name in mainhand_2D_items or name not in block_registries:
+			setup_ortho()
+			glBegin(GL_QUADS)
+			glTexCoord2fv(uv_map[3])
+			glVertex2f(x, y)
+			glTexCoord2fv(uv_map[2])
+			glVertex2f(x + quad_w, y)
+			glTexCoord2fv(uv_map[1])
+			glVertex2f(x + quad_w, y + quad_h)
+			glTexCoord2fv(uv_map[0])
+			glVertex2f(x, y + quad_h)
+			glEnd()
 		slot_coords[slot] = (x,y, slot, name)
 	mx, my=pygame.mouse.get_pos()
 	my=height-my

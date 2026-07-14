@@ -71,6 +71,8 @@ def render_hotbar():
     glLoadIdentity()
     glDisable(GL_DEPTH_TEST)
     glEnable(GL_TEXTURE_2D)
+    glEnable(GL_BLEND)
+    glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA)
     glColor3f(1,1,1)
     glBindTexture(GL_TEXTURE_2D, hotbar_texture)
     uv=[(0,0),(1,0),(1,1),(0,1)]

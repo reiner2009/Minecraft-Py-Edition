@@ -211,7 +211,26 @@ def render_arms(x,y,z, yaw,left_arm_pitch,right_arm_pitch, item, skin_texture, w
         glTranslatef(0, -0.5, 0)
         glRotatef(right_arm_pitch + 180, 0.0, 0.0, 1.0)
         glBindTexture(GL_TEXTURE_2D,block_atlas)
-        place_block(item, 0, -0.6, 0, registries[item](item).getDefaultProperty(), False, 0.35)
+        if item in registries:
+            place_block(item, 0, -0.6, 0, registries[item](item).getDefaultProperty(), False, 0.35)
+        else:
+            try:
+                uv = UV_MAP[item]
+            except:
+                uv=UV_MAP["missing"]
+            w, h = block_atlas_data["width"], block_atlas_data["height"]
+            uv_map = [((uv[0]) / w, (uv[1]) / h), ((uv[0] + 1) / w, (uv[1]) / h),
+                ((uv[0] + 1) / w, (uv[1] + 1) / h), ((uv[0]) / w, (uv[1] + 1) / h)]
+            glBegin(GL_QUADS)
+            glTexCoord2fv(uv_map[1])
+            glVertex3f(0,-1,0)
+            glTexCoord2fv(uv_map[2])
+            glVertex3f(1*0.35, -1, 0)
+            glTexCoord2fv(uv_map[3])
+            glVertex3f(1*0.35, -1, 1*0.35)
+            glTexCoord2fv(uv_map[0])
+            glVertex3f(0, -1, 1*0.35)
+            glEnd()
     except KeyError:
         pass
     finally:
