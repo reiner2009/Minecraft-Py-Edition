@@ -386,3 +386,10 @@ class TrapdoorBlock(Block):
         }
         self.VOXEL_SHAPE = self.VOXEL_SHAPE_MAP[self.STATE.getState()]
         return getVoxelShapeVertices(x, y, z, self.VOXEL_SHAPE)
+
+class PostBlock(Block):
+    def __init___(self, NAME):
+        super().__init__(NAME)
+    def getVoxelShape(self, x, y, z):
+        self.VOXEL_SHAPE = [(-0.25, -1, -0.25), (0.25, -1, -0.25), (0.25, -1, 0.25), (-0.25, -1, 0.25), (-0.25, 1, -0.25),(0.25, 1, -0.25), (0.25, 1, 0.25), (-0.25, 1, 0.25)]
+        return getVoxelShapeVertices(x, y, z, self.VOXEL_SHAPE)

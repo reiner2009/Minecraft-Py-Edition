@@ -157,6 +157,7 @@
       "oak_slab": "wood",
       "oak_wood": "wood",
       "oak_fence": "wood",
+      "oak_post": "wood",
       "sand":"sand"
     },
     "block_break": {

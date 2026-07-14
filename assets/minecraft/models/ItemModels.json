@@ -3,5 +3,6 @@
   "oak_stairsouth0": "oak_stair_mainhand",
   "oak_doorsouth0": "oak_door_mainhand",
   "oak_slabdown": "oak_slab_mainhand",
-  "oak_fencex":"oak_fence_mainhand"
+  "oak_fencex":"oak_fence_mainhand",
+  "oak_post": "oak_post_mainhand"
 }

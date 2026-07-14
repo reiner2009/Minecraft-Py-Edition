@@ -10,7 +10,8 @@
     "oak_door",
     "oak_slab",
     "oak_fence",
-    "oak_trapdoor"
+    "oak_trapdoor",
+    "oak_post"
   ],
   "translucent": [
     "glass_block",
