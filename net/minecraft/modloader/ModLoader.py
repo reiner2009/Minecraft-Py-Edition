@@ -21,7 +21,10 @@ except:
 
 def dispatch(eventBusType, eventBus):
 	try:
-		import mod
+		try:
+			import mod
+		except:
+			return
 		try:
 			for name, obj in inspect.getmembers(mod):
 				if hasattr(obj, "is_event_handler"):

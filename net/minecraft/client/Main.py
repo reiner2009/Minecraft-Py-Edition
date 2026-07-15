@@ -21,6 +21,7 @@ import net.minecraft.client.render.world.ItemRenderer as ItemRenderer
 from net.minecraft.world.chunk.Chunk import *
 import net.minecraft.chat.Chat as Chat
 import net.minecraft.world.EntityList as EntityList
+from net.minecraft.client.game.GameStates import *
 import sys
 import math
 import random
@@ -67,10 +68,6 @@ hotbar_slot_selected=1
 fps=60
 settings=False
 pause_menu=False
-state_menu=0
-state_settings=1
-state_game=2
-game_state=state_menu
 pause_menu=False
 mouse_grab=False
 try:
@@ -235,7 +232,9 @@ def draw_scene():
 					draw_block_preview(name, x, y+1, z, False, registries[name](name).getProperty(player)[:-1]+"1")
 			else:
 				if name in registries:
-					draw_block_preview(name, x, y, z, False, registries[name](name).getProperty(player))
+					preview_class=registries[name](name)
+					preview_class.setPos(x,y,z)
+					draw_block_preview(name, x, y, z, False, preview_class.getProperty(player))
 	if hud_==True:
 		if get_block(x1, y1, z1) != "air":
 			draw_block_preview("", x1, y1, z1, True, None)
@@ -595,6 +594,7 @@ try:
 		import net.minecraft.modloader.ModLoader as ModLoader
 		from net.minecraft.modloader.bus.EventBus import TickEventBus, tickEventBus
 		ModLoader.dispatch(TickEventBus, tickEventBus)
+		tickEventBus.setGameState(game_state)
 		if chat==False:
 			events=pygame.event.get()
 		for event in events:

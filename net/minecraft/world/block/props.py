@@ -116,3 +116,20 @@ class TrapdoorSetProperty:
         return self.STATE
     def getStateKeys(self):
         return self.STATE_KEYS
+
+class FenceState:
+    def __init__(self, DIRECTION="cross"):
+        self.DIRECTION_KEYS=["x","z", "cross"]
+        if DIRECTION in self.DIRECTION_KEYS:
+            self.DIRECTION = DIRECTION
+        else:
+            self.DIRECTION = "cross"
+    def setDirection(self, DIRECTION):
+        if DIRECTION in self.DIRECTION_KEYS:
+            self.DIRECTION = DIRECTION
+        else:
+            self.DIRECTION = "cross"
+    def getDirection(self):
+        return self.DIRECTION
+    def getDirectionKeys(self):
+        return self.DIRECTION_KEYS

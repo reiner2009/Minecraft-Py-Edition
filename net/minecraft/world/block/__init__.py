@@ -1,6 +1,6 @@
 from net.minecraft.client.Sounds import*
 from net.minecraft.world.block.props import AxisProperty, FacingProperty, TwoDirectionsProperty, StairSetProperty, \
-    DoorSetProperty, SlabSetProperty, TrapdoorSetProperty
+    DoorSetProperty, SlabSetProperty, TrapdoorSetProperty, FenceState
 import net.minecraft.world.Features as features
 import net.minecraft.resources.DataLocation as DataLocation
 import net.minecraft.util.math.Raycast as Raycast
@@ -297,15 +297,39 @@ class SlabBlock(Block):
         self.VOXEL_SHAPE = self.VOXEL_SHAPE_MAP[self.VERICAL_POS.getVerticalPos()]
         return getVoxelShapeVertices(x, y, z, self.VOXEL_SHAPE)
 
-class FenceBlock(GlassPaneBlock):
+class FenceBlock(Block):
     def __init__(self, NAME):
         super().__init__(NAME)
+        self.DIRECTION=FenceState()
+    def setPropertyByPlayer(self, entity):
+        self.x, self.y, self.z = self.MAP_POSITION
+        self.neighbours=[(self.x+1, self.y, self.z),(self.x-1, self.y, self.z),(self.x, self.y, self.z+1),(self.x, self.y, self.z-1)]
+        from net.minecraft.world.chunk.Chunk import get_block
+        if (get_block(*self.neighbours[0])=="oak_fence" or get_block(*self.neighbours[1])=="oak_fence") and (get_block(*self.neighbours[2])=="air" and get_block(*self.neighbours[3])=="air"):
+            self.DIRECTION.setDirection("z")
+        elif (get_block(*self.neighbours[2])=="oak_fence" or get_block(*self.neighbours[3])=="oak_fence") and (get_block(*self.neighbours[0])=="air" and get_block(*self.neighbours[1])=="air"):
+            self.DIRECTION.setDirection("x")
+        else:
+            self.DIRECTION.setDirection("cross")
+    def update(self):
+        self.setPropertyByPlayer(None)
+    def getProperty(self, entity=None):
+        if entity:
+            self.setPropertyByPlayer(entity)
+        return self.DIRECTION.getDirection()
+    def getDefaultProperty(self):
+        return "x"
+    def getProperties(self):
+        return self.DIRECTION.getDirectionKeys()
     def getVoxelShape(self, x, y, z):
         if self.DIRECTION.getDirection() == "x":
             self.VOXEL_SHAPE = [(-0.25, -1, -1), (0.25, -1, -1), (0.25, -1, 1), (-0.25, -1, 1), (-0.25, 1, -1),(0.25, 1, -1), (0.25, 1, 1), (-0.25, 1, 1)]
+            return getVoxelShapeVertices(x, y, z, self.VOXEL_SHAPE)
         if self.DIRECTION.getDirection() == "z":
             self.VOXEL_SHAPE = [(-1, -1, -0.25), (1, -1, -0.25), (1, -1, 0.25), (-1, -1, 0.25), (-1, 1, -0.25),(1, 1, -0.25), (1, 1, 0.25), (-1, 1, 0.25)]
-        return getVoxelShapeVertices(x, y, z, self.VOXEL_SHAPE)
+            return getVoxelShapeVertices(x, y, z, self.VOXEL_SHAPE)
+        else:
+            return super().getVoxelShape(x,y,z)
 
 class TntBlock(Block):
     def __init__(self, NAME):
@@ -389,7 +413,7 @@ class TrapdoorBlock(Block):
         return getVoxelShapeVertices(x, y, z, self.VOXEL_SHAPE)
 
 class PostBlock(Block):
-    def __init___(self, NAME):
+    def __init__(self, NAME):
         super().__init__(NAME)
     def getVoxelShape(self, x, y, z):
         self.VOXEL_SHAPE = [(-0.25, -1, -0.25), (0.25, -1, -0.25), (0.25, -1, 0.25), (-0.25, -1, 0.25), (-0.25, 1, -0.25),(0.25, 1, -0.25), (0.25, 1, 0.25), (-0.25, 1, 0.25)]

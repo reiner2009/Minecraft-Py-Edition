@@ -1,6 +1,7 @@
 import net.minecraft.modloader.core.registry.BuiltInRegistries as BuiltInRegistries
 import net.minecraft.modloader.ModLoader as ModLoader
 import net.minecraft.util.Logger as Logger
+from net.minecraft.client.game.GameStates import *
 
 class EventBus:
 	def __init__(self, LOGGER_ENV):
@@ -31,6 +32,11 @@ class RegistryEventBus(EventBus):
 class TickEventBus(EventBus):
 	def __init__(self, LOGGER_ENV):
 		super().__init__(LOGGER_ENV)
+	def setGameState(self, state):
+		global game_state
+		game_state=state
+	def getGameState(self):
+		return game_state
 
 class StartupEventBus(EventBus):
 	def __init__(self, LOGGER_ENV):
@@ -45,5 +51,5 @@ tickEventBus=TickEventBus("ModLoader")
 startupEventBus=StartupEventBus("ModLoader")
 shutdownEventBus=ShutdownEventBus("ModLoader")
 
-ModLoader.dispatch(StartupEventBus, startupEventBus)
 ModLoader.dispatch(RegistryEventBus, registryEventBus)
+ModLoader.dispatch(StartupEventBus, startupEventBus)
