@@ -6,6 +6,22 @@ temporary_texts=[]
 texts=[]
 LINE_HIGHT=24
 CHAT_BASE_Y=100
+temp_chat_display_list=None
+
+def buildTempChat():
+	global temp_chat_display_list
+	temp_chat_display_list=glGenLists(1)
+	glNewList(temp_chat_display_list, GL_COMPILE)
+	hud.render_chat_background(98,len(temporary_texts)*24)
+	for i, t in enumerate(temporary_texts[:]):
+		y=CHAT_BASE_Y+i*LINE_HIGHT
+		text.render_text(t["text"], 15, y, 20,20,t["color"])
+	glEndList()
+
+def rebuildTempChat():
+	if temp_chat_display_list != None:
+		glDeleteLists(temp_chat_display_list, 1)
+	buildTempChat()	
 
 def split_text(text, max_len=53):
     words = text.split()
@@ -46,16 +62,15 @@ def show_text(msg, color, lifetime=10000):
 		})
 	if len(temporary_texts)>10:
 		temporary_texts.pop()
+	rebuildTempChat()
 
 def render_temporary_texts():
 	current_time=pygame.time.get_ticks()
-	hud.render_chat_background(98,len(temporary_texts)*24)
+	glCallList(temp_chat_display_list)
 	for i, t in enumerate(temporary_texts[:]):
 		if current_time-t["spawn_time"]>t["life_time"]:
 			temporary_texts.remove(t)
-			continue
-		y=CHAT_BASE_Y+i*LINE_HIGHT
-		text.render_text(t["text"], 15, y, 20,20,t["color"])
+			rebuildTempChat()
 
 def render_texts():
 	hud.render_chat_background(98,len(texts)*24)

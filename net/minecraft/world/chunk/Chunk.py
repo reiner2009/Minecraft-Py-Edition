@@ -13,6 +13,7 @@ import net.minecraft.client.Sounds as Sounds
 from net.minecraft.world.EntityList import entity_chunk
 import net.minecraft.client.render.world.SkyRenderer as SkyRenderer
 import net.minecraft.client.render.world.ItemRenderer as ItemRenderer
+import net.minecraft.chat.Chat as Chat
 
 dark_menu_texture=load_texture("assets/minecraft/textures/gui/title/background/dark_menu.png")
 base_path = os.path.join(os.environ[DataLocation.get_save_system()], ".minecraft-py")
