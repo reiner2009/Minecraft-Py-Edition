@@ -43,7 +43,7 @@ def sun_vertices():
 
 def buildClouds():
     tex_coords=[(0,0),(1,0),(1,1),(0,1)]
-    cloud_list=glGenLists(2)
+    cloud_list=glGenLists(1)
     glNewList(cloud_list, GL_COMPILE)
     glBindTexture(GL_TEXTURE_2D, clouds)
     for cx in range(10):
@@ -63,8 +63,9 @@ def build():
 
 def unload():
     global cloudDisplayList
-    glDeleteLists(cloudDisplayList, 2)
-    cloudDisplayList=None
+    if cloudDisplayList is not None:
+        glDeleteLists(cloudDisplayList, 1)
+        cloudDisplayList = None
 
 def render(x, y, z, light, sunriseblend, sunsetblend, t):
     global clouds_z

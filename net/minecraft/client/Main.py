@@ -96,7 +96,6 @@ chat_text=""
 camera_x, camera_y, camera_z=0,0,0
 pack = os.path.join(base_path, "resourcepacks")
 os.makedirs(pack, exist_ok=True)
-
 menu_background_texture=load_texture("assets/minecraft/textures/gui/title/background/menu.png")
 
 
@@ -368,7 +367,6 @@ def render_menu(events):
 	highlight0=False
 	highlight1=False
 	highlight2=False
-	highlight3=False
 	x1, x2 = width/2-510/2, width/2+510/2
 	y1, y2 = height/480*250, height/480*250+60
 	y3, y4 = y1-65, y2-65
@@ -529,6 +527,8 @@ def running_world(events):
 					game_state=state_menu
 					pause_menu=False
 					logger.info("Saving world")
+					ItemRenderer.delete_item_chunklist()
+					SkyRenderer.unload()
 					save_world()
 					save_level()
 		elif x>=x1 and x<=x2 and y>=y3 and y<=y4:
@@ -599,6 +599,8 @@ try:
 			events=pygame.event.get()
 		for event in events:
 			if event.type==QUIT:
+				ItemRenderer.delete_item_chunklist()
+				SkyRenderer.unload()
 				save_world()
 				save_level()
 				import net.minecraft.modloader.ModLoader as ModLoader
@@ -624,6 +626,8 @@ except Exception:
 	crash=traceback.format_exc()
 	logger.set_environment("Main")
 	logger.error(crash)
+	ItemRenderer.delete_item_chunklist()
+	SkyRenderer.unload()
 	save_level()
 	if chunk!={}:
 		save_world()

@@ -5,7 +5,6 @@ from net.minecraft.client.render.world.block.BlockRenderer import block_atlas, U
 from net.minecraft.resources.DataLocation import get_resource_path
 import net.minecraft.modloader.bus.EventBus as EventBus
 import json
-import traceback
 from net.minecraft.client.render.world.block.BlockRenderer import place_block
 from net.minecraft.world.block.Blocks import registries as block_registries
 
@@ -28,6 +27,8 @@ events=None
 hotbar_slot_selected=0
 slot_coords={}
 selected_item=list(hotbar_items.values())
+hotbar_chunklist=None
+items_container_chunklist=None
 
 def set_vars(event_, hotbar_slot_selected_):
 	global events, hotbar_slot_selected
@@ -38,7 +39,10 @@ def add_item(item, slot):
 	global hotbar_items
 	hotbar_items[slot]=item
 
-def render_items_for_hotbar():
+def build_hotbar_items():
+	global hotbar_chunklist
+	hotbar_chunklist=glGenLists(1)
+	glNewList(hotbar_chunklist, GL_COMPILE)
 	global selected_item, hotbar_items
 	selected_item=list(hotbar_items.values())
 	glMatrixMode(GL_MODELVIEW)
@@ -84,7 +88,7 @@ def render_items_for_hotbar():
 			glTranslatef((x+quad_w/2),(y+quad_h/2), 0)
 			glRotatef(30, 1, 0, 0)
 			glRotatef(-135, 0, 1, 0)
-			place_block(name, 0, 0, 0, block_registries[name](name).getDefaultProperty(), scale=12)
+			place_block(name, 0, 0, 0, block_registries[name](name).getDefaultProperty(), scale=12, preview=True)
 			glPopMatrix()
 			glMatrixMode(GL_PROJECTION)
 			glPopMatrix()
@@ -101,9 +105,30 @@ def render_items_for_hotbar():
 			glTexCoord2fv(uv_map[0])
 			glVertex2f(x, y + quad_h)
 			glEnd()
+	glEndList()
 
-def render_items_for_container():
-	global container_items, events, slot_coords, selected_item
+def rebuild_hotbar_items():
+	global hotbar_chunklist
+	if hotbar_chunklist is not None:
+		glDeleteLists(hotbar_chunklist, 1)
+	build_hotbar_items()
+
+def delete_item_chunklist():
+	global hotbar_chunklist, items_container_chunklist
+	if hotbar_chunklist is not None:
+		glDeleteLists(hotbar_chunklist, 1)
+		glDeleteLists(items_container_chunklist, 1)
+		hotbar_chunklist=None
+		items_container_chunklist=None
+
+def render_items_for_hotbar():
+	global hotbar_chunklist
+	glCallList(hotbar_chunklist)
+
+def buildInventory():
+	global items_container_chunklist
+	items_container_chunklist=glGenLists(1)
+	glNewList(items_container_chunklist, GL_COMPILE)
 	glMatrixMode(GL_MODELVIEW)
 	glLoadIdentity()
 	glDisable(GL_DEPTH_TEST)
@@ -161,7 +186,7 @@ def render_items_for_container():
 			glTranslatef((x+quad_w/2),(y+quad_h/2), 0)
 			glRotatef(30, 1, 0, 0)
 			glRotatef(-135, 0, 1, 0)
-			place_block(name, 0, 0, 0, block_registries[name](name).getDefaultProperty(), scale=12)
+			place_block(name, 0, 0, 0, block_registries[name](name).getDefaultProperty(), scale=12, preview=True)
 			glPopMatrix()
 			glMatrixMode(GL_PROJECTION)
 			glPopMatrix()
@@ -179,6 +204,16 @@ def render_items_for_container():
 			glVertex2f(x, y + quad_h)
 			glEnd()
 		slot_coords[slot] = (x,y, slot, name)
+	glEndList()
+
+def render_items_for_container():
+	global container_items, events, slot_coords, selected_item
+	orig_w = 62
+	orig_h = 58
+	scale=0.5
+	quad_w = orig_w * scale
+	quad_h = orig_h * scale
+	glCallList(items_container_chunklist)
 	mx, my=pygame.mouse.get_pos()
 	my=height-my
 	for slot_coord in slot_coords:
@@ -193,3 +228,4 @@ def render_items_for_container():
 				if mx >= x and mx <= x + quad_w and my >= y and my <= y + quad_h:
 					if name_!="air":
 						add_item(name_ , hotbar_slot_selected-1)
+						rebuild_hotbar_items()
