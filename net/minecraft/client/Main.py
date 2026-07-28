@@ -165,6 +165,7 @@ def get_block_by_player():
 					ItemRenderer.add_item(get_block(X, Y, Z), hotbar_slot_selected - 1)
 				except:
 					logger.error(str(traceback.format_exc()))
+		ItemRenderer.rebuild_hotbar_items()
 
 def break_block_by_player():
 	global block_sound_volume

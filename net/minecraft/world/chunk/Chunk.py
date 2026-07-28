@@ -70,9 +70,10 @@ def build_chunk_display_list():
 			if get_block(x, y, z) in translucent_blocks:
 				glEnable(GL_BLEND)
 				glEnable(GL_ALPHA_TEST)
+				glDepthMask(GL_FALSE)
 				glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA)
 				place_block(name, x, y, z, get_block_data(x,y,z).getProperty())
-			glDepthMask(GL_TRUE)
+				glDepthMask(GL_TRUE)
 	pygame.mouse.set_cursor(SYSTEM_CURSOR_ARROW)
 	glEndList()
 	ItemRenderer.build_hotbar_items()
