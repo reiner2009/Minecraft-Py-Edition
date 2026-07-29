@@ -4,6 +4,8 @@ from net.minecraft.world.block.props import AxisProperty, FacingProperty, TwoDir
 import net.minecraft.world.Features as features
 import net.minecraft.resources.DataLocation as DataLocation
 import net.minecraft.util.math.Raycast as Raycast
+from net.minecraft.world.phys import AABB
+from net.minecraft.util import Override
 import random
 import pickle
 import gzip
@@ -29,6 +31,7 @@ class Block:
     def __init__(self, NAME):
         self.NAME = NAME
         self.MAP_POSITION = (0,0,0)
+        self.BOX=AABB(-self.MAP_POSITION[0],-self.MAP_POSITION[1],-self.MAP_POSITION[2],self.MAP_POSITION[0],self.MAP_POSITION[1],self.MAP_POSITION[2])
     def setPos(self, x, y,z):
         self.MAP_POSITION = (x,y,z)
     def getName(self):
@@ -44,6 +47,8 @@ class Block:
     def getVoxelShape(self, x, y, z):
         self.VOXEL_SHAPE = [(-1, -1, -1), (1, -1, -1), (1, -1, 1), (-1, -1, 1), (-1, 1, -1), (1, 1, -1), (1, 1, 1),(-1, 1, 1)]
         return getVoxelShapeVertices(x, y, z, self.VOXEL_SHAPE)
+    def getCollisionShape(self):
+        return self.BOX
     def onPlace(self, entity, block_sound_volume):
         self.finallyPlace(entity, block_sound_volume)
     def onBreak(self, entity):
@@ -80,6 +85,7 @@ class LogBlock(Block):
     def __init__(self, NAME):
         super().__init__(NAME)
         self.AXIS=AxisProperty("y")
+    @Override
     def setPropertyByPlayer(self, entity):
         if -45<entity.get_entity_facing()[1]<0 or 0<entity.get_entity_facing()[1]<45:
             if entity.get_cardinal_direction_facing()=="south" or entity.get_cardinal_direction_facing()=="north":
@@ -88,12 +94,15 @@ class LogBlock(Block):
                 self.AXIS.setAxis("x")
         else:
             self.AXIS.setAxis("y")
+    @Override
     def getProperty(self,entity=None):
         if entity:
             self.setPropertyByPlayer(entity)
         return self.AXIS.getAxis()
+    @Override
     def getDefaultProperty(self):
         return "y"
+    @Override
     def getProperties(self):
         return self.AXIS.getAxisKeys()
 
@@ -101,20 +110,25 @@ class CardinalableBlock(Block):
     def __init__(self, NAME):
         super().__init__(NAME)
         self.FACING=FacingProperty()
+    @Override
     def setPropertyByPlayer(self, entity):
         self.FACING.setFacing(entity.get_cardinal_direction_facing())
+    @Override
     def getProperty(self, entity=None):
         if entity:
             self.setPropertyByPlayer(entity)
         return self.FACING.getFacing()
+    @Override
     def getDefaultProperty(self):
         return "south"
+    @Override
     def getProperties(self):
         return self.FACING.getFacingKeys()
 
 class OakSapling(Block):
     def __init__(self, NAME):
         super().__init__(NAME)
+    @Override
     def finallyPlace(self, entity, block_sound_volume):
         spawnTree(*self.MAP_POSITION)
         super().finallyPlace(entity, block_sound_volume)
@@ -123,19 +137,24 @@ class GlassPaneBlock(Block):
     def __init__(self, NAME):
         super().__init__(NAME)
         self.DIRECTION=TwoDirectionsProperty("x")
+    @Override
     def setPropertyByPlayer(self, entity):
         if entity.get_cardinal_direction_facing() == "south" or entity.get_cardinal_direction_facing() == "north":
             self.DIRECTION.setDirection("z")
         elif entity.get_cardinal_direction_facing() == "west" or entity.get_cardinal_direction_facing() == "east":
             self.DIRECTION.setDirection("x")
+    @Override
     def getProperty(self, entity=None):
         if entity:
             self.setPropertyByPlayer(entity)
         return self.DIRECTION.getDirection()
+    @Override
     def getDefaultProperty(self):
         return "x"
+    @Override
     def getProperties(self):
         return self.DIRECTION.getDirectionKeys()
+    @Override
     def getVoxelShape(self, x, y, z):
         if self.DIRECTION.getDirection()=="x":
             self.VOXEL_SHAPE = [(-0.125, -1, -1), (0.125, -1, -1), (0.125, -1, 1), (-0.125, -1, 1), (-0.125, 1, -1), (0.125, 1, -1), (0.125, 1, 1),(-0.125, 1, 1)]
@@ -148,18 +167,22 @@ class StairBlock(Block):
         super().__init__(NAME)
         self.STAIR_SET=StairSetProperty("south0")
         self.VERTICAL_DIRECTION="0"
+    @Override
     def setPropertyByPlayer(self, entity):
         if -90 < entity.get_entity_facing()[1] < 0:
             self.VERTICAL_DIRECTION="1"
         if 0 < entity.get_entity_facing()[1] < 90:
             self.VERTICAL_DIRECTION="0"
         self.STAIR_SET.setStairSet(entity.get_cardinal_direction_facing()+self.VERTICAL_DIRECTION)
+    @Override
     def getProperty(self, entity=None):
         if entity:
             self.setPropertyByPlayer(entity)
         return self.STAIR_SET.getStairSet()
+    @Override
     def getDefaultProperty(self):
         return "south0"
+    @Override
     def getProperties(self):
         return self.STAIR_SET.getStairSetKeys()
 
@@ -183,19 +206,24 @@ class DoorBlock(Block):
             "north":"west",
             "east":"north"
         }
+    @Override
     def setProperty(self, property):
         self.DIRECTION.setDirection(property)
+    @Override
     def getProperty(self, entity=None):
         if entity:
             self.setPropertyByPlayer(entity)
         return self.DIRECTION.getDirection()
+    @Override
     def setPropertyByPlayer(self, entity):
         from net.minecraft.world.chunk.Chunk import get_block
         if get_block(self.MAP_POSITION[0],self.MAP_POSITION[1]-1,self.MAP_POSITION[2])=="oak_door":
             self.VERTICAL_DIRECTION="0"
         self.DIRECTION.setDirection(entity.get_cardinal_direction_facing()+self.VERTICAL_DIRECTION)
+    @Override
     def getDefaultProperty(self):
         return "south0"
+    @Override
     def getProperties(self):
         return self.DIRECTION.getDirectionKeys()
     def setVerticalDirection(self, direction):
@@ -204,6 +232,7 @@ class DoorBlock(Block):
         return self.VERTICAL_DIRECTION
     def setState(self, state):
         self.STATE=state
+    @Override
     def onPlace(self, entity, block_sound_volume):
         self.up_nighbour = self.MAP_POSITION[0], self.MAP_POSITION[1] + 1, self.MAP_POSITION[2]
         self.down_nighbour = self.MAP_POSITION[0], self.MAP_POSITION[1] - 1, self.MAP_POSITION[2]
@@ -225,8 +254,10 @@ class DoorBlock(Block):
         if get_block(*self.down_nighbour) == "oak_door":
             if get_block_data(*self.down_nighbour).getVerticalDirection()=="0":
                 set_block(*self.down_nighbour, "air")
+    @Override
     def onBreak(self, entity):
         self.breakOtherDoor()
+    @Override
     def getVoxelShape(self, x, y, z):
         self.VOXEL_SHAPE_MAP={
             "south0":[(-1, -1, -1), (1, -1, -1), (1, -1, -0.625), (-1, -1, -0.625), (-1, 3, -1), (1, 3, -1), (1, 3, -0.625),(-1, 3, -0.625)],
@@ -240,6 +271,7 @@ class DoorBlock(Block):
         }
         self.VOXEL_SHAPE = self.VOXEL_SHAPE_MAP[self.DIRECTION.getDirection()]
         return getVoxelShapeVertices(x, y, z, self.VOXEL_SHAPE)
+    @Override
     def onInteraction(self, entity, block_sound_volume):
         self.up_nighbour = self.MAP_POSITION[0], self.MAP_POSITION[1] + 1, self.MAP_POSITION[2]
         self.down_nighbour = self.MAP_POSITION[0], self.MAP_POSITION[1] - 1, self.MAP_POSITION[2]
@@ -266,9 +298,11 @@ class DoorBlock(Block):
             play_block_sound("oak_door_close", block_sound_volume)
         entity.swing("right")
         super().finallyPlace(entity, 0)
+    @Override
     def onExplode(self, v):
         self.breakOtherDoor()
         super().onExplode(v)
+    @Override
     def placeableBlockDuringInteraction(self, entity):
         return False
 
@@ -276,19 +310,24 @@ class SlabBlock(Block):
     def __init__(self, NAME):
         super().__init__(NAME)
         self.VERICAL_POS=SlabSetProperty()
+    @Override
     def getProperties(self):
         return self.VERICAL_POS.getVerticalPosKeys()
+    @Override
     def getProperty(self, entity=None):
         if entity:
             self.setPropertyByPlayer(entity)
         return self.VERICAL_POS.getVerticalPos()
+    @Override
     def setPropertyByPlayer(self, entity):
         if -90 < entity.get_entity_facing()[1] < 0:
             self.VERICAL_POS.setVerticalPos("up")
         if 0 < entity.get_entity_facing()[1] < 90:
             self.VERICAL_POS.setVerticalPos("down")
+    @Override
     def getDefaultProperty(self):
         return "down"
+    @Override
     def getVoxelShape(self, x, y, z):
         self.VOXEL_SHAPE_MAP = {
             "up": [(-1, 0, -1), (1, 0, -1), (1, 0, 1), (-1, 0, 1), (-1, 1, -1), (1, 1, -1), (1, 1, 1),(-1, 1, 1)],
@@ -301,6 +340,7 @@ class FenceBlock(Block):
     def __init__(self, NAME):
         super().__init__(NAME)
         self.DIRECTION=FenceState()
+    @Override
     def setPropertyByPlayer(self, entity):
         self.x, self.y, self.z = self.MAP_POSITION
         self.neighbours=[(self.x+1, self.y, self.z),(self.x-1, self.y, self.z),(self.x, self.y, self.z+1),(self.x, self.y, self.z-1)]
@@ -311,16 +351,21 @@ class FenceBlock(Block):
             self.DIRECTION.setDirection("x")
         else:
             self.DIRECTION.setDirection("cross")
+    @Override
     def update(self):
         self.setPropertyByPlayer(None)
+    @Override
     def getProperty(self, entity=None):
         if entity:
             self.setPropertyByPlayer(entity)
         return self.DIRECTION.getDirection()
+    @Override
     def getDefaultProperty(self):
         return "x"
+    @Override
     def getProperties(self):
         return self.DIRECTION.getDirectionKeys()
+    @Override
     def getVoxelShape(self, x, y, z):
         if self.DIRECTION.getDirection() == "x":
             self.VOXEL_SHAPE = [(-0.25, -1, -1), (0.25, -1, -1), (0.25, -1, 1), (-0.25, -1, 1), (-0.25, 1, -1),(0.25, 1, -1), (0.25, 1, 1), (-0.25, 1, 1)]
@@ -342,18 +387,21 @@ class TntBlock(Block):
         self.ignited_tnt.spawn(*self.MAP_POSITION)
         set_block(*self.MAP_POSITION, "air")
         reloadChunks()
+    @Override
     def onInteraction(self, entity, block_sound_volume):
         if entity.getMainhandItem()=="flint_and_steel":
             play_block_sound("fuse", block_sound_volume)
             self.ignite(block_sound_volume, 5)
         else:
             super().onInteraction(entity, block_sound_volume)
+    @Override
     def onExplode(self, v):
         self.ignite(v, 0.2)
 
 class FallingBlock(Block):
     def __init__(self, NAME):
         super().__init__(NAME)
+    @Override
     def update(self):
         from net.minecraft.world.chunk.Chunk import get_block
         if get_block(self.MAP_POSITION[0], self.MAP_POSITION[1]-1,self.MAP_POSITION[2])=="air":
@@ -363,6 +411,7 @@ class FallingBlock(Block):
             self.falling_block.spawn(*self.MAP_POSITION)
             set_block(*self.MAP_POSITION, "air")
             reloadChunks()
+    @Override
     def onPlace(self, entity, block_sound_volume):
         self.update()
         super().onPlace(entity, block_sound_volume)
@@ -373,6 +422,7 @@ class TrapdoorBlock(Block):
         self.STATE=TrapdoorSetProperty()
         self.FACING="south"
         self.VERTICAL_DIRECTION="down"
+    @Override
     def setPropertyByPlayer(self, entity):
         if -90 < entity.get_entity_facing()[1] < 0:
             self.STATE.setState("up")
@@ -381,6 +431,7 @@ class TrapdoorBlock(Block):
             self.STATE.setState("down")
             self.VERTICAL_DIRECTION="down"
         self.FACING=entity.get_cardinal_direction_facing()
+    @Override
     def onInteraction(self, entity, block_sound_volume):
         if self.STATE.getState()=="up" or self.STATE.getState()=="down":
             self.STATE.setState(self.FACING)
@@ -390,16 +441,21 @@ class TrapdoorBlock(Block):
             play_block_sound("oak_trapdoor_close", block_sound_volume)
         entity.swing("right")
         super().finallyPlace(entity, 0)
+    @Override
     def placeableBlockDuringInteraction(self, entity):
         return False
+    @Override
     def getProperty(self, entity=None):
         if entity:
             self.setPropertyByPlayer(entity)
         return self.STATE.getState()
+    @Override
     def getDefaultProperty(self):
         return "down"
+    @Override
     def getProperties(self):
         return self.STATE.getStateKeys()
+    @Override
     def getVoxelShape(self, x, y, z):
         self.VOXEL_SHAPE_MAP={
             "north":[(-1, -1, -1), (1, -1, -1), (1, -1, -0.625), (-1, -1, -0.625), (-1, 1, -1), (1, 1, -1), (1, 1, -0.625),(-1, 1, -0.625)],
@@ -415,6 +471,7 @@ class TrapdoorBlock(Block):
 class PostBlock(Block):
     def __init__(self, NAME):
         super().__init__(NAME)
+    @Override
     def getVoxelShape(self, x, y, z):
         self.VOXEL_SHAPE = [(-0.25, -1, -0.25), (0.25, -1, -0.25), (0.25, -1, 0.25), (-0.25, -1, 0.25), (-0.25, 1, -0.25),(0.25, 1, -0.25), (0.25, 1, 0.25), (-0.25, 1, 0.25)]
         return getVoxelShapeVertices(x, y, z, self.VOXEL_SHAPE)

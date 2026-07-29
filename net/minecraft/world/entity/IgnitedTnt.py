@@ -1,5 +1,6 @@
 from net.minecraft.world.entity.FallingBlock import FallingBlock
 from net.minecraft.world.chunk.Chunk import explode
+from net.minecraft.util import Override
 
 class IgnitedTnt(FallingBlock):
 	def __init__(self, c=5):
@@ -8,6 +9,7 @@ class IgnitedTnt(FallingBlock):
 		self.v=489
 	def set_sound_volume(self, v):
 		self.v=v
+	@Override
 	def tick(self):
 		from net.minecraft.client.render.world.entity.IgnitedTntRenderer import renderIgnitedTnt
 		super().tick()

@@ -2,6 +2,7 @@ from net.minecraft.world.entity.LivingEntity import LivingEntity
 import random
 import math
 import net.minecraft.client.render.Text as text
+from net.minecraft.util import Override
 
 def cos(i):
 	return(math.cos(math.radians(i)))
@@ -24,6 +25,7 @@ class PathFinderMob(LivingEntity):
 		self.seachNewGoal=True
 		self.distanceToNextYawTarget=0
 		self.distanceToNextTarget=0
+	@Override
 	def tick(self):
 		if self.seachNewGoal:
 			if random.randint(0,50)==1:

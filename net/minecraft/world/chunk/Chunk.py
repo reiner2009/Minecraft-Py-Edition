@@ -67,6 +67,7 @@ def build_chunk_display_list():
 				glEnable(GL_ALPHA_TEST)
 				glAlphaFunc(GL_GREATER, 0.5)
 				place_block(name, x, y, z, get_block_data(x,y,z).getProperty())
+				glAlphaFunc(GL_GREATER, 0)
 			if get_block(x, y, z) in translucent_blocks:
 				glEnable(GL_BLEND)
 				glEnable(GL_ALPHA_TEST)
