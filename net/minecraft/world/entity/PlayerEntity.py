@@ -35,7 +35,9 @@ class PlayerEntity(LivingEntity):
             self.movement=False
     @Override
     def move(self,x,y,z):
-        radius=5
+        self.walkAnimationTick(x,y,z)
+        super().move(x,y,z)
+        """radius=5
         size=radius*2+1
         for i in range(size**3):
             cx=i%size-radius
@@ -52,7 +54,7 @@ class PlayerEntity(LivingEntity):
             if (not AABB(self.x-0.3, self.y-1.5, self.z-0.3+z, self.x+0.3, self.y+0.3, self.z+0.3+z).intersects(AABB(cx-0.5+round(self.x), cy-0.5+round(self.y), cz-0.5+round(self.z), cx+0.5+round(self.x), cy+0.5+round(self.y), cz+0.5+round(self.z)))) or get_block(cx+round(self.x),cy+round(self.y),cz+round(self.z))=="air":
                 self.z+=z
                 self.walkAnimationTick(x,y,z)
-                return           
+                return  """         
     def setSkin(self, path):
         self.skin, self.w, self.h = load_texture(path,True)
     @Override
