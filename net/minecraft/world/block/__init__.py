@@ -72,8 +72,11 @@ class Block:
             X, Y, Z, *_ = Raycast.get_pos(entity)
             if Raycast.get_neighbour_block(X, Y, Z):
                 from net.minecraft.client.render.world.block.BlockRenderer import get_block_data
-                self.setNewBlock(entity, X,Y,Z)
-                get_block_data(X, Y, Z).onPlace(entity, block_sound_volume)
+                self.temp_collisions_check=registries[entity.getMainhandItem()](entity.getMainhandItem())
+                self.temp_collisions_check.setPos(X,Y,Z)
+                if (not entity.getHitbox().intersects(self.temp_collisions_check.getCollisionShape())) or (not self.temp_collisions_check.hasCollision()):
+                    self.setNewBlock(entity, X,Y,Z)
+                    get_block_data(X, Y, Z).onPlace(entity, block_sound_volume)
     def placeableBlockDuringInteraction(self, entity):
         return True
     def onExplode(self, v):

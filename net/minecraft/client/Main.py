@@ -234,7 +234,8 @@ def draw_scene():
 				if name in registries:
 					preview_class=registries[name](name)
 					preview_class.setPos(x,y,z)
-					draw_block_preview(name, x, y, z, False, preview_class.getProperty(player))
+					if (not player.getHitbox().intersects(preview_class.getCollisionShape())) or (not preview_class.hasCollision()):
+						draw_block_preview(name, x, y, z, False, preview_class.getProperty(player))
 	if hud_==True:
 		if get_block(x1, y1, z1) != "air":
 			draw_block_preview("", x1, y1, z1, True, None)

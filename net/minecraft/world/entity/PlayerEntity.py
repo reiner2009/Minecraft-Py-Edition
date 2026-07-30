@@ -15,6 +15,7 @@ class PlayerEntity(LivingEntity):
         self.right_arm_pitch=180
         self.right_arm_pitch_direction=0
         self.left_arm_pitch_direction=0
+        self.HITBOX=AABB(self.x-0.3, self.y-1.5, self.z-0.3, self.x+0.3, self.y+0.3, self.z+0.3)
         self.skin, self.w, self.h = load_texture("assets/minecraft/textures/entity/player/steve.png", True)
     @Override
     def swing(self, arm):
@@ -58,6 +59,7 @@ class PlayerEntity(LivingEntity):
         self.skin, self.w, self.h = load_texture(path,True)
     @Override
     def tick(self):
+        self.HITBOX=AABB(self.x-0.3, self.y-1.5, self.z-0.3, self.x+0.3, self.y+0.3, self.z+0.3)
         if not self.movement:
             self.walk_pitch_0 = -180
             self.walk_pitch_1 = -180
@@ -85,3 +87,5 @@ class PlayerEntity(LivingEntity):
             self.right_arm_pitch=180
         if self.left_arm_pitch_direction==0 and self.left_arm_pitch>180:
             self.left_arm_pitch=180
+    def getHitbox(self):
+        return self.HITBOX
