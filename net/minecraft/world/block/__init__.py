@@ -31,9 +31,10 @@ class Block:
     def __init__(self, NAME):
         self.NAME = NAME
         self.MAP_POSITION = (0,0,0)
-        self.BOX=AABB(-self.MAP_POSITION[0],-self.MAP_POSITION[1],-self.MAP_POSITION[2],self.MAP_POSITION[0],self.MAP_POSITION[1],self.MAP_POSITION[2])
+        self.COLLISION_SHAPE=AABB(-0.5, -0.5, -0.5, 0.5, 0.5, 0.5, *self.MAP_POSITION)
     def setPos(self, x, y,z):
         self.MAP_POSITION = (x,y,z)
+        self.COLLISION_SHAPE=AABB(-0.5, -0.5, -0.5, 0.5, 0.5, 0.5, *self.MAP_POSITION)
     def getName(self):
         return self.NAME
     def setPropertyByPlayer(self, entity):
@@ -48,7 +49,7 @@ class Block:
         self.VOXEL_SHAPE = [(-1, -1, -1), (1, -1, -1), (1, -1, 1), (-1, -1, 1), (-1, 1, -1), (1, 1, -1), (1, 1, 1),(-1, 1, 1)]
         return getVoxelShapeVertices(x, y, z, self.VOXEL_SHAPE)
     def getCollisionShape(self):
-        return self.BOX
+        return self.COLLISION_SHAPE
     def onPlace(self, entity, block_sound_volume):
         self.finallyPlace(entity, block_sound_volume)
     def onBreak(self, entity):
@@ -80,6 +81,8 @@ class Block:
         set_block(*self.MAP_POSITION, "air")
     def update(self):
         pass
+    def hasCollision(self):
+        return self.NAME!="air"
 
 class LogBlock(Block):
     def __init__(self, NAME):
@@ -161,6 +164,12 @@ class GlassPaneBlock(Block):
         if self.DIRECTION.getDirection()=="z":
             self.VOXEL_SHAPE = [(-1, -1, -0.125), (1, -1, -0.125), (1, -1, 0.125), (-1, -1, 0.125), (-1, 1, -0.125), (1, 1, -0.125), (1, 1, 0.125), (-1, 1, 0.125)]
         return getVoxelShapeVertices(x, y, z, self.VOXEL_SHAPE)
+    @Override
+    def getCollisionShape(self):
+        if self.DIRECTION.getDirection()=="x":
+            return AABB(-0.0625, -0.5, -0.5, 0.0625, 0.5,0.5, *self.MAP_POSITION)
+        if self.DIRECTION.getDirection()=="z":
+            return AABB(-0.5, -0.5, -0.0625, 0.5, 0.5, 0.0625, *self.MAP_POSITION)
 
 class StairBlock(Block):
     def __init__(self, NAME):
@@ -305,6 +314,9 @@ class DoorBlock(Block):
     @Override
     def placeableBlockDuringInteraction(self, entity):
         return False
+    @Override
+    def hasCollision(self):
+        return self.STATE=="closed"
 
 class SlabBlock(Block):
     def __init__(self, NAME):
@@ -475,3 +487,6 @@ class PostBlock(Block):
     def getVoxelShape(self, x, y, z):
         self.VOXEL_SHAPE = [(-0.25, -1, -0.25), (0.25, -1, -0.25), (0.25, -1, 0.25), (-0.25, -1, 0.25), (-0.25, 1, -0.25),(0.25, 1, -0.25), (0.25, 1, 0.25), (-0.25, 1, 0.25)]
         return getVoxelShapeVertices(x, y, z, self.VOXEL_SHAPE)
+    @Override
+    def getCollisionShape(self):
+        return AABB(-0.125, -0.5, -0.125, 0.125, 0.5, 0.125, *self.MAP_POSITION)

@@ -2,7 +2,7 @@ from net.minecraft.client.render.world.entity.PlayerEntityModel import render_bo
 from net.minecraft.client.Textures import load_texture
 from net.minecraft.world.entity.LivingEntity import LivingEntity
 from net.minecraft.world.phys import AABB
-from net.minecraft.world.chunk.Chunk import get_block
+from net.minecraft.world.chunk.Chunk import get_block_data
 from net.minecraft.util import Override
 
 class PlayerEntity(LivingEntity):
@@ -36,25 +36,24 @@ class PlayerEntity(LivingEntity):
     @Override
     def move(self,x,y,z):
         self.walkAnimationTick(x,y,z)
-        super().move(x,y,z)
-        """radius=5
-        size=radius*2+1
-        for i in range(size**3):
-            cx=i%size-radius
-            cy=(i//size)%size-radius
-            cz=i//(size*size)-radius
-            if (not AABB(self.x-0.3+x, self.y-1.5, self.z-0.3, self.x+0.3+x, self.y+0.3, self.z+0.3).intersects(AABB(cx-0.5+round(self.x), cy-0.5+round(self.y), cz-0.5+round(self.z), cx+0.5+round(self.x), cy+0.5+round(self.y), cz+0.5+round(self.z)))) or get_block(cx+round(self.x),cy+round(self.y),cz+round(self.z))=="air":
-                self.x+=x
-                self.walkAnimationTick(x,y,z)
-                return
-            if (not AABB(self.x-0.3, self.y-1.5+y, self.z-0.3, self.x+0.3, self.y+0.3+y, self.z+0.3).intersects(AABB(cx-0.5+round(self.x), cy-0.5+round(self.y), cz-0.5+round(self.z), cx+0.5+round(self.x), cy+0.5+round(self.y), cz+0.5+round(self.z)))) or get_block(cx+round(self.x),cy+round(self.y),cz+round(self.z))=="air":
-                self.y+=y
-                self.walkAnimationTick(x,y,z)
-                return
-            if (not AABB(self.x-0.3, self.y-1.5, self.z-0.3+z, self.x+0.3, self.y+0.3, self.z+0.3+z).intersects(AABB(cx-0.5+round(self.x), cy-0.5+round(self.y), cz-0.5+round(self.z), cx+0.5+round(self.x), cy+0.5+round(self.y), cz+0.5+round(self.z)))) or get_block(cx+round(self.x),cy+round(self.y),cz+round(self.z))=="air":
-                self.z+=z
-                self.walkAnimationTick(x,y,z)
-                return  """         
+        self.move_x=True
+        self.move_y=True
+        self.move_z=True
+        for cx in range(-2, 2):
+            for cy in range(-3, 2):
+                for cz in range(-2,2):
+                    if AABB(self.x-0.3, self.y-1.5, self.z-0.3+z, self.x+0.3, self.y+0.3, self.z+0.3+z).intersects(get_block_data(cx+round(self.x),cy+round(self.y),cz+round(self.z)).getCollisionShape()) and get_block_data(cx+round(self.x),cy+round(self.y),cz+round(self.z)).hasCollision():
+                        self.move_z=False
+                    if AABB(self.x-0.3, self.y-1.5+y, self.z-0.3, self.x+0.3, self.y+0.3+y, self.z+0.3).intersects(get_block_data(cx+round(self.x),cy+round(self.y),cz+round(self.z)).getCollisionShape()) and get_block_data(cx+round(self.x),cy+round(self.y),cz+round(self.z)).hasCollision():
+                        self.move_y=False
+                    if AABB(self.x-0.3+x, self.y-1.5, self.z-0.3, self.x+0.3+x, self.y+0.3, self.z+0.3).intersects(get_block_data(cx+round(self.x),cy+round(self.y),cz+round(self.z)).getCollisionShape()) and get_block_data(cx+round(self.x),cy+round(self.y),cz+round(self.z)).hasCollision():
+                        self.move_x=False
+        if self.move_x==True:
+            self.x+=x
+        if self.move_y==True:
+            self.y+=y
+        if self.move_z==True:
+            self.z+=z
     def setSkin(self, path):
         self.skin, self.w, self.h = load_texture(path,True)
     @Override

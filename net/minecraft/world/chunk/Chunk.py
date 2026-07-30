@@ -14,6 +14,7 @@ from net.minecraft.world.EntityList import entity_chunk
 import net.minecraft.client.render.world.SkyRenderer as SkyRenderer
 import net.minecraft.client.render.world.ItemRenderer as ItemRenderer
 import net.minecraft.chat.Chat as Chat
+from net.minecraft.world.phys import AABB
 
 dark_menu_texture=load_texture("assets/minecraft/textures/gui/title/background/dark_menu.png")
 base_path = os.path.join(os.environ[DataLocation.get_save_system()], ".minecraft-py")
@@ -51,6 +52,16 @@ def create_random_chunk(seed=0):
 	for player in entity_chunk:
 		player.spawn(25,round(noise.noise2(25 * noise_settings["x"], 25 * noise_settings["z"])*noise_settings["hilly_intensity"]+noise_settings["terrian_height"]+1), 25)
 	return c
+
+def updateData(self):
+    if not hasattr(self, "MAP_POSITION"):
+        self.MAP_POSITION = (0,0,0)
+    if not hasattr(self, "COLLISION_SHAPE"):
+        self.COLLISION_SHAPE = AABB(
+            -0.5, -0.5, -0.5,
+             0.5,  0.5,  0.5,
+             *self.MAP_POSITION
+        )
 
 def build_chunk_display_list():
 	dl = glGenLists(1)
@@ -99,6 +110,7 @@ def render_chunk():
 		clock.tick(60)
 		logger.info("Loading terrian")
 		for (x,y,z), block in _chunk.items():
+			updateData(block)
 			chunk[(x,y,z)]=block
 		load_chunks()
 	except:
