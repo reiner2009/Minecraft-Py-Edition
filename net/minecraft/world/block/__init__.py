@@ -317,9 +317,15 @@ class DoorBlock(Block):
     @Override
     def placeableBlockDuringInteraction(self, entity):
         return False
-    @Override
-    def hasCollision(self):
-        return self.STATE=="closed"
+    """@Override
+    def getCollisionShape(self):
+        self.COLLISION_SHAPE_MAP={
+            "south":AABB(),
+            "west":AABB(),
+            "east":AABB(),
+            "north":AABB()
+        }
+        return self.COLLISION_SHAPE_MAP[self.DIRECTION.getDirection()[:-1]]"""
 
 class SlabBlock(Block):
     def __init__(self, NAME):
