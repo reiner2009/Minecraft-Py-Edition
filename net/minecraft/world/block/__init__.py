@@ -74,6 +74,7 @@ class Block:
                 from net.minecraft.client.render.world.block.BlockRenderer import get_block_data
                 self.temp_collisions_check=registries[entity.getMainhandItem()](entity.getMainhandItem())
                 self.temp_collisions_check.setPos(X,Y,Z)
+                self.temp_collisions_check.setPropertyByPlayer(entity)
                 if (not entity.getHitbox().intersects(self.temp_collisions_check.getCollisionShape())) or (not self.temp_collisions_check.hasCollision()):
                     self.setNewBlock(entity, X,Y,Z)
                     get_block_data(X, Y, Z).onPlace(entity, block_sound_volume)
@@ -317,15 +318,15 @@ class DoorBlock(Block):
     @Override
     def placeableBlockDuringInteraction(self, entity):
         return False
-    """@Override
+    @Override
     def getCollisionShape(self):
         self.COLLISION_SHAPE_MAP={
-            "south":AABB(),
-            "west":AABB(),
-            "east":AABB(),
-            "north":AABB()
+            "south":AABB(-0.5, -0.5, -0.5, 0.5, 0.5, -0.3125, *self.MAP_POSITION),
+            "west":AABB(0.3125, -0.5, -0.5, 0.5, 0.5, 0.5, *self.MAP_POSITION),
+            "east":AABB(-0.5, -0.5, -0.5, -0.3125, 0.5, 0.5, *self.MAP_POSITION),
+            "north":AABB(-0.5, -0.5, 0.3125, 0.5, 0.5, 0.5, *self.MAP_POSITION)
         }
-        return self.COLLISION_SHAPE_MAP[self.DIRECTION.getDirection()[:-1]]"""
+        return self.COLLISION_SHAPE_MAP[self.DIRECTION.getDirection()[:-1]]
 
 class SlabBlock(Block):
     def __init__(self, NAME):
@@ -356,6 +357,13 @@ class SlabBlock(Block):
         }
         self.VOXEL_SHAPE = self.VOXEL_SHAPE_MAP[self.VERICAL_POS.getVerticalPos()]
         return getVoxelShapeVertices(x, y, z, self.VOXEL_SHAPE)
+    @Override
+    def getCollisionShape(self):
+        self.COLLISION_SHAPE_MAP={
+            "up":AABB(-0.5, 0, -0.5, 0.5, 0.5, 0.5, *self.MAP_POSITION),
+            "down":AABB(-0.5, -0.5, -0.5, 0.5, 0, 0.5, *self.MAP_POSITION)
+        }
+        return self.COLLISION_SHAPE_MAP[self.VERICAL_POS.getVerticalPos()]
 
 class FenceBlock(Block):
     def __init__(self, NAME):
@@ -396,6 +404,21 @@ class FenceBlock(Block):
             return getVoxelShapeVertices(x, y, z, self.VOXEL_SHAPE)
         else:
             return super().getVoxelShape(x,y,z)
+    @Override
+    def getCollisionShape(self):
+        self.COLLISIONS_SHAPE_MAP={
+            "x": AABB(-0.125, -0.5, -0.5, 0.125, 0.75,0.5, *self.MAP_POSITION),
+            "z": AABB(-0.5, -0.5, -0.125, 0.5, 0.75, 0.125, *self.MAP_POSITION),
+            "cross": AABB(-0.5, -0.5, -0.5, 0.5, 0.75, 0.5, *self.MAP_POSITION)
+        }
+        return self.COLLISIONS_SHAPE_MAP[self.DIRECTION.getDirection()]
+
+class LeavesBlock(Block):
+    def __init__(self, NAME):
+        super().__init__(NAME)
+    @Override
+    def hasCollision(self):
+        return False
 
 class TntBlock(Block):
     def __init__(self, NAME):
@@ -488,6 +511,17 @@ class TrapdoorBlock(Block):
         }
         self.VOXEL_SHAPE = self.VOXEL_SHAPE_MAP[self.STATE.getState()]
         return getVoxelShapeVertices(x, y, z, self.VOXEL_SHAPE)
+    @Override
+    def getCollisionShape(self):
+        self.COLLISION_SHAPE_MAP={
+            "north":AABB(-0.5, -0.5, -0.5, 0.5, 0.5, -0.3125, *self.MAP_POSITION),
+            "east":AABB(0.3125, -0.5, -0.5, 0.5, 0.5, 0.5, *self.MAP_POSITION),
+            "west":AABB(-0.5, -0.5, -0.5, -0.3125, 0.5, 0.5, *self.MAP_POSITION),
+            "south":AABB(-0.5, -0.5, 0.3125, 0.5, 0.5, 0.5, *self.MAP_POSITION),
+            "up":AABB(-0.5, 0.3125, -0.5, 0.5, 0.5, 0.5, *self.MAP_POSITION),
+            "down":AABB(-0.5, -0.5, -0.5, 0.5, -0.3125, 0.5, *self.MAP_POSITION)
+        }
+        return self.COLLISION_SHAPE_MAP[self.STATE.getState()]
 
 class PostBlock(Block):
     def __init__(self, NAME):

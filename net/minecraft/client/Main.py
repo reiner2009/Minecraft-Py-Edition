@@ -228,8 +228,11 @@ def draw_scene():
 			name=player.getMainhandItem()
 			if name=="oak_door":
 				if get_block(x,y+1,z)=="air":
-					draw_block_preview(name, x, y, z, False, registries[name](name).getProperty(player))
-					draw_block_preview(name, x, y+1, z, False, registries[name](name).getProperty(player)[:-1]+"1")
+					preview_class=registries[name](name)
+					preview_class.setPos(x,y,z)
+					if (not player.getHitbox().intersects(preview_class.getCollisionShape())) or (not preview_class.hasCollision()):
+						draw_block_preview(name, x, y, z, False, preview_class.getProperty(player))
+						draw_block_preview(name, x, y+1, z, False, preview_class.getProperty(player)[:-1]+"1")
 			else:
 				if name in registries:
 					preview_class=registries[name](name)

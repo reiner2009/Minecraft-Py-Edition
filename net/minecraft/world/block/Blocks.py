@@ -1,5 +1,5 @@
 from net.minecraft.world.block import Block, CardinalableBlock, OakSapling, GlassPaneBlock, StairBlock, LogBlock, \
-    DoorBlock, SlabBlock, FenceBlock, TntBlock, FallingBlock, TrapdoorBlock, PostBlock
+    DoorBlock, SlabBlock, FenceBlock, TntBlock, FallingBlock, TrapdoorBlock, PostBlock, LeavesBlock
 
 import net.minecraft.modloader.bus.EventBus as EventBus
 
@@ -29,7 +29,7 @@ registries={
     "purple_wool":Block,
     "red_wool":Block,
     "yellow_wool":Block,
-    "oak_leaves":Block,
+    "oak_leaves":LeavesBlock,
     "glass_block":Block,
     "smooth_stone":Block,
     "gold_block":Block,
