@@ -70,6 +70,8 @@ settings=False
 pause_menu=False
 pause_menu=False
 mouse_grab=False
+last_space_pressed_time=0
+MAX_DOUBLE_PRESS_INTERVAL=300
 try:
 	music_volume=float(config.load_config("music_volume"))
 except:
@@ -88,6 +90,7 @@ running_app=True
 block_preview=True
 container=False
 player=PlayerEntity(False)
+setLocalPlayer(player)
 player.spawn(0,0,0)
 player.setName(username)
 if skin:
@@ -217,31 +220,27 @@ def draw_scene():
 	setup_perspective()
 	apply_camera()
 	sky.render(camera_x/2, camera_y/2, camera_z/2,worldTime.get_light(), worldTime.sunriseblend, worldTime.sunsetblend, worldTime.t)
-	glTexEnvf(GL_TEXTURE_ENV, GL_TEXTURE_ENV_MODE, GL_MODULATE)
 	glColor3f(worldTime.get_light(), worldTime.get_light(), worldTime.get_light())
 	glCallList(getChunkList())
+	player.render()
 	for entity in EntityList.entity_chunk:
 		entity.tick()
+	player.tick()
 	x,y,z,x1,y1,z1= Raycast.get_pos(player)
-	if block_preview==True and hud_==True and get_block_data(x1,y1,z1).placeableBlockDuringInteraction(player):
-		if Raycast.get_neighbour_block(x, y, z):
-			name=player.getMainhandItem()
-			if name=="oak_door":
-				if get_block(x,y+1,z)=="air":
-					preview_class=registries[name](name)
-					preview_class.setPos(x,y,z)
-					if (not player.getHitbox().intersects(preview_class.getCollisionShape())) or (not preview_class.hasCollision()):
-						draw_block_preview(name, x, y, z, False, preview_class.getProperty(player))
-						draw_block_preview(name, x, y+1, z, False, preview_class.getProperty(player)[:-1]+"1")
-			else:
-				if name in registries:
-					preview_class=registries[name](name)
-					preview_class.setPos(x,y,z)
-					if (not player.getHitbox().intersects(preview_class.getCollisionShape())) or (not preview_class.hasCollision()):
-						draw_block_preview(name, x, y, z, False, preview_class.getProperty(player))
 	if hud_==True:
 		if get_block(x1, y1, z1) != "air":
 			draw_block_preview("", x1, y1, z1, True, None)
+	glEnable(GL_TEXTURE_2D)
+	if block_preview==True and hud_==True and get_block_data(x1,y1,z1).placeableBlockDuringInteraction(player):
+		if Raycast.get_neighbour_block(x, y, z):
+			name=player.getMainhandItem()
+			if name in registries:
+				preview_class=registries[name](name)
+				preview_class.setPos(x,y,z)
+				if (not player.getHitbox().intersects(preview_class.getCollisionShape())) or (not preview_class.hasCollision()):
+					draw_block_preview(name, x, y, z, False, preview_class.getProperty(player))
+					if name=="oak_door":
+						draw_block_preview(name, x, y+1, z, False, preview_class.getProperty(player)[:-1]+"1")
 	setup_ortho()
 	render_hud()
 	player.setMainhandItem(player.getMainhandItem())
@@ -420,7 +419,7 @@ def render_menu(events):
 	button(x1, y5, x2, y6, "Quit Game", highlight2)
 
 def running_world(events):
-	global menu, running, x,y,z, camera_x, camera_y, camera_z, speed, mouse_grab,hud_,hotbar_slot_selected, debug_charts, game_state, pause_menu, mouse_grab, chat, chat_text, block_preview, container,client, sock
+	global menu, running, x,y,z, camera_x, camera_y, camera_z, speed, mouse_grab,hud_,hotbar_slot_selected, debug_charts, game_state, pause_menu, mouse_grab, chat, chat_text, block_preview, container,client,last_space_pressed_time,MAX_DOUBLE_PRESS_INTERVAL
 	pygame.mixer.music.set_volume((1/489)*music_volume)
 	player.setMainhandItem(ItemRenderer.selected_item[hotbar_slot_selected - 1])
 	if getChunkList()==1:
@@ -452,6 +451,14 @@ def running_world(events):
 		elif event.type==KEYDOWN and event.key==K_ESCAPE and chat==False:
 			pause_menu=not pause_menu
 			mouse_grab=not mouse_grab
+		elif event.type==KEYDOWN and event.key==K_SPACE and chat==False and pause_menu==False and container==False:
+			current_time=pygame.time.get_ticks()
+			interval=current_time-last_space_pressed_time
+			if interval <= MAX_DOUBLE_PRESS_INTERVAL:
+				player.toggleFlyMode()
+				last_space_pressed_time=0
+			else:
+				last_space_pressed_time=current_time
 		elif event.type==KEYDOWN and event.key==K_v and chat==False and pause_menu==False and container==False:
 			block_preview=not block_preview
 		if event.type==MOUSEBUTTONDOWN and event.button==3:
@@ -494,13 +501,19 @@ def running_world(events):
 			move_x += dx_side * speed
 			move_z += dz_side * speed
 		if keys[K_LSHIFT]:
-			move_y-=0.1
+			if player.isFlying:
+				move_y-=0.1
 		if keys[K_SPACE]:
-			move_y+=0.1
+			if not player.isFlying:
+				player.jumpFromGround()
+			else:
+				move_y+=0.1
 		if keys[K_LCTRL]:
-			speed=0.2				
+			speed=0.2
 		else:
 			speed=0.1
+		if (not player.isOnGround()) and (not player.isFlying) and (not player.isJumping()):
+			speed=speed/3
 	player.move(-move_x, move_y,move_z)
 	draw_scene()
 	if pause_menu==True:

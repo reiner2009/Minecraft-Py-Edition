@@ -5,7 +5,7 @@ import net.minecraft.client.render.world.block.Models as Models
 import json
 import net.minecraft.resources.DataLocation as DataLocation
 from net.minecraft.world.block.Blocks import registries
-from net.minecraft.world.block import Block
+from net.minecraft.world.block.Block import Block
 
 sound_categories=json.load(open(DataLocation.get_resource_path("assets/minecraft/sounds/sounds.json")))
 

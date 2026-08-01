@@ -21,8 +21,14 @@ base_path = os.path.join(os.environ[DataLocation.get_save_system()], ".minecraft
 pack = os.path.join(base_path, "datapacks")
 os.makedirs(pack, exist_ok=True)
 chunklist=None
+localPlayer=None
 
-def create_random_chunk(seed=0):
+def setLocalPlayer(p):
+	global localPlayer
+	localPlayer=p
+
+def create_random_chunk(seed=0, player=None):
+	global localPlayer
 	tree_percent_map=features.get_feature_list("tree")
 	noise_settings=json.load(open(DataLocation.get_resource_path("data/minecraft/worldgen/noise_settings/overworld.json")))
 	noise=OpenSimplex(seed=seed)
@@ -49,21 +55,15 @@ def create_random_chunk(seed=0):
 			tree=pickle.load(file)
 		for pos, block in tree.items():
 			c[(round(pos[0]+i[0]),round(pos[1]+i[1]),round(pos[2]+i[2]))]=block.getName()
-	for player in entity_chunk:
-		player.spawn(25,round(noise.noise2(25 * noise_settings["x"], 25 * noise_settings["z"])*noise_settings["hilly_intensity"]+noise_settings["terrian_height"]+1), 25)
+	spawn_pos=round(noise_settings["world_scale"]/2)
+	try:
+		localPlayer.spawn(spawn_pos,round(noise.noise2(spawn_pos * noise_settings["x"], spawn_pos * noise_settings["z"])*noise_settings["hilly_intensity"]+noise_settings["terrian_height"]+1), spawn_pos)
+	except AttributeError:
+		pass
 	return c
 
-def updateData(self):
-    if not hasattr(self, "MAP_POSITION"):
-        self.MAP_POSITION = (0,0,0)
-    if not hasattr(self, "COLLISION_SHAPE"):
-        self.COLLISION_SHAPE = AABB(
-            -0.5, -0.5, -0.5,
-             0.5,  0.5,  0.5,
-             *self.MAP_POSITION
-        )
-
 def build_chunk_display_list():
+	glEnable(GL_CULL_FACE)
 	dl = glGenLists(1)
 	glNewList(dl, GL_COMPILE)
 	glBindTexture(GL_TEXTURE_2D, block_atlas)
@@ -110,7 +110,6 @@ def render_chunk():
 		clock.tick(60)
 		logger.info("Loading terrian")
 		for (x,y,z), block in _chunk.items():
-			updateData(block)
 			chunk[(x,y,z)]=block
 		load_chunks()
 	except:

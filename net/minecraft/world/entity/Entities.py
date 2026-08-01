@@ -6,7 +6,6 @@ from net.minecraft.world.entity.FallingSand import FallingSand
 import net.minecraft.modloader.bus.EventBus as EventBus
 
 entities={
-    "player":PlayerEntity,
     "pig":PigEntity,
     "ignited_tnt": IgnitedTnt,
     "falling_sand":FallingSand,

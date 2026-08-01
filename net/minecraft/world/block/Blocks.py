@@ -1,5 +1,17 @@
-from net.minecraft.world.block import Block, CardinalableBlock, OakSapling, GlassPaneBlock, StairBlock, LogBlock, \
-    DoorBlock, SlabBlock, FenceBlock, TntBlock, FallingBlock, TrapdoorBlock, PostBlock, LeavesBlock
+from net.minecraft.world.block.Block import Block
+from net.minecraft.world.block.CardinalableBlock import CardinalableBlock
+from net.minecraft.world.block.OakSapling import OakSapling
+from net.minecraft.world.block.GlassPaneBlock import GlassPaneBlock
+from net.minecraft.world.block.StairBlock import StairBlock
+from net.minecraft.world.block.LogBlock import LogBlock
+from net.minecraft.world.block.DoorBlock import DoorBlock
+from net.minecraft.world.block.SlabBlock import SlabBlock
+from net.minecraft.world.block.FenceBlock import FenceBlock
+from net.minecraft.world.block.TntBlock import TntBlock
+from net.minecraft.world.block.FallingBlock import FallingBlock
+from net.minecraft.world.block.TrapdoorBlock import TrapdoorBlock
+from net.minecraft.world.block.PostBlock import PostBlock
+from net.minecraft.world.block.LeavesBlock import LeavesBlock
 
 import net.minecraft.modloader.bus.EventBus as EventBus
 
