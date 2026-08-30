@@ -14,19 +14,18 @@ sound_data=json.load(open(DataLocation.get_resource_path("assets/minecraft/sound
 button_click_sound=pygame.mixer.Sound(DataLocation.get_resource_path("assets/minecraft/sounds/gui/"+sound_data["gui"]["button"]+".ogg"))
 button_channel=pygame.mixer.Channel(0)
 
-creative_music_tracks_path= "assets/minecraft/sounds/music/game/creative/"
-menu_music_tracks_path= "assets/minecraft/sounds/music/menu/"
+music_tracks_path= "assets/minecraft/sounds/music/"
 dig_music_tracks_path= "assets/minecraft/sounds/random/dig/"
 
 creative_music_tracks=[]
 
 for i in sound_data["music"]["creative"]:
-	creative_music_tracks.append(creative_music_tracks_path+i+".ogg")
+	creative_music_tracks.append(music_tracks_path+i+".ogg")
 
 menu_music_tracks=[]
 
 for i in sound_data["music"]["menu"]:
-	menu_music_tracks.append(menu_music_tracks_path+i+".ogg")
+	menu_music_tracks.append(music_tracks_path+i+".ogg")
 
 def play_music_mode(mode):
 	global current_music_mode, next_music_time, music_paused

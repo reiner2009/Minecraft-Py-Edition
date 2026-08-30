@@ -75,9 +75,9 @@ class PlayerEntity(LivingEntity):
     def tick(self):
         if not self.isFlying:
             if self.jumpDirection==1:
-                self.move(0,0.17,0)
-                self.jumpHeight+=0.17
-                if self.jumpHeight>=1.1:
+                self.move(0,0.1,0)
+                self.jumpHeight+=0.1
+                if self.jumpHeight>=1.2:
                     self.jumpDirection=0
                     self.jumpHeight=0
                     self.fallSpeed=0.02

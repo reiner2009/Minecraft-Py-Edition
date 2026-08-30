@@ -45,6 +45,6 @@ def setup_ortho():
     glDisable(GL_DEPTH_TEST)
     glMatrixMode(GL_PROJECTION)
     glLoadIdentity()
-    glOrtho(0, width, 0, height, -100, 100)
+    glOrtho(0, width, 0, height, -10, 10)
     glMatrixMode(GL_MODELVIEW)
     glLoadIdentity()

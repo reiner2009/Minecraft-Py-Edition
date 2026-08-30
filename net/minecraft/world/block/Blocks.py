@@ -69,7 +69,7 @@ registries={
     "orange_stained_glass_block":Block,
     "magenta_stained_glass_block":Block,
     "light_blue_stained_glass_block":Block,
-    "yellow_blue_stained_glass_block":Block,
+    "yellow_stained_glass_block":Block,
     "lime_stained_glass_block":Block,
     "pink_stained_glass_block":Block,
     "gray_stained_glass_block":Block,

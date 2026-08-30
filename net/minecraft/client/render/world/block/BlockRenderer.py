@@ -137,14 +137,16 @@ def place_block(name, x, y, z, property="", preview=False, scale=1.0):
 
 
 
-def get_block(x,y,z):
+def get_block(x_,y_,z_):
+    x,y,z=round(x_),round(y_),round(z_)
     global chunk
     try:
         return chunk[(x,y,z)].getName()
     except:
         return "air"
 
-def get_block_data(x,y,z):
+def get_block_data(x_,y_,z_):
+    x,y,z=round(x_),round(y_),round(z_)
     global chunk
     try:
         return chunk[(x,y,z)]

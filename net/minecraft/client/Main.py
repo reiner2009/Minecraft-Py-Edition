@@ -1,6 +1,33 @@
 print("Starting net.minecraft.client.Main")
 import os
 import shutil
+import argparse
+
+parser = argparse.ArgumentParser(description="Minecraft Launcher Script")
+parser.add_argument("--username", type=str, help="username")
+parser.add_argument("--skin", type=str, help="skin texture")
+parser.add_argument("--online-skin", type=str, help="skin texture from the internet")
+parser.add_argument("--debug_mode", type=str, help="debug mode")
+args = parser.parse_args()
+if args.username:
+	username = args.username
+else:
+	username="StevePy"
+online_skin = args.online_skin
+skin = args.skin
+try:
+	if online_skin:
+		response=requests.get("https://minecraft.tools/download-skin/"+online_skin)
+		with open("skin.png", "wb") as f:
+			f.write(response.content)
+		skin="skin.png"
+except:
+	pass
+import net.minecraft.util.Debug as Debug
+debug_mode=args.debug_mode
+if debug_mode=="true":
+	Debug.active()
+
 import net.minecraft.resources.DataLocation as DataLocation
 base_path = os.path.join(os.environ[DataLocation.get_save_system()], ".minecraft-py")
 try:
@@ -27,28 +54,7 @@ import math
 import random
 import traceback
 import time
-import argparse
 import requests
-
-parser = argparse.ArgumentParser(description="Minecraft Launcher Script")
-parser.add_argument("--username", type=str, help="username")
-parser.add_argument("--skin", type=str, help="skin texture")
-parser.add_argument("--online-skin", type=str, help="skin texture from the internet")
-args = parser.parse_args()
-if args.username:
-	username = args.username
-else:
-	username="StevePy"
-online_skin = args.online_skin
-skin = args.skin
-try:
-	if online_skin:
-		response=requests.get("https://minecraft.tools/download-skin/"+online_skin)
-		with open("skin.png", "wb") as f:
-			f.write(response.content)
-		skin="skin.png"
-except:
-	pass
 
 tips=json.load(open(DataLocation.get_resource_path("assets/minecraft/texts/tips.json")))
 
@@ -228,13 +234,14 @@ def draw_scene():
 	player.tick()
 	x,y,z,x1,y1,z1= Raycast.get_pos(player)
 	if hud_==True:
-		if get_block(x1, y1, z1) != "air":
-			draw_block_preview("", x1, y1, z1, True, None)
+		if x1 and y1 and z1:
+			if get_block(x1, y1, z1) != "air":
+				draw_block_preview("", x1, y1, z1, True, None)
 	glEnable(GL_TEXTURE_2D)
 	if block_preview==True and hud_==True and get_block_data(x1,y1,z1).placeableBlockDuringInteraction(player):
-		if Raycast.get_neighbour_block(x, y, z):
-			name=player.getMainhandItem()
-			if name in registries:
+		name=player.getMainhandItem()
+		if name in registries:
+			if x and y and z:
 				preview_class=registries[name](name)
 				preview_class.setPos(x,y,z)
 				if (not player.getHitbox().intersects(preview_class.getCollisionShape())) or (not preview_class.hasCollision()):

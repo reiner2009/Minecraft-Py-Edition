@@ -110,7 +110,7 @@ def render_chunk():
 		clock.tick(60)
 		logger.info("Loading terrian")
 		for (x,y,z), block in _chunk.items():
-			chunk[(x,y,z)]=block
+			chunk[(round(x),round(y),round(z))]=block
 		load_chunks()
 	except:
 		logger.set_environment("Main")
@@ -139,7 +139,8 @@ def updateNigbours(x,y,z):
 	for X,Y,Z in nighbours:
 		get_block_data(X,Y,Z).update()
 
-def set_block(x,y,z,name):
+def set_block(x_,y_,z_,name):
+	x,y,z=round(x_),round(y_),round(z_)
 	global blocks
 	if not name in blocks:
 		name="air"
