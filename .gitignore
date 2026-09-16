@@ -10,5 +10,9 @@ env/
 
 .DS_Store
 
+build/
+dist/
+AppImageBuilder/
+
 skin.png
 

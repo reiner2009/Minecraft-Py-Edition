@@ -73,19 +73,8 @@ class DoorBlock(Block):
     def onBreak(self, entity):
         self.breakOtherDoor()
     @Override
-    def getVoxelShape(self, x, y, z):
-        self.VOXEL_SHAPE_MAP={
-            "south0":[(-1, -1, -1), (1, -1, -1), (1, -1, -0.625), (-1, -1, -0.625), (-1, 3, -1), (1, 3, -1), (1, 3, -0.625),(-1, 3, -0.625)],
-            "north0":[(-1, -1, 1), (1, -1, 1), (1, -1, 0.625), (-1, -1, 0.625), (-1, 3, 1), (1, 3, 1), (1, 3, 0.625),(-1, 3, 0.625)],
-            "east0": [(-0.625, -1, -1), (-1, -1, -1), (-1, -1, 1), (-0.625, -1, 1), (-0.625, 3, -1), (-1, 3, -1), (-1, 3, 1),(-0.625, 3, 1)],
-            "west0": [(1, -1, -1), (0.625, -1, -1), (0.625, -1, 1), (1, -1, 1), (1, 3, -1), (0.625, 3, -1), (0.625, 3, 1),(1, 3, 1)],
-            "south1": [(-1, -3, -1), (1, -3, -1), (1, -3, -0.625), (-1, -3, -0.625), (-1, 1, -1), (1, 1, -1),(1, 1, -0.625), (-1, 1, -0.625)],
-            "north1": [(-1, -3, 1), (1, -3, 1), (1, -3, 0.625), (-1, -3, 0.625), (-1, 1, 1), (1, 1, 1), (1, 1, 0.625),(-1, 1, 0.625)],
-            "east1": [(-0.625, -3, -1), (-1, -3, -1), (-1, -3, 1), (-0.625, -3, 1), (-0.625, 1, -1), (-1, 1, -1), (-1, 1, 1), (-0.625, 1, 1)],
-            "west1": [(1, -3, -1), (0.625, -3, -1), (0.625, -3, 1), (1, -3, 1), (1, 1, -1), (0.625, 1, -1),(0.625, 1, 1), (1, 1, 1)],
-        }
-        self.VOXEL_SHAPE = self.VOXEL_SHAPE_MAP[self.DIRECTION.getDirection()]
-        return getVoxelShapeVertices(x, y, z, self.VOXEL_SHAPE)
+    def getVoxelShape(self):
+        return self.getCollisionShape()
     @Override
     def onInteraction(self, entity, block_sound_volume):
         self.up_nighbour = self.MAP_POSITION[0], self.MAP_POSITION[1] + 1, self.MAP_POSITION[2]

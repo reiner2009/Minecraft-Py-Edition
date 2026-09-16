@@ -23,12 +23,8 @@ class GlassPaneBlock(Block):
     def getProperties(self):
         return self.DIRECTION.getDirectionKeys()
     @Override
-    def getVoxelShape(self, x, y, z):
-        if self.DIRECTION.getDirection()=="x":
-            self.VOXEL_SHAPE = [(-0.125, -1, -1), (0.125, -1, -1), (0.125, -1, 1), (-0.125, -1, 1), (-0.125, 1, -1), (0.125, 1, -1), (0.125, 1, 1),(-0.125, 1, 1)]
-        if self.DIRECTION.getDirection()=="z":
-            self.VOXEL_SHAPE = [(-1, -1, -0.125), (1, -1, -0.125), (1, -1, 0.125), (-1, -1, 0.125), (-1, 1, -0.125), (1, 1, -0.125), (1, 1, 0.125), (-1, 1, 0.125)]
-        return getVoxelShapeVertices(x, y, z, self.VOXEL_SHAPE)
+    def getVoxelShape(self):
+        return self.getCollisionShape()
     @Override
     def getCollisionShape(self):
         if self.DIRECTION.getDirection()=="x":

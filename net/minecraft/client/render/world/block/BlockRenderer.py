@@ -137,8 +137,7 @@ def place_block(name, x, y, z, property="", preview=False, scale=1.0):
 
 
 
-def get_block(x_,y_,z_):
-    x,y,z=round(x_),round(y_),round(z_)
+def get_block(x,y,z):
     global chunk
     try:
         return chunk[(x,y,z)].getName()
@@ -167,9 +166,12 @@ def draw_block_preview(name, x, y, z, hit=False, property=""):
     if hit:
         glDisable(GL_TEXTURE_2D)
         glBegin(GL_LINES)
+        box=get_block_data(x,y,z).getVoxelShape()
+        x1,y1,z1,x2,y2,z2=box.minX,box.minY,box.minZ,box.maxX,box.maxY,box.maxZ
+        hitbox=custom_cube_vertices(0,0,0,x1,y1,z1,x2,y2,z2,2)
         for line in lines:
             for vertex in line:
-                glVertex3fv(get_block_data(x,y,z).getVoxelShape(x,y,z)[vertex])
+                glVertex3fv(hitbox[vertex])
         glEnd()
     if not hit:
         glBindTexture(GL_TEXTURE_2D, block_atlas)

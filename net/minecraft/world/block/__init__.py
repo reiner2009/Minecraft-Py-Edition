@@ -11,8 +11,6 @@ import pickle
 import gzip
 import json
 
-from net.minecraft.world.phys.VoxelShape import getVoxelShapeVertices
-
 def spawnTree(x,y,z):
     from net.minecraft.world.chunk.Chunk import set_block, reload_chunks
     tree_percent_map = features.get_feature_list("tree")

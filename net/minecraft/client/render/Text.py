@@ -66,10 +66,10 @@ def render_item_name(name,x,y):
 		render_text(name, x+10, y, 20, 20)
 	else:
 		glBegin(GL_QUADS)
-		glVertex2f(x, y-5)
+		glVertex2f(x, y+25)
+		glVertex2f(x-name_width, y+25)
 		glVertex2f(x-name_width, y-5)
-		glVertex2f(x-name_width, y + 25)
-		glVertex2f(x, y + 25)
+		glVertex2f(x, y-5)
 		glEnd()
 		render_text(name, x+10-name_width, y, 20, 20)
 

@@ -18,9 +18,8 @@ class Block:
         return ""
     def getProperties(self):
         return [""]
-    def getVoxelShape(self, x, y, z):
-        self.VOXEL_SHAPE = [(-1, -1, -1), (1, -1, -1), (1, -1, 1), (-1, -1, 1), (-1, 1, -1), (1, 1, -1), (1, 1, 1),(-1, 1, 1)]
-        return getVoxelShapeVertices(x, y, z, self.VOXEL_SHAPE)
+    def getVoxelShape(self):
+        return self.COLLISION_SHAPE
     def getCollisionShape(self):
         return self.COLLISION_SHAPE
     def onPlace(self, entity, block_sound_volume):
@@ -43,7 +42,7 @@ class Block:
         from net.minecraft.world.block.Blocks import registries
         if entity.getMainhandItem() in registries:
             X, Y, Z, *_ = Raycast.get_pos(entity)
-            if X and Y and Z:
+            if X is not None and Y is not None and Z is not None:
                 from net.minecraft.client.render.world.block.BlockRenderer import get_block_data
                 self.temp_collisions_check=registries[entity.getMainhandItem()](entity.getMainhandItem())
                 self.temp_collisions_check.setPos(X,Y,Z)

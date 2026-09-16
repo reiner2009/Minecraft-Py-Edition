@@ -41,17 +41,8 @@ class TrapdoorBlock(Block):
     def getProperties(self):
         return self.STATE.getStateKeys()
     @Override
-    def getVoxelShape(self, x, y, z):
-        self.VOXEL_SHAPE_MAP={
-            "north":[(-1, -1, -1), (1, -1, -1), (1, -1, -0.625), (-1, -1, -0.625), (-1, 1, -1), (1, 1, -1), (1, 1, -0.625),(-1, 1, -0.625)],
-            "south":[(-1, -1, 1), (1, -1, 1), (1, -1, 0.625), (-1, -1, 0.625), (-1, 1, 1), (1, 1, 1), (1, 1, 0.625),(-1, 1, 0.625)],
-            "west": [(-0.625, -1, -1), (-1, -1, -1), (-1, -1, 1), (-0.625, -1, 1), (-0.625, 1, -1), (-1, 1, -1), (-1, 1, 1),(-0.625, 1, 1)],
-            "east": [(1, -1, -1), (0.625, -1, -1), (0.625, -1, 1), (1, -1, 1), (1, 1, -1), (0.625, 1, -1), (0.625, 1, 1),(1, 1, 1)],
-            "up":[(-1, 0.625, -1), (1, 0.625, -1), (1, 0.625, 1), (-1, 0.625, 1), (-1, 1, -1), (1, 1, -1), (1, 1, 1),(-1, 1, 1)],
-            "down":[(-1, -1, -1), (1, -1, -1), (1, -1, 1), (-1, -1, 1), (-1, -0.625, -1), (1, -0.625, -1), (1, -0.625, 1),(-1, -0.625, 1)]
-        }
-        self.VOXEL_SHAPE = self.VOXEL_SHAPE_MAP[self.STATE.getState()]
-        return getVoxelShapeVertices(x, y, z, self.VOXEL_SHAPE)
+    def getVoxelShape(self):
+        return self.getCollisionShape()
     @Override
     def getCollisionShape(self):
         self.COLLISION_SHAPE_MAP={

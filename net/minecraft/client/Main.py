@@ -96,11 +96,12 @@ running_app=True
 block_preview=True
 container=False
 player=PlayerEntity(False)
-setLocalPlayer(player)
 player.spawn(0,0,0)
 player.setName(username)
 if skin:
 	player.setSkin(skin)
+setLocalPlayer(player)
+Raycast.setRaycastThread(player)
 chat_text=""
 camera_x, camera_y, camera_z=0,0,0
 pack = os.path.join(base_path, "resourcepacks")
@@ -234,14 +235,14 @@ def draw_scene():
 	player.tick()
 	x,y,z,x1,y1,z1= Raycast.get_pos(player)
 	if hud_==True:
-		if x1 and y1 and z1:
+		if x1 is not None and y1 is not None and z1 is not None:
 			if get_block(x1, y1, z1) != "air":
 				draw_block_preview("", x1, y1, z1, True, None)
 	glEnable(GL_TEXTURE_2D)
 	if block_preview==True and hud_==True and get_block_data(x1,y1,z1).placeableBlockDuringInteraction(player):
 		name=player.getMainhandItem()
 		if name in registries:
-			if x and y and z:
+			if x is not None and y is not None and z is not None:
 				preview_class=registries[name](name)
 				preview_class.setPos(x,y,z)
 				if (not player.getHitbox().intersects(preview_class.getCollisionShape())) or (not preview_class.hasCollision()):
@@ -412,10 +413,10 @@ def render_menu(events):
 			if event.type==MOUSEBUTTONDOWN and event.button==1:
 				button_click_sound.play()
 				pygame.time.delay(150)
-				pygame.quit()
 				import net.minecraft.modloader.ModLoader as ModLoader
 				from net.minecraft.modloader.bus.EventBus import ShutdownEventBus, shutdownEventBus
 				ModLoader.dispatch(ShutdownEventBus, shutdownEventBus)
+				pygame.quit()
 				logger.set_environment("Main")
 				logger.info("Stopped!")
 				sys.exit()

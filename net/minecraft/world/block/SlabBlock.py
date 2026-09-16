@@ -23,13 +23,8 @@ class SlabBlock(Block):
     def getDefaultProperty(self):
         return "down"
     @Override
-    def getVoxelShape(self, x, y, z):
-        self.VOXEL_SHAPE_MAP = {
-            "up": [(-1, 0, -1), (1, 0, -1), (1, 0, 1), (-1, 0, 1), (-1, 1, -1), (1, 1, -1), (1, 1, 1),(-1, 1, 1)],
-            "down":[(-1, -1, -1), (1, -1, -1), (1, -1, 1), (-1, -1, 1), (-1, 0, -1), (1, 0, -1), (1, 0, 1),(-1, 0, 1)]
-        }
-        self.VOXEL_SHAPE = self.VOXEL_SHAPE_MAP[self.VERICAL_POS.getVerticalPos()]
-        return getVoxelShapeVertices(x, y, z, self.VOXEL_SHAPE)
+    def getVoxelShape(self):
+        return self.getCollisionShape()
     @Override
     def getCollisionShape(self):
         self.COLLISION_SHAPE_MAP={

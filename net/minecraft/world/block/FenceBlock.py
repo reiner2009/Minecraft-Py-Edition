@@ -31,15 +31,13 @@ class FenceBlock(Block):
     def getProperties(self):
         return self.DIRECTION.getDirectionKeys()
     @Override
-    def getVoxelShape(self, x, y, z):
-        if self.DIRECTION.getDirection() == "x":
-            self.VOXEL_SHAPE = [(-0.25, -1, -1), (0.25, -1, -1), (0.25, -1, 1), (-0.25, -1, 1), (-0.25, 1, -1),(0.25, 1, -1), (0.25, 1, 1), (-0.25, 1, 1)]
-            return getVoxelShapeVertices(x, y, z, self.VOXEL_SHAPE)
-        if self.DIRECTION.getDirection() == "z":
-            self.VOXEL_SHAPE = [(-1, -1, -0.25), (1, -1, -0.25), (1, -1, 0.25), (-1, -1, 0.25), (-1, 1, -0.25),(1, 1, -0.25), (1, 1, 0.25), (-1, 1, 0.25)]
-            return getVoxelShapeVertices(x, y, z, self.VOXEL_SHAPE)
-        else:
-            return super().getVoxelShape(x,y,z)
+    def getVoxelShape(self):
+        self.VOXEL_SHAPE_MAP={
+            "x": AABB(-0.125, -0.5, -0.5, 0.125, 0.5,0.5, *self.MAP_POSITION),
+            "z": AABB(-0.5, -0.5, -0.125, 0.5, 0.5, 0.125, *self.MAP_POSITION),
+            "cross": AABB(-0.5, -0.5, -0.5, 0.5, 0.5, 0.5, *self.MAP_POSITION)
+        }
+        return self.VOXEL_SHAPE_MAP[self.DIRECTION.getDirection()]
     @Override
     def getCollisionShape(self):
         self.COLLISIONS_SHAPE_MAP={
