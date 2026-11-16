@@ -1,36 +1,36 @@
 {
   "cutout": [
-    "oak_leaves",
-    "grass",
-    "oak_door",
-    "oak_trapdoor"
+    "minecraft:oak_leaves",
+    "minecraft:oak_door",
+    "minecraft:oak_trapdoor",
+    "minecraft:air"
   ],
   "not_full":[
-    "oak_stair",
-    "oak_door",
-    "oak_slab",
-    "oak_fence",
-    "oak_trapdoor",
-    "oak_post"
+    "minecraft:oak_stair",
+    "minecraft:oak_door",
+    "minecraft:oak_slab",
+    "minecraft:oak_fence",
+    "minecraft:oak_trapdoor",
+    "minecraft:oak_post"
   ],
   "translucent": [
-    "glass_block",
-    "glass_pane",
-    "white_stained_glass_block",
-    "orange_stained_glass_block",
-    "magenta_stained_glass_block",
-    "light_blue_stained_glass_block",
-    "yellow_stained_glass_block",
-    "lime_stained_glass_block",
-    "pink_stained_glass_block",
-    "gray_stained_glass_block",
-    "light_gray_stained_glass_block",
-    "cyan_stained_glass_block",
-    "purple_stained_glass_block",
-    "blue_stained_glass_block",
-    "brown_stained_glass_block",
-    "green_stained_glass_block",
-    "red_stained_glass_block",
-    "black_stained_glass_block"
+    "minecraft:glass_block",
+    "minecraft:glass_pane",
+    "minecraft:white_stained_glass_block",
+    "minecraft:orange_stained_glass_block",
+    "minecraft:magenta_stained_glass_block",
+    "minecraft:light_blue_stained_glass_block",
+    "minecraft:yellow_stained_glass_block",
+    "minecraft:lime_stained_glass_block",
+    "minecraft:pink_stained_glass_block",
+    "minecraft:gray_stained_glass_block",
+    "minecraft:light_gray_stained_glass_block",
+    "minecraft:cyan_stained_glass_block",
+    "minecraft:purple_stained_glass_block",
+    "minecraft:blue_stained_glass_block",
+    "minecraft:brown_stained_glass_block",
+    "minecraft:green_stained_glass_block",
+    "minecraft:red_stained_glass_block",
+    "minecraft:black_stained_glass_block"
   ]
 }

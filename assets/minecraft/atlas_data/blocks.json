@@ -1,7 +1,7 @@
 {
   "width": 10,
   "height": 8,
-  "values":{
+  "uv":{
     "stone_bricks": [4,5],
     "dirt": [5,1],
     "grass_block_side": [2,2],
