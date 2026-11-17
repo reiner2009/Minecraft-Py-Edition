@@ -1,0 +1,8 @@
+{
+	"name":"minecraft:tree",
+	"spawn_chance":{
+		"min":0,
+		"max":10,
+		"can_spawn_at":1
+	}
+}

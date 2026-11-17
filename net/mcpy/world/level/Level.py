@@ -45,11 +45,4 @@ class Level:
 		if chunk is None:
 			return self.air
 		return chunk.getBlock(local_x, y, local_z)
-	def getLevelBlocks(self):
-		blocks={}
-		for (chunk_x, chunk_z), chunk in self.chunks.items():
-			with chunk.lock:
-				for (x,y,z), resource_location in chunk.blocks.items():
-					blocks[(chunk_x * 8 + x, y, chunk_z * 8 + z)]=resource_location
-		return blocks
 					

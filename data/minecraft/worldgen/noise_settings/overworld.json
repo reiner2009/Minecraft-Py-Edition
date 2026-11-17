@@ -1,7 +1,33 @@
 {
-  "terrian_height": 10,
-  "hilly_intensity": 10,
-  "x": 0.05,
-  "z": 0.05,
-  "world_scale": 50
+	"world_size":5,
+	"height":10,
+	"terrian":[
+		{
+		  "amplitude": 30,
+		  "freq_x": 0.002,
+		  "freq_z": 0.002
+		},
+		{
+		  "amplitude": 8,
+		  "freq_x": 0.008,
+		  "freq_z": 0.008
+		},
+		{
+		  "amplitude": 1.5,
+		  "freq_x": 0.025,
+		  "freq_z": 0.025
+		},
+		{
+		  "amplitude": 1.5,
+		  "freq_x": 0.06,
+		  "freq_z": 0.06
+		}
+	],
+	"spaghetti_caves":{
+		"amplitude":1,
+		"freq_x":0.05,
+		"freq_y":0.05,
+		"freq_z":0.05,
+		"trestle_value":0.12
+	}
 }

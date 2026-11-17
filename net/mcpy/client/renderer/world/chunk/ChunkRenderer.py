@@ -68,16 +68,19 @@ class ChunkRenderer:
 		self.vertex_array=[]
 		self.updateVertices(False)
 		self.vertices=np.array(self.vertex_array, dtype=np.float32)
-		self.vertex_count=len(self.vertices) // 5
+		self.vertex_count=len(self.vertices) // 8
 		self.vbo=glGenBuffers(1)
 		self.vao=glGenVertexArrays(1)
 		self.texCoord=glGetAttribLocation(block_shader, "texCoord")
+		self.normal=glGetAttribLocation(block_shader, "aNormal")
 		glBindVertexArray(self.vao)
 		glBindBuffer(GL_ARRAY_BUFFER, self.vbo)
-		glVertexAttribPointer(position, 3, GL_FLOAT, GL_FALSE, 5*4, ctypes.c_void_p(0))
+		glVertexAttribPointer(position, 3, GL_FLOAT, GL_FALSE, 8*4, ctypes.c_void_p(0))
 		glEnableVertexAttribArray(position)
-		glVertexAttribPointer(self.texCoord, 2, GL_FLOAT, GL_FALSE, 5*4, ctypes.c_void_p(12))
+		glVertexAttribPointer(self.texCoord, 2, GL_FLOAT, GL_FALSE, 8*4, ctypes.c_void_p(12))
 		glEnableVertexAttribArray(self.texCoord)
+		glVertexAttribPointer(self.normal, 3, GL_FLOAT, GL_FALSE, 8*4, ctypes.c_void_p(20))
+		glEnableVertexAttribArray(self.normal)
 		glBufferData(GL_ARRAY_BUFFER, self.vertices.nbytes, self.vertices, GL_DYNAMIC_DRAW)
 		glBindBuffer(GL_ARRAY_BUFFER, 0)
 	def render(self):
@@ -117,6 +120,6 @@ class ChunkRenderer:
 		glBindBuffer(GL_ARRAY_BUFFER, self.vbo)
 		glBufferData(GL_ARRAY_BUFFER, self.new_vertices.nbytes, self.new_vertices, GL_DYNAMIC_DRAW)
 		self.vertices=self.new_vertices
-		self.vertex_count=len(self.new_vertices)//5
+		self.vertex_count=len(self.new_vertices)//8
 		glBindBuffer(GL_ARRAY_BUFFER, 0)
 		glBindVertexArray(0)
