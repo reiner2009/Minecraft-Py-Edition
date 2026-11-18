@@ -1,11 +1,11 @@
-##Minecraft-like Game in Python
+# Minecraft-like Game in Python
 
 A simple Minecraft-inspired 3D game built with Python.
 This project is a learning-focused implementation using OpenGL for rendering and Pygame for input handling.
 
 ⸻
 
-About the Project
+## About the Project
 
 This is a basic voxel-style sandbox game written in Python using PyOpenGL.
 
@@ -20,7 +20,7 @@ The main goal of this project is to learn:
 
 ⸻
 
-##Features
+## Features
 
 * 3D rendering using PyOpenGL
 * Camera movement
@@ -34,11 +34,11 @@ The main goal of this project is to learn:
 
 ⸻
 
-##Download and Installation
+## Download and Installation
 
 There are two ways to get and run the game:
 
-#Option 1: Download the Source Code
+### Option 1: Download the Source Code
 
 If you want to explore the code, modify the game or run it using Python, you can download the source code from this repository.
 
@@ -51,7 +51,7 @@ cd Minecraft-Py-Edition
 pip install -r requirements.txt
 python -m net.minecraft.client.Main
 
-#Option 2: Download a Prebuilt Executable
+### Option 2: Download a Prebuilt Executable
 
 If you don’t want to install Python or set up the dependencies yourself, you can download a prebuilt executable.
 
@@ -61,7 +61,7 @@ Simply download the version for your operating system and run it.
 
 ⸻
 
-#Command-Line Arguments
+## Command-Line Arguments
 
 The arguments --skin and --username are optional.
 
@@ -76,7 +76,7 @@ python -m net.minecraft.client.Main --online-skin Dream
 
 ⸻
 
-##Controls
+## Controls
 
 * Move with WASD
 * Place blocks with a right-click and mine them with a left-click.
