@@ -62,6 +62,7 @@ def updateView():
 class ChunkRenderer:
 	def __init__(self, block_render_type, chunk):
 		self.dirty=False
+		self.vbodirty=False
 		self.chunk=chunk
 		self.mesh_lock=threading.Lock()
 		self.block_render_type=block_render_type
@@ -98,11 +99,11 @@ class ChunkRenderer:
 		glBindVertexArray(self.vao)
 		glDrawArrays(GL_TRIANGLES, 0, self.vertex_count)
 		glBindVertexArray(0)
-		if self.dirty:
+		if self.vbodirty:
 			self.updateVbo()
-			self.dirty=False
+			self.vbodirty=False
 	def updateVertices(self, set_dirty=True):
-		global level, dirty
+		global level
 		with self.mesh_lock:
 			self.vertex_array=[]
 			with self.chunk.lock:
@@ -112,7 +113,7 @@ class ChunkRenderer:
 							self.vertex_array.append(num)
 			self.chunk.dirty=False
 			if set_dirty:
-				self.dirty=True
+				self.vbodirty=True
 	def updateVbo(self):
 		with self.mesh_lock:
 			self.new_vertices=np.array(self.vertex_array, dtype=np.float32)

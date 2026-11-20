@@ -18,11 +18,13 @@ class LevelRenderer:
 		self.dirty_chunks[(chunk.x, chunk.z)]=chunk
 	def add_chunk(self, chunk):
 		self.chunk_renderer_key=(chunk.x, chunk.z)
-		try:
+		if self.chunk_renderer_key not in self.chunk_renderers:
 			self.chunk_renderers[self.chunk_renderer_key]=[ChunkRenderer("solide", chunk), ChunkRenderer("cutout", chunk), ChunkRenderer("translucent", chunk)]
-		except KeyError:
-			for chunk_renderer in self.chunk_renderers[self.chunk_renderer_key]:
+			for chunk_renderer in self.chunk_renderers[(chunk.x, chunk.z)]:
 				chunk_renderer.dirty=True
+		else:
+			for chunk_renderer in self.chunk_renderers[(chunk.x, chunk.z)]:
+				chunk_renderer.dirty=True	 
 	def render(self):
 		for chunk_renderer in self.chunk_renderers.values():
 			chunk_renderer[0].render()

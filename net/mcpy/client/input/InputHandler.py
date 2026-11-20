@@ -1,6 +1,7 @@
 import glfw
 import glm
 import net.mcpy.client.GameClient as GameClient
+import net.mcpy.game.GameTickThread as GameTickThread
 import net.mcpy.game.Minecraft as Minecraft
 from net.mcpy.resources.ResourceLocation import ResourceLocation
 
@@ -34,6 +35,7 @@ def playerUseMouse(window, button, action, mods):
 		Minecraft.level.setBlock(round(x), round(y), round(z), ResourceLocation(path="blue_stained_glass_block"))
 		with Minecraft.level.lock:
 			Minecraft.level.dirty=True
+		GameTickThread.client_tick_event.set()
 	if button == glfw.MOUSE_BUTTON_LEFT and action == glfw.PRESS:
 		x,y,z=GameClient.attributes["local_player"].getPos()
 		pos=(round(x), round(y), round(z))
@@ -41,6 +43,7 @@ def playerUseMouse(window, button, action, mods):
 			Minecraft.level.setBlock(*pos, ResourceLocation(path="air"))
 			with Minecraft.level.lock:
 				Minecraft.level.dirty=True
+			GameTickThread.client_tick_event.set()
 
 def handleInput():
     global w_pressed, a_pressed, s_pressed, d_pressed, space_pressed, left_shift_pressed, first_mouse, last_x, last_y
