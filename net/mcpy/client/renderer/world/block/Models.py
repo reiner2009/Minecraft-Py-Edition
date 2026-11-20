@@ -1,17 +1,17 @@
 import json
-from net.mcpy.resources.ResourceLocation import ResourceLocation
 import net.mcpy.resources.FileLoader as FileLoader
 import net.mcpy.registry.Registry as Registry
+from net.mcpy.resources.Identifier import Identifier
 
 atlas_data=json.load(open("assets/minecraft/atlas_data/blocks.json"))
 width=atlas_data["width"]
 height=atlas_data["height"]
 uv=atlas_data["uv"]
 
-def load_model(resource_location):
-	name=resource_location.path
+def load_model(id):
+	name=id.path
 	try:
-		model=json.load(open(FileLoader.getFromModOrFrozen("assets/"+resource_location.namespace+"/models/block/"+name+".json")))
+		model=json.load(open(FileLoader.getFromModOrFrozen("assets/"+id.namespace+"/models/block/"+name+".json")))
 		return model
 	except FileNotFoundError:
 		if name in uv.keys():
@@ -22,5 +22,7 @@ def load_model(resource_location):
 models={}
 def init():
 	for registry in Registry.registries["block"]:
-		resource_location=registry[0]
-		models[resource_location.getAsString()]=load_model(resource_location)
+		id=registry[0]
+		all_block_states=registry[1].getBlockState()["all"]
+		for state in all_block_states:
+			models[id.getAsString()+state]=load_model(Identifier(path=id.path+state))

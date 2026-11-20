@@ -1,11 +1,10 @@
 from OpenGL.GL import *
-import os
-from net.mcpy.resources.FileLoader import getFromModOrFrozen
+import net.mcpy.resources.FileLoader as FileLoader
 
 class ShaderCompiler:
 	def __init__(self, vertex_path, fragment_path):
-		self.vertex_path=getFromModOrFrozen(vertex_path)
-		self.fragment_path=getFromModOrFrozen(fragment_path)
+		self.vertex_path=FileLoader.getFromModOrFrozen(vertex_path)
+		self.fragment_path=FileLoader.getFromModOrFrozen(fragment_path)
 	def loadShader(self, path, shader_type):
 		with open(path, "r") as file:
 			source = file.read()

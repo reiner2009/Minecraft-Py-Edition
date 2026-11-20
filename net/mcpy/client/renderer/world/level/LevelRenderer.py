@@ -26,6 +26,13 @@ class LevelRenderer:
 			for chunk_renderer in self.chunk_renderers[(chunk.x, chunk.z)]:
 				chunk_renderer.dirty=True	 
 	def render(self):
+		with self.lock:
+			if self.dirty_chunks:
+				for K, chunk in self.dirty_chunks.items():
+					self.add_chunk(chunk)
+				self.dirty_chunks={}
+				from net.mcpy.game import GameTickThread
+				GameTickThread.client_tick_event.set()
 		for chunk_renderer in self.chunk_renderers.values():
 			chunk_renderer[0].render()
 		for chunk_renderer in self.chunk_renderers.values():
@@ -35,7 +42,3 @@ class LevelRenderer:
 			glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA)
 			chunk_renderer[2].render()
 			glDisable(GL_BLEND)
-		with self.lock:
-			for (x,z), chunk in self.dirty_chunks.items():
-				self.add_chunk(chunk)
-			self.dirty_chunks={}

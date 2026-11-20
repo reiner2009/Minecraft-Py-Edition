@@ -3,11 +3,9 @@ import json
 import random
 import hashlib
 import net.mcpy.resources.FileLoader as FileLoader
-import net.mcpy.client.GameClient as GameClient
 import net.mcpy.registry.Registry as Registry
 import net.mcpy.registry.Registries as Registries
-from net.mcpy.resources.ResourceLocation import ResourceLocation
-from net.mcpy.world.generator.Tree import Tree
+import net.mcpy.world.block.Blocks as Blocks
 from net.mcpy.world.level.Level import Level
 
 noise_settings=json.load(open(FileLoader.getFromModOrFrozen("data/minecraft/worldgen/noise_settings/overworld.json")))
@@ -42,30 +40,30 @@ def generateWorld(seed):
 	cave_noise_1=OpenSimplex(seed=seed+2)
 	features={}
 	for feature_data in Registry.registries[Registries.FEATURE]:
-		resource_location=feature_data[0]
+		id=feature_data[0]
 		feature=feature_data[1]
-		features[resource_location]=[
+		features[id]=[
 			feature,
-			json.load(open(FileLoader.getFromModOrFrozen("data/"+resource_location.namespace+"/worldgen/features/"+resource_location.path+".json")))
+			json.load(open(FileLoader.getFromModOrFrozen("data/"+id.namespace+"/worldgen/features/"+id.path+".json")))
 		]
 	for x in range(world_size*8):
 		for z in range(world_size*8):
 			ay=getNoise(x,z, noise)
-			level.setBlock(x,-11,z, ResourceLocation(path="bedrock"))
-			for y in range(-10, ay+1):
-				if y < 0:
-					level.setBlock(x,y,z, ResourceLocation(path="deepslatey"))
+			level.setBlock(x,-21,z, Blocks.BEDROCK)
+			for y in range(-20, ay+1):
+				if y < createRng(seed, "deepslate_height", x, 0, z).randint(0, 3):
+					level.setBlock(x,y,z, Blocks.DEPPSLATE)
 				else:
-					level.setBlock(x,y,z, ResourceLocation(path="stone"))
-			level.setBlock(x,ay+1,z, ResourceLocation(path="dirt"))
-			level.setBlock(x,ay+2,z, ResourceLocation(path="grass_block"))
-			for y in range(-8, ay+3):
+					level.setBlock(x,y,z, Blocks.STONE)
+			level.setBlock(x,ay+1,z, Blocks.DIRT)
+			level.setBlock(x,ay+2,z, Blocks.GRASS_BLOCK)
+			for y in range(-18, ay+3):
 				if isSpaghettiCave(x,y,z, cave_noise_0, cave_noise_1):
-					level.setBlock(x,y,z,ResourceLocation(path="air"))
-			for resource_location, feature_content in features.items():
+					level.setBlock(x,y,z,Blocks.AIR)
+			for id, feature_content in features.items():
 				feature_class=feature_content[0]
 				feature_data=feature_content[1]
-				rng=createRng(seed, resource_location, x, ay+3, z)
+				rng=createRng(seed, id, x, ay+3, z)
 				feature=feature_class(rng)
 				min_chance=feature_data["spawn_chance"]["min"]
 				max_chance=feature_data["spawn_chance"]["max"]

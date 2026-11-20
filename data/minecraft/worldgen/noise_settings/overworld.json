@@ -1,26 +1,26 @@
 {
-	"world_size":1,
-	"height":10,
+	"world_size":8,
+	"height":20,
 	"terrian":[
 		{
-		  "amplitude": 30,
-		  "freq_x": 0.002,
-		  "freq_z": 0.002
+		  "amplitude": 15,
+		  "freq_x": 0.02,
+		  "freq_z": 0.02
 		},
 		{
-		  "amplitude": 8,
-		  "freq_x": 0.008,
-		  "freq_z": 0.008
+		  "amplitude": 4,
+		  "freq_x": 0.08,
+		  "freq_z": 0.08
 		},
 		{
-		  "amplitude": 1.5,
-		  "freq_x": 0.025,
-		  "freq_z": 0.025
+		  "amplitude": 0.75,
+		  "freq_x": 0.25,
+		  "freq_z": 0.25
 		},
 		{
-		  "amplitude": 1.5,
-		  "freq_x": 0.06,
-		  "freq_z": 0.06
+		  "amplitude": 0.75,
+		  "freq_x": 0.6,
+		  "freq_z": 0.6
 		}
 	],
 	"spaghetti_caves":{

@@ -1,6 +1,6 @@
 import json
+
 from net.mcpy.client.renderer.world.block.Models import models, uv, width, height
-from net.mcpy.resources.ResourceLocation import ResourceLocation
 import net.mcpy.resources.FileLoader as FileLoader
 
 render_data=json.load(open(FileLoader.getFromModOrFrozen("assets/minecraft/render/render_data.json")))
@@ -67,15 +67,15 @@ def getPZ(u0, u1, v0, v1, x0=0,y0=0,z0=0,x1=1,y1=1,z1=1, x_offset=0, y_offset=0,
 
 vertices=[]
 
-def getVertices(x,y,z, resource_location, level):
+def getVertices(x,y,z, block, level):
 	global vertices
 	vertices=[]
-	model=models[resource_location.getAsString()]
+	model=models[block.id.getAsString()+block.getState()]
 	face_arrays=[getNY, getPY, getNX, getPX, getNZ, getPZ]
 	neighbors=[(x,y-1,z),(x,y+1,z),(x-1,y,z),(x+1,y,z),(x,y,z-1),(x,y,z+1)]
 	if model["type"]=="full_cube":
 		for face in range(6):
-			if level.getBlock(*neighbors[face]).getAsString() in render_data["cutout"] or (level.getBlock(*neighbors[face]).getAsString() in render_data["translucent"] and resource_location.getAsString() not in render_data["translucent"]):
+			if level.getBlock(*neighbors[face]).id.getAsString() in render_data["cutout"] or (level.getBlock(*neighbors[face]).id.getAsString() in render_data["translucent"] and block.id.getAsString() not in render_data["translucent"]):
 				texture=model["textures"][face]
 				u0=uv[texture][0]/width
 				u1=(uv[texture][0]+1)/width
@@ -89,7 +89,7 @@ def getVertices(x,y,z, resource_location, level):
 			model_texture_names=element["textures"]
 			model_vertices=element["vertices"]
 			for face in range(6):
-				if level.getBlock(*neighbors[face]).getAsString() in render_data["cutout"] or (level.getBlock(*neighbors[face]).getAsString() in render_data["translucent"] and resource_location.getAsString() not in render_data["translucent"]):
+				if level.getBlock(*neighbors[face]).getAsString() in render_data["cutout"] or (level.getBlock(*neighbors[face]).id.getAsString() in render_data["translucent"] and block.id.getAsString() not in render_data["translucent"]):
 					texture=model_texture_names[face]
 					if model_custom_uv[face]==False:
 						u0=uv[texture][0]/width

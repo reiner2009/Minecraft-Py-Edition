@@ -2,7 +2,6 @@ import threading
 import time
 import net.mcpy.client.input.InputHandler as InputHandler
 import net.mcpy.game.Minecraft as Minecraft
-import net.mcpy.client.renderer.world.level.LevelRenderer as LevelRenderer
 import net.mcpy.client.renderer.world.WorldRenderer as WorldRenderer
 
 entity_movement_tick_mainloop=True
@@ -31,8 +30,8 @@ def tickClient():
 				for chunk_renderer in chunk_renderers:
 					if chunk_renderer.dirty:
 						chunk_renderer.updateVertices()
-						chunk_renderer.vbodirty=True
 						chunk_renderer.dirty=False
+						chunk_renderer.vbodirty=True
 
 entity_movement_tick_thread=threading.Thread(target=tick_entity_movement, daemon=True)
 tick_thread=threading.Thread(target=tick, daemon=True)

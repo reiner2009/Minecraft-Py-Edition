@@ -1,5 +1,9 @@
 import os
-os.environ['PYOPENGL_PLATFORM']='glx'
+import sys
+if sys.platform == "darwin":
+    os.environ["PYOPENGL_PLATFORM"] = "darwin"
+elif sys.platform.startswith("linux"):
+    os.environ["PYOPENGL_PLATFORM"] = "glx"
 from OpenGL.GL import *
 import glfw
 import net.mcpy.client.renderer.Renderer as Renderer

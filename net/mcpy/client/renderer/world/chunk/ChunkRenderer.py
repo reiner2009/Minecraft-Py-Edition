@@ -7,7 +7,6 @@ from OpenGL.GL import*
 import numpy as np
 import ctypes
 import glm
-import math
 import json
 import threading
 
@@ -22,11 +21,11 @@ block_shader=None
 
 render_data=json.load(open(FileLoader.getFromModOrFrozen("assets/minecraft/render/render_data.json")))
 
-def getRenderData(resource_location):
-	block=resource_location.getAsString()
-	if block in render_data["cutout"]:
+def getRenderData(block):
+	block_id=block.id.getAsString()
+	if block_id in render_data["cutout"]:
 		return "cutout"
-	if block in render_data["translucent"]:
+	if block_id in render_data["translucent"]:
 		return "translucent"
 	else:
 		return "solide"
@@ -71,17 +70,9 @@ class ChunkRenderer:
 		self.vertices=np.array(self.vertex_array, dtype=np.float32)
 		self.vertex_count=len(self.vertices) // 8
 		self.vbo=glGenBuffers(1)
-		self.vao=glGenVertexArrays(1)
 		self.texCoord=glGetAttribLocation(block_shader, "texCoord")
 		self.normal=glGetAttribLocation(block_shader, "aNormal")
-		glBindVertexArray(self.vao)
 		glBindBuffer(GL_ARRAY_BUFFER, self.vbo)
-		glVertexAttribPointer(position, 3, GL_FLOAT, GL_FALSE, 8*4, ctypes.c_void_p(0))
-		glEnableVertexAttribArray(position)
-		glVertexAttribPointer(self.texCoord, 2, GL_FLOAT, GL_FALSE, 8*4, ctypes.c_void_p(12))
-		glEnableVertexAttribArray(self.texCoord)
-		glVertexAttribPointer(self.normal, 3, GL_FLOAT, GL_FALSE, 8*4, ctypes.c_void_p(20))
-		glEnableVertexAttribArray(self.normal)
 		glBufferData(GL_ARRAY_BUFFER, self.vertices.nbytes, self.vertices, GL_DYNAMIC_DRAW)
 		glBindBuffer(GL_ARRAY_BUFFER, 0)
 	def render(self):
@@ -96,9 +87,8 @@ class ChunkRenderer:
 		glUniformMatrix4fv(loc_model, 1, GL_FALSE, glm.value_ptr(model))
 		glUniformMatrix4fv(loc_view, 1, GL_FALSE, glm.value_ptr(view))
 		glUniformMatrix4fv(loc_projection, 1, GL_FALSE, glm.value_ptr(projection))
-		glBindVertexArray(self.vao)
+		self.bind()
 		glDrawArrays(GL_TRIANGLES, 0, self.vertex_count)
-		glBindVertexArray(0)
 		if self.vbodirty:
 			self.updateVbo()
 			self.vbodirty=False
@@ -107,9 +97,9 @@ class ChunkRenderer:
 		with self.mesh_lock:
 			self.vertex_array=[]
 			with self.chunk.lock:
-				for (x,y,z),resource_location in self.chunk.blocks.items():
-					if getRenderData(resource_location)==self.block_render_type:
-						for num in BlockRenderer.getVertices(self.chunk.x * 8 + x, y, self.chunk.z * 8 + z, resource_location, level):
+				for (x,y,z),block in self.chunk.blocks.items():
+					if getRenderData(block)==self.block_render_type:
+						for num in BlockRenderer.getVertices(self.chunk.x * 8 + x, y, self.chunk.z * 8 + z, block, level):
 							self.vertex_array.append(num)
 			self.chunk.dirty=False
 			if set_dirty:
@@ -117,10 +107,16 @@ class ChunkRenderer:
 	def updateVbo(self):
 		with self.mesh_lock:
 			self.new_vertices=np.array(self.vertex_array, dtype=np.float32)
-		glBindVertexArray(self.vao)
 		glBindBuffer(GL_ARRAY_BUFFER, self.vbo)
 		glBufferData(GL_ARRAY_BUFFER, self.new_vertices.nbytes, self.new_vertices, GL_DYNAMIC_DRAW)
 		self.vertices=self.new_vertices
 		self.vertex_count=len(self.new_vertices)//8
 		glBindBuffer(GL_ARRAY_BUFFER, 0)
-		glBindVertexArray(0)
+	def bind(self):
+		glBindBuffer(GL_ARRAY_BUFFER, self.vbo)
+		glVertexAttribPointer(position, 3, GL_FLOAT, GL_FALSE, 32, ctypes.c_void_p(0))
+		glEnableVertexAttribArray(position)
+		glVertexAttribPointer(self.texCoord, 2, GL_FLOAT, GL_FALSE, 32, ctypes.c_void_p(12))
+		glEnableVertexAttribArray(self.texCoord)
+		glVertexAttribPointer(self.normal, 3, GL_FLOAT, GL_FALSE, 32, ctypes.c_void_p(20))
+		glEnableVertexAttribArray(self.normal)
