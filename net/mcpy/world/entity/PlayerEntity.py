@@ -10,75 +10,52 @@ class PlayerEntity(Entity):
 		dy = self.y + (math.sin(math.radians(self.pitch))) * ran
 		dz = self.z + (math.cos(math.radians(self.yaw)) * math.cos(math.radians(self.pitch))) * ran
 		return dx, dy, dz
-	def getLookDirectionAsD(self):
+	def getLookDirectionVector(self):
 		dx = (math.sin(math.radians(self.yaw)) * math.cos(math.radians(self.pitch)))
 		dy = (math.sin(math.radians(self.pitch)))
 		dz = (math.cos(math.radians(self.yaw)) * math.cos(math.radians(self.pitch)))
 		return dx, dy, dz
+	def getTMax(self, pos, block, direction):
+		if direction > 0:
+			return (block + 1 - pos) / direction
+		elif direction < 0:
+			return (pos - block) / -direction
+		return math.inf
 	def getTrackedPos(self, level):
-		t = 0
-		px, py, pz = None, None, None
-		startx, starty, startz = self.getPos()
-		bx = math.floor(startx)
-		by = math.floor(starty)
-		bz = math.floor(startz)
-		x, y, z = startx, starty, startz
-		while t <= 5 and not (level.getBlock(math.floor(x), math.floor(y), math.floor(z)) != Blocks.AIR and level.getBlock(math.floor(x), math.floor(y), math.floor(z)) != Blocks.VOID):
-			t += 0.01
-			x, y, z = self.getLookDirection(t)
-		if level.getBlock(math.floor(x), math.floor(y), math.floor(z)) != Blocks.AIR and level.getBlock(math.floor(x), math.floor(y), math.floor(z)) != Blocks.VOID:
-			bx = math.floor(x)
-			by = math.floor(y)
-			bz = math.floor(z)
-			minx = bx
-			miny = by
-			minz = bz
-			maxx = bx + 1
-			maxy = by + 1
-			maxz = bz + 1
-			dx, dy, dz = self.getLookDirectionAsD()
-			if dx != 0:
-				tx1 = (minx - startx) / dx
-				tx2 = (maxx - startx) / dx
+		ran=0
+		dx,dy,dz=self.getLookDirectionVector()
+		ox,oy,oz=self.getPos()
+		map_x=math.floor(ox)
+		map_y=math.floor(oy)
+		map_z=math.floor(oz)
+		step_x=1 if dx > 0 else -1
+		step_y=1 if dy > 0 else -1
+		step_z=1 if dz > 0 else -1
+		delta_x=1/abs(dx) if dx != 0 else math.inf
+		delta_y=1/abs(dy) if dy != 0 else math.inf
+		delta_z=1/abs(dz) if dz != 0 else math.inf
+		max_x=self.getTMax(ox, map_x, dx)
+		max_y=self.getTMax(oy, map_y, dy)
+		max_z=self.getTMax(oz, map_z, dz)
+		normal=(None, None, None)
+		while ran<5 and (level.getBlock(map_x, map_y, map_z)==Blocks.AIR or level.getBlock(map_x, map_y, map_z)==Blocks.VOID):
+			ran+=1
+			if max_x < max_y and max_x < max_z:
+				map_x+=step_x
+				max_x+=delta_x
+				normal=(-step_x, 0, 0)
+			elif max_y < max_z:
+				map_y+=step_y
+				max_y+=delta_y
+				normal=(0, -step_y, 0)
 			else:
-				tx1 = -float("inf")
-				tx2 = float("inf")
-			if dy != 0:
-				ty1 = (miny - starty) / dy
-				ty2 = (maxy - starty) / dy
-			else:
-				ty1 = -float("inf")
-				ty2 = float("inf")
-			if dz != 0:
-				tz1 = (minz - startz) / dz
-				tz2 = (maxz - startz) / dz
-			else:
-				tz1 = -float("inf")
-				tz2 = float("inf")
-			tx_min = min(tx1, tx2)
-			tx_max = max(tx1, tx2)
-			ty_min = min(ty1, ty2)
-			ty_max = max(ty1, ty2)
-			tz_min = min(tz1, tz2)
-			tz_max = max(tz1, tz2)
-			t_enter = max(tx_min, ty_min, tz_min)
-			if t_enter == tx_min and dx != 0:
-				if tx1 < tx2:
-					px, py, pz = bx - 1, by, bz
-				else:
-					px, py, pz = bx + 1, by, bz
-			elif t_enter == ty_min and dy != 0:
-				if ty1 < ty2:
-					px, py, pz = bx, by - 1, bz
-				else:
-					px, py, pz = bx, by + 1, bz
-
-			elif t_enter == tz_min and dz != 0:
-				if tz1 < tz2:
-					px, py, pz = bx, by, bz - 1
-				else:
-					px, py, pz = bx, by, bz + 1
-		if px is not None and py is not None and pz is not None:
-			if level.getBlock(math.floor(x), math.floor(y), math.floor(z)) != Blocks.AIR and level.getBlock(math.floor(x), math.floor(y), math.floor(z)) != Blocks.VOID:
-				return px, py, pz, bx, by, bz
-		return None, None, None, bx, by, bz
+				map_z+=step_z
+				max_z+=delta_z
+				normal=(0,0,-step_z)
+		nx,ny,nz=normal
+		if level.getBlock(map_x, map_y, map_z)==Blocks.AIR or level.getBlock(map_x, map_y, map_z)==Blocks.VOID:
+			normal=(None, None, None)
+		if normal!=(None, None, None):
+			return map_x+nx, map_y+ny, map_z+nz, map_x, map_y, map_z
+		else:
+			return *normal, map_x, map_y, map_z

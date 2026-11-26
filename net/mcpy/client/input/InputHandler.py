@@ -33,17 +33,18 @@ def registerCallbacks():
 def playerUseMouse(window, button, action, mods):
 	if button == glfw.MOUSE_BUTTON_RIGHT and action == glfw.PRESS:
 		px,py,pz,bx,by,bz=GameClient.attributes["local_player"].getTrackedPos(Minecraft.level)
-		if px and py and pz:
-			pos=px,py,pz
-			Minecraft.level.setBlock(*pos, Blocks.BLUE_STAINED_GLASS_BLOCK, update=True)
+		pos=px,py,pz
+		if px!=None and py!=None and pz!=None and (Minecraft.level.getBlock(*pos)==Blocks.AIR or Minecraft.level.getBlock(*pos)==Blocks.VOID):
+			Minecraft.level.setBlock(*pos, Blocks.OAK_LOG)
+			Minecraft.level.getBlock(*pos).onPlace(px,py,pz,bx,by,bz)
 			with Minecraft.level.lock:
 				Minecraft.level.dirty=True
 			GameTickThread.client_tick_event.set()
 	if button == glfw.MOUSE_BUTTON_LEFT and action == glfw.PRESS:
 		px,py,pz,bx,by,bz=GameClient.attributes["local_player"].getTrackedPos(Minecraft.level)
 		pos=bx, by, bz
-		if Minecraft.level.getBlock(*pos).id.getAsString()!="minecraft:air":
-			Minecraft.level.setBlock(*pos, Blocks.AIR, update=True)
+		if Minecraft.level.getBlock(*pos)!=Blocks.AIR and Minecraft.level.getBlock(*pos)!=Blocks.VOID:
+			Minecraft.level.setBlock(*pos, Blocks.AIR)
 			with Minecraft.level.lock:
 				Minecraft.level.dirty=True
 			GameTickThread.client_tick_event.set()

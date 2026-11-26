@@ -1,6 +1,7 @@
 from net.mcpy.client.renderer.ShaderCompiler import ShaderCompiler
 import net.mcpy.client.GameClient as GameClient
 import net.mcpy.game.Minecraft as Minecraft
+import net.mcpy.world.block.Blocks as Blocks
 from OpenGL.GL import*
 import numpy as np
 import ctypes
@@ -51,8 +52,8 @@ def getVertices(vx,vy,vz):
 class BlockOutlinesRenderer:
 	def __init__(self):
 		px,py,pz,bx,by,bz=GameClient.attributes["local_player"].getTrackedPos(Minecraft.level)
-		pos=bx,by,bz
-		self.vertex_array=getVertices(*pos)
+		self.pos=bx,by,bz
+		self.vertex_array=getVertices(*self.pos)
 		self.vertices=np.array(self.vertex_array, dtype=np.float32)
 		self.vertex_count=len(self.vertices) // 3
 		self.vbo=glGenBuffers(1)
@@ -61,22 +62,23 @@ class BlockOutlinesRenderer:
 		glBindBuffer(GL_ARRAY_BUFFER, 0)
 		glLineWidth(3)
 	def render(self, model, view, projection):
-		previous_shader=glGetIntegerv(GL_CURRENT_PROGRAM)
-		glUseProgram(line_shader)
-		loc_model=glGetUniformLocation(line_shader, "model")
-		loc_view=glGetUniformLocation(line_shader, "view")
-		loc_projection=glGetUniformLocation(line_shader, "projection")
-		glUniformMatrix4fv(loc_model, 1, GL_FALSE, glm.value_ptr(model))
-		glUniformMatrix4fv(loc_view, 1, GL_FALSE, glm.value_ptr(view))
-		glUniformMatrix4fv(loc_projection, 1, GL_FALSE, glm.value_ptr(projection))
-		self.bind()
-		glDrawArrays(GL_LINES, 0, self.vertex_count)
 		self.updateVbo()
-		glUseProgram(previous_shader)
+		if Minecraft.level.getBlock(*self.pos)!=Blocks.AIR and Minecraft.level.getBlock(*self.pos)!=Blocks.VOID:
+			previous_shader=glGetIntegerv(GL_CURRENT_PROGRAM)
+			glUseProgram(line_shader)
+			loc_model=glGetUniformLocation(line_shader, "model")
+			loc_view=glGetUniformLocation(line_shader, "view")
+			loc_projection=glGetUniformLocation(line_shader, "projection")
+			glUniformMatrix4fv(loc_model, 1, GL_FALSE, glm.value_ptr(model))
+			glUniformMatrix4fv(loc_view, 1, GL_FALSE, glm.value_ptr(view))
+			glUniformMatrix4fv(loc_projection, 1, GL_FALSE, glm.value_ptr(projection))
+			self.bind()
+			glDrawArrays(GL_LINES, 0, self.vertex_count)
+			glUseProgram(previous_shader)
 	def updateVbo(self):
 		px, py, pz, bx, by, bz = GameClient.attributes["local_player"].getTrackedPos(Minecraft.level)
-		pos = bx, by, bz
-		self.vertex_array=getVertices(*pos)
+		self.pos = bx, by, bz
+		self.vertex_array=getVertices(*self.pos)
 		self.new_vertices=np.array(self.vertex_array, dtype=np.float32)
 		glBindBuffer(GL_ARRAY_BUFFER, self.vbo)
 		glBufferData(GL_ARRAY_BUFFER, self.new_vertices.nbytes, self.new_vertices, GL_DYNAMIC_DRAW)

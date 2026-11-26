@@ -36,9 +36,7 @@ def render():
 	level_renderer.render(model, view, projection)
 	block_outline_renderer.render(model, view, projection)
 	glBindTexture(GL_TEXTURE_2D, GameClient.textures["crosshair_texture"])
-	glEnable(GL_BLEND)
 	hud_renderer.render()
-	glDisable(GL_BLEND)
 
 
 def updateVertices():
