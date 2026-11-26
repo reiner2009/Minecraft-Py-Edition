@@ -57,7 +57,6 @@ def init():
     GameClient.init()
     BlockModels.init()
     Renderer.init()
-    glBindTexture(GL_TEXTURE_2D, GameClient.textures["block_atlas"])
     GameTickThread.client_tick_thread.start()
 
 def render():

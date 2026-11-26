@@ -6,7 +6,7 @@ class Level:
 	def __init__(self):
 		self.chunks={}
 		self.lock=threading.Lock()
-	def setBlock(self,x,y,z,block):
+	def setBlock(self,x,y,z,block, update=False):
 		with self.lock:
 			chunk_x, chunk_z=Chunk.parseBlockPos(x,y,z)
 			local_x=x % 8
@@ -14,7 +14,7 @@ class Level:
 			chunk_key=(chunk_x, chunk_z)
 			if chunk_key not in self.chunks:
 				self.chunks[chunk_key]=Chunk(chunk_x, chunk_z)
-			self.chunks[chunk_key].setBlock(local_x, y, local_z, block)
+			self.chunks[chunk_key].setBlock(local_x, y, local_z, block, update)
 			if local_x==0:
 				try:
 					self.chunks[(chunk_x - 1, chunk_z)].dirty=True

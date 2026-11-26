@@ -3,7 +3,6 @@ import glm
 import net.mcpy.client.GameClient as GameClient
 import net.mcpy.game.GameTickThread as GameTickThread
 import net.mcpy.game.Minecraft as Minecraft
-from net.mcpy.resources.Identifier import Identifier
 import net.mcpy.world.block.Blocks as Blocks
 
 
@@ -33,15 +32,18 @@ def registerCallbacks():
 	
 def playerUseMouse(window, button, action, mods):
 	if button == glfw.MOUSE_BUTTON_RIGHT and action == glfw.PRESS:
-		pos=GameClient.attributes["local_player"].getTrackedPos()
-		Minecraft.level.setBlock(*pos, Blocks.BLUE_STAINED_GLASS_BLOCK)
-		with Minecraft.level.lock:
-			Minecraft.level.dirty=True
-		GameTickThread.client_tick_event.set()
+		px,py,pz,bx,by,bz=GameClient.attributes["local_player"].getTrackedPos(Minecraft.level)
+		if px and py and pz:
+			pos=px,py,pz
+			Minecraft.level.setBlock(*pos, Blocks.BLUE_STAINED_GLASS_BLOCK, update=True)
+			with Minecraft.level.lock:
+				Minecraft.level.dirty=True
+			GameTickThread.client_tick_event.set()
 	if button == glfw.MOUSE_BUTTON_LEFT and action == glfw.PRESS:
-		pos=GameClient.attributes["local_player"].getTrackedPos()
+		px,py,pz,bx,by,bz=GameClient.attributes["local_player"].getTrackedPos(Minecraft.level)
+		pos=bx, by, bz
 		if Minecraft.level.getBlock(*pos).id.getAsString()!="minecraft:air":
-			Minecraft.level.setBlock(*pos, Blocks.AIR)
+			Minecraft.level.setBlock(*pos, Blocks.AIR, update=True)
 			with Minecraft.level.lock:
 				Minecraft.level.dirty=True
 			GameTickThread.client_tick_event.set()

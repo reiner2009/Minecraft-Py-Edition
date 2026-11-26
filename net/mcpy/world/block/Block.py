@@ -4,6 +4,10 @@ class Block:
         self.pos = (0,0,0)
         self.state_id=""
         self.block_state = {"":"", "all":[""]}
+    def __eq__(self, other):
+        return self.id==other.id
+    def __hash__(self):
+        return hash(self.id)
     def create(self, x, y, z):
         block = self.__class__.__new__(self.__class__)
         block.__init__(self.id)

@@ -1,5 +1,6 @@
 from net.mcpy.client.renderer.ShaderCompiler import ShaderCompiler
 import net.mcpy.client.GameClient as GameClient
+import net.mcpy.game.Minecraft as Minecraft
 from OpenGL.GL import*
 import numpy as np
 import ctypes
@@ -49,13 +50,16 @@ def getVertices(vx,vy,vz):
 
 class BlockOutlinesRenderer:
 	def __init__(self):
-		self.vertex_array=getVertices(*GameClient.attributes["local_player"].getTrackedPos())
+		px,py,pz,bx,by,bz=GameClient.attributes["local_player"].getTrackedPos(Minecraft.level)
+		pos=bx,by,bz
+		self.vertex_array=getVertices(*pos)
 		self.vertices=np.array(self.vertex_array, dtype=np.float32)
 		self.vertex_count=len(self.vertices) // 3
 		self.vbo=glGenBuffers(1)
 		glBindBuffer(GL_ARRAY_BUFFER, self.vbo)
 		glBufferData(GL_ARRAY_BUFFER, self.vertices.nbytes, self.vertices, GL_DYNAMIC_DRAW)
 		glBindBuffer(GL_ARRAY_BUFFER, 0)
+		glLineWidth(3)
 	def render(self, model, view, projection):
 		previous_shader=glGetIntegerv(GL_CURRENT_PROGRAM)
 		glUseProgram(line_shader)
@@ -70,7 +74,9 @@ class BlockOutlinesRenderer:
 		self.updateVbo()
 		glUseProgram(previous_shader)
 	def updateVbo(self):
-		self.vertex_array=getVertices(*GameClient.attributes["local_player"].getTrackedPos())
+		px, py, pz, bx, by, bz = GameClient.attributes["local_player"].getTrackedPos(Minecraft.level)
+		pos = bx, by, bz
+		self.vertex_array=getVertices(*pos)
 		self.new_vertices=np.array(self.vertex_array, dtype=np.float32)
 		glBindBuffer(GL_ARRAY_BUFFER, self.vbo)
 		glBufferData(GL_ARRAY_BUFFER, self.new_vertices.nbytes, self.new_vertices, GL_DYNAMIC_DRAW)

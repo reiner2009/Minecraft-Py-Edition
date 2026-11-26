@@ -25,6 +25,7 @@ def tickClient():
 		for chunk in Minecraft.level.chunks.values():
 			if chunk.dirty:
 				WorldRenderer.level_renderer.set_chunk_dirty(chunk)
+				chunk.dirty=False
 		with WorldRenderer.level_renderer.lock:
 			for chunk_renderers in WorldRenderer.level_renderer.chunk_renderers.values():
 				for chunk_renderer in chunk_renderers:

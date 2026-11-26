@@ -4,6 +4,8 @@ import net.mcpy.client.renderer.world.level.LevelRenderer as LevelRendererModule
 from net.mcpy.client.renderer.world.level.LevelRenderer import LevelRenderer
 import net.mcpy.client.renderer.world.BlockOutlinesRenderer as BlockOutlinesRendererModule
 from net.mcpy.client.renderer.world.BlockOutlinesRenderer import BlockOutlinesRenderer
+import net.mcpy.client.renderer.hud.world.HudRenderer as HudRendererModule
+from net.mcpy.client.renderer.hud.world.HudRenderer import HUDRenderer
 import net.mcpy.client.GameClient as GameClient
 
 level_renderer=None
@@ -13,23 +15,30 @@ view=glm.mat4(1.0)
 projection=glm.mat4(1.0)
 
 block_outline_renderer=None
+hud_renderer=None
 
 def init():
-	global level_renderer, projection,  block_outline_renderer
+	global level_renderer, projection,  block_outline_renderer, hud_renderer
 	width=GameClient.attributes["resolution"][0]
 	height=GameClient.attributes["resolution"][1]
 	LevelRendererModule.init()
 	level_renderer=LevelRenderer()
 	projection=glm.perspective(glm.radians(85.0), width/height, 0.1, 1000.0)
-	direction=glm.normalize(glm.vec3(glm.inverse(view)[2]) * -1)
 	BlockOutlinesRendererModule.init()
 	block_outline_renderer=BlockOutlinesRenderer()
+	HudRendererModule.init()
+	hud_renderer=HUDRenderer()
 
 def render():
 	global model, view, projection
 	updateView()
+	glBindTexture(GL_TEXTURE_2D, GameClient.textures["block_atlas"])
 	level_renderer.render(model, view, projection)
 	block_outline_renderer.render(model, view, projection)
+	glBindTexture(GL_TEXTURE_2D, GameClient.textures["crosshair_texture"])
+	glEnable(GL_BLEND)
+	hud_renderer.render()
+	glDisable(GL_BLEND)
 
 
 def updateVertices():

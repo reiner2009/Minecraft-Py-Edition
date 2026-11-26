@@ -7,7 +7,7 @@ class Chunk:
 		self.x=x
 		self.z=z
 		self.blocks={}
-		self.dirty=True
+		self.dirty=False
 		self.lock=threading.Lock()
 	def __eq__(self, other):
 		if not isinstance(other, Chunk):
@@ -20,14 +20,15 @@ class Chunk:
 			return self.blocks[(x,y,z)]
 		except:
 			return Blocks.AIR.create(x,y,z)
-	def setBlock(self,x,y,z,block):
+	def setBlock(self,x,y,z,block, update=False):
 		if isinstance(block, Block):
 			with self.lock:
 				if block.id.path!="air":
 					self.blocks[(x,y,z)]=block.create(x,y,z)
 				else:
 					self.blocks.pop((x,y,z),None)
-				self.dirty=True
+				if update:
+					self.dirty=True
 	@staticmethod
 	def parseBlockPos(x,y,z):
 		return x // 8, z // 8

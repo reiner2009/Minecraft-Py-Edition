@@ -1,6 +1,10 @@
 from OpenGL.GL import *
 import net.mcpy.resources.FileLoader as FileLoader
 
+class ShaderError(RuntimeError):
+	def __init__(self, msg):
+		pass
+
 class ShaderCompiler:
 	def __init__(self, vertex_path, fragment_path):
 		self.vertex_path=FileLoader.getFromModOrFrozen(vertex_path)
@@ -13,7 +17,7 @@ class ShaderCompiler:
 		glCompileShader(shader)
 		if not glGetShaderiv(shader, GL_COMPILE_STATUS):
 			error = glGetShaderInfoLog(shader)
-			raise RuntimeError(str(error))
+			raise ShaderError(str(error))
 		return shader
 	def createShaderProgram(self):
 		self.vertex = self.loadShader(self.vertex_path, GL_VERTEX_SHADER)
@@ -24,7 +28,7 @@ class ShaderCompiler:
 		glLinkProgram(self.program)
 		if not glGetProgramiv(self.program, GL_LINK_STATUS):
 			error = glGetProgramInfoLog(self.program)
-			raise RuntimeError(str(error))
+			raise ShaderError(str(error))
 		glDeleteShader(self.vertex)
 		glDeleteShader(self.fragment)
 		return self.program
