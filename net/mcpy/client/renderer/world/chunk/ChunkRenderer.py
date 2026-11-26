@@ -13,9 +13,6 @@ import threading
 width=None
 height=None
 position=0
-model=glm.mat4(1.0)
-view=glm.mat4(1.0)
-projection=glm.mat4(1.0)
 direction=glm.vec3()
 block_shader=None
 
@@ -31,32 +28,14 @@ def getRenderData(block):
 		return "solide"
 
 def init():
-	global block_shader, width, height, projection, direction, position
+	global block_shader, width, height, position
 	block_shader=ShaderCompiler(
 		"assets/minecraft/shader/block.vert",
 		"assets/minecraft/shader/block.frag"
 	).createShaderProgram()
 	width=GameClient.attributes["resolution"][0]
 	height=GameClient.attributes["resolution"][1]
-	projection=glm.perspective(glm.radians(85.0), width/height, 0.1, 1000.0)
-	direction=glm.normalize(glm.vec3(glm.inverse(view)[2]) * -1)
 	position=glGetAttribLocation(block_shader, "position")
-
-def updateView():
-	global model, view, direction, dirty
-	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT)
-	glUseProgram(block_shader)
-	camera_x, camera_y, camera_z=GameClient.attributes["local_player"].getPos()
-	pitch=glm.radians(GameClient.attributes["local_player"].pitch)
-	yaw=glm.radians(GameClient.attributes["local_player"].yaw)
-	direction = glm.normalize(glm.vec3(
-		glm.cos(pitch)*glm.sin(yaw),
-		glm.sin(pitch),
-		glm.cos(pitch)*glm.cos(yaw)
-	))
-	camera_pos=glm.vec3(camera_x, camera_y, camera_z)
-	view=glm.lookAt(camera_pos, camera_pos+direction, glm.vec3(0,1,0))
-
 
 class ChunkRenderer:
 	def __init__(self, block_render_type, chunk):
@@ -75,7 +54,8 @@ class ChunkRenderer:
 		glBindBuffer(GL_ARRAY_BUFFER, self.vbo)
 		glBufferData(GL_ARRAY_BUFFER, self.vertices.nbytes, self.vertices, GL_DYNAMIC_DRAW)
 		glBindBuffer(GL_ARRAY_BUFFER, 0)
-	def render(self):
+	def render(self, model, view, projection):
+		glUseProgram(block_shader)
 		glActiveTexture(GL_TEXTURE0)
 		loc_model=glGetUniformLocation(block_shader, "model")
 		loc_view=glGetUniformLocation(block_shader, "view")

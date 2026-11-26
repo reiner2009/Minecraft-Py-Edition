@@ -5,9 +5,6 @@ from net.mcpy.client.renderer.world.chunk.ChunkRenderer import ChunkRenderer
 
 def init():
 	ChunkRendererModule.init()
-	
-def updateView():
-	ChunkRendererModule.updateView()
 
 class LevelRenderer:
 	def __init__(self):
@@ -25,7 +22,7 @@ class LevelRenderer:
 		else:
 			for chunk_renderer in self.chunk_renderers[(chunk.x, chunk.z)]:
 				chunk_renderer.dirty=True	 
-	def render(self):
+	def render(self, model, view, projection):
 		with self.lock:
 			if self.dirty_chunks:
 				for K, chunk in self.dirty_chunks.items():
@@ -34,11 +31,11 @@ class LevelRenderer:
 				from net.mcpy.game import GameTickThread
 				GameTickThread.client_tick_event.set()
 		for chunk_renderer in self.chunk_renderers.values():
-			chunk_renderer[0].render()
+			chunk_renderer[0].render(model, view, projection)
 		for chunk_renderer in self.chunk_renderers.values():
-			chunk_renderer[1].render()
+			chunk_renderer[1].render(model, view, projection)
 		for chunk_renderer in self.chunk_renderers.values():
 			glEnable(GL_BLEND)
 			glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA)
-			chunk_renderer[2].render()
+			chunk_renderer[2].render(model, view, projection)
 			glDisable(GL_BLEND)
