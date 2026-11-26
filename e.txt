@@ -1,0 +1,25 @@
+rhein@electropi:~/Minecraft-Py-Edition $ python -m net.mcpy.client.Main
+Unable to load numpy_formathandler accelerator from OpenGL_accelerate
+Traceback (most recent call last):
+  File "<frozen runpy>", line 198, in _run_module_as_main
+  File "<frozen runpy>", line 88, in _run_code
+  File "/home/rhein/Minecraft-Py-Edition/net/mcpy/client/Main.py", line 10, in <module>
+    client.render()
+  File "/home/rhein/Minecraft-Py-Edition/net/mcpy/client/__init__.py", line 66, in render
+    Renderer.render()
+  File "/home/rhein/Minecraft-Py-Edition/net/mcpy/client/renderer/Renderer.py", line 7, in render
+    WorldRenderer.render()
+  File "/home/rhein/Minecraft-Py-Edition/net/mcpy/client/renderer/world/WorldRenderer.py", line 14, in render
+    level_renderer.render()
+  File "/home/rhein/Minecraft-Py-Edition/net/mcpy/client/renderer/world/level/LevelRenderer.py", line 39, in render
+    chunk_renderer[1].render()
+  File "/home/rhein/Minecraft-Py-Edition/net/mcpy/client/renderer/world/chunk/ChunkRenderer.py", line 90, in render
+    glUniform1i(loc_cutout, int(self.block_render_type=="cutout"))
+  File "src/errorchecker.pyx", line 59, in OpenGL_accelerate.errorchecker._ErrorChecker.glCheckError
+OpenGL.error.GLError: GLError(
+	err = 1282,
+	description = b'invalid operation',
+	baseOperation = glUniform1i,
+	cArguments = (4, 1)
+)
+rhein@electropi:~/Minecraft-Py-Edition $ 
