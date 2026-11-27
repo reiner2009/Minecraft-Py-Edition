@@ -12,15 +12,15 @@ class LevelRenderer:
 		self.dirty_chunks={}
 		self.lock=threading.Lock()
 	def set_chunk_dirty(self, chunk):
-		self.dirty_chunks[(chunk.x, chunk.z)]=chunk
+		self.dirty_chunks[(chunk.x, chunk.y, chunk.z)]=chunk
 	def add_chunk(self, chunk):
-		self.chunk_renderer_key=(chunk.x, chunk.z)
+		self.chunk_renderer_key=(chunk.x, chunk.y, chunk.z)
 		if self.chunk_renderer_key not in self.chunk_renderers:
 			self.chunk_renderers[self.chunk_renderer_key]=[ChunkRenderer("solide", chunk), ChunkRenderer("cutout", chunk), ChunkRenderer("translucent", chunk)]
-			for chunk_renderer in self.chunk_renderers[(chunk.x, chunk.z)]:
+			for chunk_renderer in self.chunk_renderers[(chunk.x, chunk.y, chunk.z)]:
 				chunk_renderer.dirty=True
 		else:
-			for chunk_renderer in self.chunk_renderers[(chunk.x, chunk.z)]:
+			for chunk_renderer in self.chunk_renderers[(chunk.x, chunk.y, chunk.z)]:
 				chunk_renderer.dirty=True	 
 	def render(self, model, view, projection):
 		with self.lock:

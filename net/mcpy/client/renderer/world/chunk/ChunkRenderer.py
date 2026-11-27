@@ -79,7 +79,7 @@ class ChunkRenderer:
 			with self.chunk.lock:
 				for (x,y,z),block in self.chunk.blocks.items():
 					if getRenderData(block)==self.block_render_type:
-						for num in BlockRenderer.getVertices(self.chunk.x * 8 + x, y, self.chunk.z * 8 + z, block, level):
+						for num in BlockRenderer.getVertices(self.chunk.x * 8 + x, self.chunk.y * 16 + y, self.chunk.z * 8 + z, block, level):
 							self.vertex_array.append(num)
 			self.chunk.dirty=False
 			if set_dirty:

@@ -3,8 +3,9 @@ from net.mcpy.world.block.Block import Block
 import threading
 
 class Chunk:
-	def __init__(self, x, z):
+	def __init__(self, x, y, z):
 		self.x=x
+		self.y=y
 		self.z=z
 		self.blocks={}
 		self.dirty=False
@@ -12,9 +13,9 @@ class Chunk:
 	def __eq__(self, other):
 		if not isinstance(other, Chunk):
 			return NotImplemented
-		return (self.x==other.x and self.z==other.z)
+		return (self.x==other.x and self.y==other.y and self.z==other.z)
 	def __hash__(self):
-		return hash((self.x, self.z))
+		return hash((self.x, self.y, self.z))
 	def getBlock(self, x,y,z):
 		try:
 			return self.blocks[(x,y,z)]
@@ -31,4 +32,4 @@ class Chunk:
 					self.dirty=True
 	@staticmethod
 	def parseBlockPos(x,y,z):
-		return x // 8, z // 8
+		return x // 8, y // 16, z // 8
