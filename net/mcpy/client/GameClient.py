@@ -8,8 +8,8 @@ crosshair_texture=None
 def init():
 	global textures, block_atlas, crosshair_texture
 	block_atlas=load_texture("assets/minecraft/textures/block/atlas.png")
-	crosshair_texture=load_texture("assets/minecraft/textures/gui/sprites/hud/crosshair.png")
-	textures={"block_atlas":block_atlas, "crosshair_texture":crosshair_texture}
+	hud_atlas=load_texture("assets/minecraft/textures/gui/sprites/hud/atlas.png")
+	textures={"block_atlas":block_atlas, "hud_atlas":hud_atlas}
 
 def textures():
 	global textures

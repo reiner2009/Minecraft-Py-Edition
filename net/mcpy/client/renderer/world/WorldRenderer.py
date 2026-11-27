@@ -35,8 +35,11 @@ def render():
 	glBindTexture(GL_TEXTURE_2D, GameClient.textures["block_atlas"])
 	level_renderer.render(model, view, projection)
 	block_outline_renderer.render(model, view, projection)
-	glBindTexture(GL_TEXTURE_2D, GameClient.textures["crosshair_texture"])
+	glBindTexture(GL_TEXTURE_2D, GameClient.textures["hud_atlas"])
+	glDisable(GL_DEPTH_TEST)
 	hud_renderer.render()
+	glEnable(GL_DEPTH_TEST)
+	glDisable(GL_BLEND)
 
 
 def updateVertices():

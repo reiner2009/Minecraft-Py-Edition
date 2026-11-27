@@ -1,3 +1,5 @@
+from sympy.abc import epsilon
+
 from net.mcpy.client.renderer.ShaderCompiler import ShaderCompiler
 import net.mcpy.client.GameClient as GameClient
 import net.mcpy.game.Minecraft as Minecraft
@@ -19,34 +21,35 @@ def init():
 	position=glGetAttribLocation(line_shader, "position")
 	
 def getVertices(vx,vy,vz):
+	epsilon=0.002
 	x=round(vx)
 	y=round(vy)
 	z=round(vz)
-	return[
-		0+x,0+y,0+z,
-		1+x,0+y,0+z,
-		1+x,0+y,0+z,
-		1+x,0+y,1+z,
-		1+x,0+y,1+z,
-		0+x,0+y,1+z,
-		0+x,0+y,1+z,
-		0+x,0+y,0+z,
-		0+x,1+y,0+z,
-		1+x,1+y,0+z,
-		1+x,1+y,0+z,
-		1+x,1+y,1+z,
-		1+x,1+y,1+z,
-		0+x,1+y,1+z,
-		0+x,1+y,1+z,
-		0+x,1+y,0+z,
-		0+x,0+y,0+z,
-		0+x,1+y,0+z,
-		1+x,0+y,0+z,
-		1+x,1+y,0+z,
-		1+x,0+y,1+z,
-		1+x,1+y,1+z,
-		0+x,0+y,1+z,
-		0+x,1+y,1+z
+	return [
+		0 + x - epsilon, 0 + y - epsilon, 0 + z - epsilon,
+		1 + x + epsilon, 0 + y - epsilon, 0 + z - epsilon,
+		1 + x + epsilon, 0 + y - epsilon, 0 + z - epsilon,
+		1 + x + epsilon, 0 + y - epsilon, 1 + z + epsilon,
+		1 + x + epsilon, 0 + y - epsilon, 1 + z + epsilon,
+		0 + x - epsilon, 0 + y - epsilon, 1 + z + epsilon,
+		0 + x - epsilon, 0 + y - epsilon, 1 + z + epsilon,
+		0 + x - epsilon, 0 + y - epsilon, 0 + z - epsilon,
+		0 + x - epsilon, 1 + y + epsilon, 0 + z - epsilon,
+		1 + x + epsilon, 1 + y + epsilon, 0 + z - epsilon,
+		1 + x + epsilon, 1 + y + epsilon, 0 + z - epsilon,
+		1 + x + epsilon, 1 + y + epsilon, 1 + z + epsilon,
+		1 + x + epsilon, 1 + y + epsilon, 1 + z + epsilon,
+		0 + x - epsilon, 1 + y + epsilon, 1 + z + epsilon,
+		0 + x - epsilon, 1 + y + epsilon, 1 + z + epsilon,
+		0 + x - epsilon, 1 + y + epsilon, 0 + z - epsilon,
+		0 + x - epsilon, 0 + y - epsilon, 0 + z - epsilon,
+		0 + x - epsilon, 1 + y + epsilon, 0 + z - epsilon,
+		1 + x + epsilon, 0 + y - epsilon, 0 + z - epsilon,
+		1 + x + epsilon, 1 + y + epsilon, 0 + z - epsilon,
+		1 + x + epsilon, 0 + y - epsilon, 1 + z + epsilon,
+		1 + x + epsilon, 1 + y + epsilon, 1 + z + epsilon,
+		0 + x - epsilon, 0 + y - epsilon, 1 + z + epsilon,
+		0 + x - epsilon, 1 + y + epsilon, 1 + z + epsilon
 	]
 
 class BlockOutlinesRenderer:

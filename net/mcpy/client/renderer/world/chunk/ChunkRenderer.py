@@ -62,7 +62,7 @@ class ChunkRenderer:
 		loc_projection=glGetUniformLocation(block_shader, "projection")
 		loc_texture=glGetUniformLocation(block_shader, "texture")
 		loc_cutout=glGetUniformLocation(block_shader, "cutout")
-		glUniform1i(loc_cutout, int(self.block_render_type=="cutout"))
+		glUniform1i(loc_cutout, int(self.block_render_type=="solide"))
 		glUniform1i(loc_texture, 0)
 		glUniformMatrix4fv(loc_model, 1, GL_FALSE, glm.value_ptr(model))
 		glUniformMatrix4fv(loc_view, 1, GL_FALSE, glm.value_ptr(view))
@@ -81,6 +81,11 @@ class ChunkRenderer:
 					if getRenderData(block)==self.block_render_type:
 						for num in BlockRenderer.getVertices(self.chunk.x * 8 + x, self.chunk.y * 16 + y, self.chunk.z * 8 + z, block, level):
 							self.vertex_array.append(num)
+				if self.block_render_type=="solide":
+					for (x,y,z),block in self.chunk.blocks.items():
+						if getRenderData(block)=="cutout":
+							for num in BlockRenderer.getVertices(self.chunk.x * 8 + x, self.chunk.y * 16 + y, self.chunk.z * 8 + z, block, level):
+								self.vertex_array.append(num)
 			self.chunk.dirty=False
 			if set_dirty:
 				self.vbodirty=True

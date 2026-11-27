@@ -5,6 +5,7 @@ import threading
 class Level:
 	def __init__(self):
 		self.chunks={}
+		self.chunksxz={}
 		self.lock=threading.Lock()
 	def setBlock(self,x,y,z,block, update=True):
 		with self.lock:
@@ -15,6 +16,7 @@ class Level:
 			chunk_key=(chunk_x, chunk_y, chunk_z)
 			if chunk_key not in self.chunks:
 				self.chunks[chunk_key]=Chunk(chunk_x, chunk_y, chunk_z)
+				self.chunksxz[(chunk_x, chunk_z)]=1
 			self.chunks[chunk_key].setBlock(local_x, local_y, local_z, block, update)
 			if update:
 				if local_x==0:
@@ -53,7 +55,9 @@ class Level:
 		local_y=y % 16
 		local_z=z % 8
 		chunk=self.chunks.get((chunk_x, chunk_y, chunk_z))
-		if chunk is None:
-			return Blocks.VOID.create(x,y,z)
+		if chunk is None and self.chunksxz.get((chunk_x, chunk_z), None)==None:
+			return Blocks.VOID.create(x, y, z)
+		if chunk is None and self.chunksxz.get((chunk_x, chunk_z), None)==1:
+			return Blocks.AIR.create(x,y,z)
 		return chunk.getBlock(local_x, local_y, local_z)
 					

@@ -19,6 +19,7 @@ def init():
 
 
 def getVertices():
+    vertex_array=[]
     width=GameClient.attributes["resolution"][0]
     height=GameClient.attributes["resolution"][1]
     aspect = height / width
@@ -29,16 +30,56 @@ def getVertices():
     y1=size
     u0=0
     v0=0
-    u1=1
-    v1=1
-    return [
+    u1=15/182
+    v1=15/45
+    for i in  [
 			x0,y1,u0,v0,
 			x0,y0,u0,v1,
 			x1,y0,u1,v1,
 			x0,y1,u0,v0,
 			x1,y0,u1,v1,
 			x1,y1,u1,v0,
-		]
+	]:
+        vertex_array.append(i)
+    size_y = 0.1
+    size_x = size_y * (182 / 22)
+    x0 = -size_x * aspect
+    y0 = -size_y - 1 + size_y
+    x1 = size_x * aspect
+    y1 = size_y - 1 + size_y
+    u0 = 0
+    v0 = 23/45
+    u1 = 1
+    v1 = 1
+    for i in [
+        x0, y1, u0, v0,
+        x0, y0, u0, v1,
+        x1, y0, u1, v1,
+        x0, y1, u0, v0,
+        x1, y0, u1, v1,
+        x1, y1, u1, v0,
+    ]:
+        vertex_array.append(i)
+    size_y = 0.1
+    size_x = size_y * (24 / 23)
+    x0 = -size_x * aspect
+    y0 = -size_y - 1 + size_y
+    x1 = size_x * aspect
+    y1 = size_y - 1 + size_y
+    u0 = 15/182
+    v0 = 0
+    u1 = 39/182
+    v1 = 23/45
+    for i in [
+        x0, y1, u0, v0,
+        x0, y0, u0, v1,
+        x1, y0, u1, v1,
+        x0, y1, u0, v0,
+        x1, y0, u1, v1,
+        x1, y1, u1, v0,
+    ]:
+        vertex_array.append(i)
+    return vertex_array
 
 
 class HUDRenderer:

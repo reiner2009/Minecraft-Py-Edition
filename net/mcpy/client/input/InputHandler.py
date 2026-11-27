@@ -18,6 +18,7 @@ s_pressed=False
 d_pressed=False
 space_pressed=False
 left_shift_pressed=False
+ctrl_pressed=False
 move_x=0
 move_y=0
 move_z=0
@@ -50,7 +51,7 @@ def playerUseMouse(window, button, action, mods):
 			GameTickThread.client_tick_event.set()
 
 def handleInput():
-    global w_pressed, a_pressed, s_pressed, d_pressed, space_pressed, left_shift_pressed, first_mouse, last_x, last_y
+    global w_pressed, a_pressed, s_pressed, d_pressed, space_pressed, left_shift_pressed, ctrl_pressed, first_mouse, last_x, last_y
     window = GameClient.attributes["window"]
     player = GameClient.attributes["local_player"]
     mouse_x, mouse_y = glfw.get_cursor_pos(window)
@@ -71,12 +72,16 @@ def handleInput():
     d_pressed = glfw.get_key(window, glfw.KEY_D) == glfw.PRESS
     space_pressed = glfw.get_key(window, glfw.KEY_SPACE) == glfw.PRESS
     left_shift_pressed = glfw.get_key(window, glfw.KEY_LEFT_SHIFT) == glfw.PRESS
+    ctrl_pressed = glfw.get_key(window, glfw.KEY_LEFT_CONTROL) == glfw.PRESS
 	
 def tickPlayerMovement():
 	move_x=0
 	move_y=0
 	move_z=0
+	speed=0.1
 	yaw=GameClient.attributes["local_player"].yaw
+	if ctrl_pressed:
+		speed=0.2
 	if w_pressed:
 		move_x+=sin(yaw)*speed
 		move_z+=cos(yaw)*speed

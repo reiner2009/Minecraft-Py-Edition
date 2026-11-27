@@ -1,5 +1,5 @@
 {
-	"world_size":8,
+	"world_size":1,
 	"height":20,
 	"terrian":[
 		{
@@ -16,11 +16,6 @@
 		  "amplitude": 0.75,
 		  "freq_x": 0.25,
 		  "freq_z": 0.25
-		},
-		{
-		  "amplitude": 0.75,
-		  "freq_x": 0.6,
-		  "freq_z": 0.6
 		}
 	],
 	"spaghetti_caves":{
