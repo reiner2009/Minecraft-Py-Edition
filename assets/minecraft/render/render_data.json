@@ -3,9 +3,7 @@
     "minecraft:oak_leaves",
     "minecraft:oak_door",
     "minecraft:oak_trapdoor",
-    "minecraft:air"
-  ],
-  "not_full":[
+    "minecraft:air",
     "minecraft:oak_stair",
     "minecraft:oak_door",
     "minecraft:oak_slab",
