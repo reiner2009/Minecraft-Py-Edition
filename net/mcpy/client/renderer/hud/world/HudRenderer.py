@@ -46,7 +46,7 @@ def getVertices(hotbar_selection_pos=0):
 			x1,y1,u1,v0,
 	]:
         vertex_array.append(i)
-    size_y = 0.1*aspect*(1440/900)
+    size_y = 0.1
     size_x = size_y * (182 / 22)
     x0 = -size_x * aspect
     y0 = -size_y - 1 + size_y
@@ -66,11 +66,11 @@ def getVertices(hotbar_selection_pos=0):
     ]:
         vertex_array.append(i)
     size_y = 0.1
-    step_x = (size_y+0.008) * (24/23)
-    size_x = step_x
-    x0 = -size_x * aspect - (step_x * 4) + (step_x * hotbar_selection_pos)
+    step_x = size_y * (182 / 22) / 9 * 2 * 0.99
+    size_x = size_y * (24/23)
+    x0 = (-size_x - step_x * 4 + step_x * hotbar_selection_pos) * aspect
     y0 = -size_y - 1 + size_y
-    x1 = size_x * aspect - (step_x * 4) + (step_x * hotbar_selection_pos)
+    x1 = (size_x - step_x * 4 + step_x * hotbar_selection_pos) * aspect
     y1 = size_y - 1 + size_y
     u0 = 15/182
     v0 = 0
