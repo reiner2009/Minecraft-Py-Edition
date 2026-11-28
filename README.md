@@ -1,7 +1,7 @@
 # Minecraft-like Game in Python
 
 A simple Minecraft-inspired 3D game built with Python.
-This project is a learning-focused implementation using OpenGL for rendering and Pygame for input handling.
+This project is a learning-focused implementation using OpenGL for rendering and GLFW for input handling.
 
 ⸻
 
@@ -15,7 +15,7 @@ The main goal of this project is to learn:
 
 * 3D rendering with OpenGL
 * Camera and player movement systems
-* Input handling with Pygame
+* Input handling with GLFW
 * Basic game architecture in Python
 
 ⸻
@@ -27,10 +27,8 @@ The main goal of this project is to learn:
 * Procedurally generated world
 * Basic interaction system (if implemented)
 * Window and resolution handling
-* FPS-style controls
 * Block classes
-* Entity classes
-* Support for mods, datapacks and resourcepacks
+* Support for datapacks and resourcepacks
 
 ⸻
 
@@ -49,7 +47,7 @@ Requirements:
 git clone https://github.com/reiner2009/Minecraft-Py-Edition.git
 cd Minecraft-Py-Edition
 pip install -r requirements.txt
-python -m net.minecraft.client.Main
+python -m net.mcpy.client.Main
 
 ### Option 2: Download a Prebuilt Executable
 
@@ -61,27 +59,8 @@ Simply download the version for your operating system and run it.
 
 ⸻
 
-## Command-Line Arguments
-
-The arguments --skin and --username are optional.
-
-* --username: Sets your player name.
-* --skin: Sets your player skin by specifying its file path. If you only specify the filename, the image must be located in the repository root directory.
-
-Important: The skin image must have a 1:1 aspect ratio. Otherwise, it may not display correctly.
-
-You can also use --online-skin to load another player’s skin. For example:
-
-python -m net.minecraft.client.Main --online-skin Dream
-
-⸻
-
 ## Controls
 
 * Move with WASD
 * Place blocks with a right-click and mine them with a left-click.
 * Scroll or press the number keys to switch the block in the bottom bar.
-* Press E to get more blocks.
-* Press F5 to see yourself.
-* Press F2 to take a screenshot. These are saved in %AppData%\.minecraft-py\screenshots\ on Windows and in $HOME/.minecraft-py/screenshots/ on other systems.
-* Press F1 to hide your GUI and V to hide the block preview.

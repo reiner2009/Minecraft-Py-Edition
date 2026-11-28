@@ -20,6 +20,8 @@ OAK_LEAVES=registerBlock(Block(Identifier(path="oak_leaves")))
 OAK_LOG=registerBlock(AxisBlock(Identifier(path="oak_log")))
 BLUE_STAINED_GLASS_BLOCK=registerBlock(Block(Identifier(path="blue_stained_glass_block")))
 STONE_BRICKS=registerBlock(Block(Identifier(path="stone_bricks")))
+GLASS_BLOCK=registerBlock(Block(Identifier(path="glass_block")))
+OAK_PLANKS=registerBlock(Block(Identifier(path="oak_planks")))
 
 ready=False
 

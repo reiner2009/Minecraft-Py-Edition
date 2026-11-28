@@ -5,64 +5,64 @@ import net.mcpy.resources.FileLoader as FileLoader
 
 render_data=json.load(open(FileLoader.getFromModOrFrozen("assets/minecraft/render/render_data.json")))
 
-def getNY(u0, u1, v0, v1, x0=0,y0=0,z0=0,x1=1,y1=1,z1=1, x_offset=0, y_offset=0, z_offset=0):
+def getNY(u0, u1, v0, v1, x0=0,y0=0,z0=0,x1=1,y1=1,z1=1, x_offset=0, y_offset=0, z_offset=0, size=1):
 	return [
-			x1+x_offset,y0+y_offset,z1+z_offset,u0,v0,0,-1,0,
-			x0+x_offset,y0+y_offset,z1+z_offset,u0,v1,0,-1,0,
-			x0+x_offset,y0+y_offset,z0+z_offset,u1,v1,0,-1,0,
-			x1+x_offset,y0+y_offset,z1+z_offset,u0,v0,0,-1,0,
-			x0+x_offset,y0+y_offset,z0+z_offset,u1,v1,0,-1,0,
-			x1+x_offset,y0+y_offset,z0+z_offset,u1,v0,0,-1,0
+			x1*size+x_offset,y0*size+y_offset,z1*size+z_offset,u0,v0,0,-1,0,
+			x0*size+x_offset,y0*size+y_offset,z1*size+z_offset,u0,v1,0,-1,0,
+			x0*size+x_offset,y0*size+y_offset,z0*size+z_offset,u1,v1,0,-1,0,
+			x1*size+x_offset,y0*size+y_offset,z1*size+z_offset,u0,v0,0,-1,0,
+			x0*size+x_offset,y0*size+y_offset,z0*size+z_offset,u1,v1,0,-1,0,
+			x1*size+x_offset,y0*size+y_offset,z0*size+z_offset,u1,v0,0,-1,0
 		]
 	
-def getPY(u0, u1, v0, v1, x0=0,y0=0,z0=0,x1=1,y1=1,z1=1, x_offset=0, y_offset=0, z_offset=0):
+def getPY(u0, u1, v0, v1, x0=0,y0=0,z0=0,x1=1,y1=1,z1=1, x_offset=0, y_offset=0, z_offset=0, size=1):
 	return [
-			x0+x_offset,y1+y_offset,z1+z_offset,u0,v0,0,1,0,
-			x1+x_offset,y1+y_offset,z1+z_offset,u0,v1,0,1,0,
-			x1+x_offset,y1+y_offset,z0+z_offset,u1,v1,0,1,0,
-			x0+x_offset,y1+y_offset,z1+z_offset,u0,v0,0,1,0,
-			x1+x_offset,y1+y_offset,z0+z_offset,u1,v1,0,1,0,
-			x0+x_offset,y1+y_offset,z0+z_offset,u1,v0,0,1,0
+			x0*size+x_offset,y1*size+y_offset,z1*size+z_offset,u0,v0,0,1,0,
+			x1*size+x_offset,y1*size+y_offset,z1*size+z_offset,u0,v1,0,1,0,
+			x1*size+x_offset,y1*size+y_offset,z0*size+z_offset,u1,v1,0,1,0,
+			x0*size+x_offset,y1*size+y_offset,z1*size+z_offset,u0,v0,0,1,0,
+			x1*size+x_offset,y1*size+y_offset,z0*size+z_offset,u1,v1,0,1,0,
+			x0*size+x_offset,y1*size+y_offset,z0*size+z_offset,u1,v0,0,1,0
 		]
 	
-def getNX(u0, u1, v0, v1, x0=0,y0=0,z0=0,x1=1,y1=1,z1=1, x_offset=0, y_offset=0, z_offset=0):
+def getNX(u0, u1, v0, v1, x0=0,y0=0,z0=0,x1=1,y1=1,z1=1, x_offset=0, y_offset=0, z_offset=0, size=1):
 	return [
-			x0+x_offset,y1+y_offset,z0+z_offset,u0,v0,-1,0,0,
-			x0+x_offset,y0+y_offset,z0+z_offset,u0,v1,-1,0,0,
-			x0+x_offset,y0+y_offset,z1+z_offset,u1,v1,-1,0,0,
-			x0+x_offset,y1+y_offset,z0+z_offset,u0,v0,-1,0,0,
-			x0+x_offset,y0+y_offset,z1+z_offset,u1,v1,-1,0,0,
-			x0+x_offset,y1+y_offset,z1+z_offset,u1,v0,-1,0,0
+			x0*size+x_offset,y1*size+y_offset,z0*size+z_offset,u0,v0,-1,0,0,
+			x0*size+x_offset,y0*size+y_offset,z0*size+z_offset,u0,v1,-1,0,0,
+			x0*size+x_offset,y0*size+y_offset,z1*size+z_offset,u1,v1,-1,0,0,
+			x0*size+x_offset,y1*size+y_offset,z0*size+z_offset,u0,v0,-1,0,0,
+			x0*size+x_offset,y0*size+y_offset,z1*size+z_offset,u1,v1,-1,0,0,
+			x0*size+x_offset,y1*size+y_offset,z1*size+z_offset,u1,v0,-1,0,0
 		]
 	
-def getPX(u0, u1, v0, v1, x0=0,y0=0,z0=0,x1=1,y1=1,z1=1, x_offset=0, y_offset=0, z_offset=0):
+def getPX(u0, u1, v0, v1, x0=0,y0=0,z0=0,x1=1,y1=1,z1=1, x_offset=0, y_offset=0, z_offset=0, size=1):
 	return [
-			x1+x_offset,y1+y_offset,z1+z_offset,u0,v0,1,0,0,
-			x1+x_offset,y0+y_offset,z1+z_offset,u0,v1,1,0,0,
-			x1+x_offset,y0+y_offset,z0+z_offset,u1,v1,1,0,0,
-			x1+x_offset,y1+y_offset,z1+z_offset,u0,v0,1,0,0,
-			x1+x_offset,y0+y_offset,z0+z_offset,u1,v1,1,0,0,
-			x1+x_offset,y1+y_offset,z0+z_offset,u1,v0,1,0,0
+			x1*size+x_offset,y1*size+y_offset,z1*size+z_offset,u0,v0,1,0,0,
+			x1*size+x_offset,y0*size+y_offset,z1*size+z_offset,u0,v1,1,0,0,
+			x1*size+x_offset,y0*size+y_offset,z0*size+z_offset,u1,v1,1,0,0,
+			x1*size+x_offset,y1*size+y_offset,z1*size+z_offset,u0,v0,1,0,0,
+			x1*size+x_offset,y0*size+y_offset,z0*size+z_offset,u1,v1,1,0,0,
+			x1*size+x_offset,y1*size+y_offset,z0*size+z_offset,u1,v0,1,0,0
 		]
 
-def getNZ(u0, u1, v0, v1, x0=0,y0=0,z0=0,x1=1,y1=1,z1=1, x_offset=0, y_offset=0, z_offset=0):
+def getNZ(u0, u1, v0, v1, x0=0,y0=0,z0=0,x1=1,y1=1,z1=1, x_offset=0, y_offset=0, z_offset=0, size=1):
 	return [
-			x1+x_offset,y1+y_offset,z0+z_offset,u0,v0,0,0,-1,
-			x1+x_offset,y0+y_offset,z0+z_offset,u0,v1,0,0,-1,
-			x0+x_offset,y0+y_offset,z0+z_offset,u1,v1,0,0,-1,
-			x1+x_offset,y1+y_offset,z0+z_offset,u0,v0,0,0,-1,
-			x0+x_offset,y0+y_offset,z0+z_offset,u1,v1,0,0,-1,
-			x0+x_offset,y1+y_offset,z0+z_offset,u1,v0,0,0,-1
+			x1*size+x_offset,y1*size+y_offset,z0*size+z_offset,u0,v0,0,0,-1,
+			x1*size+x_offset,y0*size+y_offset,z0*size+z_offset,u0,v1,0,0,-1,
+			x0*size+x_offset,y0*size+y_offset,z0*size+z_offset,u1,v1,0,0,-1,
+			x1*size+x_offset,y1*size+y_offset,z0*size+z_offset,u0,v0,0,0,-1,
+			x0*size+x_offset,y0*size+y_offset,z0*size+z_offset,u1,v1,0,0,-1,
+			x0*size+x_offset,y1*size+y_offset,z0*size+z_offset,u1,v0,0,0,-1
 		]
 
-def getPZ(u0, u1, v0, v1, x0=0,y0=0,z0=0,x1=1,y1=1,z1=1, x_offset=0, y_offset=0, z_offset=0):
+def getPZ(u0, u1, v0, v1, x0=0,y0=0,z0=0,x1=1,y1=1,z1=1, x_offset=0, y_offset=0, z_offset=0, size=1):
 	return [
-			x0+x_offset,y1+y_offset,z1+z_offset,u0,v0,0,0,1,
-			x0+x_offset,y0+y_offset,z1+z_offset,u0,v1,0,0,1,
-			x1+x_offset,y0+y_offset,z1+z_offset,u1,v1,0,0,1,
-			x0+x_offset,y1+y_offset,z1+z_offset,u0,v0,0,0,1,
-			x1+x_offset,y0+y_offset,z1+z_offset,u1,v1,0,0,1,
-			x1+x_offset,y1+y_offset,z1+z_offset,u1,v0,0,0,1
+			x0*size+x_offset,y1*size+y_offset,z1*size+z_offset,u0,v0,0,0,1,
+			x0*size+x_offset,y0*size+y_offset,z1*size+z_offset,u0,v1,0,0,1,
+			x1*size+x_offset,y0*size+y_offset,z1*size+z_offset,u1,v1,0,0,1,
+			x0*size+x_offset,y1*size+y_offset,z1*size+z_offset,u0,v0,0,0,1,
+			x1*size+x_offset,y0*size+y_offset,z1*size+z_offset,u1,v1,0,0,1,
+			x1*size+x_offset,y1*size+y_offset,z1*size+z_offset,u1,v0,0,0,1
 		]
 
 vertices=[]

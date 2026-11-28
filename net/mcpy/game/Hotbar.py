@@ -6,8 +6,8 @@ hotbar=[
 	Blocks.STONE,
 	Blocks.DIRT,
 	Blocks.GRASS_BLOCK,
-	Blocks.OAK_LEAVES,
+	Blocks.OAK_PLANKS,
 	Blocks.OAK_LOG,
-	Blocks.BLUE_STAINED_GLASS_BLOCK,
+	Blocks.GLASS_BLOCK,
 	Blocks.STONE_BRICKS
 ]
