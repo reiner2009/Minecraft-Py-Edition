@@ -21,18 +21,19 @@ def init():
 
 def getVertices(hotbar):
 	vertex_array=[]
-	hotbar_selection_pos=-1
+	hotbar_item_pos=-1
 	w_width=GameClient.attributes["resolution"][0]
 	w_height=GameClient.attributes["resolution"][1]
 	aspect = w_height / w_width
 	for block in hotbar:
-		hotbar_selection_pos+=1
-		size = 0.06
-		step=(size+0.0055)/aspect
-		x0 = -size * aspect - (step * 4) + (step * hotbar_selection_pos)
-		y0 = -size - 1 + size + 0.04
-		x1 = size * aspect - (step * 4) + (step * hotbar_selection_pos)
-		y1 = size - 1 + size + 0.04
+		hotbar_item_pos+=1
+		size_y = 0.06
+		size_x = size_y * (16 / 16)
+		step_x = (0.1 + 0.009) * (24 / 23)
+		x0 = -size_x * aspect - (step_x * 4) + (step_x * hotbar_item_pos)
+		y0 = -size_y - 1 + size_y + 0.009*4
+		x1 = size_x * aspect - (step_x * 4) + (step_x * hotbar_item_pos)
+		y1 = size_y - 1 + size_y + 0.009*4
 		model=models[block.id.getAsString()+block.getState()]
 		texture=model["textures"][3]
 		u0=uv[texture][0]/width
