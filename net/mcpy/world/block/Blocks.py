@@ -19,6 +19,7 @@ GRASS_BLOCK=registerBlock(Block(Identifier(path="grass_block")))
 OAK_LEAVES=registerBlock(Block(Identifier(path="oak_leaves")))
 OAK_LOG=registerBlock(AxisBlock(Identifier(path="oak_log")))
 BLUE_STAINED_GLASS_BLOCK=registerBlock(Block(Identifier(path="blue_stained_glass_block")))
+STONE_BRICKS=registerBlock(Block(Identifier(path="stone_bricks")))
 
 ready=False
 

@@ -4,7 +4,8 @@ import net.mcpy.client.GameClient as GameClient
 import net.mcpy.game.GameTickThread as GameTickThread
 import net.mcpy.game.Minecraft as Minecraft
 import net.mcpy.world.block.Blocks as Blocks
-
+import net.mcpy.client.renderer.world.WorldRenderer as WorldRenderer
+from net.mcpy.game.Hotbar import hotbar
 
 def sin(i):
 	return glm.sin(glm.radians(i))
@@ -27,16 +28,18 @@ sensity=0.1
 speed=0.1
 last_x=None
 last_y=None
+hotbar_selection_count=0
 
 def registerCallbacks():
 	glfw.set_mouse_button_callback(GameClient.attributes["window"], playerUseMouse)
+	glfw.set_scroll_callback(GameClient.attributes["window"], scroll_callback)
 	
 def playerUseMouse(window, button, action, mods):
 	if button == glfw.MOUSE_BUTTON_RIGHT and action == glfw.PRESS:
 		px,py,pz,bx,by,bz=GameClient.attributes["local_player"].getTrackedPos(Minecraft.level)
 		pos=px,py,pz
 		if px!=None and py!=None and pz!=None and (Minecraft.level.getBlock(*pos)==Blocks.AIR or Minecraft.level.getBlock(*pos)==Blocks.VOID):
-			Minecraft.level.setBlock(*pos, Blocks.OAK_LOG)
+			Minecraft.level.setBlock(*pos, hotbar[hotbar_selection_count])
 			Minecraft.level.getBlock(*pos).onPlace(px,py,pz,bx,by,bz)
 			with Minecraft.level.lock:
 				Minecraft.level.dirty=True
@@ -49,6 +52,14 @@ def playerUseMouse(window, button, action, mods):
 			with Minecraft.level.lock:
 				Minecraft.level.dirty=True
 			GameTickThread.client_tick_event.set()
+
+def scroll_callback(window, x_offset, y_offset):
+	global hotbar_selection_count
+	if y_offset>0:
+		hotbar_selection_count-=1
+	if y_offset<0:
+		hotbar_selection_count+=1
+	WorldRenderer.hud_renderer.update(hotbar_selection_count)
 
 def handleInput():
     global w_pressed, a_pressed, s_pressed, d_pressed, space_pressed, left_shift_pressed, ctrl_pressed, first_mouse, last_x, last_y

@@ -1,5 +1,8 @@
 from net.mcpy.client.renderer.ShaderCompiler import ShaderCompiler
+from net.mcpy.client.renderer.hud.world.ItemRenderer import ItemRenderer
+import net.mcpy.client.renderer.hud.world.ItemRenderer as ItemRendererModule
 import net.mcpy.client.GameClient as GameClient
+from net.mcpy.game.Hotbar import hotbar
 from OpenGL.GL import *
 import numpy as np
 import ctypes
@@ -16,9 +19,11 @@ def init():
     ).createShaderProgram()
     position = glGetAttribLocation(hud_shader, "position")
     uv = glGetAttribLocation(hud_shader, "uv")
+    ItemRendererModule.init()
 
 
-def getVertices():
+def getVertices(hotbar_selection_pos=0):
+    hotbar_selection_pos=hotbar_selection_pos % 9
     vertex_array=[]
     width=GameClient.attributes["resolution"][0]
     height=GameClient.attributes["resolution"][1]
@@ -61,10 +66,11 @@ def getVertices():
     ]:
         vertex_array.append(i)
     size_y = 0.1
-    size_x = size_y * (24 / 23)
-    x0 = -size_x * aspect
+    step_x = (size_y+0.005) * (24/23)
+    size_x = step_x
+    x0 = -size_x * aspect - (step_x * 4) + (step_x * hotbar_selection_pos)
     y0 = -size_y - 1 + size_y
-    x1 = size_x * aspect
+    x1 = size_x * aspect - (step_x * 4) + (step_x * hotbar_selection_pos)
     y1 = size_y - 1 + size_y
     u0 = 15/182
     v0 = 0
@@ -91,6 +97,7 @@ class HUDRenderer:
         glBindBuffer(GL_ARRAY_BUFFER, self.vbo)
         glBufferData(GL_ARRAY_BUFFER, self.vertices.nbytes, self.vertices, GL_DYNAMIC_DRAW)
         glBindBuffer(GL_ARRAY_BUFFER, 0)
+        self.item_renderer=ItemRenderer(hotbar)
     def render(self):
         previous_shader = glGetIntegerv(GL_CURRENT_PROGRAM)
         glUseProgram(hud_shader)
@@ -100,9 +107,19 @@ class HUDRenderer:
         self.bind()
         glDrawArrays(GL_TRIANGLES, 0, self.vertex_count)
         glUseProgram(previous_shader)
+    def update(self, hotbar_selection_pos):
+        self.vertex_array = getVertices(hotbar_selection_pos)
+        self.new_vertices = np.array(self.vertex_array, dtype=np.float32)
+        glBindBuffer(GL_ARRAY_BUFFER, self.vbo)
+        glBufferData(GL_ARRAY_BUFFER, self.vertices.nbytes, self.new_vertices, GL_DYNAMIC_DRAW)
+        glBindBuffer(GL_ARRAY_BUFFER, 0)
+        self.vertices=self.new_vertices
+        self.new_vertices=[]
     def bind(self):
         glBindBuffer(GL_ARRAY_BUFFER, self.vbo)
         glVertexAttribPointer(position, 2, GL_FLOAT, GL_FALSE,16, ctypes.c_void_p(0))
         glEnableVertexAttribArray(position)
         glVertexAttribPointer(uv, 2, GL_FLOAT, GL_FALSE,16, ctypes.c_void_p(8))
         glEnableVertexAttribArray(uv)
+    def renderItems(self):
+        self.item_renderer.render()

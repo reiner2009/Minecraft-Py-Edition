@@ -97,6 +97,7 @@ class ChunkRenderer:
 		self.vertices=self.new_vertices
 		self.vertex_count=len(self.new_vertices)//8
 		glBindBuffer(GL_ARRAY_BUFFER, 0)
+		self.new_vertices=[]
 	def bind(self):
 		glBindBuffer(GL_ARRAY_BUFFER, self.vbo)
 		glVertexAttribPointer(position, 3, GL_FLOAT, GL_FALSE, 32, ctypes.c_void_p(0))

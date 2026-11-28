@@ -7,6 +7,7 @@ from net.mcpy.client.renderer.world.BlockOutlinesRenderer import BlockOutlinesRe
 import net.mcpy.client.renderer.hud.world.HudRenderer as HudRendererModule
 from net.mcpy.client.renderer.hud.world.HudRenderer import HUDRenderer
 import net.mcpy.client.GameClient as GameClient
+import time
 
 level_renderer=None
 
@@ -30,14 +31,15 @@ def init():
 	hud_renderer=HUDRenderer()
 
 def render():
-	global model, view, projection
+	global model, view, projection, count
 	updateView()
-	glBindTexture(GL_TEXTURE_2D, GameClient.textures["block_atlas"])
 	level_renderer.render(model, view, projection)
 	block_outline_renderer.render(model, view, projection)
 	glBindTexture(GL_TEXTURE_2D, GameClient.textures["hud_atlas"])
 	glDisable(GL_DEPTH_TEST)
 	hud_renderer.render()
+	glBindTexture(GL_TEXTURE_2D, GameClient.textures["block_atlas"])
+	hud_renderer.renderItems()
 	glEnable(GL_DEPTH_TEST)
 	glDisable(GL_BLEND)
 

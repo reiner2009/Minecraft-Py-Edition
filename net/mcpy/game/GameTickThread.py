@@ -9,7 +9,7 @@ tick_mainloop=True
 
 client_tick_event=threading.Event()
 
-def tick_entity_movement():
+def tickEntityMovement():
 	while entity_movement_tick_mainloop:
 		InputHandler.tickPlayerMovement()
 		time.sleep(1/60)
@@ -34,7 +34,7 @@ def tickClient():
 						chunk_renderer.dirty=False
 						chunk_renderer.vbodirty=True
 
-entity_movement_tick_thread=threading.Thread(target=tick_entity_movement, daemon=True)
+entity_movement_tick_thread=threading.Thread(target=tickEntityMovement, daemon=True)
 tick_thread=threading.Thread(target=tick, daemon=True)
 client_tick_thread=threading.Thread(target=tickClient, daemon=True)
 

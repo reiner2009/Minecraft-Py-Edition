@@ -1,5 +1,3 @@
-from sympy.abc import epsilon
-
 from net.mcpy.client.renderer.ShaderCompiler import ShaderCompiler
 import net.mcpy.client.GameClient as GameClient
 import net.mcpy.game.Minecraft as Minecraft
@@ -19,7 +17,7 @@ def init():
 		"assets/minecraft/shader/line.frag"
 	).createShaderProgram()
 	position=glGetAttribLocation(line_shader, "position")
-	
+
 def getVertices(vx,vy,vz):
 	epsilon=0.002
 	x=round(vx)
